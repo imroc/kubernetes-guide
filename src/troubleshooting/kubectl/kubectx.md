@@ -4,9 +4,7 @@
 
 ## 项目地址
 
-这两个工具都在同一个项目中: https://github.com/ahmetb/kubectx
-
-https://krew.sigs.k8s.io/
+这两个工具都在同一个项目中: [https://github.com/ahmetb/kubectx](https://github.com/ahmetb/kubectx)
 
 ## 安装
 
