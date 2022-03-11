@@ -1,4 +1,4 @@
-# 使用 kubectl 别名快速执行命令
+# 使用 kubectl-aliases 缩短命令
 
 日常使用 kubectl 进行各种操作，每次输入完整命令会比较浪费时间，推荐使用 [kubectl-aliases](https://github.com/ahmetb/kubectl-aliases) 来提升 kubectl 日常操作效率，敲更少的字符完成更多的事。
 

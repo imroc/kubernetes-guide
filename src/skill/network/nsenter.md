@@ -1,4 +1,4 @@
-# 使用 nsenter 进入 Pod netns 抓包
+# 使用 nsenter 进入 netns 抓包
 
 ## 背景
 
