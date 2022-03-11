@@ -16,7 +16,7 @@ sysctl -w net.bridge.bridge-nf-call-iptables=1
 
 Kubernetes 集群网络有很多种实现，有很大一部分都用到了 Linux 网桥:
 
-![](linux-bridge.jpgg)
+![](linux-bridge.jpg)
 
 * 每个 Pod 的网卡都是 veth 设备，veth pair 的另一端连上宿主机上的网桥。
 * 由于网桥是虚拟的二层设备，同节点的 Pod 之间通信直接走二层转发，跨节点通信才会经过宿主机 eth0。
