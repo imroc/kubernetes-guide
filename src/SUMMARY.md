@@ -2,12 +2,12 @@
 
 [序言](README.md)
 
-# 排障技巧
+# 实用技能
 
-- [高效使用 kubectl](troubleshooting/kubectl/README.md)
-  - [使用 kubectl 别名快速执行命令](troubleshooting/kubectl/kubectl-aliases.md)
-  - [使用 kubectx 和 kubens 快速切换](troubleshooting/kubectl/kubectx.md)
+- [高效使用 kubectl](skill/kubectl/README.md)
+  - [使用 kubectl 别名快速执行命令](skill/kubectl/kubectl-aliases.md)
+  - [使用 kubectx 和 kubens 快速切换](skill/kubectl/kubectx.md)
 
-- [网络抓包](troubleshooting/network/README.md)
-  - [使用 nsenter 进入 Pod netns 抓包](troubleshooting/network/nsenter.md)
-  - [使用 ksniff 远程抓 Pod 内的包](troubleshooting/network/ksniff.md)
+- [网络抓包](skill/network/README.md)
+  - [使用 nsenter 进入 Pod netns 抓包](skill/network/nsenter.md)
+  - [使用 ksniff 远程抓 Pod 内的包](skill/network/ksniff.md)
