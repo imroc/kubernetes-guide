@@ -3,7 +3,7 @@ name: build and push
 on:
   push:
     branches:
-    - main
+    - master
   pull_request:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
