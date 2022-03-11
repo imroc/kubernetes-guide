@@ -1,0 +1,35 @@
+name: build and push
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+    - uses: actions/checkout@v2
+
+    - run: |
+        echo "$SSH_KEY" > ~/.ssh/id_rsa
+        chmod 0600 ~/.ssh/id_rsa
+        git config --global user.name "imroc"
+        git config --global user.email "roc@imroc.cc"
+        git clone https://gitee.com/imroc/kubernetes-guide-book.git book
+      env:
+        SSH_KEY: '${{ secrets.SSH_KEY }}'
+
+    - name: Setup mdBook
+      uses: peaceiris/actions-mdbook@v1
+      with:
+        mdbook-version: '0.4.15'
+
+    - run: |
+        mdbook build
+        cd book && git push

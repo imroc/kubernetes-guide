@@ -1,0 +1,14 @@
+[book]
+authors = ["roc"]
+language = "zh-CN"
+multilingual = false
+src = "src"
+title = "Kubernetes 实践指南"
+
+[output.html]
+git-repository-url = "https://github.com/imroc/kubernetes-guide"
+edit-url-template = "https://github.com/imroc/kubernetes-guide/edit/main/{path}"
+
+[output.html.fold]
+enable = true
+level = 1
