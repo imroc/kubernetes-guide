@@ -6,7 +6,7 @@ Kubernetes 提供了 kubectl 命令行工具来操作集群，使用 kubeconfig 
 
 ## 安装 kubecm
 
-首先需要在管理多集群的机器上安装 `kubecm`，安装方法参考 [官方文档](https://kubecm.cloud/#/en-us/install) 。
+首先需要在管理多集群的机器上安装 `kubecm`，安装方法参考 [官方文档](https://kubecm.cloud/#/zh-cn/install) 。
 
 ## 使用 kubecm 添加访问凭证到 kubeconfig
 
