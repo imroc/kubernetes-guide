@@ -22,6 +22,7 @@
   - [使用 nsenter 进入 netns 抓包](skill/network/nsenter.md)
   - [使用 ksniff 远程抓包](skill/network/ksniff.md)
 - [使用 cfssl 生成证书](skill/cfssl.md)
+- [使用 cert-manager 签发免费证书](skill/sign-free-certs-with-cert-manager.md)
 
 # 服务部署
 
