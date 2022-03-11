@@ -5,4 +5,5 @@
 # 排障技巧
 
 - [网络抓包](troubleshooting/network/README.md)
+  - [使用 nsenter 进入容器 netns 抓包](troubleshooting/network/nsenter.md)
   - [使用 ksniff 远程抓 Pod 内的包](troubleshooting/network/ksniff.md)
