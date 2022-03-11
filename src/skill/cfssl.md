@@ -69,14 +69,14 @@ EOF
 
 csr 文件字段解释:
 
-* `CN`: `Common Name`，apiserver 从证书中提取该字段作为请求的用户名 (User Name)
-* `Organization`，apiserver 从证书中提取该字段作为请求用户所属的组 (Group)
+* `CN`(Common Name): apiserver 从证书中提取该字段作为请求的用户名 (User Name)
+* `names[].O`(Organization): apiserver 从证书中提取该字段作为请求用户所属的组 (Group)
 
-> 由于这里是 CA 证书，是签发其它证书的根证书，这个证书密钥不会分发出去作为 client 证书，所有组件使用的 client 证书都是由 CA 证书签发而来，所以 CA 证书的 CN 和 O 的名称并不重要，后续其它签发出来的证书的 CN 和 O 的名称才是有用的
+> 由于这里是 CA 证书，是签发其它证书的根证书，这个证书密钥不会分发出去作为 client 证书，所有组件使用的 client 证书都是由 CA 证书签发而来，所以 CA 证书的 CN 和 O 的名称并不重要，后续其它签发出来的证书的 CN 和 O 的名称才是有用的。
 
 ## 为 ETCD 签发证书
 
-这里证书可以只创建一次，所有 etcd 实例都公用这里创建的证书:
+这里证书可以只创建一次，所有 etcd 实例都共用这里创建的证书:
 
 ``` bash
 cat > etcd-csr.json <<EOF
