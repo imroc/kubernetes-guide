@@ -22,9 +22,11 @@ jobs:
         chmod 0600 ~/.ssh/id_rsa
         git config --global user.name "imroc"
         git config --global user.email "roc@imroc.cc"
-        git clone https://gitee.com/imroc/kubernetes-guide-book.git book
+        git clone https://${USERNAME}:${PASSWORD}@gitee.com/imroc/kubernetes-guide-book.git book
       env:
         SSH_KEY: '${{ secrets.SSH_KEY }}'
+        USERNAME: '${{ secrets.GITEE_USERNAME }}'
+        PASSWORD: '${{ secrets.GITEE_PASSWORD }}'
 
     - name: Setup mdBook
       uses: peaceiris/actions-mdbook@v1
