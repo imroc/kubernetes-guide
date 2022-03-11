@@ -23,12 +23,13 @@
   - [使用 ksniff 远程抓包](skill/network/ksniff.md)
 - [使用 cfssl 生成证书](skill/cfssl.md)
 
-# 服务部署最佳实践
+# 服务部署
 
 - [Pod 优雅终止](deploy/graceful-shutdown/README.md)
   - [为什么收不到 SIGTERM 信号?](deploy/graceful-shutdown/why-cannot-receive-sigterm.md)
   - [如何在 SHELL 中传递信号](deploy/graceful-shutdown/propagating-signals-in-shell.md)
   - [处理 SIGTERM 代码示例](deploy/graceful-shutdown/code-example-of-handle-sigterm.md)
+- [为 Pod 设置内核参数](deploy/set-sysctl.md)
   
 # 容器化
 
