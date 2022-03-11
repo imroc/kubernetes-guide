@@ -17,6 +17,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - run: |
+        mkdir -p ~/.ssh
         echo "$SSH_KEY" > ~/.ssh/id_rsa
         chmod 0600 ~/.ssh/id_rsa
         git config --global user.name "imroc"
