@@ -6,6 +6,7 @@
 
 - [高效使用 kubectl](troubleshooting/kubectl/README.md)
   - [使用 kubectl 别名快速执行命令](troubleshooting/kubectl/kubectl-aliases.md)
+  - [使用 kubectx 和 kubens 快速切换](troubleshooting/kubectl/kubectx.md)
 
 - [网络抓包](troubleshooting/network/README.md)
   - [使用 nsenter 进入 Pod netns 抓包](troubleshooting/network/nsenter.md)
