@@ -4,6 +4,9 @@
 
 # 集群网络
 
+- [CoreDNS](networking/coredns/README.md)
+  - [自定义域名解析](networking/coredns/customize-resolution.md)
+
 - [常见问题](networking/faq/README.md)
   - [为什么要开 bridge-nf-call-iptables?](networking/faq/why-enable-bridge-nf-call-iptables.md)
   - [ipvs 连接复用引发的系列问题](networking/faq/ipvs-conn-reuse-mode.md)
