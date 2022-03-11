@@ -1,6 +1,6 @@
 # Pod 优雅终止
 
-> 本文视频教程: https://www.bilibili.com/video/BV1fu411m73C
+> 本文视频教程: [https://www.bilibili.com/video/BV1fu411m73C](https://www.bilibili.com/video/BV1fu411m73C)
 
 Pod 销毁时，会停止容器内的进程，通常在停止的过程中我们需要执行一些善后逻辑，比如等待存量请求处理完以避免连接中断，或通知相关依赖进行清理等，从而实现优雅终止目的。本文介绍在 Kubernetes 场景下，实现容器优雅终止的最佳实践。
 
