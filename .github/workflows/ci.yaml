@@ -31,7 +31,4 @@ jobs:
 
     - run: |
         mdbook build
-        cd book
-        git add .
-        git commit -m "update"
-        git push
+        cd book && git add . && git commit -m "update" && git push
