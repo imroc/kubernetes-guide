@@ -6,6 +6,7 @@
 
 - [常见问题](networking/faq/README.md)
   - [为什么要开 bridge-nf-call-iptables?](networking/faq/why-enable-bridge-nf-call-iptables.md)
+  - [ipvs 连接复用引发的系列问题](networking/faq/ipvs-conn-reuse-mode.md)
 
 # 实用技能
 
