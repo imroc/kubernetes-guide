@@ -19,7 +19,7 @@ jobs:
     - run: |
         git config --global user.name "imroc"
         git config --global user.email "roc@imroc.cc"
-        git clone https://${USERNAME}:${PASSWORD}@gitee.com/imroc/kubernetes-guide-book.git book
+        git clone https://${USERNAME}:${PASSWORD}@gitee.com/imroc/kubernetes-guide-book.git
       env:
         USERNAME: '${{ secrets.GITEE_USERNAME }}'
         PASSWORD: '${{ secrets.GITEE_PASSWORD }}'
@@ -30,5 +30,5 @@ jobs:
         mdbook-version: '0.4.15'
 
     - run: |
-        mdbook build
-        cd book && git add . && git commit -m "update" && git push
+        mdbook build -d kubernetes-guide-book
+        cd kubernetes-guide-book && git add . && git commit -m "update" && git push
