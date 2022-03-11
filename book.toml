@@ -1,11 +1,13 @@
 [book]
 authors = ["roc"]
-language = "zh-CN"
+language = "zh_CN"
 multilingual = false
 src = "src"
 title = "Kubernetes 实践指南"
 
 [output.html]
+additional-css = ["style.css"]
+additional-js = ["sidebar.js"]
 git-repository-url = "https://github.com/imroc/kubernetes-guide"
 edit-url-template = "https://github.com/imroc/kubernetes-guide/edit/main/{path}"
 
