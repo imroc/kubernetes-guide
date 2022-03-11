@@ -1,4 +1,4 @@
-# 健康检查配置
+# 健康检查配置最佳实践
 
 > 本文视频教程: [https://www.bilibili.com/video/BV16q4y1y7B9](https://www.bilibili.com/video/BV16q4y1y7B9)
 

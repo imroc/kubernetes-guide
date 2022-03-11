@@ -1,4 +1,4 @@
-# Pod 优雅终止
+# 优雅终止最佳实践
 
 > 本文视频教程: [https://www.bilibili.com/video/BV1fu411m73C](https://www.bilibili.com/video/BV1fu411m73C)
 
