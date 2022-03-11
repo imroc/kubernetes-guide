@@ -2,7 +2,7 @@
 
 ## 概述
 
-Kubernetes 环境中遇到网络问题需要抓包排查怎么办？传统做法是登录 Pod 所在节点，然后 [使用 nsenter 进入容器 netns 抓包](nsenter.md)，最后使用节点上 tcpdump 工具进行抓包。整个过程比较繁琐，好在社区出现了 [ksniff](https://github.com/eldadru/ksniff) 这个小工具，它是一个 kubectl 插件，可以让我们在 Kubernetes 中抓包变得更简单快捷。
+Kubernetes 环境中遇到网络问题需要抓包排查怎么办？传统做法是登录 Pod 所在节点，然后 [使用 nsenter 进入 Pod netns 抓包](nsenter.md)，最后使用节点上 tcpdump 工具进行抓包。整个过程比较繁琐，好在社区出现了 [ksniff](https://github.com/eldadru/ksniff) 这个小工具，它是一个 kubectl 插件，可以让我们在 Kubernetes 中抓包变得更简单快捷。
 
 本文将介绍如何使用 ksniff 这个工具来对 Pod 进行抓包。
 
