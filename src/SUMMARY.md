@@ -12,17 +12,18 @@
   - [为什么要开 bridge-nf-call-iptables?](networking/faq/why-enable-bridge-nf-call-iptables.md)
   - [ipvs 连接复用引发的系列问题](networking/faq/ipvs-conn-reuse-mode.md)
 
-# 实用技能
+# 实用技巧
 
-- [高效使用 kubectl](skill/kubectl/README.md)
-  - [使用 kubectl-aliases 缩短命令](skill/kubectl/kubectl-aliases.md)
-  - [使用 kubectx 和 kubens 快速切换](skill/kubectl/kubectx.md)
-  - [使用 kubecm 合并 kubeconfig](skill/kubectl/kubecm.md)
-- [网络抓包](skill/network/README.md)
-  - [使用 nsenter 进入 netns 抓包](skill/network/nsenter.md)
-  - [使用 ksniff 远程抓包](skill/network/ksniff.md)
-- [使用 cfssl 生成证书](skill/cfssl.md)
-- [使用 cert-manager 签发免费证书](skill/sign-free-certs-with-cert-manager.md)
+- [高效使用 kubectl](trick/kubectl/README.md)
+  - [使用 kubectl-aliases 缩短命令](trick/kubectl/kubectl-aliases.md)
+  - [使用 kubectx 和 kubens 快速切换](trick/kubectl/kubectx.md)
+  - [使用 kubecm 合并 kubeconfig](trick/kubectl/kubecm.md)
+- [网络抓包](trick/network/README.md)
+  - [使用 nsenter 进入 netns 抓包](trick/network/nsenter.md)
+  - [使用 ksniff 远程抓包](trick/network/ksniff.md)
+- [证书相关](trick/certs/README.md)
+  - [使用 cfssl 生成证书](trick/certs/cfssl.md)
+  - [使用 cert-manager 签发免费证书](trick/certs/sign-free-certs-with-cert-manager.md)
 
 # 服务部署
 
