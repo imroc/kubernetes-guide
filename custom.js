@@ -3,6 +3,16 @@
     if (path.endsWith("/print.html")) {
         return;
     }
+
+    var images = document.querySelectorAll("main>p>img")
+    Array.prototype.forEach.call(images, function(img) {
+        img.addEventListener("click", function() {
+            BigPicture({
+                el: img,
+            });
+        });
+    });
+
     // Un-active everything when you click it
     Array.prototype.forEach.call(document.getElementsByClassName("pagetoc")[0].children, function(el) {
         el.addEventHandler("click", function() {
