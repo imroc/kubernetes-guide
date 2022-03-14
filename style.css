@@ -11,12 +11,12 @@
     .sidetoc {
         margin-left: auto;
         margin-right: auto;
-        left: calc(100% + (var(--content-max-width))/4 - 140px);
+        left: calc(100% + (var(--content-max-width))/4 - 180px);
         position: absolute;
     }
     .pagetoc {
         position: fixed;
-        width: 200px;
+        width: 180px;
         height: calc(100vh - var(--menu-bar-height) - 0.67em * 4);
         overflow: auto;
     }
@@ -29,6 +29,7 @@
         padding-left: 10px;
         text-align: left;
         text-decoration: none;
+        font-size: 1.2rem;
     }
     .pagetoc a:hover,
     .pagetoc a.active {

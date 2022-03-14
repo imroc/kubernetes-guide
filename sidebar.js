@@ -39,14 +39,16 @@ window.addEventListener('load', function() {
         // Indent shows hierarchy
         var indent = "";
         switch (el.parentElement.tagName) {
-            case "H2":
+            case "H1":
+                return;
+            // case "H2":
+            //     indent = "20px";
+            //     break;
+            case "H3":
                 indent = "20px";
                 break;
-            case "H3":
-                indent = "40px";
-                break;
             case "H4":
-                indent = "60px";
+                indent = "40px";
                 break;
             default:
                 break;
