@@ -34,6 +34,7 @@
   - [处理 SIGTERM 代码示例](deploy/graceful-shutdown/code-example-of-handle-sigterm.md)
 - [健康检查配置最佳实践](deploy/configure-healthcheck.md)
 - [为 Pod 设置内核参数](deploy/set-sysctl.md)
+- [Pod 绑定 NUMA 亲和性](deploy/single-numa-node.md)
   
 # 容器化
 
