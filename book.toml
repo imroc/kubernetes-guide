@@ -10,6 +10,7 @@ additional-css = ["style.css"]
 additional-js = ["custom.js", "bigPicture.js"]
 git-repository-url = "https://github.com/imroc/kubernetes-guide"
 edit-url-template = "https://github.com/imroc/kubernetes-guide/edit/master/{path}"
+site-url="/kubernetes/"
 
 [output.html.fold]
 enable = true

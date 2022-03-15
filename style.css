@@ -42,3 +42,11 @@
         color: var(--sidebar-fg);
     }
 }
+
+.page-footer {
+    margin-top: 50px;
+    border-top: 1px solid #ccc;
+    overflow: hidden;
+    padding: 10px 0;
+    color: gray;
+}
