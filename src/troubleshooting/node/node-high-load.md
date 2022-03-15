@@ -83,9 +83,9 @@ CPU 内核态占用的 Prometheus 查询语句:
 sum(irate(node_cpu_seconds_total{instance="10.10.1.14",mode="system"}[2m]))
 ```
 
-## IOWAIT 较高
+## IO 高负载
 
-参考 [问题排查: IO WAIT 高](https://imroc.cc/k8s/troubleshooting/iowait/)
+参考 [IO 高负载](io-high-load.md) 进行排查。
 
 ## FAQ
 
