@@ -1,4 +1,4 @@
-# 性能优化
+# CoreDNS 性能优化
 
 CoreDNS 作为 Kubernetes 集群的域名解析组件，如果性能不够可能会影响业务，本文介绍几种 CoreDNS 的性能优化手段。
 
