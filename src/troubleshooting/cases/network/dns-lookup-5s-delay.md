@@ -184,8 +184,8 @@ POD中要访问节点上的DNS缓存服务，可以使用节点的IP。 如果�
 
 ## 参考资料
 
-* Racy conntrack and DNS lookup timeouts: [https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts](https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts)
-* 5 – 15s DNS lookups on Kubernetes? :  [https://blog.quentin-machu.fr/2018/06/24/5-15s-dns-lookups-on-kubernetes/](https://blog.quentin-machu.fr/2018/06/24/5-15s-dns-lookups-on-kubernetes/)
-* DNS intermittent delays of 5s: [https://github.com/kubernetes/kubernetes/issues/56903](https://github.com/kubernetes/kubernetes/issues/56903)
-* 记一次Docker/Kubernetes上无法解释的连接超时原因探寻之旅: [https://mp.weixin.qq.com/s/VYBs8iqf0HsNg9WAxktzYQ](https://mp.weixin.qq.com/s/VYBs8iqf0HsNg9WAxktzYQ)
+* [Racy conntrack and DNS lookup timeouts](https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts)
+* [5 – 15s DNS lookups on Kubernetes?](https://blog.quentin-machu.fr/2018/06/24/5-15s-dns-lookups-on-kubernetes/)
+* [DNS intermittent delays of 5s](https://github.com/kubernetes/kubernetes/issues/56903)
+* [记一次Docker/Kubernetes上无法解释的连接超时原因探寻之旅](https://mp.weixin.qq.com/s/VYBs8iqf0HsNg9WAxktzYQ)
 
