@@ -16,13 +16,13 @@
 
 - [高效使用 kubectl](trick/kubectl/README.md)
   - [使用 kubectl-aliases 缩短命令](trick/kubectl/kubectl-aliases.md)
-  - [使用 kubectx 和 kubens 快速切换](trick/kubectl/kubectx.md)
-  - [使用 kubecm 合并 kubeconfig](trick/kubectl/kubecm.md)
+  - [使用 kubectx 和 kubens 快速切换](trick/kubectl/quick-switch-with-kubectx.md)
+  - [使用 kubecm 合并 kubeconfig](trick/kubectl/merge-kubeconfig-with-kubecm.md)
 - [网络抓包](trick/network/README.md)
-  - [使用 nsenter 进入 netns 抓包](trick/network/nsenter.md)
-  - [使用 ksniff 远程抓包](trick/network/ksniff.md)
+  - [使用 nsenter 进入 netns 抓包](trick/network/enter-netns-with-nsenter.md)
+  - [使用 ksniff 远程抓包](trick/network/remote-capture-with-ksniff.md)
 - [证书相关](trick/certs/README.md)
-  - [使用 cfssl 生成证书](trick/certs/cfssl.md)
+  - [使用 cfssl 生成证书](trick/certs/sign-certs-with-cfssl.md)
   - [使用 cert-manager 签发免费证书](trick/certs/sign-free-certs-with-cert-manager.md)
 
 # 服务部署
@@ -31,9 +31,9 @@
   - [为什么收不到 SIGTERM 信号?](deploy/graceful-shutdown/why-cannot-receive-sigterm.md)
   - [如何在 SHELL 中传递信号](deploy/graceful-shutdown/propagating-signals-in-shell.md)
   - [处理 SIGTERM 代码示例](deploy/graceful-shutdown/code-example-of-handle-sigterm.md)
-- [健康检查配置最佳实践](deploy/healthcheck.md)
+- [健康检查配置最佳实践](deploy/configure-healthcheck.md)
 - [为 Pod 设置内核参数](deploy/set-sysctl.md)
   
 # 容器化
 
-- [在容器内使用 systemd](containerization/systemd.md)
+- [在容器内使用 systemd](containerization/systemd-in-container.md)
