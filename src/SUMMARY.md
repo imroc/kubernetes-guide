@@ -25,6 +25,8 @@
   - [使用 cfssl 生成证书](trick/certs/sign-certs-with-cfssl.md)
   - [使用 cert-manager 签发免费证书](trick/certs/sign-free-certs-with-cert-manager.md)
   - [为 dnspod 的域名签发免费证书](trick/certs/sign-free-certs-for-dnspod.md)
+- [用户与权限](trick/user-and-permissions/README.md)
+  - [使用 CSR API 创建用户](trick/user-and-permissions/create-user-using-csr-api.md)
 
 # 服务部署
 
