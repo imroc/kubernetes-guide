@@ -83,7 +83,7 @@ code % 256
 
 ## 状态码参考
 
-这里罗列了一些状态码的含义：[Appendix E. Exit Codes With Special Meanings](http://tldp.org/LDP/abs/html/exitcodes.html)
+这里罗列了一些状态码的含义：[Appendix E. Exit Codes With Special Meanings](https://tldp.org/LDP/abs/html/exitcodes.html)
 
 ## Linux 标准中断信号
 
