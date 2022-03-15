@@ -42,6 +42,7 @@
   - [Pod 打散调度](deploy/ha/pod-split-up-scheduling.md)
 - [弹性伸缩](deploy/autoscaling/README.md)
   - [调节 HPA 扩缩容灵敏度](deploy/autoscaling/hpa-velocity.md)
+  - [HPA 使用自定义指标进行伸缩](deploy/autoscaling/hpa-with-custom-metrics.md)
   
 # 容器化
 
