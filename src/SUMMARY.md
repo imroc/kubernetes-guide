@@ -5,8 +5,8 @@
 # 集群网络
 
 - [CoreDNS](networking/coredns/README.md)
-  - [自定义域名解析](networking/coredns/customize-resolution.md)
-  - [性能优化](networking/coredns/optimization.md)
+  - [自定义域名解析](networking/coredns/customize-coredns-resolution.md)
+  - [性能优化](networking/coredns/optimize-coredns-performance.md)
 
 - [常见问题](networking/faq/README.md)
   - [为什么要开 bridge-nf-call-iptables?](networking/faq/why-enable-bridge-nf-call-iptables.md)
