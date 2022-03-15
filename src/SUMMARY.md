@@ -48,7 +48,7 @@
 
 - [在容器内使用 systemd](containerization/systemd-in-container.md)
 
-# 问题排查
+# 故障排查
 
 - [Pod 排障](troubleshooting/pod/README.md)
   - [Pod 一直 Terminating](troubleshooting/pod/pod-terminating.md)

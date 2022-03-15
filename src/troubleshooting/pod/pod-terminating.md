@@ -215,4 +215,19 @@ ps -f 27187
 
 k8s 资源的 metadata 里如果存在 `finalizers`，那么该资源一般是由某程序创建的，并且在其创建的资源的 metadata 里的 `finalizers` 加了一个它的标识，这意味着这个资源被删除时需要由创建资源的程序来做删除前的清理，清理完了它需要将标识从该资源的 `finalizers` 中移除，然后才会最终彻底删除资源。比如 Rancher 创建的一些资源就会写入 `finalizers` 标识。
 
-处理建议：`kubectl edit` 手动编辑资源定义，删掉 `finalizers`，这时再看下资源，就会发现已经删掉了
+处理建议：`kubectl edit` 手动编辑资源定义，删掉 `finalizers`，这时再看下资源，就会发现已经删掉了。
+
+## 检查 terminationGracePeriodSeconds 是否过大
+
+如果满足以下条件:
+1. Pod 配置了 `terminationGracePeriodSeconds` 且值非常大（比如 86400)。
+2. 主进程没有处理 SIGTERM 信号(比如主进程是 shell 或 systemd)。
+
+就会导致删除 Pod 不能立即退出，需要等到超时阈值(`terminationGracePeriodSeconds`)后强杀进程，而超时时间非常长，看起来就像一直卡在 Terminating 中。
+
+解决方案:
+1. 等待超时时间自动删除。
+2. 使用 kubectl 强删:
+    ```bash
+    kubectl delete pod --force --grace-period=0 POD_NAME
+    ```
