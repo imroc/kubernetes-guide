@@ -50,5 +50,7 @@
 
 # 问题排查
 
+- [Pod 排障](troubleshooting/pod/README.md)
+  - [Pod 一直 Terminating](troubleshooting/pod/pod-terminating.md)
 - [节点排障](troubleshooting/node/README.md)
   - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
