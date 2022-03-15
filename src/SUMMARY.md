@@ -52,6 +52,7 @@
 
 - [Pod 排障](troubleshooting/pod/README.md)
   - [Pod 一直 Terminating](troubleshooting/pod/pod-terminating.md)
+  - [Pod 异常重启](troubleshooting/pod/pod-restart.md)
 - [节点排障](troubleshooting/node/README.md)
   - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
   - [节点高负载](troubleshooting/node/node-high-load.md)
