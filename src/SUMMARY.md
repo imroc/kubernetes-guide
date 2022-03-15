@@ -47,3 +47,8 @@
 # 容器化
 
 - [在容器内使用 systemd](containerization/systemd-in-container.md)
+
+# 问题排查
+
+- [节点排障](troubleshooting/node/README.md)
+  - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
