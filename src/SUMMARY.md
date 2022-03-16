@@ -28,7 +28,7 @@
 - [用户与权限](trick/user-and-permissions/README.md)
   - [使用 CSR API 创建用户](trick/user-and-permissions/create-user-using-csr-api.md)
 
-# 服务部署
+# 部署与配置
 
 - [优雅终止最佳实践](deploy/graceful-shutdown/README.md)
   - [为什么收不到 SIGTERM 信号?](deploy/graceful-shutdown/why-cannot-receive-sigterm.md)
@@ -47,6 +47,7 @@
 # 容器化
 
 - [在容器内使用 systemd](containerization/systemd-in-container.md)
+- [Java 容器化](containerization/java-container.md)
 
 # 故障排查
 
