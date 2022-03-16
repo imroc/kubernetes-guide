@@ -63,6 +63,8 @@
   - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
   - [节点高负载](troubleshooting/node/node-high-load.md)
     - [IO 高负载](troubleshooting/node/io-high-load.md)
+- [网络排障](troubleshooting/network/README.md)
+  - [CLOSE_WAIT 堆积](troubleshooting/network/close-wait-stacking.md)
 - [排障案例](troubleshooting/cases/README.md)
   - [网络故障](troubleshooting/cases/network/README.md)
     - [DNS 5 秒延时](troubleshooting/cases/network/dns-lookup-5s-delay.md)
