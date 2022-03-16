@@ -48,4 +48,4 @@ lsof -p $PID | grep CLOSE_WAIT | wc -l
 
 连接建立好之后会被放入 accept queue，等待应用 accept，如果应用迟迟没有从队列里面去 accept 连接，等到 client 超时时间，主动关闭了连接，这时连接在 server 端仍在全连接队列中，状态变为 `CLOSE_WAIT`。
 
-如果连接一直不被应用 accept 出来，内核也不会自动响应 ACK 去关闭连接的。
+如果连接一直不被应用 accept 出来，内核也不会自动响应 ACK 去关闭连接的。不过这种情况的堆积量一般也不高，取决于 accept queue 的大小。
