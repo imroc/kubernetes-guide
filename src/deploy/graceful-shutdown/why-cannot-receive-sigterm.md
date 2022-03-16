@@ -15,4 +15,4 @@
 ## 如何解决?
 
 1. 如果可以的话，尽量不使用 shell 启动业务进程。
-2. 如果一定要通过 shell 启动，比如在启动前需要用 shell 进程一些判断和处理，或者需要启动多个进程，那么就需要在 shell 中传递下 SIGTERM 信号了，解决方案请参考 [如何在 SHELL 中传递信号](propagating-signals-in-shell.md) 。
+2. 如果一定要通过 shell 启动，比如在启动前需要用 shell 进程一些判断和处理，或者需要启动多个进程，那么就需要在 shell 中传递下 SIGTERM 信号了，解决方案请参考 [在 SHELL 中传递信号](propagating-signals-in-shell.md) 。

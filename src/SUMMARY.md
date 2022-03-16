@@ -31,9 +31,12 @@
 # 部署与配置
 
 - [优雅终止最佳实践](deploy/graceful-shutdown/README.md)
+  - [Pod 销毁流程](deploy/graceful-shutdown/pod-termination-proccess.md)
+  - [业务代码处理 SIGTERM 信号](deploy/graceful-shutdown/code-example-of-handle-sigterm.md)
   - [为什么收不到 SIGTERM 信号?](deploy/graceful-shutdown/why-cannot-receive-sigterm.md)
-  - [如何在 SHELL 中传递信号](deploy/graceful-shutdown/propagating-signals-in-shell.md)
-  - [处理 SIGTERM 代码示例](deploy/graceful-shutdown/code-example-of-handle-sigterm.md)
+  - [在 SHELL 中传递信号](deploy/graceful-shutdown/propagating-signals-in-shell.md)
+  - [合理使用 preStop](deploy/graceful-shutdown/use-prestop.md)
+  - [长连接场景](deploy/graceful-shutdown/persistent-connection.md)
 - [健康检查配置最佳实践](deploy/configure-healthcheck.md)
 - [为 Pod 设置内核参数](deploy/set-sysctl.md)
 - [性能优化](deploy/performance-optimization/README.md)

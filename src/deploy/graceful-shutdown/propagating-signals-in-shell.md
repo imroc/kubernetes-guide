@@ -1,4 +1,4 @@
-# 如何在 SHELL 中传递信号
+# 在 SHELL 中传递信号
 
 在 Kubernetes 中，Pod 停止时 kubelet 会先给容器中的主进程发 `SIGTERM` 信号来通知进程进行 shutdown 以实现优雅停止，如果超时进程还未完全停止则会使用 `SIGKILL` 来强行终止。
 
