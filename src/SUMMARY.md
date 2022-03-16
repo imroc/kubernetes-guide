@@ -40,6 +40,7 @@
   - [Pod 绑定 NUMA 亲和性](deploy/performance-optimization/single-numa-node.md)
 - [高可用部署](deploy/ha/README.md)
   - [Pod 打散调度](deploy/ha/pod-split-up-scheduling.md)
+  - [安全维护或下线节点](deploy/ha/securely-maintain-or-offline-node.md)
   - [工作负载平滑升级](deploy/ha/smooth-upgrade.md)
 - [弹性伸缩](deploy/autoscaling/README.md)
   - [调节 HPA 扩缩容灵敏度](deploy/autoscaling/hpa-velocity.md)
