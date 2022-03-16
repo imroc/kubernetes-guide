@@ -37,6 +37,7 @@
   - [在 SHELL 中传递信号](deploy/graceful-shutdown/propagating-signals-in-shell.md)
   - [合理使用 preStop](deploy/graceful-shutdown/use-prestop.md)
   - [长连接场景](deploy/graceful-shutdown/persistent-connection.md)
+  - [LB 直通 Pod 场景](deploy/graceful-shutdown/lb-to-pod-directly.md)
 - [健康检查配置最佳实践](deploy/configure-healthcheck.md)
 - [为 Pod 设置内核参数](deploy/set-sysctl.md)
 - [性能优化](deploy/performance-optimization/README.md)
