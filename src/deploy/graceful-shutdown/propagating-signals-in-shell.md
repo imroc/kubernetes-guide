@@ -48,16 +48,28 @@ wait # 等待回调执行完，主进程再退出
 
 前面一种方案实际是用脚本实现了一个极简的 init 系统 (或 supervisor) 来管理所有子进程，只不过它的逻辑很简陋，仅仅简单的透传指定信号给子进程，其实社区有更完善的方案，[dumb-init](https://github.com/Yelp/dumb-init) 和 [tini](https://github.com/krallin/tini) 都可以作为 init 进程，作为主进程 (PID 1) 在容器中启动，然后它再运行 shell 来执行我们指定的脚本 (shell 作为子进程)，shell 中启动的业务进程也成为它的子进程，当它收到信号时会将其传递给所有的子进程，从而也能完美解决 SHELL 无法传递信号问题，并且还有回收僵尸进程的能力。
 
-这里以 `dumb-init` 为例制作镜像，下面是 `Dockerfile` 示例:
+这是以 `dumb-init` 为例制作镜像的 `Dockerfile` 示例:
 
 ```dockerfile
-FROM ubuntu:latest
+FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y dumb-init
 ADD start.sh /
 ADD app1 /bin/app1
 ADD app2 /bin/app2
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["/start.sh"]
+```
+
+这是以 `tini` 为例制作镜像的 `Dockerfile` 示例:
+
+```dockerfile
+FROM ubuntu:22.04
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /tini /entrypoint.sh
+ENTRYPOINT ["/tini", "--"]
+CMD [ "/start.sh" ]
 ```
 
 `start.sh` 脚本示例:

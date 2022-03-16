@@ -6,11 +6,18 @@
 
 ## 什么原因?
 
-通常都是因为容器启动入口使用了 shell，比如使用了类似 `/bin/sh -c my-app` 或 `/docker-entrypoint.sh` 这样的  `ENTRYPOINT` 或 `CMD`，这就可能就会导致容器内的业务进程收不到 `SIGTERM` 信号，原因是:
+通常都是因为容器启动入口使用了 shell，比如使用了类似 `/bin/sh -c my-app` 这样的启动入口。 或者使用 `/entrypoint.sh` 这样的脚本文件作为入口，在脚本中再启动业务进程:
+
+![](entry-shell.png)
+
+这就可能就会导致容器内的业务进程收不到 `SIGTERM` 信号，原因是:
 
 1. 容器主进程是 shell，业务进程是在 shell 中启动的，成为了 shell 进程的子进程。
+
+    ![](pstree.png)
 2. shell 进程默认不会处理 `SIGTERM` 信号，自己不会退出，也不会将信号传递给子进程，导致业务进程不会触发停止逻辑。
 3. 当等到 K8S 优雅停止超时时间 (`terminationGracePeriodSeconds`，默认 30s)，发送 `SIGKILL` 强制杀死 shell 及其子进程。
+
 
 ## 如何解决?
 
