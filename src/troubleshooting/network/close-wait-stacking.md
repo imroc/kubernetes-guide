@@ -1,6 +1,6 @@
 # CLOSE_WAIT 堆积
 
-TCP 连接的 `CLOSE_WAIT` 状态，正常情况下是短暂的，如果出现堆积，说明哪里有问题。
+TCP 连接的 `CLOSE_WAIT` 状态，正常情况下是短暂的，如果出现堆积，一般说明应用有问题。
 
 ## CLOSE_WAIT 堆积的危害
 
