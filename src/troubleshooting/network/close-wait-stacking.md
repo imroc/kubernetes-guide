@@ -4,10 +4,10 @@ TCP 连接的 `CLOSE_WAIT` 状态，正常情况下是短暂的，如果出现�
 
 ## CLOSE_WAIT 堆积的危害
 
-每个 `CLOSE_WAIT` 连接会占据一个文件描述，堆积大量的 `CLOSE_WAIT` 可能造成文件描述符不够用，导致建连或打开文件失败，报`too many open files`:
+每个 `CLOSE_WAIT` 连接会占据一个文件描述，堆积大量的 `CLOSE_WAIT` 可能造成文件描述符不够用，导致建连或打开文件失败，报错 `too many open files`:
 
 ```txt
-dial udp 9.215.0.48:9073: socket: too many open files,
+dial udp 9.215.0.48:9073: socket: too many open files
 ```
 
 ## 如何判断?
