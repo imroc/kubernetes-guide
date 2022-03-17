@@ -1,4 +1,4 @@
-# 丢包排查思路
+# 排查丢包
 
 本文汇总网络丢包相关问题的排查思路与可能原因。
 
@@ -61,13 +61,21 @@ MTU 大小可以通过 `ip address show` 或 `ifconfig` 来确认。
 * 如果并发太高或机器负载过高，半连接队列可能会满，新来的 SYN 建连包会被丢包。
 * 如果应用层 accept 连接过慢，会导致全连接队列堆积，满了就会丢包，通常是并发高、机器负载高或应用 hung 死等原因。
 
-确认方法:
+查看丢包统计:
 
 ```bash
 netstat -s | grep -E 'drop|overflow'
 ```
 
-全连接队列可以观察 `Rec-Q`:
+```bash
+$ cat /proc/net/netstat | awk '/TcpExt/ { print $21,$22 }'
+ListenOverlows ListenDrops
+20168 20168
+```
+
+> 不同内核版本的列号可能有差别
+
+如果有现场，还可以观察全连接队列阻塞情况 (`Rec-Q`):
 
 ```bash
 ss -lnt

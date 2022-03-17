@@ -48,7 +48,7 @@
   - [调节 HPA 扩缩容灵敏度](deploy/autoscaling/hpa-velocity.md)
   - [HPA 使用自定义指标进行伸缩](deploy/autoscaling/hpa-with-custom-metrics.md)
   
-# 容器化
+# 应用容器化
 
 - [在容器内使用 systemd](containerization/systemd-in-container.md)
 - [Java 容器化](containerization/java-container.md)
@@ -62,7 +62,8 @@
 - [Pod 排障](troubleshooting/pod/README.md)
   - [Pod 一直 Terminating](troubleshooting/pod/pod-terminating.md)
     - [排查 device or resource busy](troubleshooting/pod/device-or-resource-busy.md)
-  - [分析 Pod 重启原因](troubleshooting/pod/pod-restart.md)
+  - [Pod 异常重启](troubleshooting/pod/pod-restart.md)
+  - [健康检查失败](troubleshooting/pod/healthcheck-failed.md)
 - [节点排障](troubleshooting/node/README.md)
   - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
   - [节点高负载](troubleshooting/node/node-high-load.md)
@@ -70,9 +71,11 @@
   - [内存碎片化](troubleshooting/node/memory-fragmentation.md)
   - [ARP 缓存爆满](troubleshooting/node/arp-cache-overflow.md)
 - [网络排障](troubleshooting/network/README.md)
-  - [超时排查思路](troubleshooting/network/timeout.md)
-  - [丢包排查思路](troubleshooting/network/drop-packets.md)
+  - [排查超时](troubleshooting/network/timeout.md)
+  - [排查丢包](troubleshooting/network/packet-loss.md)
   - [CLOSE_WAIT 堆积](troubleshooting/network/close-wait-stacking.md)
 - [排障案例](troubleshooting/cases/README.md)
   - [网络故障](troubleshooting/cases/network/README.md)
     - [DNS 5 秒延时](troubleshooting/cases/network/dns-lookup-5s-delay.md)
+  - [高负载](troubleshooting/cases/high-load/README.md)
+    - [容器磁盘满导致 CPU 飙高](troubleshooting/cases/high-load/disk-full-causing-high-cpu.md)
