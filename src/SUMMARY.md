@@ -60,6 +60,7 @@
   - [使用 Systemtap 定位疑难杂症](troubleshooting/skill/kernel/use-systemtap-to-locate-problems.md)
 - [Pod 排障](troubleshooting/pod/README.md)
   - [Pod 一直 Terminating](troubleshooting/pod/pod-terminating.md)
+    - [排查 device or resource busy](troubleshooting/pod/device-or-resource-busy.md)
   - [分析 Pod 重启原因](troubleshooting/pod/pod-restart.md)
 - [节点排障](troubleshooting/node/README.md)
   - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
