@@ -4,6 +4,25 @@
 
 本文分享 K8S 健康检查配置的最佳实践，文末也分享配置不当的案例。
 
+## Kubernetes 健康检查介绍
+
+K8S 支持三种健康检查：
+1. 就绪检查(`readinessProbe`): Pod启动后，如果配了就绪检查，要等就绪检查探测成功，Pod Ready 状态变为 True，允许放流量进来；在运行期间如果突然探测失败，Ready 状态变为 False，摘除流量。
+2. 存活检查(`livenessProbe`): Pod 在运行时，如果存活检查探测失败，会自动重启容器；值得注意的是，存活探测的结果不影响 Pod 的 Ready 状态，这也是许多同学可能误解的地方。
+3. 启动检查(`startupProbe`): 作用是让存活检查和就绪检查的开始探测时间延后，等启动检查成功后再开始探测，通常用于避免业务进程启动慢导致存活检查失败而被无限重启。
+
+所有检查检查配置格式都是一样的，只是字段名:
+```yaml
+livenessProbe:
+  successThreshold: 1 # 1 次探测成功就认为健康
+  failureThreshold: 2 # 连续 2 次探测失败认为不健康
+  periodSeconds: 3 # 3s 探测一次
+  timeoutSeconds: 2 # 2s 超时还没返回成功就认为不健康
+  httpGet: # 探测 80 端口的 "/healthz" 这个 http 接口
+    port: 80
+    path: "/healthz"
+```
+
 ## 所有提供服务的 container 都要加上 ReadinessProbe
 
 如果你的容器对外提供了服务，监听了端口，那么都应该配上 ReadinessProbe，ReadinessProbe 不通过就视为 Pod 不健康，然后会自动将不健康的 Pod 踢出去，避免将业务流量转发给异常 Pod。
