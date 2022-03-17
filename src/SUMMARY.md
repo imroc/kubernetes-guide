@@ -18,6 +18,7 @@
   - [使用 kubectl-aliases 缩短命令](trick/kubectl/kubectl-aliases.md)
   - [使用 kubectx 和 kubens 快速切换](trick/kubectl/quick-switch-with-kubectx.md)
   - [使用 kubecm 合并 kubeconfig](trick/kubectl/merge-kubeconfig-with-kubecm.md)
+  - [使用 kubectl get --raw](trick/kubectl/kubectl-get-raw.md)
 - [证书相关](trick/certs/README.md)
   - [使用 cfssl 生成证书](trick/certs/sign-certs-with-cfssl.md)
   - [使用 cert-manager 签发免费证书](trick/certs/sign-free-certs-with-cert-manager.md)
