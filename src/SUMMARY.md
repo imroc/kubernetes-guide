@@ -79,6 +79,7 @@
     - [磁盘 IO 过高导致 Pod 创建超时](troubleshooting/cases/runtime/io-high-load-causing-pod-creation-timeout.md)
     - [高版本 containerd 下载镜像失败](troubleshooting/cases/runtime/pull-image-fail-in-high-version-containerd.md)
     - [挂载根目录导致 device or resource busy](troubleshooting/cases/runtime/mount-root-causing-device-or-resource-busy.md)
+    - [系统时间被修改导致 sandbox 冲突](troubleshooting/cases/runtime/broken-system-time-causing-sandbox-conflicts.md)
   - [网络故障](troubleshooting/cases/network/README.md)
     - [DNS 5 秒延时](troubleshooting/cases/network/dns-lookup-5s-delay.md)
   - [高负载](troubleshooting/cases/high-load/README.md)
