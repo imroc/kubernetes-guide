@@ -65,6 +65,7 @@
   - [Pod 一直 Pending](troubleshooting/pod/pod-pending.md)
   - [Pod 异常重启](troubleshooting/pod/pod-restart.md)
   - [健康检查失败](troubleshooting/pod/healthcheck-failed.md)
+  - [Pod CrashLoopBackOff](troubleshooting/pod/pod-crash.md)
 - [节点排障](troubleshooting/node/README.md)
   - [节点 Crash 与 Vmcore 分析](troubleshooting/node/node-crash-and-vmcore.md)
   - [节点高负载](troubleshooting/node/node-high-load.md)
