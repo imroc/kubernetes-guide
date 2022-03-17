@@ -62,6 +62,7 @@
 - [Pod 排障](troubleshooting/pod/README.md)
   - [Pod 一直 Terminating](troubleshooting/pod/pod-terminating.md)
     - [排查 device or resource busy](troubleshooting/pod/device-or-resource-busy.md)
+  - [Pod 一直 Pending](troubleshooting/pod/pod-pending.md)
   - [Pod 异常重启](troubleshooting/pod/pod-restart.md)
   - [健康检查失败](troubleshooting/pod/healthcheck-failed.md)
 - [节点排障](troubleshooting/node/README.md)
