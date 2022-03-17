@@ -82,5 +82,6 @@
     - [DNS 5 秒延时](troubleshooting/cases/network/dns-lookup-5s-delay.md)
   - [高负载](troubleshooting/cases/high-load/README.md)
     - [容器磁盘满导致 CPU 飙高](troubleshooting/cases/high-load/disk-full-causing-high-cpu.md)
-  - [集群排障](troubleshooting/cases/cluster/README.md)
+  - [集群故障](troubleshooting/cases/cluster/README.md)
     - [误删 rancher 的 namespace 导致 node 被清空](troubleshooting/cases/cluster/delete-rancher-ns-causing-node-disappear.md)
+    - [调度器 cache 快照遗漏部分信息导致 pod pending](troubleshooting/cases/cluster/scheduler-snapshot-missing-causing-pod-pending.md)
