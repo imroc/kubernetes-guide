@@ -4,7 +4,7 @@
         return;
     }
 
-    var images = document.querySelectorAll("main>p>img")
+    var images = document.querySelectorAll("main img")
     Array.prototype.forEach.call(images, function(img) {
         img.addEventListener("click", function() {
             BigPicture({
