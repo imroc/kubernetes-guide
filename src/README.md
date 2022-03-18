@@ -6,9 +6,10 @@
 
 本书为电子书形式，内容为本人多年的云原生与 Kubernetes 实战经验进行系统性整理的结果，不废话，纯干货。
 
-## 在线阅读
+## 阅读方式
 
-https://imroc.cc/kubernetes/
+* 在线阅读: [https://imroc.cc/kubernetes/](https://imroc.cc/kubernetes/)
+* 导出 PDF: 点击右上角打印按钮，可保存为 PDF 文件。
 
 ## 许可证
 
