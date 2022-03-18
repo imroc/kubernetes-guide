@@ -56,9 +56,6 @@
             switch (el.parentElement.tagName) {
                 case "H1":
                     return;
-                // case "H2":
-                //     indent = "20px";
-                //     break;
                 case "H3":
                     indent = "20px";
                     break;
@@ -98,6 +95,7 @@
         title: title,
         createIssueManually: false,
         id: str,
+        pagerDirection: 'last',
         distractionFreeMode: true
     });
     gitalk.render('gitalk-container');
