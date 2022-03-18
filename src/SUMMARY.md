@@ -72,6 +72,7 @@
   - [磁盘爆满](troubleshooting/node/disk-full.md)
   - [PID 爆满](troubleshooting/node/pid-full.md)
   - [ARP 缓存爆满](troubleshooting/node/arp-cache-overflow.md)
+  - [inotify 资源耗尽](troubleshooting/node/runnig-out-of-inotify-watches.md)
 - [网络排障](troubleshooting/network/README.md)
   - [排查超时](troubleshooting/network/timeout.md)
   - [排查丢包](troubleshooting/network/packet-loss.md)
