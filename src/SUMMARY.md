@@ -25,34 +25,33 @@
   - [为 dnspod 的域名签发免费证书](trick/certs/sign-free-certs-for-dnspod.md)
 - [用户与权限](trick/user-and-permissions/README.md)
   - [使用 CSR API 创建用户](trick/user-and-permissions/create-user-using-csr-api.md)
+- [部署与配置](trick/deploy/README.md)
+  - [为 Pod 设置内核参数](trick/deploy/set-sysctl.md)
 
-# 部署与配置
+# 最佳实践
 
-- [优雅终止最佳实践](deploy/graceful-shutdown/README.md)
-  - [Pod 销毁流程](deploy/graceful-shutdown/pod-termination-proccess.md)
-  - [业务代码处理 SIGTERM 信号](deploy/graceful-shutdown/code-example-of-handle-sigterm.md)
-  - [为什么收不到 SIGTERM 信号?](deploy/graceful-shutdown/why-cannot-receive-sigterm.md)
-  - [在 SHELL 中传递信号](deploy/graceful-shutdown/propagating-signals-in-shell.md)
-  - [合理使用 preStop](deploy/graceful-shutdown/use-prestop.md)
-  - [长连接场景](deploy/graceful-shutdown/persistent-connection.md)
-  - [LB 直通 Pod 场景](deploy/graceful-shutdown/lb-to-pod-directly.md)
-- [健康检查配置最佳实践](deploy/configure-healthcheck.md)
-- [为 Pod 设置内核参数](deploy/set-sysctl.md)
-- [性能优化](deploy/performance-optimization/README.md)
-  - [Pod 绑定 NUMA 亲和性](deploy/performance-optimization/single-numa-node.md)
-- [高可用部署](deploy/ha/README.md)
-  - [Pod 打散调度](deploy/ha/pod-split-up-scheduling.md)
-  - [安全维护或下线节点](deploy/ha/securely-maintain-or-offline-node.md)
-  - [工作负载平滑升级](deploy/ha/smooth-upgrade.md)
-- [弹性伸缩](deploy/autoscaling/README.md)
-  - [调节 HPA 扩缩容灵敏度](deploy/autoscaling/hpa-velocity.md)
-  - [HPA 使用自定义指标进行伸缩](deploy/autoscaling/hpa-with-custom-metrics.md)
+- [优雅终止](best-practices/graceful-shutdown/README.md)
+  - [Pod 销毁流程](best-practices/graceful-shutdown/pod-termination-proccess.md)
+  - [业务代码处理 SIGTERM 信号](best-practices/graceful-shutdown/code-example-of-handle-sigterm.md)
+  - [为什么收不到 SIGTERM 信号?](best-practices/graceful-shutdown/why-cannot-receive-sigterm.md)
+  - [在 SHELL 中传递信号](best-practices/graceful-shutdown/propagating-signals-in-shell.md)
+  - [合理使用 preStop](best-practices/graceful-shutdown/use-prestop.md)
+  - [长连接场景](best-practices/graceful-shutdown/persistent-connection.md)
+  - [LB 直通 Pod 场景](best-practices/graceful-shutdown/lb-to-pod-directly.md)
+- [健康检查配置](best-practices/configure-healthcheck.md)
+- [性能优化](best-practices/performance-optimization/README.md)
+  - [Pod 绑定 NUMA 亲和性](best-practices/performance-optimization/single-numa-node.md)
+- [高可用部署](best-practices/ha/README.md)
+  - [Pod 打散调度](best-practices/ha/pod-split-up-scheduling.md)
+  - [安全维护或下线节点](best-practices/ha/securely-maintain-or-offline-node.md)
+  - [工作负载平滑升级](best-practices/ha/smooth-upgrade.md)
+- [弹性伸缩](best-practices/autoscaling/README.md)
+  - [调节 HPA 扩缩容灵敏度](best-practices/autoscaling/hpa-velocity.md)
+  - [HPA 使用自定义指标进行伸缩](best-practices/autoscaling/hpa-with-custom-metrics.md)
+- [应用容器化](best-practices/containerization/README.md)
+  - [在容器内使用 systemd](best-practices/containerization/systemd-in-container.md)
+  - [Java 应用容器化](best-practices/containerization/java-container.md)
   
-# 应用容器化
-
-- [在容器内使用 systemd](containerization/systemd-in-container.md)
-- [Java 容器化](containerization/java-container.md)
-
 # 故障排查
 
 - [排障技能](troubleshooting/skill/README.md)
