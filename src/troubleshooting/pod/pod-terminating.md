@@ -1,4 +1,4 @@
-# Pod 一直 Terminating
+# 排查 Pod 一直 Terminating
 
 有时候删除 Pod 一直卡在 Terminating 状态，一直删不掉，本文给出排查思路与可能原因。
 

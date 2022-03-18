@@ -1,4 +1,4 @@
-# Pod CrashLoopBackOff
+# 排查 Pod CrashLoopBackOff
 
 Pod 如果处于 `CrashLoopBackOff` 状态说明之前是启动了，只是又异常退出了，只要 Pod 的 [restartPolicy](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 不是 Never 就可能被重启拉起。
 

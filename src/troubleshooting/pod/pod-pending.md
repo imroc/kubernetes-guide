@@ -1,4 +1,4 @@
-# Pod 一直 Pending
+# 排查 Pod 一直 Pending
 
 Pending 状态说明 Pod 还没有被调度到某个节点上，需要看下 Pod 事件进一步判断原因，比如:
 

@@ -1,4 +1,4 @@
-# 健康检查失败
+# 排查健康检查失败
 
 * Kubernetes 健康检查包含就绪检查(readinessProbe)和存活检查(livenessProbe)
 * pod 如果就绪检查失败会将此 pod ip 从 service 中摘除，通过 service 访问，流量将不会被转发给就绪检查失败的 pod
