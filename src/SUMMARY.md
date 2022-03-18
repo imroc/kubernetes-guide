@@ -4,10 +4,6 @@
 
 # 集群网络
 
-- [CoreDNS](networking/coredns/README.md)
-  - [自定义域名解析](networking/coredns/customize-coredns-resolution.md)
-  - [性能优化](networking/coredns/optimize-coredns-performance.md)
-
 - [常见问题](networking/faq/README.md)
   - [为什么要开 bridge-nf-call-iptables?](networking/faq/why-enable-bridge-nf-call-iptables.md)
   - [ipvs 连接复用引发的系列问题](networking/faq/ipvs-conn-reuse-mode.md)
@@ -39,12 +35,15 @@
   - [长连接场景](best-practices/graceful-shutdown/persistent-connection.md)
   - [LB 直通 Pod 场景](best-practices/graceful-shutdown/lb-to-pod-directly.md)
 - [健康检查配置](best-practices/configure-healthcheck.md)
-- [性能优化](best-practices/performance-optimization/README.md)
+- [Pod 性能优化](best-practices/performance-optimization/README.md)
   - [Pod 绑定 NUMA 亲和性](best-practices/performance-optimization/single-numa-node.md)
 - [高可用部署](best-practices/ha/README.md)
   - [Pod 打散调度](best-practices/ha/pod-split-up-scheduling.md)
   - [安全维护或下线节点](best-practices/ha/securely-maintain-or-offline-node.md)
   - [工作负载平滑升级](best-practices/ha/smooth-upgrade.md)
+- [CoreDNS](best-practices/coredns/README.md)
+  - [CoreDNS 自定义域名解析](best-practices/coredns/customize-coredns-resolution.md)
+  - [CoreDNS 性能优化](best-practices/coredns/optimize-coredns-performance.md)
 - [弹性伸缩](best-practices/autoscaling/README.md)
   - [调节 HPA 扩缩容灵敏度](best-practices/autoscaling/hpa-velocity.md)
   - [HPA 使用自定义指标进行伸缩](best-practices/autoscaling/hpa-with-custom-metrics.md)
