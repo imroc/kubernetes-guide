@@ -45,11 +45,11 @@ Events:
   Warning  FailedCreatePodSandBox  2m (x4307 over 16h)  kubelet, 10.179.80.31  (combined from similar events): Failed create pod sandbox: rpc error: code = Unknown desc = failed to create a sandbox for pod "apigateway-6dc48bf8b6-l8xrw": Error response from daemon: mkdir /var/lib/docker/aufs/mnt/1f09d6c1c9f24e8daaea5bf33a4230de7dbc758e3b22785e8ee21e3e3d921214-init: no space left on device
 ```
 
-解决方法参考本书 [处理实践：磁盘爆满](/troubleshooting/handle/disk-full.md)
+解决方法参考本书 [节点排障：磁盘爆满](../node/disk-full.md)
 
 ## 节点内存碎片化
 
-如果节点上内存碎片化严重，缺少大页内存，会导致即使总的剩余内存较多，但还是会申请内存失败，参考 [处理实践: 内存碎片化](/troubleshooting/handle/memory-fragmentation.md)
+如果节点上内存碎片化严重，缺少大页内存，会导致即使总的剩余内存较多，但还是会申请内存失败，参考 [节点排障: 内存碎片化](../node/memory-fragmentation.md)
 
 ## limit 设置太小或者单位不对
 

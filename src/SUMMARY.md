@@ -69,6 +69,7 @@
   - [节点高负载](troubleshooting/node/node-high-load.md)
     - [IO 高负载](troubleshooting/node/io-high-load.md)
   - [内存碎片化](troubleshooting/node/memory-fragmentation.md)
+  - [磁盘爆满](troubleshooting/node/disk-full.md)
   - [ARP 缓存爆满](troubleshooting/node/arp-cache-overflow.md)
 - [网络排障](troubleshooting/network/README.md)
   - [排查超时](troubleshooting/network/timeout.md)
