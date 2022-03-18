@@ -54,7 +54,7 @@
 # 故障排查
 
 - [排障技能](troubleshooting/skill/README.md)
-  - [使用 nsenter 进入 netns 抓包](troubleshooting/skill/network/enter-netns-with-nsenter.md)
+  - [使用 nsenter 进入 netns](troubleshooting/skill/network/enter-netns-with-nsenter.md)
   - [使用 ksniff 远程抓包](troubleshooting/skill/network/remote-capture-with-ksniff.md)
   - [使用 Systemtap 定位疑难杂症](troubleshooting/skill/kernel/use-systemtap-to-locate-problems.md)
 - [Pod 排障](troubleshooting/pod/README.md)
