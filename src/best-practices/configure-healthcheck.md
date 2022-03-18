@@ -1,4 +1,4 @@
-# 健康检查配置最佳实践
+# 健康检查配置
 
 > 本文视频教程: [https://www.bilibili.com/video/BV16q4y1y7B9](https://www.bilibili.com/video/BV16q4y1y7B9)
 
@@ -11,47 +11,74 @@ K8S 支持三种健康检查：
 2. 存活检查(`livenessProbe`): Pod 在运行时，如果存活检查探测失败，会自动重启容器；值得注意的是，存活探测的结果不影响 Pod 的 Ready 状态，这也是许多同学可能误解的地方。
 3. 启动检查(`startupProbe`): 作用是让存活检查和就绪检查的开始探测时间延后，等启动检查成功后再开始探测，通常用于避免业务进程启动慢导致存活检查失败而被无限重启。
 
-所有检查检查配置格式都是一样的，只是字段名:
+三种健康检查配置格式都是一样的，以 `readinessProbe` 为例:
 ```yaml
-livenessProbe:
+readinessProbe:
   successThreshold: 1 # 1 次探测成功就认为健康
   failureThreshold: 2 # 连续 2 次探测失败认为不健康
   periodSeconds: 3 # 3s 探测一次
   timeoutSeconds: 2 # 2s 超时还没返回成功就认为不健康
-  httpGet: # 探测 80 端口的 "/healthz" 这个 http 接口
+  httpGet: # 使用 http 接口方式探测，GET 请求 80 端口的 "/healthz" 这个 http 接口，响应状态码在200~399之间视为健康，否则不健康。
     port: 80
     path: "/healthz"
+  #exec: # 使用脚本探测，执行容器内 "/check-health.sh" 这个脚本文件，退出状态码等于0视为健康，否则不健康。
+  #  command: ["/check-health.sh"]
+  #tcp: # 使用 TCP 探测，看 9000 端口是否监听。
+  #  port: 9000
 ```
+
+## 探测结果一定要真实反应业务健康状态
+
+### 首选 HTTP 探测
+
+通常是推荐业务自身提供 http 探测接口，如果业务层面健康就返回 200 状态码；否则，就返回 500。
+
+### 备选脚本探测
+
+如果业务还不支持 http 探测接口，或者有探测接口但不是 http 协议，也可以将探测逻辑写到脚本文件里，然后配置脚本方式探测。
+
+### 尽量避免 TCP 探测
+
+另外，应尽量避免使用 TCP 探测，因为 TCP 探测实际就是 kubelet 向指定端口发送 TCP SYN 握手包，当端口被监听内核就会直接响应 ACK，探测就会成功:
+
+![](tcp-probe.png)
+
+当程序死锁或 hang 死，这些并不影响端口监听，所以探测结果还是健康，流量打到表面健康但实际不健康的 Pod 上，就无法处理请求，从而引发业务故障。
 
 ## 所有提供服务的 container 都要加上 ReadinessProbe
 
 如果你的容器对外提供了服务，监听了端口，那么都应该配上 ReadinessProbe，ReadinessProbe 不通过就视为 Pod 不健康，然后会自动将不健康的 Pod 踢出去，避免将业务流量转发给异常 Pod。
 
-## 探测结果一定要真实反映业务健康状态
+![](readiness-probe.png)
 
-ReadinessProbe 探测结果要能真实反映业务层面的健康状态，通常是业务程序提供 HTTP 探测接口(K8S 原生支持 HTTP 探测)。如果是其它协议，也可以用脚本探测，在脚本里用支持业务所使用协议的探测程序去调用业务提供的探测接口。
-
-## 不要轻易使用 LivenessProbe
+## 谨慎使用 LivenessProbe
 
 LivenessProbe 失败会重启 Pod，不要轻易使用，除非你了解后果并且明白为什么你需要它，参考 [Liveness Probes are Dangerous](https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html) 。
 
-## LivenessProbe 条件要更宽松
+### 探测条件要更宽松
 
-如果使用 LivenessProbe，不要和 ReadinessProbe 设置成一样，需要更宽松一点，避免 Pod 频繁被重启。
+如果使用 LivenessProbe，不要和 ReadinessProbe 设置成一样，需要更宽松一点，避免因抖动导致 Pod 频繁被重启。
 
-通常是:
-1. `failureThreshold` 设置得更大一点，避免因探测太敏感导致 Pod 很容易被重启。
-2. 等待应用完全启动后才开始探测，如果你的 K8S 版本低于 1.18，可以将 LivenessProbe 的 `initialDelaySeconds` 加大一点，避免 Pod 因启动慢被无限重启；如果是 1.18 及其以上版本，可以配置 [StartProbe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes)，保证等应用完全启动后才开始探测。
+通常是失败阈值 (`failureThreshold`) 设置得更大一点，避免因探测太敏感导致 Pod 很容易被重启。
 
-## LivenessProbe 探测逻辑里不要有外部依赖
+另外如果有必要，超时时间 (`timeoutSeconds`) 和探测间隔 (`periodSeconds`) 也可以根据情况适当延长。
+
+### 保护慢启动容器
+
+有些应用本身可能启动慢(比如 Java)，或者用的富容器，需要起一大堆依赖，导致容器启动需要的较长，如果配置了存活检查，可能会造成启动过程中达到失败阈值被重启，如此循环，无限重启。
+
+对于这类启动慢的容器，我们需要保护下，等待应用完全启动后才开始探测:
+
+1. 如果 K8S 版本低于 1.18，可以设置 LivenessProbe 的初始探测延时 (`initialDelaySeconds`)。
+2. 如果 K8S 版本在 1.18 及其以上，可以配置 [StartProbe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes)，保证等应用完全启动后才开始探测。
+
+### 避免依赖导致级联故障
 
 LivenessProbe 探测逻辑里不要有外部依赖 (db, 其它 pod 等)，避免抖动导致级联故障。
 
-## 避免使用 TCP 探测
+![](bad-livess-probe.png)
 
-有些时候 TCP 探测结果并不能真实反映业务真实情况,比如:
-1. 程序 hang 死时， TCP 探测仍然能通过 (TCP 的 SYN 包探测端口是否存活在内核态完成，应用层不感知)。
-2. 当程序正在优雅退出的过程中，端口监听还在，TCP 探测会成功，但业务层面已不再处理新请求了。
+如上图，Pod B 探测逻辑里查 DB，Pod A 探测逻辑里调用 Pod B，如果 DB 抖动，Pod B 变为不健康，Pod A 调用 Pod B 也失败，也变为不健康，从而级联故障。
 
 ## 一个配置不合理引发的血案
 
