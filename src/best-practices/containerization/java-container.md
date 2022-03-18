@@ -32,3 +32,6 @@ JDK 低版本对容器不友好，感知不到自己在容器内:
 * [JDK 8u191 Update Release Notes ](https://www.oracle.com/java/technologies/javase/8u191-relnotes.html)
 * [Docker support in Java 8 — finally!](https://blog.softwaremill.com/docker-support-in-new-java-8-finally-fd595df0ca54)
 * [Better Containerized JVMs in JDK10](http://blog.gilliard.lol/2018/01/10/Java-in-containers-jdk10.html)
+* [JVM in a Container](https://merikan.com/2019/04/jvm-in-a-container/#java-8u131-and-java-9)
+* [14 best practices for containerising your Java applications](https://www.tutorialworks.com/docker-java-best-practices/)
+* [Best Practices: Java Memory Arguments for Containers](https://dzone.com/articles/best-practices-java-memory-arguments-for-container)
