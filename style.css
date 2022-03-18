@@ -1,12 +1,13 @@
-@media only screen and (max-width:1439px) {
+@media only screen and (max-width:1079px) {
     .sidetoc {
         display: none;
     }
 }
 
-@media only screen and (min-width:1440px) {
+@media only screen and (min-width:1080px) {
     main {
         position: relative;
+        padding-right: 170px;
     }
     .sidetoc {
         margin-left: auto;
