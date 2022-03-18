@@ -78,7 +78,7 @@
 - [网络排障](troubleshooting/network/README.md)
   - [网络超时](troubleshooting/network/timeout.md)
   - [网络丢包](troubleshooting/network/packet-loss.md)
-  - [网络不通](troubleshooting/network/dns-exception.md)
+  - [网络不通](troubleshooting/network/network-unreachable.md)
   - [DNS 解析异常](troubleshooting/network/dns-exception.md)
   - [CLOSE_WAIT 堆积](troubleshooting/network/close-wait-stacking.md)
 - [排障案例](troubleshooting/cases/README.md)
