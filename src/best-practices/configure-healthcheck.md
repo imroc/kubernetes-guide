@@ -12,6 +12,7 @@ K8S 支持三种健康检查：
 3. 启动检查(`startupProbe`): 作用是让存活检查和就绪检查的开始探测时间延后，等启动检查成功后再开始探测，通常用于避免业务进程启动慢导致存活检查失败而被无限重启。
 
 三种健康检查配置格式都是一样的，以 `readinessProbe` 为例:
+
 ```yaml
 readinessProbe:
   successThreshold: 1 # 1 次探测成功就认为健康
