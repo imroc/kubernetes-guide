@@ -95,7 +95,7 @@
         title: title,
         createIssueManually: false,
         id: str,
-        pagerDirection: 'last',
+        pagerDirection: 'first',
         distractionFreeMode: true
     });
     gitalk.render('gitalk-container');
