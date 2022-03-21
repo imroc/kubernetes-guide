@@ -1,4 +1,4 @@
-# CoreDNS 自定义域名解析
+# 自定义域名解析
 
 本文介绍在 kubernetes 上如何自定义集群 CoreDNS 的域名解析。
 
