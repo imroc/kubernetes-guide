@@ -15,7 +15,7 @@
 
 ## 解决方案
 
-通常不推荐在容器内修改 `/etc/hosts`，应该采用更云原生的做法。
+通常不推荐在容器内修改 `/etc/hosts`，应该采用更云原生的做法，参考 [自定义域名解析](../../../best-practices/dns/customize-dns-resolution.md)。
 
 ### 使用 HostAliases
 
@@ -52,5 +52,3 @@ spec:
 如果是多个 workload 都需要共同的 hosts，可以修改集群 CoreDNS 配置，在集群级别增加 hosts:
 
 ![](../../../best-practices/dns/coredns-hosts.png)
-
-> 参考 [自定义域名解析](../../../best-practices/dns/customize-dns-resolution.md)
