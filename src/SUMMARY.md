@@ -81,6 +81,8 @@
   - [网络不通](troubleshooting/network/network-unreachable.md)
   - [DNS 解析异常](troubleshooting/network/dns-exception.md)
   - [CLOSE_WAIT 堆积](troubleshooting/network/close-wait-stacking.md)
+- [集群排障](troubleshooting/cluster/README.md)
+  - [Namespace 一直 Terminating](troubleshooting/cluster/namespace-terminating.md)
 - [排障案例](troubleshooting/cases/README.md)
   - [运行时故障](troubleshooting/cases/runtime/README.md)
     - [磁盘 IO 过高导致 Pod 创建超时](troubleshooting/cases/runtime/io-high-load-causing-pod-creation-timeout.md)
