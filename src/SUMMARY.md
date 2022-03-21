@@ -36,6 +36,7 @@
   - [LB 直通 Pod 场景](best-practices/graceful-shutdown/lb-to-pod-directly.md)
 - [健康检查配置](best-practices/configure-healthcheck.md)
 - [Pod 性能优化](best-practices/performance-optimization/README.md)
+  - [高并发实践](best-practices/performance-optimization/high-concurrency.md)
   - [Pod 绑定 NUMA 亲和性](best-practices/performance-optimization/single-numa-node.md)
 - [高可用部署](best-practices/ha/README.md)
   - [Pod 打散调度](best-practices/ha/pod-split-up-scheduling.md)
