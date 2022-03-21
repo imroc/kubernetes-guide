@@ -92,6 +92,7 @@
     - [系统时间被修改导致 sandbox 冲突](troubleshooting/cases/runtime/broken-system-time-causing-sandbox-conflicts.md)
   - [网络故障](troubleshooting/cases/network/README.md)
     - [DNS 5 秒延时](troubleshooting/cases/network/dns-lookup-5s-delay.md)
+    - [ARP 爆满导致健康检查失败](troubleshooting/cases/network/arp-cache-overflow-causing-healthcheck-failed.md)
   - [高负载](troubleshooting/cases/high-load/README.md)
     - [容器磁盘满导致 CPU 飙高](troubleshooting/cases/high-load/disk-full-causing-high-cpu.md)
   - [集群故障](troubleshooting/cases/cluster/README.md)
