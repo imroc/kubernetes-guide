@@ -94,6 +94,7 @@
   - [集群故障](troubleshooting/cases/cluster/README.md)
     - [误删 rancher 的 namespace 导致 node 被清空](troubleshooting/cases/cluster/delete-rancher-ns-causing-node-disappear.md)
     - [调度器 cache 快照遗漏部分信息导致 pod pending](troubleshooting/cases/cluster/scheduler-snapshot-missing-causing-pod-pending.md)
+    - [kubectl 执行 exec 或 logs 失败](troubleshooting/cases/cluster/kubectl-exec-or-logs-failed.md)
   - [其它排障](troubleshooting/cases/others/README.md)
     - [多容器场景下修改 hosts 失效](troubleshooting/cases/others/failed-to-modify-hosts-in-multiple-container.md)
     - [Job 无法被删除](troubleshooting/cases/others/job-cannot-delete.md)
