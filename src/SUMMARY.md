@@ -94,6 +94,7 @@
     - [DNS 5 秒延时](troubleshooting/cases/network/dns-lookup-5s-delay.md)
     - [ARP 爆满导致健康检查失败](troubleshooting/cases/network/arp-cache-overflow-causing-healthcheck-failed.md)
     - [tcp_tw_recycle 导致跨 VPC 访问 NodePort 超时](troubleshooting/cases/network/cross-vpc-connect-nodeport-timeout.md)
+    - [dns id 冲突导致解析异常](troubleshooting/cases/network/musl-libc-dns-id-conflict-causing-dns-abnormal.md)
   - [高负载](troubleshooting/cases/high-load/README.md)
     - [容器磁盘满导致 CPU 飙高](troubleshooting/cases/high-load/disk-full-causing-high-cpu.md)
   - [集群故障](troubleshooting/cases/cluster/README.md)
