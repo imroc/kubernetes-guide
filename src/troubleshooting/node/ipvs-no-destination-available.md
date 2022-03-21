@@ -22,3 +22,7 @@
 ```bash
 sysctl -w net.ipv4.vs.ignore_no_rs_error=1
 ```
+
+## 参考资料
+
+* Kubernetes Issue: [IPVS error log occupation with externalTrafficPolicy: Local option in Service](https://github.com/kubernetes/kubernetes/issues/100925)
