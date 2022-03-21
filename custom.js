@@ -44,34 +44,32 @@ var initAll = function () {
         });
     };
 
-    var setToc = function () {
-        var pagetoc = document.getElementsByClassName("pagetoc")[0];
-        var elements = document.getElementsByClassName("header");
-        Array.prototype.forEach.call(elements, function (el) {
-            var link = document.createElement("a");
+    var pagetoc = document.getElementsByClassName("pagetoc")[0];
+    var elements = document.getElementsByClassName("header");
+    Array.prototype.forEach.call(elements, function (el) {
+        var link = document.createElement("a");
 
-            // Indent shows hierarchy
-            var indent = "";
-            switch (el.parentElement.tagName) {
-                case "H1":
-                    return;
-                case "H3":
-                    indent = "20px";
-                    break;
-                case "H4":
-                    indent = "40px";
-                    break;
-                default:
-                    break;
-            }
+        // Indent shows hierarchy
+        var indent = "";
+        switch (el.parentElement.tagName) {
+            case "H1":
+                return;
+            case "H3":
+                indent = "20px";
+                break;
+            case "H4":
+                indent = "40px";
+                break;
+            default:
+                break;
+        }
 
-            link.appendChild(document.createTextNode(el.text));
-            link.style.paddingLeft = indent;
-            link.href = el.href;
-            pagetoc.appendChild(link);
-        });
-        updateFunction.call();
-    };
+        link.appendChild(document.createTextNode(el.text));
+        link.style.paddingLeft = indent;
+        link.href = el.href;
+        pagetoc.appendChild(link);
+    });
+    updateFunction.call();
 
     // Handle active elements on scroll
     window.addEventListener("scroll", updateFunction);
