@@ -45,9 +45,9 @@ $ find -L /sys/fs/cgroup/memory -type d | wc -l
 
 当 cgroup 泄露发生时，这里的数量就不是真实的了，低版本内核限制最大 65535 个 cgroup，并且开启 kmem 删除 cgroup 时会泄露，大量创建删除容器后泄露了许多 cgroup，最终总数达到 65535，新建容器创建 cgroup 将会失败，报 `no space left on device`
 
-详细请参考本书 [案例分享: cgroup 泄露](../../../summary/cgroup-leaking/)
+详细请参考本书 [排障案例: cgroup 泄露](../cases/node/cgroup-leaking.md)
 
-## 磁盘被写满(TODO)
+## 磁盘被写满
 
 Pod 启动失败，状态 `CreateContainerError`:
 
