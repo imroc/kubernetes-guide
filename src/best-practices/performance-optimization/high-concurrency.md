@@ -10,6 +10,8 @@
 sysctl -w net.core.somaxconn=65535
 ```
 
+如何查看队列大小来验证是否成功调整队列大小？可以执行 `ss -lnt` 看 `Send-Q` 的值。
+
 高并发环境可以要调大 `somaxconn` 的值，但并不一定是调大了就意味着应用监听 socket 的连接队列就变大了。进程调用 listen 系统调用来监听端口的时候，还会传入一个 backlog 的参数，这个参数决定 socket 的连接队列大小，其值不得大于 `somaxconn` 的取值。
 
 Go 程序标准库在 listen 时，默认直接读取 somaxconn 作为队列大小，所以通常 Go 程序的 socket 连接队列大小基本等于 somaxconn 的值。
@@ -32,6 +34,7 @@ backlog=number
 也就是说，即便你的 somaxconn 配的很高，nginx 所监听端口的连接队列最大却也只有 511，高并发场景下可能导致连接队列溢出。
 
 不过这个在 Nginx Ingress 情况又不太一样，因为 Nginx Ingress Controller 会自动读取 somaxconn 的值作为 backlog 参数写到生成的 nginx.conf 中: https://github.com/kubernetes/ingress-nginx/blob/controller-v0.34.1/internal/ingress/controller/nginx.go#L592
+
 
 ## 扩大源端口范围
 
