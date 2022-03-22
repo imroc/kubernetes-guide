@@ -35,6 +35,7 @@
   - [长连接场景](best-practices/graceful-shutdown/persistent-connection.md)
   - [LB 直通 Pod 场景](best-practices/graceful-shutdown/lb-to-pod-directly.md)
 - [健康检查配置](best-practices/configure-healthcheck.md)
+- [合理设置 Request 与 Limit](best-practices/request-limit.md)
 - [Pod 性能优化](best-practices/performance-optimization/README.md)
   - [高并发实践](best-practices/performance-optimization/high-concurrency.md)
   - [Pod 绑定 NUMA 亲和性](best-practices/performance-optimization/single-numa-node.md)
