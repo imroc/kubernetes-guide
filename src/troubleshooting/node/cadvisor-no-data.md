@@ -2,9 +2,9 @@
 
 ## 可能原因
 
-### 修改过容器数据盘
+### 修改容器数据盘后未重启 kubelet
 
-如果修改过容器数据盘 (docker root)，又没重启 kubelet，这时 kubelet 就可能无法正常返回 cAdvisor 数据，日志报错:
+如果修改过容器数据盘 (docker root)，重启了容器运行时，但又没重启 kubelet，这时 kubelet 就可能无法正常返回 cAdvisor 数据，日志报错:
 
 ```txt
 Mar 21 02:59:26 VM-67-101-centos kubelet[714]: E0321 02:59:26.320938     714 manager.go:1086] Failed to create existing container: /kubepods/burstable/podb267f18b-a641-4004-a660-4c6a43b6e520/03164d8f0d1f55a285b50b2117d6fdb2c33d2fa87f46dba0f43b806017607d03: failed to identify the read-write layer ID for container "03164d8f0d1f55a285b50b2117d6fdb2c33d2fa87f46dba0f43b806017607d03". - open /var/lib/docker/image/overlay2/layerdb/mounts/03164d8f0d1f55a285b50b2117d6fdb2c33d2fa87f46dba0f43b806017607d03/mount-id: no such file or directory
