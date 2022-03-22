@@ -24,8 +24,7 @@ var initAll = function () {
     });
 
     var updateFunction = function () {
-
-        var id;
+        var id = null;
         var elements = document.getElementsByClassName("header");
         Array.prototype.forEach.call(elements, function (el) {
             if (window.pageYOffset >= el.offsetTop) {
@@ -38,6 +37,9 @@ var initAll = function () {
         });
 
         Array.prototype.forEach.call(document.getElementsByClassName("pagetoc")[0].children, function (el) {
+            if (id == null) {
+                return;
+            }
             if (id.href.localeCompare(el.href) == 0) {
                 el.classList.add("active");
             }
