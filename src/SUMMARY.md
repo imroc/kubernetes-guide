@@ -122,7 +122,7 @@
 # 云容器服务
 
 - [腾讯云容器服务](tencent/README.md)
-  - [常见问题](tencent/faq/README.md)
-    - [CLB 回环问题](tencent/faq/clb-loopback.md)
-    - [如何给 Pod 绑 EIP ?](tencent/faq/how-to-use-eip.md)
-    - [IPVS 模式如何安装 localdns](tencent/faq/install-localdns-with-ipvs.md)
+  - [网络指南](tencent/networking/README.md)
+    - [CLB 回环问题](tencent/networking/clb-loopback.md)
+    - [Pod 绑 EIP](tencent/networking/how-to-use-eip.md)
+    - [IPVS 模式如何安装 localdns](tencent/networking/install-localdns-with-ipvs.md)
