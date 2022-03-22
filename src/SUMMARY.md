@@ -126,6 +126,8 @@
     - [启用 CLB 直通 Pod](tencent/networking/clb-to-pod-directly.md)
     - [Pod 绑 EIP](tencent/networking/how-to-use-eip.md)
     - [IPVS 模式安装 localdns](tencent/networking/install-localdns-with-ipvs.md)
+  - [存储指南](tencent/storage/README.md)
+    - [扩容 CBS 类型的 PVC](tencent/storage/cbs-pvc-expansion.md)
   - [常见问题](tencent/faq/README.md)
     - [修改 rp_filter 导致网路异常](tencent/faq/modify-rp-filter-causing-exception.md)
     - [CLB 回环问题](tencent/faq/clb-loopback.md)
