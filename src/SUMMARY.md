@@ -118,3 +118,10 @@
     - [多容器场景下修改 hosts 失效](troubleshooting/cases/others/failed-to-modify-hosts-in-multiple-container.md)
     - [Job 无法被删除](troubleshooting/cases/others/job-cannot-delete.md)
     - [.Net Core 配置文件无法热加载](troubleshooting/cases/others/dotnet-configuration-cannot-auto-reload.md)
+
+# 云容器服务
+
+- [腾讯云容器服务](tencent/README.md)
+  - [常见问题](tencent/faq/README.md)
+    - [CLB 回环问题](tencent/faq/clb-loopback.md)
+    - [如何给 Pod 绑 EIP ?](tencent/faq/how-to-use-eip.md)
