@@ -52,7 +52,9 @@
 - [应用容器化](best-practices/containerization/README.md)
   - [在容器内使用 systemd](best-practices/containerization/systemd-in-container.md)
   - [Java 应用容器化](best-practices/containerization/java-container.md)
-  
+- [大规模集群优化](best-practices/large-scale-cluster-optimization.md)
+  - [ETCD 优化](best-practices/etcd-optimization.md)
+
 # 故障排查
 
 - [排障技能](troubleshooting/skill/README.md)
