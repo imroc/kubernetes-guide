@@ -127,3 +127,4 @@
     - [CLB 回环问题](tencent/networking/clb-loopback.md)
     - [Pod 绑 EIP](tencent/networking/how-to-use-eip.md)
     - [IPVS 模式如何安装 localdns](tencent/networking/install-localdns-with-ipvs.md)
+    - [排查公网服务不通](tencent/networking/public-service-or-ingress-connect-failed-1.png)
