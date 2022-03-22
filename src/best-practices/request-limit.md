@@ -69,3 +69,12 @@ spec:
     limits.cpu: "2"
     limits.memory: 2Gi
 ```
+
+
+## 参考资料
+
+* [Understanding Kubernetes limits and requests by example](https://sysdig.com/blog/kubernetes-limits-requests/)
+* [Understanding resource limits in kubernetes: cpu time](https://medium.com/@betz.mark/understanding-resource-limits-in-kubernetes-cpu-time-9eff74d3161b)
+* [Understanding resource limits in kubernetes: memory](https://medium.com/@betz.mark/understanding-resource-limits-in-kubernetes-memory-6b41e9a955f9)
+* [Kubernetes best practices: Resource requests and limits](https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-resource-requests-and-limits)
+* [Kubernetes 资源分配之 Request 和 Limit 解析](https://cloud.tencent.com/developer/article/1004976)
