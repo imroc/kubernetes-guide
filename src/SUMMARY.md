@@ -85,6 +85,7 @@
   - [网络超时](troubleshooting/network/timeout.md)
   - [网络丢包](troubleshooting/network/packet-loss.md)
   - [网络不通](troubleshooting/network/network-unreachable.md)
+  - [网速差](troubleshooting/network/slow-network-traffic.md)
   - [DNS 解析异常](troubleshooting/network/dns-exception.md)
   - [CLOSE_WAIT 堆积](troubleshooting/network/close-wait-stacking.md)
 - [集群排障](troubleshooting/cluster/README.md)
