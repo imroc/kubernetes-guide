@@ -123,6 +123,7 @@
 
 - [腾讯云容器服务](tencent/README.md)
   - [网络指南](tencent/networking/README.md)
+    - [启用 CLB 直通 Pod](tencent/networking/clb-to-pod-directly.md)
     - [CLB 回环问题](tencent/networking/clb-loopback.md)
     - [Pod 绑 EIP](tencent/networking/how-to-use-eip.md)
     - [IPVS 模式如何安装 localdns](tencent/networking/install-localdns-with-ipvs.md)
