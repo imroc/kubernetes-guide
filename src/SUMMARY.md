@@ -79,6 +79,7 @@
   - [soft lockup (内核软死锁)](troubleshooting/node/kernel-solft-lockup.md)
   - [no space left on device](troubleshooting/node/no-space-left-on-device.md)
   - [IPVS no destination available](troubleshooting/node/ipvs-no-destination-available.md)
+  - [cAdvisor 无数据](troubleshooting/node/cadvisor-no-data.md)
 - [网络排障](troubleshooting/network/README.md)
   - [网络超时](troubleshooting/network/timeout.md)
   - [网络丢包](troubleshooting/network/packet-loss.md)
