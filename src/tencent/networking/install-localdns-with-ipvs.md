@@ -1,4 +1,4 @@
-# IPVS 模式如何安装 localdns
+# IPVS 模式安装 localdns
 
 ## 背景
 
