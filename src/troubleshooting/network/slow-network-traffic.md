@@ -15,6 +15,12 @@ sysctl -w net.core.default_qdisc = fq
 sysctl -w net.ipv4.tcp_available_congestion_control = bbr
 ```
 
+### 被限速
+
+如果是走公网，一般都有个公网带宽上限，可以看看监控是否达到带宽上限而被限速。
+
+如果是走内网，也是可能会被限速的；通常云厂商的服务器有各种机型和规格，性能指标各不一样，可以先看下对应机型和规格的 PPS 和内网带宽能力，比如腾讯云可以看 [CVM实例规格](https://cloud.tencent.com/document/product/213/11518)，然后再看下监控，是否达到上限。
+
 ### NAT 环境没开启 nf_conntrack_tcp_be_liberal
 
 容器环境下，不开启这个参数可能造成 NAT 过的 TCP 连接带宽上不去或经常断连。
