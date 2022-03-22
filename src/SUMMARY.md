@@ -125,3 +125,4 @@
   - [常见问题](tencent/faq/README.md)
     - [CLB 回环问题](tencent/faq/clb-loopback.md)
     - [如何给 Pod 绑 EIP ?](tencent/faq/how-to-use-eip.md)
+    - [IPVS 模式如何安装 localdns](tencent/faq/install-localdns-with-ipvs.md)
