@@ -110,3 +110,4 @@
   - [其它排障](troubleshooting/cases/others/README.md)
     - [多容器场景下修改 hosts 失效](troubleshooting/cases/others/failed-to-modify-hosts-in-multiple-container.md)
     - [Job 无法被删除](troubleshooting/cases/others/job-cannot-delete.md)
+    - [.Net Core 配置文件无法热加载](troubleshooting/cases/others/dotnet-configuration-cannot-auto-reload.md)
