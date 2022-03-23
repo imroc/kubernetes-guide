@@ -43,7 +43,6 @@
   - [Pod 绑定 NUMA 亲和性](best-practices/performance-optimization/single-numa-node.md)
 - [高可用部署](best-practices/ha/README.md)
   - [Pod 打散调度](best-practices/ha/pod-split-up-scheduling.md)
-  - [安全维护或下线节点](best-practices/ha/securely-maintain-or-offline-node.md)
   - [工作负载平滑升级](best-practices/ha/smooth-upgrade.md)
 - [DNS](best-practices/dns/README.md)
   - [自定义域名解析](best-practices/dns/customize-dns-resolution.md)
@@ -56,6 +55,8 @@
   - [Java 应用容器化](best-practices/containerization/java-container.md)
 - [大规模集群优化](best-practices/large-scale-cluster-optimization.md)
   - [ETCD 优化](best-practices/etcd-optimization.md)
+- [集群运维](best-practices/ops/README.md)
+  - [安全维护或下线节点](best-practices/ops/securely-maintain-or-offline-node.md)
 
 # 故障排查
 
