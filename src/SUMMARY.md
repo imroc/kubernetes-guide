@@ -53,11 +53,11 @@
 - [应用容器化](best-practices/containerization/README.md)
   - [在容器内使用 systemd](best-practices/containerization/systemd-in-container.md)
   - [Java 应用容器化](best-practices/containerization/java-container.md)
-- [大规模集群优化](best-practices/large-scale-cluster-optimization.md)
-  - [ETCD 优化](best-practices/etcd-optimization.md)
 - [集群运维](best-practices/ops/README.md)
   - [安全维护或下线节点](best-practices/ops/securely-maintain-or-offline-node.md)
   - [安全变更容器数据盘路径](best-practices/ops/securely-modify-container-root-dir.md)
+  - [大规模集群优化](best-practices/ops/large-scale-cluster-optimization.md)
+  - [ETCD 优化](best-practices/ops/etcd-optimization.md)
 
 # 故障排查
 
