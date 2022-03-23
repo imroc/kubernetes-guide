@@ -38,7 +38,7 @@ Mar 21 02:59:26 VM-67-101-centos kubelet[714]: E0321 02:59:26.320938     714 man
 
 ## 其它运行时
 
-其它运行时都实现了 CRI 接口，变更容器 Root Dir 就不需要那么严谨，不过安全起见，还是建议先 [安全维护或下线节点](securely-maintain-or-offline-node.md)，然后再修改运行时配置并重启容器运行时，不需要重启 kubelet。
+其它运行时都实现了 CRI 接口，变更容器 Root Dir 就不需要那么严谨，不过安全起见，还是建议先安全的将节点上存量 Pod 驱逐走(参考 [安全维护或下线节点](securely-maintain-or-offline-node.md))，然后再修改运行时配置并重启容器运行时。
 
 配置修改方式参考对应运行时的官方文档，这里以常用的 `containerd` 为例:
 
