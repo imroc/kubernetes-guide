@@ -131,6 +131,8 @@
   - [存储指南](tencent/storage/README.md)
     - [扩容 CBS 类型的 PVC](tencent/storage/cbs-pvc-expansion.md)
     - [定义 ReadOnlyMany 存储的方法](tencent/storage/readonlymany-pv.md)
+  - [镜像与仓库](tencent/images/README.md)
+    - [使用软件源加速软件包安装](tencent/images/use-mirror-in-container.md)
   - [故障排查](tencent/troubleshooting/README.md)
     - [排查公网服务不通](tencent/troubleshooting/public-service-or-ingress-connect-failed.md)
   - [常见问题](tencent/faq/README.md)
