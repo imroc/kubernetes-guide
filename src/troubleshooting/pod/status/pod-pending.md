@@ -11,6 +11,8 @@ Events:
   Warning  FailedScheduling  3m (x106 over 33m)  default-scheduler  0/4 nodes are available: 1 node(s) had no available volume zone, 2 Insufficient cpu, 3 Insufficient memory.
 ```
 
+## 可能原因
+
 下面列举下可能原因和解决方法。
 
 ### 节点资源不够
@@ -38,6 +40,18 @@ Events:
 * nodeAffinity: 节点亲和性，可以看成是增强版的 nodeSelector，用于限制 Pod 只允许被调度到某一部分 Node。
 * podAffinity: Pod 亲和性，用于将一些有关联的 Pod 调度到同一个地方，同一个地方可以是指同一个节点或同一个可用区的节点等。
 * podAntiAffinity: Pod 反亲和性，用于避免将某一类 Pod 调度到同一个地方避免单点故障，比如将集群 DNS 服务的 Pod 副本都调度到不同节点，避免一个节点挂了造成整个集群 DNS 解析失败，使得业务中断。
+
+### no available volume zone
+
+Pod 报类似如下事件日志:
+
+```txt
+0/4 nodes are available: 2 node(s) insufficient memory, 2 node(s) had no available volume zone.
+```
+
+说明是 Pod 被重新调度后，当前可用区的节点没有可用资源或者其它条件不满足，而由于所挂载的磁盘用是块存储类型，无法跨区挂载(跨机房)，即便集群中有其它可用区节点且资源充足也无法调度。
+
+解决方法：要么删除 pvc 并重建 pod，自动在被调度到的可用区里创建磁盘并挂载；要么在 pod 之前所在可用区内扩容节点以补充资源。
 
 ### Node 存在 Pod 没有容忍的污点
 
@@ -121,3 +135,12 @@ NetworkUnavailable     True        node.kubernetes.io/network-unavailable
 
 有时候服务部署成功运行过，但在某个时候节点突然挂了，此时就会触发驱逐，创建新的副本调度到其它节点上，对于已经挂载了磁盘的 Pod，它通常需要被调度到跟当前节点和磁盘在同一个可用区，如果集群中同一个可用区的节点不满足调度条件，即使其它可用区节点各种条件都满足，但不跟当前节点在同一个可用区，也是不会调度的。为什么需要限制挂载了磁盘的 Pod 不能漂移到其它可用区的节点？试想一下，云上的磁盘虽然可以被动态挂载到不同机器，但也只是相对同一个数据中心，通常不允许跨数据中心挂载磁盘设备，因为网络时延会极大的降低 IO 速率。
 
+### Unable to mount volumes
+
+如果报类似如下事件:
+
+```txt
+Unable to mount volumes for pod "es-0_prod(0f08e3aa-aa56-11ec-ab5b-5254006900dd)": timeout expired waiting for volumes to attach or mount for pod "prod"/"es-0". list of unmounted volumes=[applog]. list of unattached volumes=[applog default-token-m7bf7]
+```
+
+参考 [存储排障: Unable to mount volumes](../../storage/unable-to-mount-volumes.md)。

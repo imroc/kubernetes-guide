@@ -95,6 +95,8 @@
   - [网速差](troubleshooting/network/slow-network-traffic.md)
   - [DNS 解析异常](troubleshooting/network/dns-exception.md)
   - [CLOSE_WAIT 堆积](troubleshooting/network/close-wait-stacking.md)
+- [存储排障](troubleshooting/storage/README.md)
+  - [Unable to mount volumes](troubleshooting/storage/unable-to-mount-volumes.md)
 - [集群排障](troubleshooting/cluster/README.md)
   - [Namespace 一直 Terminating](troubleshooting/cluster/namespace-terminating.md)
 - [排障案例](troubleshooting/cases/README.md)
