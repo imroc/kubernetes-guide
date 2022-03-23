@@ -57,6 +57,7 @@
   - [ETCD 优化](best-practices/etcd-optimization.md)
 - [集群运维](best-practices/ops/README.md)
   - [安全维护或下线节点](best-practices/ops/securely-maintain-or-offline-node.md)
+  - [安全变更容器数据盘路径](best-practices/ops/securely-modify-container-root-dir.md)
 
 # 故障排查
 
