@@ -51,7 +51,7 @@ spec:
   ...
 ```
 
-> 这里用了 privileged 容器，只是会了让这个 container 有权限修改当前容器网络命名空间中的内核参数，只要 Pod 没使用 hostNetwork，内核参数的修改是不会影响 Node 上的内核参数的，两者是隔离的，所以不需要担心会影响 Node 上其它 Pod 的内核参数 (hostNetwork 的 Pod 就不要在 Pod 上修改内核参数了)。
+> 这里用了 privileged 容器，只是为了让这个 container 有权限修改当前容器网络命名空间中的内核参数，只要 Pod 没使用 hostNetwork，内核参数的修改是不会影响 Node 上的内核参数的，两者是隔离的，所以不需要担心会影响 Node 上其它 Pod 的内核参数 (hostNetwork 的 Pod 就不要在 Pod 上修改内核参数了)。
 
 ## 使用 tuning CNI 插件统一设置 sysctl
 
