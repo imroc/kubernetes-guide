@@ -61,7 +61,33 @@ backlog=number
 
 不过这个在 Nginx Ingress 情况又不太一样，因为 Nginx Ingress Controller 会自动读取 somaxconn 的值作为 backlog 参数写到生成的 nginx.conf 中: https://github.com/kubernetes/ingress-nginx/blob/controller-v0.34.1/internal/ingress/controller/nginx.go#L592
 
-## 内核参数调优配置示例
+## 调大 socket buffer
+
+`netstat -s | grep "buffer errors"` 的计数统计在增加，说明流量较大，socket buffer 不够用，需要调大下 buffer 上限和默认长度，在 Node 级别调整:
+
+```bash
+net.core.rmem_default = 26214400 # socket receive buffer 默认值 (25M)，如果程序没用 setsockopt 更改 buffer 长度的话，默认用这个值。
+net.core.wmem_default = 26214400 # socket send buffer 默认值 (25M)，如果程序没用 setsockopt 更改 buffer 长度的话，默认用这个值。
+net.core.rmem_max = 26214400 # socket receive buffer 上限 (25M)，如果程序使用 setsockopt 更改 buffer 长度，最大不能超过此限制。
+net.core.wmem_max = 26214400 # socket send buffer 上限 (25M)，如果程序使用 setsockopt 更改 buffer 长度，最大不能超过此限制。
+```
+
+需要注意的是，以上内核参数不是在容器中更改(容器中看不到)，而是在节点上。如果使用的是 [腾讯云弹性集群 EKS](https://console.cloud.tencent.com/tke2/ecluster) 这种没有节点的 Serverless K8S 集群，可以用注解修改 Pod 虚拟机中的内核参数:
+
+```yaml
+eks.tke.cloud.tencent.com/host-sysctls: '[{"name": "net.core.rmem_max","value": "26214400"},{"name": "net.core.wmem_max","value": "26214400"},{"name": "net.core.rmem_default","value": "26214400"},{"name": "net.core.wmem_default","value": "26214400"}]'
+```
+
+对于 TCP 而言，socket buffer 在容器中会受 `net.ipv4.tcp_wmem` 和 `net.ipv4.tcp_rmem` 的控制，可以在 Pod 级别调整下:
+
+```bash
+net.ipv4.tcp_wmem = 4096        26214400   26214400 
+net.ipv4.tcp_rmem = 4096        26214400   26214400
+```
+
+> 单位字节，分别是 min, default, max。如果程序没用 setsockopt 更改 buffer 长度，就会使用 default 作为初始 buffer 长度(覆盖 `net.core.rmem_default` 和 `net.core.default`)，然后根据内存压力在 min 和 max 之间自动调整；如果使用了 setsockopt 更改 buffer 长度，则固定使用此长度 (仍然受限于 `net.core.rmem_max` 和 `net.core.wmem_max`)。
+
+## Pod 内核参数调优配置示例
 
 ```yaml
       initContainers:
@@ -77,4 +103,6 @@ backlog=number
           sysctl -w net.ipv4.ip_local_port_range="1024 65535"
           sysctl -w net.ipv4.tcp_tw_reuse=1
           sysctl -w fs.file-max=1048576
+          sysctl -w net.ipv4.tcp_wmem="4096        26214400   26214400"
+          sysctl -w net.ipv4.tcp_rmem="4096        26214400   26214400"
 ```
