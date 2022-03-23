@@ -85,7 +85,7 @@ net.ipv4.tcp_wmem = 4096        26214400   26214400
 net.ipv4.tcp_rmem = 4096        26214400   26214400
 ```
 
-> 单位字节，分别是 min, default, max。如果程序没用 setsockopt 更改 buffer 长度，就会使用 default 作为初始 buffer 长度(覆盖 `net.core.rmem_default` 和 `net.core.default`)，然后根据内存压力在 min 和 max 之间自动调整；如果使用了 setsockopt 更改 buffer 长度，则固定使用此长度 (仍然受限于 `net.core.rmem_max` 和 `net.core.wmem_max`)。
+> 单位字节，分别是 min, default, max。如果程序没用 setsockopt 更改 buffer 长度，就会使用 default 作为初始 buffer 长度(覆盖 `net.core.rmem_default` 和 `net.core.wmem_default`)，然后根据内存压力在 min 和 max 之间自动调整；如果使用了 setsockopt 更改 buffer 长度，则固定使用此长度 (仍然受限于 `net.core.rmem_max` 和 `net.core.wmem_max`)。
 
 ## Pod 内核参数调优配置示例
 
