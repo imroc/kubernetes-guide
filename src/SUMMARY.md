@@ -128,6 +128,7 @@
     - [IPVS 模式安装 localdns](tencent/networking/install-localdns-with-ipvs.md)
   - [存储指南](tencent/storage/README.md)
     - [扩容 CBS 类型的 PVC](tencent/storage/cbs-pvc-expansion.md)
+    - [定义 ReadOnlyMany 存储的方法](tencent/storage/readonlymany-pv.md)
   - [故障排查](tencent/troubleshooting/README.md)
     - [排查公网服务不通](tencent/troubleshooting/public-service-or-ingress-connect-failed.md)
   - [常见问题](tencent/faq/README.md)
