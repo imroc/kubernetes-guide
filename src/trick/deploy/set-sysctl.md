@@ -66,6 +66,12 @@ spec:
 }
 ```
 
+## FAQ
+
+### privileged 会导致参数应用到 node 吗?
+
+使用 `initContainers` 方式修改内核参数用了 `privileged` 容器，这个只是会了让这个 container 有权限修改当前容器网络命名空间中的内核参数，如果 Pod 不是用的 hostNetwork，内核参数的修改是不会影响 Node 上的内核参数的，两者是隔离的。
+
 ## 参考资料
 
 * [Using sysctls in a Kubernetes Cluster](https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/)
