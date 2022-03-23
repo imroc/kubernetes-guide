@@ -51,6 +51,8 @@ spec:
   ...
 ```
 
+> 这里用了 privileged 容器，只是会了让这个 container 有权限修改当前容器网络命名空间中的内核参数，只要 Pod 没使用 hostNetwork，内核参数的修改是不会影响 Node 上的内核参数的，两者是隔离的，所以不需要担心会影响 Node 上其它 Pod 的内核参数 (hostNetwork 的 Pod 就不要在 Pod 上修改内核参数了)。
+
 ## 使用 tuning CNI 插件统一设置 sysctl
 
 如果想要为所有 Pod 统一配置某些内核参数，可以使用 [tuning](https://github.com/containernetworking/plugins/tree/master/plugins/meta/tuning) 这个 CNI 插件来做:
@@ -65,12 +67,6 @@ spec:
   }
 }
 ```
-
-## FAQ
-
-### privileged 会导致参数应用到 node 吗?
-
-使用 `initContainers` 方式修改内核参数用了 `privileged` 容器，这个只是会了让这个 container 有权限修改当前容器网络命名空间中的内核参数，如果 Pod 不是用的 hostNetwork，内核参数的修改是不会影响 Node 上的内核参数的，两者是隔离的。
 
 ## 参考资料
 
