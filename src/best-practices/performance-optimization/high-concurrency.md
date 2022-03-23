@@ -2,6 +2,32 @@
 
 本文整理在 K8S 环境中的高并发性能调优实践。一些涉及到内核参数的调整，关于如何调整 Pod 内核参数的方法请参考 [为 Pod 设置内核参数](../../trick/deploy/set-sysctl.md)。
 
+## TIME_WAIT 复用
+
+如果短连接并发量较高，它所在 netns 中 TIME_WAIT 状态的连接就比较多，而 TIME_WAIT 连接默认要等 2MSL 时长才释放，长时间占用源端口，当这种状态连接数量累积到超过一定量之后可能会导致无法新建连接。
+
+所以建议开启 TIME_WAIT 复用，即允许将 TIME_WAIT 连接重新用于新的 TCP 连接
+
+```bash
+sysctl -w net.ipv4.tcp_tw_reuse=1
+```
+
+> 在高版本内核中，`net.ipv4.tcp_tw_reuse` 默认值为 2，表示仅为回环地址开启复用，基本可以粗略的认为没开启复用。
+
+## 扩大源端口范围
+
+高并发场景，对于 client 来说会使用大量源端口，源端口范围从 `net.ipv4.ip_local_port_range` 这个内核参数中定义的区间随机选取，在高并发环境下，端口范围小容易导致源端口耗尽，使得部分连接异常。通常 Pod 源端口范围默认是 32768-60999，建议将其扩大，调整为 1024-65535: `sysctl -w net.ipv4.ip_local_port_range="1024 65535"`。
+
+## 调大最大文件句柄数
+
+在 linux 中，每个连接都会占用一个文件句柄，所以句柄数量限制同样也会限制最大连接数， 对于像 Nginx 这样的反向代理，对于每个请求，它会与 client 和 upstream server 分别建立一个连接，即占据两个文件句柄，所以理论上来说 Nginx 能同时处理的连接数最多是系统最大文件句柄数限制的一半。
+
+系统最大文件句柄数由 `fs.file-max` 这个内核参数来控制，一些环境默认值可能为 838860，建议调大:
+
+```bash
+sysctl -w fs.file-max=1048576
+```
+
 ## 调大连接队列的大小
 
 进程监听的 socket 的连接队列最大的大小受限于内核参数 `net.core.somaxconn`，在高并发环境下，如果队列过小，可能导致队列溢出，使得连接部分连接无法建立。可以考虑将其改到 `65535`:
@@ -34,23 +60,6 @@ backlog=number
 也就是说，即便你的 somaxconn 配的很高，nginx 所监听端口的连接队列最大却也只有 511，高并发场景下可能导致连接队列溢出。
 
 不过这个在 Nginx Ingress 情况又不太一样，因为 Nginx Ingress Controller 会自动读取 somaxconn 的值作为 backlog 参数写到生成的 nginx.conf 中: https://github.com/kubernetes/ingress-nginx/blob/controller-v0.34.1/internal/ingress/controller/nginx.go#L592
-
-
-## 扩大源端口范围
-
-高并发场景会导致 Nginx Ingress 使用大量源端口与 upstream 建立连接，源端口范围从 `net.ipv4.ip_local_port_range` 这个内核参数中定义的区间随机选取，在高并发环境下，端口范围小容易导致源端口耗尽，使得部分连接异常。通常 Pod 源端口范围默认是 32768-60999，建议将其扩大，调整为 1024-65535: `sysctl -w net.ipv4.ip_local_port_range="1024 65535"`。
-
-## TIME_WAIT 复用
-
-如果短连接并发量较高，它所在 netns 中 TIME_WAIT 状态的连接就比较多，而 TIME_WAIT 连接默认要等 2MSL 时长才释放，长时间占用源端口，当这种状态连接数量累积到超过一定量之后可能会导致无法新建连接。
-
-所以建议给 Nginx Ingress 开启 TIME_WAIT 重用，即允许将 TIME_WAIT 连接重新用于新的 TCP 连接: `sysctl -w net.ipv4.tcp_tw_reuse=1`
-
-## 调大最大文件句柄数
-
-Nginx 作为反向代理，对于每个请求，它会与 client 和 upstream server 分别建立一个连接，即占据两个文件句柄，所以理论上来说 Nginx 能同时处理的连接数最多是系统最大文件句柄数限制的一半。
-
-系统最大文件句柄数由 `fs.file-max` 这个内核参数来控制，TKE 默认值为 838860，建议调大: `sysctl -w fs.file-max=1048576`。
 
 ## 内核参数调优配置示例
 
