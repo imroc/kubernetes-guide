@@ -142,5 +142,5 @@
     - [修改 rp_filter 导致网路异常](tencent/faq/modify-rp-filter-causing-exception.md)
     - [CLB 回环问题](tencent/faq/clb-loopback.md)
     - [controller-manager 和 scheduler 状态显示 Unhealthy](tencent/faq/controller-manager-and-scheduler-unhealthy.md)
-  - [附录](tencent/appendix/appendix-tencent.md)
+  - [附录](tencent/appendix/README.md)
     - [实用 kubectl 脚本](tencent/appendix/useful-kubectl-for-tencent-cloud.md)
