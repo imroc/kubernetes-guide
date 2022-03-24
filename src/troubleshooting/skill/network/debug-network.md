@@ -36,7 +36,22 @@ cpu=3   	found=25706 invalid=70168 ignore=242616824 insert=0 insert_failed=0 dro
 
 ## 查看连接数
 
-当前各种状态的 TCP 连接数:
+如果有 ss 命令，可以使用 `ss -s` 统计:
+
+```bash
+$ ss -s
+Total: 470
+TCP:   220 (estab 47, closed 150, orphaned 0, timewait 71)
+
+Transport Total     IP        IPv6
+RAW	  0         0         0
+UDP	  63        60        3
+TCP	  70        55        15
+INET	  133       115       18
+FRAG	  0         0         0
+```
+
+如果没有 `ss`，也可以尝试用脚本统计当前各种状态的 TCP 连接数:
 
 ```bash
 netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
