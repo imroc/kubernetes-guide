@@ -76,27 +76,34 @@ var initAll = function () {
     // Handle active elements on scroll
     window.addEventListener("scroll", updateFunction);
 
-    // var p = path.replace("index.html", "");
-    // p = p.replace(".html", "");
-    // var strs = p.split("/");
-    // if (strs[strs.length - 1] == "") {
-    //     strs.pop()
-    // }
-    // var str = strs[strs.length - 1];
-    // var title = document.querySelector("main>h1>a").textContent
-    // var gitalk = new Gitalk({
-    //     clientID: '00ed6c22efeb9b780f53',
-    //     clientSecret: '90476e4034a837cf86fdaa8e20e693d1f206065a',
-    //     repo: 'kubernetes-guide',
-    //     owner: 'imroc',
-    //     admin: ["imroc"],
-    //     labels: ['Gitalk'],
-    //     title: title,
-    //     createIssueManually: false,
-    //     id: str,
-    //     distractionFreeMode: true
-    // });
-    // gitalk.render('gitalk-container');
+    pagePath = pagePath.replace("index.md", "");
+    pagePath = pagePath.replace(".md", "");
+    if (pagePath.length > 0) {
+        if (pagePath.charAt(pagePath.length-1) == "/"){
+            pagePath = pagePath.substring(0, pagePath.length-1)
+        }
+    }else {
+        pagePath = "index"
+    }
+
+    var script = document.createElement("script")
+    script.type = "text/javascript";
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.setAttribute("data-repo", "imroc/kubernetes-guide");
+    script.setAttribute("data-repo-id", "R_kgDOG-4vhA");
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDOG-4vhM4COPpN");
+    script.setAttribute("data-mapping", "specific");
+    script.setAttribute("data-term", pagePath);
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", "light");
+    script.setAttribute("data-lang", "zh-CN");
+    script.setAttribute("data-loading", "lazy");
+    document.getElementById("giscus-container").appendChild(script);
 };
 
 window.addEventListener('load', initAll);

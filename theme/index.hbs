@@ -185,23 +185,7 @@
                     <div class="sidetoc"><nav class="pagetoc"></nav></div>
                     <main>
                         {{{ content }}}
-                        <div id="giscus">
-                          <script src="https://giscus.app/client.js"
-                                  data-repo="imroc/kubernetes-guide"
-                                  data-repo-id="R_kgDOG-4vhA"
-                                  data-category="General"
-                                  data-category-id="DIC_kwDOG-4vhM4COPpN"
-                                  data-mapping="pathname"
-                                  data-reactions-enabled="1"
-                                  data-emit-metadata="0"
-                                  data-input-position="top"
-                                  data-theme="light"
-                                  data-lang="zh-CN"
-                                  data-loading="lazy"
-                                  crossorigin="anonymous"
-                                  async>
-                          </script>
-                        </div>
+                        <div id="giscus-container"></div>
                         <footer class="page-footer">
                             <span>© 2021-2022 | <a href="https://imroc.cc">roc</a> 保留所有权利 | <a href="https://beian.miit.gov.cn/">蜀ICP备2021009081号-1</a></span>
                         </footer>
@@ -307,6 +291,10 @@
         <script src="{{ path_to_root }}clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="{{ path_to_root }}highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="{{ path_to_root }}book.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+        var pagePath = "{{ path }}"
+        </script>
+
 
         <!-- Custom JS scripts -->
         {{#each additional_js}}
