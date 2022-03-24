@@ -11,6 +11,10 @@
 * 在线阅读: [https://imroc.cc/kubernetes/](https://imroc.cc/kubernetes/)
 * 导出 PDF: 点击右上角打印按钮，可保存为 PDF 文件。
 
+## 评论与互动
+
+本书已集成 [giscus](https://giscus.app/zh-CN) 评论系统，欢迎对感兴趣的文章进行评论与交流。
+
 ## 贡献
 
 本书使用 [mdbook](https://rust-lang.github.io/mdBook/) 构建，已集成 Github Actions 自动构建和发布，欢迎 Fork 并 PR 来贡献干货内容 (点击右上角编辑按钮可快速修改文章)。
