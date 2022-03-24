@@ -64,6 +64,12 @@ ESTABLISHED 18
 TIME_WAIT 457
 ```
 
+或者直接手动统计 `/proc`:
+
+```bash
+cat /proc/net/tcp* | wc -l
+```
+
 ## 测试网络连通性
 
 不断 telnet 查看网络是否能通:
