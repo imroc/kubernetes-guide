@@ -132,11 +132,6 @@ net.core.rmem_max=26214400 # socket receive buffer 上限 (25M)，如果程序�
 net.core.wmem_max=26214400 # socket send buffer 上限 (25M)，如果程序使用 setsockopt 更改 buffer 长度，最大不能超过此限制。
 ```
 
-> 如果使用的是 [腾讯云弹性集群 EKS](https://console.cloud.tencent.com/tke2/ecluster) 这种没有节点的 Serverless 类型 K8S，可以在 Pod 级别加注解来修改 Pod 对应虚拟机中的内核参数:
-> ```yaml
-> eks.tke.cloud.tencent.com/host-sysctls: '[{"name": "net.core.rmem_max","value": "26214400"},{"name": "net.core.wmem_max","value": "26214400"},{"name": "net.core.rmem_default","value": "26214400"},{"name": "net.core.wmem_default","value": "26214400"}]'
-> ```
-
 如果程序自己有调用 `setsockopt` 去设置 `SO_SNDBUF` 或 `SO_RCVBUF`，建议设置到跟前面内核参数对应的最大上限值。
 
 ### 调大 TCP 缓冲区
@@ -203,6 +198,12 @@ net.core.rmem_default=26214400
 net.core.wmem_default=26214400
 net.core.rmem_max=26214400
 net.core.wmem_max=26214400
+```
+
+如果使用的是 [腾讯云弹性集群 EKS](https://console.cloud.tencent.com/tke2/ecluster) 这种没有节点的 Serverless 类型 K8S(每个 Pod 都是独占虚拟机)，可以在 Pod 级别加如下注解来修改 Pod 对应虚拟机中的内核参数:
+
+```yaml
+eks.tke.cloud.tencent.com/host-sysctls: '[{"name": "net.core.rmem_max","value": "26214400"},{"name": "net.core.wmem_max","value": "26214400"},{"name": "net.core.rmem_default","value": "26214400"},{"name": "net.core.wmem_default","value": "26214400"}]'
 ```
 
 ## 参考资料
