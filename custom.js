@@ -76,27 +76,27 @@ var initAll = function () {
     // Handle active elements on scroll
     window.addEventListener("scroll", updateFunction);
 
-    var p = path.replace("index.html", "");
-    p = p.replace(".html", "");
-    var strs = p.split("/");
-    if (strs[strs.length - 1] == "") {
-        strs.pop()
-    }
-    var str = strs[strs.length - 1];
-    var title = document.querySelector("main>h1>a").textContent
-    var gitalk = new Gitalk({
-        clientID: '00ed6c22efeb9b780f53',
-        clientSecret: '90476e4034a837cf86fdaa8e20e693d1f206065a',
-        repo: 'kubernetes-guide',
-        owner: 'imroc',
-        admin: ["imroc"],
-        labels: ['Gitalk'],
-        title: title,
-        createIssueManually: false,
-        id: str,
-        distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
+    // var p = path.replace("index.html", "");
+    // p = p.replace(".html", "");
+    // var strs = p.split("/");
+    // if (strs[strs.length - 1] == "") {
+    //     strs.pop()
+    // }
+    // var str = strs[strs.length - 1];
+    // var title = document.querySelector("main>h1>a").textContent
+    // var gitalk = new Gitalk({
+    //     clientID: '00ed6c22efeb9b780f53',
+    //     clientSecret: '90476e4034a837cf86fdaa8e20e693d1f206065a',
+    //     repo: 'kubernetes-guide',
+    //     owner: 'imroc',
+    //     admin: ["imroc"],
+    //     labels: ['Gitalk'],
+    //     title: title,
+    //     createIssueManually: false,
+    //     id: str,
+    //     distractionFreeMode: true
+    // });
+    // gitalk.render('gitalk-container');
 };
 
 window.addEventListener('load', initAll);
