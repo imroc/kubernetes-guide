@@ -181,7 +181,9 @@ Pod 所在宿主机重启会导致容器重启，状态码一般为 255。
 
 ### 挂载了 configmap subpath
 
-K8S 对 configmap subpath 的支持有个问题，如果容器挂载 configmap 指定了 subpath，且后来修改了 configmap 中的内容，当容器重启时会失败，事件日志里可以看出是挂载 subpath 报 `no such file or directory`，describe pod 类似这样:
+K8S 对 configmap subpath 的支持有个问题，如果容器挂载 configmap 指定了 subpath，且后来修改了 configmap 中的内容，当容器重启时会失败，参考 issue [modified subpath configmap mount fails when container restarts](https://github.com/kubernetes/kubernetes/issues/68211)。
+
+事件日志里可以看出是挂载 subpath 报 `no such file or directory`，describe pod 类似这样:
 
 ```txt
     Last State:     Terminated
