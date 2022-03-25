@@ -145,6 +145,17 @@ $ nstat -az | grep TcpExtTCPRcvQDrop
 TcpExtTCPRcvQDrop               264324                  0.0
 ```
 
+还可以使用 `ss -ntmp` 查看当前缓冲区情况:
+
+```bash
+$ ss -ntmp
+ESTAB        0             0                    [::ffff:109.244.190.163]:9988                       [::ffff:10.10.4.26]:54440         users:(("xray",pid=3603,fd=20))
+	 skmem:(r0,rb12582912,t0,tb12582912,f0,w0,o0,bl0,d0)
+```
+
+> 1. `rb12582912` 表示 TCP 接收缓冲区大小是 `12582912` 字节，`tb12582912` 表示 UDP 发送缓存区大小是 `12582912` 字节。
+> 2. `Recv-Q` 和 `Send-Q` 分别表示当前接收和发送缓冲区中的数据包字节数。
+
 如果存在 `net.ipv4.tcp_rmem` 这个参数，对于 TCP 而言，会覆盖 `net.core.rmem_default` 和 `net.core.rmem_max` 的值。这个参数网络命名空间隔离的，而在容器网络命名空间中，一般默认是有配置的，所以如果要调整 TCP 接收缓冲区，需要显式在 Pod 级别配置下内核参数:
 
 ```bash

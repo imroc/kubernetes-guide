@@ -76,17 +76,47 @@ var initAll = function () {
     // Handle active elements on scroll
     window.addEventListener("scroll", updateFunction);
 
+    document.getElementById("theme-list").addEventListener("click", function (e) {
+        var iframe = document.querySelector('.giscus-frame');
+        if (!iframe) return;
+        var theme;
+        if (e.target.className === "theme") {
+            theme = e.target.id;
+        } else {
+            return;
+        }
+
+        // 若当前 mdbook 主题不是 Light 或 Rust ，则将 giscuz 主题设置为 transparent_dark
+        var giscusTheme = "light"
+        if (theme != "light" && theme != "rust") {
+            giscusTheme = "transparent_dark";
+        }
+
+        var msg = {
+            setConfig: {
+                theme: giscusTheme
+            }
+        };
+        iframe.contentWindow.postMessage({ giscus: msg }, 'https://giscus.app');
+    });
+
     pagePath = pagePath.replace("index.md", "");
     pagePath = pagePath.replace(".md", "");
     if (pagePath.length > 0) {
         if (pagePath.charAt(pagePath.length-1) == "/"){
-            pagePath = pagePath.substring(0, pagePath.length-1)
+            pagePath = pagePath.substring(0, pagePath.length-1);
         }
     }else {
-        pagePath = "index"
+        pagePath = "index";
     }
 
-    var script = document.createElement("script")
+    var giscusTheme = "light";
+    const themeClass = document.getElementsByTagName("html")[0].className;
+    if (themeClass.indexOf("light") == -1 && themeClass.indexOf("rust") == -1) {
+        giscusTheme = "transparent_dark";
+    }
+
+    var script = document.createElement("script");
     script.type = "text/javascript";
     script.src = "https://giscus.app/client.js";
     script.async = true;
@@ -100,7 +130,7 @@ var initAll = function () {
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "0");
     script.setAttribute("data-input-position", "top");
-    script.setAttribute("data-theme", "light");
+    script.setAttribute("data-theme", giscusTheme);
     script.setAttribute("data-lang", "zh-CN");
     script.setAttribute("data-loading", "lazy");
     document.getElementById("giscus-container").appendChild(script);
