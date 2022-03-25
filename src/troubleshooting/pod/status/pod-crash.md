@@ -178,3 +178,18 @@ Pod 所在宿主机重启会导致容器重启，状态码一般为 255。
 ### 节点内存碎片化
 
 如果节点上内存碎片化严重，缺少大页内存，会导致即使总的剩余内存较多，但还是会申请内存失败，参考 [内存碎片化](../node/memory-fragmentation.md)。
+
+### 挂载了 configmap subpath
+
+K8S 对 configmap subpath 的支持有个问题，如果容器挂载 configmap 指定了 subpath，且后来修改了 configmap 中的内容，当容器重启时会失败，事件日志里可以看出是挂载 subpath 报 `no such file or directory`，describe pod 类似这样:
+
+```txt
+    Last State:     Terminated
+      Reason:       StartError
+      Message:      failed to create containerd task: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"rootfs_linux.go:58: mounting \\\"/data/kubelet/pods/d6f90d2b-a5c4-11ec-8b09-5254009e5e2e/volume-subpaths/conf/demo-container/2\\\" to rootfs \\\"/run/containerd/io.containerd.runtime.v2.task/k8s.io/f28499d3c81b145ef2e88c31adaade0466ef71cee537377a439bad36707a7e3e/rootfs\\\" at \\\"/run/containerd/io.containerd.runtime.v2.task/k8s.io/f28499d3c81b145ef2e88c31adaade0466ef71cee537377a439bad36707a7e3e/rootfs/app/conf/server.yaml\\\" caused \\\"no such file or directory\\\"\"": unknown
+      Exit Code:    128
+```
+
+> 有些平台实现了原地重启的能力，即更新工作负载不会重建 Pod，只是重启，更容易发生类似的问题。
+
+建议是修改用法，不挂载 subpath。通常使用 subpath 是因为不想覆盖镜像内已有的配置文件，可以将 configmap挂载到其它路径，然后再将镜像内已有的配置文件 include 进来。
