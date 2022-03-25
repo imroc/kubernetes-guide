@@ -144,3 +144,4 @@
     - [controller-manager 和 scheduler 状态显示 Unhealthy](tencent/faq/controller-manager-and-scheduler-unhealthy.md)
   - [附录](tencent/appendix/README.md)
     - [实用 kubectl 脚本](tencent/appendix/useful-kubectl-for-tencent-cloud.md)
+    - [EKS 注解](tencent/appendix/eks-annotations.md)
