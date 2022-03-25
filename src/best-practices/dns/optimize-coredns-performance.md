@@ -72,3 +72,12 @@ kubectl -n kube-system edit configmap coredns
 ## 部署 NodeLocal DNSCache
 
 参考 k8s 官方文档 [Using NodeLocal DNSCache in Kubernetes clusters](https://kubernetes.io/docs/tasks/administer-cluster/nodelocaldns/)
+
+如果是使用 TKE 并且 kube-proxy 转发模式为 iptables，可以直接在扩展组件中安装此扩展组件，扩展组件说明请参考 [TKE 官方文档](https://cloud.tencent.com/document/product/457/49423)；如果使用的 ipvs 模式，可以参考 [TKE IPVS 模式安装 localdns](../../tencent/networking/install-localdns-with-ipvs.md)。
+
+## 使用 DNSAutoscaler
+
+社区有开源的 [cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler) ，可以根据集群规模自动扩缩容，支持比较灵活的扩缩容算法。
+
+如果使用的是 TKE，已经将其产品化成 `DNSAutoscaler 扩展组件`，在扩展组件中直接安装即可，组件说明请参考 [TKE 官方文档](https://cloud.tencent.com/document/product/457/49305)。
+
