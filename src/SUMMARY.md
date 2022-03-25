@@ -145,3 +145,4 @@
   - [附录](tencent/appendix/README.md)
     - [实用 kubectl 脚本](tencent/appendix/useful-kubectl-for-tencent-cloud.md)
     - [EKS 注解](tencent/appendix/eks-annotations.md)
+    - [Ingress 错误码](tencent/appendix/ingress-error-code.md)
