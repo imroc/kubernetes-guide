@@ -66,6 +66,7 @@
   - [使用 ksniff 远程抓包](troubleshooting/skill/network/remote-capture-with-ksniff.md)
   - [使用 Systemtap 定位疑难杂症](troubleshooting/skill/kernel/use-systemtap-to-locate-problems.md)
   - [网络调试](troubleshooting/skill/network/debug-network.md)
+  - [使用 tcpdump 抓包](troubleshooting/skill/network/tcpdump.md)
 - [Pod 排障](troubleshooting/pod/README.md)
   - [Pod 状态异常](troubleshooting/pod/status/README.md)
     - [Terminating](troubleshooting/pod/status/pod-terminating.md)
