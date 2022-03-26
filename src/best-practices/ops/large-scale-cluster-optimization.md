@@ -92,6 +92,12 @@ kube-controller-manager 和 kube-scheduler 是通过 leader election 实现高�
 --kube-api-qps=100
 ```
 
+## Kubelet 优化
+
+* 设置 `--image-pull-progress-deadline=30m`
+* 设置 `--serialize-image-pulls=false`（需要 Docker 使用 overlay2 ）
+* Kubelet 单节点允许运行的最大 Pod 数：`--max-pods=110`（默认是 110，可以根据实际需要设置）
+
 ## 集群 DNS 高可用
 
 设置反亲和，让集群 DNS (kube-dns 或 coredns) 分散在不同节点，避免单点故障:
@@ -113,3 +119,7 @@ affinity:
 ## ETCD 优化
 
 参考 [ETCD 优化](etcd-optimization.md)
+
+## 参考资料
+
+* [Considerations for large clusters](https://kubernetes.io/docs/setup/best-practices/cluster-large/)
