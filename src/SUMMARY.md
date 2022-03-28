@@ -162,5 +162,6 @@
     - [HTTP Header 大小写问题](istio/faq/the-case-of-http-header.md)
     - [httpHeaderName 大写导致会话保持不生效](istio/faq/uppercase-header-causes-sticky-sessions-to-not-work.md)
     - [链路追踪不完整](istio/faq/tracing-incomplete.md)
+    - [Sidecar 注入相关问题](istio/faq/sidecar-injection.md)
   - [故障排查](istio/troubleshooting/README.md)
     - [VirutualService 不生效](istio/troubleshooting/virtualservice-not-working.md)
