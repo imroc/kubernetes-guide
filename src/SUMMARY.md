@@ -155,6 +155,7 @@
 - [istio](istio/README.md)
   - [istio 最佳实践](istio/best-practices/README.md)
     - [istio 优雅终止](istio/best-practices/graceful-shutdown.md)
+    - [为服务显式指定协议](istio/best-practices/specify-protocol.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
