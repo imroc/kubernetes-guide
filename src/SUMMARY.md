@@ -155,6 +155,7 @@
 - [istio](istio/README.md)
   - [istio 最佳实践](istio/best-practices/README.md)
     - [istio 优雅终止](istio/best-practices/graceful-shutdown.md)
+    - [istio 性能优化](istio/best-practices/optimize-performance.md)
     - [为服务显式指定协议](istio/best-practices/specify-protocol.md)
     - [为服务设置默认路由](istio/best-practices/set-default-route.md)
   - [istio 常见问题](istio/faq/README.md)
