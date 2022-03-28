@@ -167,5 +167,6 @@
     - [多集群相关问题](istio/faq/multicluster.md)
     - [地域感知相关问题](istio/faq/locality-lb.md)
     - [应用未监听 0.0.0.0 导致连接异常](istio/faq/listen-any.md)
+    - [istio-init crash](istio/faq/isito-init-crash.md)
   - [故障排查](istio/troubleshooting/README.md)
     - [VirutualService 不生效](istio/troubleshooting/virtualservice-not-working.md)
