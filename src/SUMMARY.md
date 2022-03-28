@@ -157,3 +157,4 @@
     - [istio 优雅终止](istio/best-practices/graceful-shutdown.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
+    - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
