@@ -155,3 +155,5 @@
 - [istio](istio/README.md)
   - [istio 最佳实践](istio/best-practices/README.md)
     - [istio 优雅终止](istio/best-practices/graceful-shutdown.md)
+  - [istio 常见问题](istio/faq/README.md)
+    - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
