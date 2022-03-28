@@ -158,7 +158,7 @@
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
-    - [启用 Smart DNS 后解析失败](istio/faq/smart-dns.md)
+    - [Smart DNS 相关问题](istio/faq/smart-dns.md)
     - [HTTP Header 大小写问题](istio/faq/the-case-of-http-header.md)
     - [httpHeaderName 大写导致会话保持不生效](istio/faq/uppercase-header-causes-sticky-sessions-to-not-work.md)
     - [链路追踪相关问题](istio/faq/tracing.md)
