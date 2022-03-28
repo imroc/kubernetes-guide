@@ -172,3 +172,5 @@
     - [headless service 相关问题](istio/faq/headless-svc.md)
   - [故障排查](istio/troubleshooting/README.md)
     - [VirutualService 不生效](istio/troubleshooting/virtualservice-not-working.md)
+    - [Envoy 报错: gRPC config stream closed](istio/troubleshooting/grpc-config-stream-closed.md)
+    - [熔断不生效](istio/troubleshooting/circuit-breaking-not-work.md)
