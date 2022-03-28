@@ -164,5 +164,6 @@
     - [链路追踪不完整](istio/faq/tracing-incomplete.md)
     - [Sidecar 注入相关问题](istio/faq/sidecar-injection.md)
     - [默认的重试策略导致非幂等服务异常](istio/faq/retries-for-non-idempotent-services.md)
+    - [多集群相关问题](istio/faq/multicluster.md)
   - [故障排查](istio/troubleshooting/README.md)
     - [VirutualService 不生效](istio/troubleshooting/virtualservice-not-working.md)
