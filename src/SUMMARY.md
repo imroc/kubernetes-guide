@@ -161,7 +161,7 @@
     - [启用 Smart DNS 后解析失败](istio/faq/smart-dns.md)
     - [HTTP Header 大小写问题](istio/faq/the-case-of-http-header.md)
     - [httpHeaderName 大写导致会话保持不生效](istio/faq/uppercase-header-causes-sticky-sessions-to-not-work.md)
-    - [链路追踪不完整](istio/faq/tracing-incomplete.md)
+    - [链路追踪相关问题](istio/faq/tracing.md)
     - [Sidecar 注入相关问题](istio/faq/sidecar-injection.md)
     - [默认的重试策略导致非幂等服务异常](istio/faq/retries-for-non-idempotent-services.md)
     - [多集群相关问题](istio/faq/multicluster.md)
