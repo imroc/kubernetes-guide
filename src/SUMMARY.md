@@ -159,3 +159,4 @@
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
     - [启用 Smart DNS 后解析失败](istio/faq/smart-dns.md)
+    - [HTTP Header 大小写问题](istio/faq/the-case-of-http-header.md)
