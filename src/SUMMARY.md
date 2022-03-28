@@ -149,3 +149,9 @@
     - [实用 kubectl 脚本](tencent/appendix/useful-kubectl-for-tencent-cloud.md)
     - [EKS 注解](tencent/appendix/eks-annotations.md)
     - [Ingress 错误码](tencent/appendix/ingress-error-code.md)
+    
+# 服务网格
+
+- [istio](istio/README.md)
+  - [istio 最佳实践](istio/best-practices/README.md)
+    - [istio 优雅终止](istio/best-practices/graceful-shutdown.md)
