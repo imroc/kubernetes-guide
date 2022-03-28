@@ -62,10 +62,10 @@
 # 故障排查
 
 - [排障技能](troubleshooting/skill/README.md)
+  - [Linux 常用排查命令](troubleshooting/skill/linux.md)
   - [使用 nsenter 进入 netns](troubleshooting/skill/network/enter-netns-with-nsenter.md)
   - [使用 ksniff 远程抓包](troubleshooting/skill/network/remote-capture-with-ksniff.md)
   - [使用 Systemtap 定位疑难杂症](troubleshooting/skill/kernel/use-systemtap-to-locate-problems.md)
-  - [网络调试](troubleshooting/skill/network/debug.md)
   - [使用 tcpdump 抓包与分析](troubleshooting/skill/network/tcpdump.md)
   - [使用 wireshark 分析数据包](troubleshooting/skill/network/wireshark.md)
 - [Pod 排障](troubleshooting/pod/README.md)
@@ -90,6 +90,7 @@
   - [no space left on device](troubleshooting/node/no-space-left-on-device.md)
   - [IPVS no destination available](troubleshooting/node/ipvs-no-destination-available.md)
   - [cAdvisor 无数据](troubleshooting/node/cadvisor-no-data.md)
+  - [流量激增](troubleshooting/node/cadvisor-no-data.md)
 - [网络排障](troubleshooting/network/README.md)
   - [网络超时](troubleshooting/network/timeout.md)
   - [网络丢包](troubleshooting/network/packet-loss.md)
