@@ -166,6 +166,7 @@
     - [使用 websocket 协议](istio/usage/websocket.md)
   - [istio 实用技巧](istio/trick/README.md)
     - [设置 max_body_size](istio/trick/set-max-body-size.md)
+    - [实现基于 Header 的授权](istio/trick/header-authorization.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
