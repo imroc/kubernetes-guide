@@ -164,6 +164,8 @@
     - [使用 corsPolicy 解决跨域问题](istio/usage/cors.md)
     - [基于 iphash 进行负载均衡](istio/usage/iphash.md)
     - [使用 websocket 协议](istio/usage/websocket.md)
+  - [istio 实用技巧](istio/trick/README.md)
+    - [设置 max_body_size](istio/trick/set-max-body-size.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
