@@ -158,6 +158,8 @@
     - [istio 性能优化](istio/best-practices/optimize-performance.md)
     - [为服务显式指定协议](istio/best-practices/specify-protocol.md)
     - [为服务设置默认路由](istio/best-practices/set-default-route.md)
+  - [istio 用法实践](istio/usage/README.md)
+    - [配置 accesslog](istio/usage/configure-accesslog.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
