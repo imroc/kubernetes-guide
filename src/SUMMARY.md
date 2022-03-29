@@ -58,6 +58,7 @@
   - [安全变更容器数据盘路径](best-practices/ops/securely-modify-container-root-dir.md)
   - [大规模集群优化](best-practices/ops/large-scale-cluster-optimization.md)
   - [ETCD 优化](best-practices/ops/etcd-optimization.md)
+- [日志采集](best-practices/logging.md)
 
 # 故障排查
 
