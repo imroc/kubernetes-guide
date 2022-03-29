@@ -162,6 +162,7 @@
     - [配置 accesslog](istio/usage/configure-accesslog.md)
     - [使用 corsPolicy 解决跨域问题](istio/usage/cors.md)
     - [基于 iphash 进行负载均衡](istio/usage/iphash.md)
+    - [使用 websocket 协议](istio/usage/websocket.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
