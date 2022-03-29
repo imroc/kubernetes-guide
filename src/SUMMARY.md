@@ -169,6 +169,7 @@
     - [实现基于 Header 的授权](istio/trick/header-authorization.md)
     - [利用 Prism 构造多版本测试服务](istio/trick/multi-version-test-service-with-prism.md)
     - [隐藏自动添加的 server header](istio/trick/hide-server-header.md)
+    - [调试技巧](istio/trick/debug.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
