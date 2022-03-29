@@ -160,6 +160,7 @@
     - [为服务设置默认路由](istio/best-practices/set-default-route.md)
   - [istio 用法实践](istio/usage/README.md)
     - [配置 accesslog](istio/usage/configure-accesslog.md)
+    - [使用 corsPolicy 解决跨域问题](istio/usage/cors.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
