@@ -171,6 +171,7 @@
     - [隐藏自动添加的 server header](istio/trick/hide-server-header.md)
     - [调试技巧](istio/trick/debug.md)
     - [自定义 proxy 日志级别](istio/trick/customize-proxy-loglevel.md)
+    - [局部启用 accesslog](istio/trick/partially-enable-accesslog.md)
   - [istio 常见问题](istio/faq/README.md)
     - [Sidecar 停止问题](istio/faq/sidecar-shutdown.md)
     - [Sidecar 启动顺序问题](istio/faq/sidecar-startup-order.md)
