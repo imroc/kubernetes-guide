@@ -169,7 +169,7 @@ SIGTTOU   22,22,27    Stop    Terminal output for background process
 
 ### 健康检查失败
 
-参考 [Pod 健康检查失败](healthcheck-failed.md) 进一步定位。
+参考 [Pod 健康检查失败](../healthcheck-failed.md) 进一步定位。
 
 ### 宿主机重启
 
@@ -177,7 +177,7 @@ Pod 所在宿主机重启会导致容器重启，状态码一般为 255。
 
 ### 节点内存碎片化
 
-如果节点上内存碎片化严重，缺少大页内存，会导致即使总的剩余内存较多，但还是会申请内存失败，参考 [内存碎片化](../node/memory-fragmentation.md)。
+如果节点上内存碎片化严重，缺少大页内存，会导致即使总的剩余内存较多，但还是会申请内存失败，参考 [内存碎片化](../../node/memory-fragmentation.md)。
 
 ### 挂载了 configmap subpath
 
