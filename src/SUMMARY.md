@@ -25,6 +25,8 @@
   - [使用 CSR API 创建用户](trick/user-and-permissions/create-user-using-csr-api.md)
 - [部署与配置](trick/deploy/README.md)
   - [为 Pod 设置内核参数](trick/deploy/set-sysctl.md)
+- [构建镜像](trick/build-images/README.md)
+  - [使用 Podman 构建镜像](trick/build-images/podman.md)
 
 # 最佳实践
 
@@ -53,6 +55,7 @@
 - [应用容器化](best-practices/containerization/README.md)
   - [在容器内使用 systemd](best-practices/containerization/systemd-in-container.md)
   - [Java 应用容器化](best-practices/containerization/java-container.md)
+  - [在容器中使用 crontab](best-practices/containerization/crontab-in-container.md)
 - [集群运维](best-practices/ops/README.md)
   - [安全维护或下线节点](best-practices/ops/securely-maintain-or-offline-node.md)
   - [安全变更容器数据盘路径](best-practices/ops/securely-modify-container-root-dir.md)
