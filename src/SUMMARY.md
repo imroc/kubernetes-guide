@@ -2,6 +2,11 @@
 
 [序言](README.md)
 
+# 集群搭建
+
+- [附录](deploy/appendix/README.md)
+  - [使用 Terraform 批量创建腾讯云服务器](deploy/appendix/batch-create-machines-with-terraform.md)
+
 # 集群网络
 
 - [常见问题](networking/faq/README.md)
