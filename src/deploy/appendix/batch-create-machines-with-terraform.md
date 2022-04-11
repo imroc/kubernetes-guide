@@ -90,8 +90,8 @@ resource "tencentcloud_instance" "testcvm" {
 执行完毕之后 CVM 创建成功，可以获取出创建出来的 CVM 内网 IP 列表 (注意替换 `testcvm`):
 
 ```bash
-$ terraform show -json | jq '.values.root_module.resources[] | select(.address | test("tencentcloud_instance.testcvm")) | .values.private_ip'
-"10.10.6.15"
-"10.10.6.6"
-"10.10.6.3"
+$ terraform show -json | jq -r '.values.root_module.resources[] | select(.address | test("tencentcloud_instance.testcvm")) | .values.private_ip'
+10.10.6.15
+10.10.6.6
+10.10.6.3
 ```
