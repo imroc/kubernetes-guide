@@ -127,7 +127,11 @@ calico_rr
 ## 部署集群
 
 ```bash
-ansible-playbook -i inventory/mycluster/inventory.ini --private-key id_rsa --user=ubuntu --become --become-user=root cluster.yml
+ansible-playbook \
+  -i inventory/mycluster/inventory.ini \
+  --private-key=id_rsa \
+  --user=ubuntu -b \
+  cluster.yml
 ```
 
 ## 获取 kubeconfig
@@ -150,3 +154,36 @@ $ ansible -i '10.10.6.9,' -b -m fetch --private-key id_rsa --user=ubuntu -a 'src
 > `-i` 中的逗号是故意的，意思是不让 ansible 误以为是个 inventory 文件，而是解析为单个 host。
 
 获取到 kubeconfig 后，可以修改其中的 server 地址，将 `https://127.0.0.1:6443` 改为非 master 节点可以访问的地址，最简单就直接替换 `127.0.0.1` 成其中一台 master 节点的 IP 地址，也可以在 Master 前面挂个负载均衡器，然后替换成负载均衡器的地址。
+
+## 扩容节点
+
+如果要扩容节点，可以准备好节点的内网 IP 列表，并追加到之前的 inventory 文件里，然后再次使用 `ansible-playbook` 运行一次，有点不同的是: `cluster.yml` 换成 `scale.yml`:
+
+```bash
+ansible-playbook \
+  -i inventory/mycluster/inventory.ini \
+  --private-key=id_rsa \
+  --user=ubuntu -b \
+  cluster.yml
+```
+
+## 缩容节点
+
+如果有节点不再需要了，我们可以将其移除集群，通常步骤是:
+1. `kubectl cordon NODE` 驱逐节点，确保节点上的服务飘到其它节点上去，参考 [安全维护或下线节点](../../best-practices/ops/securely-maintain-or-offline-node.md)。
+2. 停止节点上的一些 k8s 组件 (kubelet, kube-proxy) 等。
+3. `kubectl delete NODE` 将节点移出集群。
+4. 如果节点是虚拟机，并且不需要了，可以直接销毁掉。
+
+前 3 个步骤，也可以用 kubespray 提供的 `remove-node.yml` 这个 playbook 来一步到位实现:
+
+```bash
+ansible-playbook \
+  -i inventory/mycluster/inventory.ini \
+  --private-key=id_rsa \
+  --user=ubuntu -b \
+  --extra-vars "node=node1,node2" \
+  remove-node.yml
+```
+
+> `--extra-vars` 里写要移出的节点名列表，如果节点已经卡死，无法通过 SSH 登录，可以在 `--extra-vars` 加个 `reset_nodes=false` 的选项，跳过第二个步骤。
