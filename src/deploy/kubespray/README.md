@@ -21,6 +21,13 @@ cp -rfp inventory/sample inventory/mycluster
 
 ## 修改配置
 
+需要修改的配置文件列表:
+
+* `inventory/mycluster/group_vars/all/*.yml`
+* `inventory/mycluster/group_vars/k8s-cluster/*.yml`
+
+下面介绍一些需要重点关注的配置，根据自己需求进行修改。
+
 ### 集群网络
 
 修改配置文件 `inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml`:
@@ -114,7 +121,7 @@ kube_node
 calico_rr
 ```
 
-**注:** 务必使用 `ansible_host` 标识节点内网 IP，否则可能导致出现类似 [这个issue](https://github.com/kubernetes-sigs/kubespray/issues/5949) 的问题。
+> **注:** 务必使用 `ansible_host` 标识节点内网 IP，否则可能导致出现类似 [这个issue](https://github.com/kubernetes-sigs/kubespray/issues/5949) 的问题。
 
 附上 vim 编辑 inventory，批量加机器的技巧:
 
