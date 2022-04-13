@@ -4,16 +4,6 @@
 
 ## 资源调度
 
-### 指定机型调度
-
-Pod 上加注解:
-
-```yaml
-eks.tke.cloud.tencent.com/cpu-type: 'S6,C6,S5,C5,amd,intel' # 调度时按此机型顺序作为优先级顺序进行调度，如果都资源不足，使用 `amd,intel` 作为兜底策略。
-```
-
-> Pod 创建出来可以通过查看 `cloud.tencent.com/instance-type` 这个 label 来确认其被实际分配到的机型。
-
 ### 指定 GPU 调度
 
 Pod 上加注解:
