@@ -1,5 +1,61 @@
 # Linux 常用排查命令
 
+## 查看 socket buffer
+
+查看是否阻塞:
+
+```bash
+$ netstat -antup | awk '{if($2>100||$3>100){print $0}}'
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp     2066     36 9.134.55.160:8000       10.35.16.97:63005       ESTABLISHED 1826655/nginx
+```
+
+* `Recv-Q` 是接收队列，如果持续有堆积，可能是高负载，应用处理不过来，也可能是程序的 bug，卡住了，导致没有从 buffer 中取数据，可以看看对应 pid 的 stack 卡在哪里了(`cat /proc/$PID/stack`)。
+
+查看是否有 UDP buffer 满导致丢包:
+
+```bash
+# 使用 netstat 查看统计
+$ netstat -s | grep "buffer errors"
+    429469 receive buffer errors
+    23568 send buffer errors
+ 
+# 也可以用 nstat 查看计数器
+$ nstat -az | grep -E 'UdpRcvbufErrors|UdpSndbufErrors'
+UdpRcvbufErrors                 429469                 0.0
+UdpSndbufErrors                 23568                  0.0
+```
+
+对于 TCP，发送 buffer 慢不会导致丢包，只是会让程序发送数据包时卡住，等待缓冲区有足够空间释放出来，而接收 buffer 满了会导致丢包，可以通过计数器查看:
+
+```bash
+$ nstat -az | grep TcpExtTCPRcvQDrop
+TcpExtTCPRcvQDrop               264324                  0.0
+```
+
+查看当前 UDP buffer 的情况:
+
+```bash
+$ ss -nump
+Recv-Q    Send-Q          Local Address:Port         Peer Address:Port    Process
+0         0             10.10.4.26%eth0:68              10.10.4.1:67       users:(("NetworkManager",pid=960,fd=22))
+     skmem:(r0,rb212992,t0,tb212992,f0,w0,o640,bl0,d0)
+```
+
+* rb212992 表示 UDP 接收缓冲区大小是 212992 字节，tb212992 表示 UDP 发送缓存区大小是 212992 字节。
+* Recv-Q 和 Send-Q 分别表示当前接收和发送缓冲区中的数据包字节数。
+
+查看当前 TCP buffer 的情况:
+
+```bash
+$ ss -ntmp
+ESTAB        0             0                    [::ffff:109.244.190.163]:9988                       [::ffff:10.10.4.26]:54440         users:(("xray",pid=3603,fd=20))
+     skmem:(r0,rb12582912,t0,tb12582912,f0,w0,o0,bl0,d0)
+```
+
+* rb12582912 表示 TCP 接收缓冲区大小是 12582912 字节，tb12582912 表示 TCP 发送缓存区大小是 12582912 字节。
+* Recv-Q 和 Send-Q 分别表示当前接收和发送缓冲区中的数据包字节数。
+
 ## 查看监听队列
 
 ```bash
@@ -8,10 +64,12 @@ State      Recv-Q Send-Q Local Address:Port                Peer Address:Port
 LISTEN     129    128                *:80                             *:*
 ```
 
+> `Recv-Q` 表示 accept queue 中的连接数，如果满了(`Recv-Q`的值比`Send-Q`大1)，要么是并发太大，或负载太高，程序处理不过来；要么是程序 bug，卡住了，导致没有从 accept queue 中取连接，可以看看对应 pid 的 stack 卡在哪里了(`cat /proc/$PID/stack`)。
+
 ## 查看网络计数器
 
 ```bash
-$ netstat -az
+$ nstat -az
 ...
 TcpExtListenOverflows           12178939              0.0
 TcpExtListenDrops               12247395              0.0
@@ -21,6 +79,8 @@ TcpExtListenDrops               12247395              0.0
 ```bash
 netstat -s | grep -E 'drop|overflow'
 ```
+
+> 如果有 overflow，意味着 accept queue 有满过，可以查看监听队列看是否有现场。
 
 ## 查看 conntrack
 
@@ -102,7 +162,6 @@ $ iftop
 ...
 ```
 
-
 ### netstat 查看大流量 IP 连接
 
 ```bash
@@ -141,4 +200,13 @@ lsof -i :22
 
 ```bash
 netstat -tunlp | grep 22
+```
+
+## 查看进程树
+
+```bash
+$ pstree -apnhs 3356537
+systemd,1 --switched-root --system --deserialize 22
+  └─containerd,3895
+      └─{containerd},3356537
 ```
