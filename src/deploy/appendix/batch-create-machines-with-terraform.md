@@ -83,9 +83,9 @@ resource "tencentcloud_instance" "testcvm" {
 }
 ```
 
-## 创建并获取机器列表
+## 创建并获取云服务器列表
 
-在 `main.tf` 所在目录执行 `terraform apply`，输入 `yes` 确认执行。
+在 `main.tf` 所在目录执行 `terraform init`，然后再执行 `terraform apply`，输入 `yes` 确认执行。
 
 执行完毕之后 CVM 创建成功，可以获取出创建出来的 CVM 内网 IP 列表 (注意替换 `testcvm`):
 
@@ -94,6 +94,14 @@ $ terraform show -json | jq -r '.values.root_module.resources[] | select(.addres
 10.10.6.15
 10.10.6.6
 10.10.6.3
+```
+
+## 销毁所有云服务器
+
+在 `main.tf` 所在目录执行:
+
+```bash
+terraform destroy
 ```
 
 ## 参考资料
