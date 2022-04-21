@@ -7,6 +7,7 @@
 - [使用 kubespray 搭建集群](deploy/kubespray/README.md)
   - [kubespray 离线安装配置](deploy/kubespray/offline.md)
 - [附录](deploy/appendix/README.md)
+  - [使用 Terraform 创建腾讯云 EKS 弹性集群](deploy/appendix/create-eks-cluster-with-terraform.md)
   - [使用 Terraform 批量创建腾讯云服务器](deploy/appendix/batch-create-machines-with-terraform.md)
 
 # 集群网络
