@@ -95,3 +95,7 @@ $ terraform show -json | jq -r '.values.root_module.resources[] | select(.addres
 10.10.6.6
 10.10.6.3
 ```
+
+## 参考资料
+
+* [Terrafrom TencentCloud Provider Documentation](https://registry.terraform.io/providers/tencentcloudstack/tencentcloud/latest/docs)
