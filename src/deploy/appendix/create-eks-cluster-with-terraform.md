@@ -75,6 +75,8 @@ terraform refresh
 terraform show -json | jq -r '.values.root_module.resources[] | select(.address | test("tencentcloud_eks_cluster.roc-test")) | .values.kube_config' > eks
 ```
 
+> 注意替换 `roc-test` 为自己在 `main.tf` 文件中定义的名字。
+
 使用 [kubecm](../../trick/kubectl/merge-kubeconfig-with-kubecm.md) 可以一键导入合并 kubeconfig:
 
 ```bash
