@@ -104,6 +104,13 @@ pidstat -d 1
 pidstat -d 1 -p 3394470
 ```
 
+## 使用 pidstat 统计
+
+```bash
+timeout 10 pidstat -dl 3 > io.txt
+cat io.txt | awk '{if ($6>2000||$5>2000)print $0}'
+```
+
 ### 使用 ebpf 抓高 IOPS 进程
 
 安装 bcc-tools:
