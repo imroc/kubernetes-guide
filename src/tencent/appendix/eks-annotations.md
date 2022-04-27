@@ -1,25 +1,68 @@
 # EKS 注解
 
-本文介绍 EKS 集群特有的注解与示例，全部注解列表及其解释请参考 [官方文档](https://cloud.tencent.com/document/product/457/44173)。
+本文介绍 EKS 集群特有的注解与示例。
 
-## 资源调度
+## 注解使用方法
 
-### 指定 GPU 调度
-
-Pod 上加注解:
+本文所说的注解基本是在 Pod 级别上使用，通常我们使用的都是工作负载而不是裸 Pod，下面给个 Deployment 上加 EKS Pod 注解示例:
 
 ```yaml
-eks.tke.cloud.tencent.com/gpu-count: '1' # 指定 GPU 卡数。
-eks.tke.cloud.tencent.com/gpu-type: 'T4,V100' # 指定 GPU 型号，支持优先级顺序写法。
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations:
+        eks.tke.cloud.tencent.com/retain-ip: 'true' # 工作负载里加 Pod 注解是在 .spec.template.metadata.annotations 字段里加
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
 ```
 
-### 指定规格
+如果希望注解默认对集群里所有 Pod 生效，也可以修改全局配置 (kube-system 命名空间下名为 eks-config 的 configmap，没有的话可以自行新建一个):
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eks-config
+  namespace: kube-system
+data:
+  pod.annotations: |
+    eks.tke.cloud.tencent.com/resolv-conf: |
+      nameserver 183.60.83.19 
+    eks.tke.cloud.tencent.com/host-sysctls: "[{"name": "net.core.rmem_max","value": "26214400"}]"
+```
+
+> 直接在 Pod 上加的注解优先级高于全局配置。
+
+## 资源与规格
+
+### 指定 CPU 与内存
 
 EKS 默认会根据 request 与 limit 自动计算出底层资源的规格，参考官方文档 [指定资源规格](https://cloud.tencent.com/document/product/457/44174)，也可以显式通过给 Pod 加注解去指定 Pod 需要的计算资源规格:
 
 ```yaml
 eks.tke.cloud.tencent.com/cpu: "8"
 eks.tke.cloud.tencent.com/mem: "16Gi"
+```
+
+### 指定 GPU
+
+Pod 上加注解:
+
+```yaml
+eks.tke.cloud.tencent.com/gpu-count: '1' # 指定 GPU 卡数。
+eks.tke.cloud.tencent.com/gpu-type: 'T4,V100' # 指定 GPU 型号，支持优先级顺序写法。
 ```
 
 ## IP 保留与 EIP
@@ -59,7 +102,7 @@ eks.tke.cloud.tencent.com/eip-attributes: "{}" # 启用 EIP 并使用默认配�
 eks.tke.cloud.tencent.com/eip-id-list: "eip-xx1,eip-xx2" # 这里指定已有的 EIP 实例列表，确保 StatefulSet 的 Pod 副本数小于等于这里的 EIP 实例数。
 ```
 
-## 镜像仓库
+## 镜像与仓库
 
 ### 忽略证书校验
 
@@ -75,6 +118,30 @@ eks.tke.cloud.tencent.com/registry-insecure-skip-verify: 'harbor.example.com' # 
 
 ```yaml
 eks.tke.cloud.tencent.com/registry-http-endpoint: 'harbor.example.com' # 也可以写多个，逗号隔开
+```
+
+### 镜像复用
+
+EKS 默认会复用系统盘以加快启动速度，复用的是同一工作负载下相同可用区 Pod 且在缓存时间内(销毁后6小时内)的系统盘。如果想要复用不同工作负载的 Pod 的镜像，可以在不同工作负载的 Pod 上打上相同的 `cbs-reuse-key` 的注解:
+
+```yaml
+eks.tke.cloud.tencent.com/cbs-reuse-key: 'image-name'
+```
+
+### 镜像缓存
+
+EKS 提供镜像缓存能力，即提前创建好镜像缓存实例，自动将需要的镜像下载下来并创建云盘快照，后续创建 Pod 开启镜像缓存，这样就会根据镜像名自动匹配镜像缓存实例的快照，直接使用快照里面的镜像内容，避免重复下载，加快 Pod 启动速度。
+
+启用镜像缓存的注解:
+
+```yaml
+eks.tke.cloud.tencent.com/use-image-cache: auto
+```
+
+你也可以手动指定镜像缓存实例，不使用自动匹配:
+
+```yaml
+eks.tke.cloud.tencent.com/use-image-cache: imc-xxx
 ```
 
 ## 绑定安全组
@@ -187,3 +254,17 @@ eks.tke.cloud.tencent.com/metrics-port: "9110"
 ```
 
 > 如果 pod 带有公网 eip，则需要设置安全组，注意 9100 端口问题，并放通需要的端口。
+
+## 自定义 DNS
+
+```yaml
+eks.tke.cloud.tencent.com/resolv-conf: |
+  nameserver 4.4.4.4
+  nameserver 8.8.8.8
+```
+
+## 参考资料
+
+* [EKS Annotation 官方说明文档](https://cloud.tencent.com/document/product/457/44173)
+* [EKS 全局配置说明](https://cloud.tencent.com/document/product/457/71915)
+* [EKS 镜像缓存](https://cloud.tencent.com/document/product/457/65908)
