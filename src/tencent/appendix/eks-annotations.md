@@ -40,7 +40,7 @@ data:
   pod.annotations: |
     eks.tke.cloud.tencent.com/resolv-conf: |
       nameserver 183.60.83.19 
-    eks.tke.cloud.tencent.com/host-sysctls: "[{"name": "net.core.rmem_max","value": "26214400"}]"
+    eks.tke.cloud.tencent.com/host-sysctls: '[{"name": "net.core.rmem_max","value": "26214400"}]'
 ```
 
 > 直接在 Pod 上加的注解优先级高于全局配置。
