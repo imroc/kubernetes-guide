@@ -53,7 +53,7 @@ EKS 默认会根据 request 与 limit 自动计算出底层资源的规格，参
 
 ```yaml
 eks.tke.cloud.tencent.com/cpu: "8"
-eks.tke.cloud.tencent.com/mem: "16Gi"
+eks.tke.cloud.tencent.com/mem: "16Gi" # 内存一定要以Gi为单位，以G为单位则会报参数错误
 ```
 
 ### 指定 GPU
@@ -65,9 +65,17 @@ eks.tke.cloud.tencent.com/gpu-count: '1' # 指定 GPU 卡数。
 eks.tke.cloud.tencent.com/gpu-type: 'T4,V100' # 指定 GPU 型号，支持优先级顺序写法。
 ```
 
+### 指定 CPU 类型
+
+Pod 上加注解:
+
+```yaml
+eks.tke.cloud.tencent.com/cpu-type: 'amd,intel' # 表示优先创建 amd 资源 Pod，如果所选地域可用区 amd 资源不足，则会创建 intel 资源 Pod
+```
+
 ## IP 保留与 EIP
 
-### 固定 IP
+### StatefulSet 固定 IP
 
 使用固定 IP 的前提是工作负载是 StatefulSet，或者直接用裸 Pod （关键点在于 Pod 名称不能变），在 Pod 级别加注解启用固定 IP:
 
@@ -75,6 +83,8 @@ eks.tke.cloud.tencent.com/gpu-type: 'T4,V100' # 指定 GPU 型号，支持优先
 eks.tke.cloud.tencent.com/retain-ip: 'true' # 置为 true 启用固定 IP。
 eks.tke.cloud.tencent.com/retain-ip-hours: '48' # 保留 IP 的最大时长(小时)，Pod 销毁之后超过这个时长没有创建回来，IP 将被释放。
 ```
+
+> TKE虚拟节点场景下的固定IP，用法保持跟TKE一致，无需加上述annotation
 
 ### 绑定 EIP
 
@@ -84,7 +94,7 @@ Pod 级别加注解:
 eks.tke.cloud.tencent.com/eip-attributes: '{"InternetMaxBandwidthOut":50, "InternetChargeType":"TRAFFIC_POSTPAID_BY_HOUR"}' # 值可以为空串，表示启用 EIP 并使用默认配置；也可以用创建 EIP 接口的 json 参数，详细参数列表参考 [这里](https://cloud.tencent.com/document/api/215/16699#2.-.E8.BE.93.E5.85.A5.E5.8F.82.E6.95.B0)，本例中的参数表示 EIP 是按量付费，且带宽上限为 50M。
 ```
 
-### 固定 EIP
+### StatefulSet 固定 EIP
 
 Pod 级别加注解:
 
@@ -92,14 +102,16 @@ Pod 级别加注解:
 eks.tke.cloud.tencent.com/eip-attributes: "{}" # 启用 EIP 并使用默认配置。
 eks.tke.cloud.tencent.com/eip-claim-delete-policy: "Never" # Pod 删除后，EIP 是否自动回收，默认回收。使用 "Never" 不回收，即下次同名 Pod 创建出来仍然会绑定此 EIP，实现固定 EIP。
 ```
+> 注意：Deployment类型的工作负载使用 "Never" 不回收策略时，Pod 删除后 EIP 不会回收，滚动更新后的 Pod 也不会使用原本的 EIP。
 
-### 使用已有 EIP
+### StatefulSet 使用已有 EIP
 
 如果想要将已有的 EIP 绑定到 Pod 而不是自动创建，可以给 Pod 指定要绑定的 EIP 实例 id:
 
 ```yaml
 eks.tke.cloud.tencent.com/eip-id-list: "eip-xx1,eip-xx2" # 这里指定已有的 EIP 实例列表，确保 StatefulSet 的 Pod 副本数小于等于这里的 EIP 实例数。
 ```
+> 指定 EIP 场景下，请勿配置 eip-attributes 这个 annotation。
 
 ## 镜像与仓库
 
@@ -145,7 +157,7 @@ eks.tke.cloud.tencent.com/use-image-cache: imc-xxx
 
 ## 绑定安全组
 
-EKS 默认会为 Pod 绑定同地域的 `default` 安全组，也可以通过给 Pod 加注解绑定指定安全组:
+EKS 默认会为 Pod 绑定同地域默认项目下的 `default` 安全组，也可以通过给 Pod 加注解绑定指定安全组:
 
 ```yaml
 eks.tke.cloud.tencent.com/security-group-id: 'sg-id1,sg-id2' # 填本地域存在的安全组 id，多个用逗号隔开，网络策略按安全组顺序生效，安全组默认最多只能绑定 2000 个 Pod，如需更多请提工单提升配额。
@@ -240,7 +252,7 @@ EKS 的 pod 默认会通过 9100 端口对外暴露监控数据，用户可以�
   curl -g "http://<pod-ip>:9100/metrics?collect[]=ipvs"
   ```
   
-如果业务本身直接监听了 9100 端口， 在 EKS 新的网络方案里，将报错提醒用户 9100 端口已经被使用：
+如果业务本身直接监听了 9100 端口， 将会有如下报错，提醒用户 9100 端口已经被使用：
 
 ```txt
 listen() to 0.0.0.0:9100, backlog 511 failed (1: Operation not permitted)
@@ -256,11 +268,14 @@ eks.tke.cloud.tencent.com/metrics-port: "9110"
 
 ## 自定义 DNS
 
+Pod 所在宿主机默认使用 VPC 内的 DNS：183.60.83.19，183.60.82.98。如果需要更改宿主机上的 DNS，可以配置如下 annotation：
+
 ```yaml
 eks.tke.cloud.tencent.com/resolv-conf: |
   nameserver 4.4.4.4
   nameserver 8.8.8.8
 ```
+> 配置了自定义 DNS 后，则宿主机上的 DNS 以配置的为准
 
 ## 参考资料
 
