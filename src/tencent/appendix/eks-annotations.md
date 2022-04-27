@@ -98,7 +98,6 @@ eks.tke.cloud.tencent.com/eip-claim-delete-policy: "Never" # Pod 删除后，EIP
 如果想要将已有的 EIP 绑定到 Pod 而不是自动创建，可以给 Pod 指定要绑定的 EIP 实例 id:
 
 ```yaml
-eks.tke.cloud.tencent.com/eip-attributes: "{}" # 启用 EIP 并使用默认配置。
 eks.tke.cloud.tencent.com/eip-id-list: "eip-xx1,eip-xx2" # 这里指定已有的 EIP 实例列表，确保 StatefulSet 的 Pod 副本数小于等于这里的 EIP 实例数。
 ```
 
