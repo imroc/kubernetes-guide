@@ -110,3 +110,53 @@ eks.tke.cloud.tencent.com/recreate-node-lost-pod: "false"
 ```yaml
 eks.tke.cloud.tencent.com/heartbeat-lost-period: 1m 
 ```
+
+## 磁盘清理
+
+当 EKS 虚拟机磁盘空间紧张的时候，会自动触发清理流程以释放空间，通过 `df -h` 可以确认磁盘使用情况。
+
+常见磁盘空间不足的原因有：
+* 业务有大量临时输出。您可以通过 du 命令确认。
+* 业务持有已删除的文件描述符，导致磁盘空间未释放。您可以通过 lsof 命令确认。
+
+### 清理容器镜像
+
+默认情况下，磁盘空间达 80% 以上会自动清理容器镜像来释放空间，如果已经没有容器镜像可以释放，就会报类似以下的事件:
+
+```txt
+failed to garbage collect required amount of images. Wanted to free 7980402688 bytes, but freed 0 bytes
+```
+
+这个阈值可以通过 Pod 注解来自定义:
+
+```yaml
+eks.tke.cloud.tencent.com/image-gc-high-threshold: "80"
+```
+
+### 清理已退出的容器
+
+如果业务原地升级过，或者容器异常退出过，已退出的容器仍会保留，直到磁盘空间达到 85% 时才会清理已退出的容器。清理阈值可以使用如下 annotation 调整：
+
+```yaml
+eks.tke.cloud.tencent.com/container-gc-threshold: "85"
+```
+
+如果已退出的容器不想被自动清理（例如需要退出的信息进一步排障的），可以通过如下 annotation 关闭容器的自动清理，但副作用是磁盘空间无法自动释放：
+
+```yaml
+eks.tke.cloud.tencent.com/must-keep-last-container: "true"
+```
+
+> 此特性上线时间为 2021-09-15，故在此时间前创建的 pod，并未带有此特性。
+
+### 重启磁盘用量高的 Pod
+
+业务需要在容器的系统盘用量超过某个百分比后直接重启 Pod，可以通过 annotation 配置：
+
+```yaml
+eks.tke.cloud.tencent.com/pod-eviction-threshold: "85"
+```
+
+只重启 Pod，不会重建子机，退出和启动都会进行正常的 gracestop、prestop、健康检查。
+
+> 此特性上线时间在 2022-04-27，故在此时间前创建的 pod，需要重建 pod 来开启特性。
