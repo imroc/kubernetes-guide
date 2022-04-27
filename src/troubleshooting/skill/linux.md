@@ -210,3 +210,11 @@ systemd,1 --switched-root --system --deserialize 22
   └─containerd,3895
       └─{containerd},3356537
 ```
+
+## 测试对比 CPU 性能
+
+看计算圆周率耗时，耗时越短说明 CPU 性能越强:
+
+```bash
+time echo "scale=5000; 4*a(1)"| bc -l -q
+```
