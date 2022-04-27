@@ -160,3 +160,30 @@ eks.tke.cloud.tencent.com/pod-eviction-threshold: "85"
 只重启 Pod，不会重建子机，退出和启动都会进行正常的 gracestop、prestop、健康检查。
 
 > 此特性上线时间在 2022-04-27，故在此时间前创建的 pod，需要重建 pod 来开启特性。
+
+## 9100 端口问题
+
+EKS 的 pod 默认会通过 9100 端口对外暴露监控数据，用户可以执行以下命令访问 9100/metrics 获取数据：
+
+* 获取全部指标：
+  ```bash
+  curl -g "http://<pod-ip>:9100/metrics"
+  ```
+* 大集群建议去掉 ipvs 指标：
+  ```bash
+  curl -g "http://<pod-ip>:9100/metrics?collect[]=ipvs"
+  ```
+  
+如果业务本身直接监听了 9100 端口， 在 EKS 新的网络方案里，将报错提醒用户 9100 端口已经被使用：
+
+```txt
+listen() to 0.0.0.0:9100, backlog 511 failed (1: Operation not permitted)
+```
+
+我们可以自定义暴露监控数据的端口号，避免与业务冲突。配置方式如下：
+
+```yaml
+eks.tke.cloud.tencent.com/metrics-port: "9110"
+```
+
+> 如果 pod 带有公网 eip，则需要设置安全组，注意 9100 端口问题，并放通需要的端口。
