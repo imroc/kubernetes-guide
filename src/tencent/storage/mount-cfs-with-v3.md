@@ -8,7 +8,7 @@
 
 ## 使用 CFS 插件 (仅限 TKE 集群)
 
-## StorageClass 自动创建 CFS
+### StorageClass 自动创建 CFS
 
 如果 TKE 集群安装了 CFS 扩展组件，可以自动创建并挂载 CFS 存储，创建 StorageClass 时协议版本选择 V3:
 
@@ -35,7 +35,7 @@ volumeBindingMode: Immediate
 
 后续使用 PVC 直接指定前面创建的 StorageClass 即可。
 
-## 静态创建复用已有 CFS 实例
+### 静态创建复用已有 CFS 实例
 
 如果已经有 CFS 实例了，希望不自动创建而直接复用已有 CFS 实例，可以使用静态创建。
 
