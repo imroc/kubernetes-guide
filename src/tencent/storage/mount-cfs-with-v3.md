@@ -78,9 +78,58 @@ spec:
   volumeName: cfs-pv # PVC 引用 PV 的名称，手动绑定关系。
 ```
 
-## 挂载 NFS 指定 mountOptions (TKE 集群与 EKS 弹性集群通用)
+### CSI Inline 方式
 
-K8S 原生支持挂载 NFS 存储，而 CFS 本质就是 NFS 存储，可以直接 K8S 原生用法，只是需要指定下挂载选项 (mountOptions)，具体加哪些，可以在 CFS 实例控制台页面的挂载点信息里看 NFS 3.0 挂载命令。
+如果不想用 PV，也可以在定义 Volumes 时使用 CSI Inline 的方式，yaml 示例: 
+
+```yaml
+---
+apiVersion: storage.k8s.io/v1beta1
+kind: CSIDriver
+metadata:
+  name: com.tencent.cloud.csi.cfs
+spec:
+  attachRequired: false
+  podInfoOnMount: false
+  volumeLifecycleModes:
+  - Ephemeral # 告知 CFS 插件启用 inline 的功能，以便让 CSI Inline 定义方式可以正常工作
+  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        volumeMounts:
+        - mountPath: /test
+          name: cfs
+      volumes:
+      - csi: # 这里定义 CSI Inline
+          driver: com.tencent.cloud.csi.cfs
+          volumeAttributes:
+            fsid: yemafcez
+            host: 10.10.9.6
+            path: /
+            vers: "3"
+            proto: tcp
+        name: cfs
+```
+
+## PV 指定 mountOptions (TKE 集群与 EKS 弹性集群通用)
+
+K8S 原生支持挂载 NFS 存储，而 CFS 本质就是 NFS 存储，可以直接 K8S 原生用法，只是需要在 PV 指定下挂载选项 (mountOptions)，具体加哪些，可以在 CFS 实例控制台页面的挂载点信息里看 NFS 3.0 挂载命令。
 
 这种方式需要自行提前创建好 CFS 示例，然后手动创建 PV/PVC 与 CFS 实例关联，yaml 示例:
 
