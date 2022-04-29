@@ -113,6 +113,7 @@
   - [排查流量激增](troubleshooting/network/traffic-surge.md)
 - [存储排障](troubleshooting/storage/README.md)
   - [Unable to mount volumes](troubleshooting/storage/unable-to-mount-volumes.md)
+  - [MountVolume.SetUp failed for volume](troubleshooting/storage/setup-failed-for-volume.md)
 - [集群排障](troubleshooting/cluster/README.md)
   - [Namespace 一直 Terminating](troubleshooting/cluster/namespace-terminating.md)
 - [排障案例](troubleshooting/cases/README.md)
