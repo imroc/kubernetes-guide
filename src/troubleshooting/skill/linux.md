@@ -218,3 +218,23 @@ systemd,1 --switched-root --system --deserialize 22
 ```bash
 time echo "scale=5000; 4*a(1)"| bc -l -q
 ```
+
+## 查看证书内容
+
+查看 secret 里的证书内容:
+
+```bash
+kubectl get secret test-crt-secret  -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -noout -text
+```
+
+查看证书文件内容:
+
+```bash
+openssl x509 -noout -text -in test.crt
+```
+
+查看远程地址的证书内容:
+
+```bash
+echo | openssl s_client -connect imroc.cc:443 2>/dev/null | openssl x509 -noout -text
+```
