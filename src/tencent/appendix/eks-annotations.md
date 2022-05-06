@@ -211,7 +211,7 @@ Pod 上通过如下注解可以加载 [TOA 内核模块](https://cloud.tencent.c
 eks.tke.cloud.tencent.com/host-modprobe: 'toa'
 ```
 
-## 自愈能力
+## 自动重建自愈
 
 EKS 虚拟机内的 agent 会上报心跳给控制面，如果上报超时 (默认5min)，一般说明 Pod 内进程已经几乎无法正常工作了，通常是高负载，这时 EKS 默认会自动迁移虚拟机 (对当前虚拟机关机并自动创建新虚拟机，让 Pod "飘" 到新虚拟机里去运行)，从而实现自愈。
 
