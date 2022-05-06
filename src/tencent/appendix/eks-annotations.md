@@ -277,7 +277,9 @@ eks.tke.cloud.tencent.com/pod-eviction-threshold: "85" # 此功能只在设置�
 
 > 此特性上线时间在 2022-04-27，故在此时间前创建的 pod，需要重建 pod 来开启特性。
 
-## 9100 端口问题
+## 监控指标
+
+### 9100 端口问题
 
 EKS 的 pod 默认会通过 9100 端口对外暴露监控数据，用户可以执行以下命令访问 9100/metrics 获取数据：
 
@@ -304,12 +306,20 @@ eks.tke.cloud.tencent.com/metrics-port: "9110"
 
 > 如果 pod 带有公网 eip，则需要设置安全组，注意 9100 端口问题，并放通需要的端口。
 
-## 监控数据上报频率
+### 监控数据上报频率
 
 EKS 虚拟节点上暴露的 cAdvisor 监控数据，默认30秒刷新一次，可以通过如下注解调整刷新频率：
 
 ```yaml
 eks.tke.cloud.tencent.com/cri-stats-interval: '30s'
+```
+
+### 自定义监控指标路径
+
+监控数据默认通过 `/metrics` 路径暴露监控数据，一般不用动。如有自定义的需求，可以用下面的注解:
+
+```yaml
+eks.tke.cloud.tencent.com/custom-metrics-url: '/metrics'
 ```
 
 ## 设置 Pod 网卡名称
