@@ -1,9 +1,21 @@
 # Pod 一直 ContainerCreating 或 Waiting
 
-## Pod 配置错误
+## 镜像问题
 
-* 检查是否打包了正确的镜像
-* 检查配置了正确的容器参数
+* 镜象名称错误。
+* 错误的镜像标签。
+* 错误的存储仓库。
+* 存储仓库需要身份验证。
+
+## 依赖问题
+
+在 pod 启动之前，kubelet 将尝试检查与其他 Kubernetes 元素的所有依赖关系。如果无法满足这些依赖项之一，则 pod 将会保持挂起状态。
+
+依赖主要是挂载相关的:
+
+1. pvc
+2. configmap
+3. secret
 
 ## 挂载 Volume 失败
 
@@ -33,6 +45,16 @@ to rootfs \\\"/run/containerd/io.containerd.runtime.v1.linux/k8s.io/e6746201faa1
 at \\\"/run/containerd/io.containerd.runtime.v1.linux/k8s.io/e6746201faa1dfe7f3251b8c30d59ebf613d99715f3b800740e587e681d2a903/rootfs/app/resources/application.properties\\\"
 caused \\\"no such file or directory\\\"\"": unknown'
 ```
+
+### Unable to mount volumes
+
+如果报类似如下事件:
+
+```txt
+Unable to mount volumes for pod "es-0_prod(0f08e3aa-aa56-11ec-ab5b-5254006900dd)": timeout expired waiting for volumes to attach or mount for pod "prod"/"es-0". list of unmounted volumes=[applog]. list of unattached volumes=[applog default-token-m7bf7]
+```
+
+参考 [存储排障: Unable to mount volumes](../../storage/unable-to-mount-volumes.md)。
 
 ## 磁盘爆满
 
