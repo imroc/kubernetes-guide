@@ -22,7 +22,6 @@
   - [使用 kubectl-aliases 缩短命令](trick/kubectl/kubectl-aliases.md)
   - [使用 kubectx 和 kubens 快速切换](trick/kubectl/quick-switch-with-kubectx.md)
   - [使用 kubecm 合并 kubeconfig](trick/kubectl/merge-kubeconfig-with-kubecm.md)
-  - [kubectl 速查手册](trick/kubectl/kubectl-cheat-sheet.md)
 - [证书签发](trick/certs/README.md)
   - [使用 cfssl 生成证书](trick/certs/sign-certs-with-cfssl.md)
   - [使用 cert-manager 签发免费证书](trick/certs/sign-free-certs-with-cert-manager.md)
@@ -138,6 +137,10 @@
     - [Job 无法被删除](troubleshooting/cases/others/job-cannot-delete.md)
     - [.Net Core 配置文件无法热加载](troubleshooting/cases/others/dotnet-configuration-cannot-auto-reload.md)
 
+# 领域应用
+
+- [服务网格](domain/mesh.md)
+
 # 腾讯云容器服务
 
 - [网络指南](tencent/networking/README.md)
@@ -161,7 +164,7 @@
   - [实用 kubectl 脚本](tencent/appendix/useful-kubectl-for-tencent-cloud.md)
   - [EKS 注解](tencent/appendix/eks-annotations.md)
   - [Ingress 错误码](tencent/appendix/ingress-error-code.md)
-    
-# 服务网格
 
-- [istio](mesh/istio.md)
+# 附录
+
+- [kubectl 速查手册](appendix/kubectl-cheat-sheet.md)

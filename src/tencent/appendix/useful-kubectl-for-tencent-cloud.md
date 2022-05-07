@@ -65,9 +65,3 @@ kubectl get node -o json | jq -r '.items[] | {subnet: .metadata.annotations."eks
 pod="wedata-lineage-service-test-env-48872523-0"
 kubectl get cm static-addresses -o json | jq -r ".data.\"${pod}\"" | xargs kubectl get node -o json | jq -r '{ip: .metadata.labels."eks.tke.cloud.tencent.com/available-ip-count"} |  "\(.ip)"'
 ```
-
-查看 POD 分配到的机型:
-
-```bash
-kubectl get pod -o=custom-columns=POD-NAME:.metadata.name,POD-IP:.status.podIP,INSTANCE-TYPE:".metadata.labels.cloud\.tencent\.com/instance-type"
-```
