@@ -238,3 +238,24 @@ openssl x509 -noout -text -in test.crt
 ```bash
 echo | openssl s_client -connect imroc.cc:443 2>/dev/null | openssl x509 -noout -text
 ```
+
+## 磁盘占用
+
+### 空间占用
+
+```bash
+df -h
+```
+
+### inode 占用
+
+```bash
+# df -i
+Filesystem       Inodes  IUsed    IFree IUse% Mounted on
+/dev/vda1       6553600 283895  6269705    5% /
+/dev/vdb1      26214400  62421 26151979    1% /data
+
+$ tune2fs -l /dev/vda1 | grep -i inode
+Inode count:              6553600
+Free inodes:              6465438
+```
