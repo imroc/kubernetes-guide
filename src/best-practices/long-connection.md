@@ -18,7 +18,7 @@
 
 部分 Pod 连接数高，意味着相比连接数低的 Pod 要同时处理更多的连接，着消耗的资源也就相对更多，从而造成负载不均。
 
-将 kube-proxy 的 ipvs 转发模式设置为 lc (Least-Connection) ，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 lc。
+将 kube-proxy 的 ipvs 转发模式设置为 lc (Least-Connection) ，即倾向转发给连接数少的 Pod，可能会有所缓解，但也不一定，因为 ipvs 的负载均衡状态是分散在各个节点的，并没有收敛到一个地方，也就无法在全局层面感知哪个 Pod 上的连接数少，并不能真正做到 lc。可以尝试设置为 sh (Source Hashing)，这样可以保证即便负载均衡状态没有收敛到同一个地方，也能在全局尽量保持负载均衡。
 
 ## 扩容失效问题
 
@@ -30,3 +30,4 @@
 
 1. 业务层面自动重连，避免连接 "固化" 到某个后端 Pod 上。比如周期性定时重连，或者一个连接中处理的请求数达到阈值后自动重连。
 2. 不直接请求后端，通过七层代理访问。比如 gRPC 协议，可以 [使用 nginx ingress 转发 gRPC](https://kubernetes.github.io/ingress-nginx/examples/grpc/)，也可以 [使用 istio 转发 gRPC](https://istiobyexample.dev/grpc/)，这样对于 gRPC 这样多个请求复用同一个长连接的场景，经过七层代理后，可以自动拆分请求，在请求级别负载均衡。
+3. kube-proxy 的 ipvs 转发策略设置为 sh (`--ipvs-scheduler=sh`)。
