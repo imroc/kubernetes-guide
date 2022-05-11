@@ -11,4 +11,5 @@ EKS 没有节点，要让 Pod 访问公网有两种方式：
 
 ## 9100 端口
 
-EKS 默认会在每个 Pod 的 9100 端口进行监听，暴露 Pod 相关监控指标，如果业务本身也监听 9100，会失败，参考 [9100 端口问题](https://imroc.cc/kubernetes/tencent/appendix/eks-annotations.html#9100-%E7%AB%AF%E5%8F%A3%E9%97%AE%E9%A2%98)
+EKS 默认会在每个 Pod 的 9100 端口进行监听，暴露 Pod 相关监控指标，如果业务本身也监听 9100，会失败，参考 [9100 端口问题](https://imroc.cc/kubernetes/tencent/appendix/eks-annotations.html#9100-%E7%AB%AF%E5%8F%A3%E9%97%AE%E9%A2%98)。
+

@@ -68,6 +68,7 @@
   - [ETCD 优化](best-practices/ops/etcd-optimization.md)
   - [使用 Ansible 批量操作节点](best-practices/ops/batch-operate-node-with-ansible.md)
 - [日志采集](best-practices/logging.md)
+- [长连接服务](best-practices/long-connection.md)
 
 # 故障排查
 
