@@ -11,6 +11,12 @@ kubectl get --raw=/api/v1/nodes/11.185.19.215/proxy/metrics/cadvisor
 kubectl get --raw=/api/v1/nodes/11.185.19.215/proxy/metrics/cadvisor | grep -v "#" | awk -F '{' '{print $1}' | awk '{print $1}' | sort | uniq
 ```
 
+### 获取 node-exporter pod 指标
+
+```bash
+kubectl get --raw=/api/v1/namespaces/monitoring/pods/node-exporter-n5rz2:9100/proxy/metrics
+```
+
 ### 获取节点 summary 数据
 
 ```bash
