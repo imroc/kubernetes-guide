@@ -396,7 +396,8 @@ eks.tke.cloud.tencent.com/duration-to-wait-service-rules: '30s' # 启动 Pod 前
 IPVS 规则可通过如下注解控制：
 
 ```yaml
-eks.tke.cloud.tencent.com/ipvs-scheduler: 'rr' # 调度算法，默认 rr (轮询 round robin)
+eks.tke.cloud.tencent.com/ipvs-scheduler: 'sh' # 调度算法，sh 是 source hash，按源地址 hash 进行转发，更利于分布式全局的负载均衡。默认为 rr (轮询 round robin)
+eks.tke.cloud.tencent.com/ipvs-sh-port: "true" # 按端口进行 source hash，仅在 ipvs-scheduler 为 sh 有效。
 eks.tke.cloud.tencent.com/ipvs-sync-period: '30s' # 规则刷新的最大间隔，默认 30s 刷新一次。
 eks.tke.cloud.tencent.com/ipvs-min-sync-period: '2s' # 规则刷新的最小间隔，默认 service 一有变更就刷新。调整此参数可避免刷新过于频繁。
 ```
