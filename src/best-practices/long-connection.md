@@ -30,4 +30,4 @@
 
 1. 业务层面自动重连，避免连接 "固化" 到某个后端 Pod 上。比如周期性定时重连，或者一个连接中处理的请求数达到阈值后自动重连。
 2. 不直接请求后端，通过七层代理访问。比如 gRPC 协议，可以 [使用 nginx ingress 转发 gRPC](https://kubernetes.github.io/ingress-nginx/examples/grpc/)，也可以 [使用 istio 转发 gRPC](https://istiobyexample.dev/grpc/)，这样对于 gRPC 这样多个请求复用同一个长连接的场景，经过七层代理后，可以自动拆分请求，在请求级别负载均衡。
-3. kube-proxy 的 ipvs 转发策略设置为 sh (`--ipvs-scheduler=sh`)。如果用的腾讯云 EKS 弹性集群，没有节点，看不到 kube-proxy，可以通过 `eks.tke.cloud.tencent.com/ipvs-scheduler: 'sh'` 这样的注解来设置，另外也设置下 `eks.tke.cloud.tencent.com/ipvs-sh-port: "true"`，将端口号也加入到 hash 的 key，更利于负载均衡，参考 [EKS 注解](../tencent/appendix/eks-annotations.md#%E8%AE%BE%E7%BD%AE-ipvs-%E5%8F%82%E6%95%B0)。
+3. kube-proxy 的 ipvs 转发策略设置为 sh (`--ipvs-scheduler=sh`)。如果用的腾讯云 EKS 弹性集群，没有节点，看不到 kube-proxy，可以通过 `eks.tke.cloud.tencent.com/ipvs-scheduler: 'sh'` 这样的注解来设置，另外还支持将端口号也加入到 hash 的 key，更利于负载均衡，需再设置下 `eks.tke.cloud.tencent.com/ipvs-sh-port: "true"`，参考 [EKS 注解](../tencent/appendix/eks-annotations.md#%E8%AE%BE%E7%BD%AE-ipvs-%E5%8F%82%E6%95%B0)。
