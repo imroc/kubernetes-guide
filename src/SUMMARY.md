@@ -115,6 +115,7 @@
   - [MountVolume.SetUp failed for volume](troubleshooting/storage/setup-failed-for-volume.md)
 - [集群排障](troubleshooting/cluster/README.md)
   - [Namespace 一直 Terminating](troubleshooting/cluster/namespace-terminating.md)
+- [SDK 排障](troubleshooting/sdk.md)
 - [排障案例](troubleshooting/cases/README.md)
   - [运行时故障](troubleshooting/cases/runtime/README.md)
     - [磁盘 IO 过高导致 Pod 创建超时](troubleshooting/cases/runtime/io-high-load-causing-pod-creation-timeout.md)
