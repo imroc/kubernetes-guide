@@ -70,6 +70,13 @@ spec:
     limits.memory: 2Gi
 ```
 
+## FAQ
+
+### 为什么 CPU 利用率远不到 limit 还会被 throttle ?
+
+CPU 限流是因为内核使用 CFS 调度算法，对于微突发场景，在一个 CPU 调度周期内 (100ms) 所占用的时间超过了 limit，强制 "抢走" CPU 使用权(throttle)，等待下一个周期再执行，但是时间拉长一点，进程使用 CPU 所占用的时间比例却很低，监控上就看不出来 CPU 有突增，但实际上又被 throttle 了。
+ 
+更多详细解释参考 [k8s CPU limit和throttling的迷思](https://zhuanlan.zhihu.com/p/433065108)。
 
 ## 参考资料
 
