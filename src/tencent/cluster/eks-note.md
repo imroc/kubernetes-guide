@@ -13,6 +13,12 @@ EKS 没有节点，要让 Pod 访问公网有两种方式：
 
 EKS 默认会在每个 Pod 的 9100 端口进行监听，暴露 Pod 相关监控指标，如果业务本身也监听 9100，会失败，参考 [9100 端口问题](https://imroc.cc/kubernetes/tencent/appendix/eks-annotations.html#9100-%E7%AB%AF%E5%8F%A3%E9%97%AE%E9%A2%98)。
 
+## 注意配额限制
+
+使用 EKS 集群时注意一下配额限制，如果不够，可以提工单调高上限:
+1. 单集群 Pod 数量上限 (默认200)。
+2. 安全组绑定实例数量上限 (如果不给 Pod 指定安全组，会使用当前项目当前地域的默认安全组，每个安全组绑定实例数量上限为 2000)。
+
 ## istio 场景 ipvs 超时时间问题
 
 isito 的 sidecar (istio-proxy) 拦截流量借助了 conntrack 来实现连接跟踪，当部分没有拦截的流量 (比如 UDP) 通过 service 访问时，会经过 ipvs 转发，而 ipvs 和 conntrack 对连接都有一个超时时间设置，如果在 ipvs 和 conntrack 中的超时时间不一致，就可能出现 conntrack 中连接还在，但在 ipvs 中已被清理而导致出去的包被 ipvs 调度到新的 rs，而 rs 回包的时候匹配不到 conntrack，不会做反向 SNAT，从而导致进程收不到回包。
