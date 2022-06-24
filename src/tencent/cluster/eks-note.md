@@ -19,7 +19,9 @@ EKS 默认会在每个 Pod 的 9100 端口进行监听，暴露 Pod 相关监控
 1. 单集群 Pod 数量上限 (默认200)。
 2. 安全组绑定实例数量上限 (如果不给 Pod 指定安全组，会使用当前项目当前地域的默认安全组，每个安全组绑定实例数量上限为 2000)。
 
-## istio 场景 ipvs 超时时间问题
+## ipvs 超时时间问题
+
+### istio 场景 dns 超时
 
 istio 的 sidecar (istio-proxy) 拦截流量借助了 conntrack 来实现连接跟踪，当部分没有拦截的流量 (比如 UDP) 通过 service 访问时，会经过 ipvs 转发，而 ipvs 和 conntrack 对连接都有一个超时时间设置，如果在 ipvs 和 conntrack 中的超时时间不一致，就可能出现 conntrack 中连接还在，但在 ipvs 中已被清理而导致出去的包被 ipvs 调度到新的 rs，而 rs 回包的时候匹配不到 conntrack，不会做反向 SNAT，从而导致进程收不到回包。
 
@@ -29,4 +31,16 @@ istio 的 sidecar (istio-proxy) 拦截流量借助了 conntrack 来实现连接�
 
 ```yaml
 eks.tke.cloud.tencent.com/ipvs-udp-timeout: "120s"
+```
+
+### gRPC 场景 Connection reset by peer
+
+gRPC 是长连接，Java 版的 gRPC 默认 idle timeout 是 30 分钟，并且没配置 TCP 连接的 keepalive 心跳，而 ipvs 默认的 tcp timeout 是 15 分钟。
+
+这就会导致一个问题: 业务闲置 15 分钟后，ipvs 断开连接，但是上层应用还认为连接在，还会复用连接发包，而 ipvs 中对应连接已不存在，会直接响应 RST 来将连接断掉，从业务日志来看就是 `Connection reset by peer`。
+
+这种情况，如果不想改代码来启用 keepalive，可以直接调整下 eks 的 ipvs 的 tcp timeout 时间，与业务 idle timeout 时长保持一致:
+
+```yaml
+eks.tke.cloud.tencent.com/ipvs-tcp-timeout: "1800s"
 ```
