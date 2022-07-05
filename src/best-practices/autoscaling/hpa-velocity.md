@@ -69,8 +69,8 @@ spec:
 behavior:
   scaleUp:
     policies:
-    - type: percent
-      value: 900%
+    - type: Percent
+      value: 900
   scaleDown:
     policies:
     - type: pods
