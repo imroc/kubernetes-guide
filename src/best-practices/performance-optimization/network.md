@@ -166,21 +166,6 @@ net.ipv4.tcp_rmem="4096 26214400 26214400"
 > 2. 如果程序没用 setsockopt 更改 buffer 长度，就会使用 default 作为初始 buffer 长度(覆盖 `net.core.rmem_default`)，然后根据内存压力在 min 和 max 之间自动调整。
 > 3. 如果程序使用了 setsockopt 更改 buffer 长度，则使用传入的长度 (仍然受限于 `net.core.rmem_max`)。
 
-## 选用高性能的机型
-
-如果并发量或吞吐量较高，服务器的连接数、PPS 以及带宽能力的上限可能成为瓶颈，对于网络性能要求较高的业务，我们应选用高性能的机型作为节点部署业务。
-
-如果使用云厂商的服务，一般会提供各种机型和规格的性能指标参考，比如腾讯云可以参考 [云服务器实例规格](https://cloud.tencent.com/document/product/213/11518)。
-
-如果将业务部署到高性能机型的节点上？可以结合容器服务的节点池/节点组扩容出一组相同机型的节点，用亲和性或 nodeSelector 指定调度到这些节点上。
-
-如果使用的是 [腾讯云弹性集群 EKS](https://console.cloud.tencent.com/tke2/ecluster) 这种没有节点的 Serverless 类型 K8S，可以在 Pod 级别加注解来指定调度的机型:
-
-```yaml
-eks.tke.cloud.tencent.com/cpu-type: "S6,C6,S5,C6,amd,intel"
-```
-> 注解说明请参考 [EKS Annotation 说明](https://cloud.tencent.com/document/product/457/44173)。
-
 ## 内核参数调优配置示例
 
 调整 Pod 内核参数:
