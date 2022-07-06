@@ -40,4 +40,4 @@
               command: ["/bin/bash", "-c", "sleep 10"]
 ```
 
-最后，业务本身也需要实现优雅终止，避免被销毁时中断业务，参考 [优雅终止最佳实践](../graceful-shutdown/README.md)
+最后，业务本身也需要实现优雅终止，避免被销毁时中断业务，参考 [优雅终止最佳实践](../graceful-shutdown/index.html)
