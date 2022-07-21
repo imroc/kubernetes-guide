@@ -283,6 +283,62 @@ spec:
 kubectl apply -f gitlab-vs.yaml
 ```
 
+除了暴露 https，如果需要通过 ssh 协议来 push 或 pull 代码，需要暴露 22 端口，使用单独的 Gateway 对象来暴露(绑定同一个 ingressgateway)，`shell-gw.yaml`:
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: shell
+  namespace: external
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 22
+      name: shell
+      protocol: TCP
+    hosts:
+    - "*"
+```
+
+创建 Gateway:
+
+```bash
+kubectl apply -f shell-gw.yaml
+```
+
+为 22 端口创建 VirtualService 并绑定 Gateway，`gitlab-shell-vs.yaml`:
+
+```yaml
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: gitlab-shell
+  namespace: gitlab
+spec:
+  gateways:
+  - external/shell
+  hosts:
+  - '*'
+  tcp:
+  - match:
+    - port: 22
+    route:
+    - destination:
+        host: gitlab-gitlab-shell
+        port:
+          number: 22
+```
+
+创建 VirutalService:
+
+```bash
+kubectl apply -f gitlab-shell-vs.yaml
+```
+
 ### 获取 root 初始密码并登录
 
 服务暴露出来之后，确保 DNS 也正确配置，解析到网关的 IP，我这里则是 istio-ingressgateway 对应的 CLB 的外网 IP。
@@ -303,6 +359,12 @@ kxe***********************************************************k5
 拿到密码后输入然后登录即可。
 
 ## 部署并注册 gitlab-runner
+
+Gitlab 有很强大的 CI 功能，我们可以在集群中也部署一下 gitlab-runner，如果为代码仓库设置了 CI 流程，可以自动将任务分发给 gitlab-runner 去执行 CI 任务，每个任务再创建单独的 Pod 去运行:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/gitlab-runner-arch.png)
+
+下面介绍 gitlab-runner 的部署与注册方法。
 
 ### 获取注册 token
 
