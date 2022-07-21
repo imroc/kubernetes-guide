@@ -424,13 +424,27 @@ gitlab-runner-6fb794bb6b-s6n5h                1/1     Running     0          2m1
 ## 附录
 ### 测试场景
 
-如果只是测试下 Gitlab，不长期使用，在不需要的时候可以把所有副本缩为 0:
+如果只是测试下 Gitlab，不长期使用，在不需要的时候可以把所有副本缩为 0 以节约成本:
+
+```bash
+kubectl get deployments.v1.apps | grep -v NAME | awk '{print $1}' | xargs -I {} kubectl scale deployments.v1.apps/{} --replicas=0
+kubectl get sts | grep -v NAME | awk '{print $1}' | xargs -I {} kubectl scale sts/{} --replicas=0
+```
+
+在需要用的时候置为 1:
+
+```bash
+kubectl get deployments.v1.apps | grep -v NAME | awk '{print $1}' | xargs -I {} kubectl scale deployments.v1.apps/{} --replicas=1
+kubectl get sts | grep -v NAME | awk '{print $1}' | xargs -I {} kubectl scale sts/{} --replicas=1
+```
+
+如果使用了 `https://github.com/tke-apps/gitlab` 这个仓库，可以直接用以下命令缩0:
 
 ```bash
 make scale0
 ```
 
-在需要用的时候置为 1:
+扩到1:
 
 ```bash
 make scale1
