@@ -351,8 +351,25 @@ $ kubectl -n gitlab get pod | grep runner
 gitlab-runner-6fb794bb6b-s6n5h                1/1     Running     0          2m17s
 ```
 
+> 后续想卸载可使用这个命令: `helm -n gitlab uninstall gitlab-runner`
+
 ### 检查是否注册成功
 
 进入 Gitlab 【Admin】-【Overview】-【Runners】页面检查 runner 是否注册成功:
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220721130051.png)
+
+## 附录
+### 测试场景
+
+如果只是测试下 Gitlab，不长期使用，在不需要的时候可以把所有副本缩为 0:
+
+```bash
+make scale0
+```
+
+在需要用的时候置为 1:
+
+```bash
+make scale1
+```
