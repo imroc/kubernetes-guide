@@ -161,6 +161,8 @@
   - [使用海外容器镜像](tencent/images/use-foreign-container-image.md)
 - [故障排查](tencent/troubleshooting/README.md)
   - [排查公网服务不通](tencent/troubleshooting/public-service-or-ingress-connect-failed.md)
+- [常见应用安装与部署](tencent/install-apps/README.md)
+  - [自建 Harbor 镜像仓库](tencent/install-apps/install-harbor-on-tke.md)
 - [常见问题](tencent/faq/README.md)
   - [修改 rp_filter 导致网路异常](tencent/faq/modify-rp-filter-causing-exception.md)
   - [CLB 回环问题](tencent/faq/clb-loopback.md)
