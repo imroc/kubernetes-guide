@@ -9,6 +9,20 @@ EKS 没有节点，要让 Pod 访问公网有两种方式：
 1. [通过 NAT 网关访问外网](https://cloud.tencent.com/document/product/457/48710)
 2. [通过弹性公网 IP 访问外网](https://cloud.tencent.com/document/product/457/60354)
 
+大多情况下可以考虑方式一，创建 NAT 网关，在 VPC 路由表里配置路由，如果希望整个 VPC 都默认走这个 NAT 网关出公网，可以修改 default 路由表:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220722111352.png)
+
+如果只想让超级节点的 Pod 走这个 NAT 网关，可以新建路由表。
+
+配置方法是在路由表新建一条路由策略，`0.0.0.0/0` 网段的下一条类型为 `NAT 网关`，且选择前面创建的 NAT 网关实例:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220722111650.png)
+
+创建好后，如果不是 default 路由表，需要关联一下超级节点的子网:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220722111842.png)
+
 ## 9100 端口
 
 EKS 默认会在每个 Pod 的 9100 端口进行监听，暴露 Pod 相关监控指标，如果业务本身也监听 9100，会失败，参考 [9100 端口问题](https://imroc.cc/kubernetes/tencent/appendix/eks-annotations.html#9100-%E7%AB%AF%E5%8F%A3%E9%97%AE%E9%A2%98)。
