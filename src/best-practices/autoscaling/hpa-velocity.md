@@ -17,6 +17,52 @@ HPA 在 K8S 1.18 迎来了一次更新，在之前 v2beta2 版本上新增了扩
 
 这次更新实际就是在 HPA Spec 下新增了一个 `behavior` 字段，下面有 `scaleUp` 和 `scaleDown` 两个字段分别控制扩容和缩容的行为，具体可参考 [官方 API 文档](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#hpascalingrules-v2beta2-autoscaling)。
 
+如果不配置 `behavior`，使用示例:
+```yaml
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web
+spec:
+  minReplicas: 1
+  maxReplicas: 1000
+  metrics:
+  - pods:
+      metric:
+        name: k8s_pod_rate_cpu_core_used_limit
+      target:
+        averageValue: "80"
+        type: AverageValue
+    type: Pods
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web
+  behavior: # 这里是重点
+    scaleDown:
+      stabilizationWindowSeconds: 300 # 需要缩容时，先观察 5 分钟，如果一直持续需要缩容才执行缩容
+      policies:
+      - type: Percent
+        value: 100 # 允许全部缩掉
+        periodSeconds: 15
+    scaleUp:
+      stabilizationWindowSeconds: 0 # 需要扩容时，立即扩容
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15 # 每 15s 最大允许扩容当前 1 倍数量的 Pod
+      - type: Pods
+        value: 4
+        periodSeconds: 15 # 每 15s 最大允许扩容 4 个 Pod
+      selectPolicy: Max # 使用以上两种扩容策略中算出来扩容 Pod 数量最大的
+```
+
+* 以上 `behavior` 配置是默认的，即如果不配置，会默认加上。
+* `scaleUp` 和 `scaleDown` 都可以配置1个或多个策略，最终扩缩时用哪个策略，取决于 `selectPolicy`。
+* `selectPolicy` 默认是 `Max`，即扩缩时，评估多个策略算出来的结果，最终选取扩缩 Pod 数量最多的那个策略的结果。
+* `stabilizationWindowSeconds` 
+
+
 下面给出一些使用场景的示例。
 
 ## 快速扩容
@@ -155,6 +201,5 @@ behavior:
 
 ## 参考资料
 
-* [HPA 官方介绍文档](https://kubernetes.io/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 * [HPA 官方介绍文档](https://kubernetes.io/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 * [控制 HPA 扩容速度的提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity)
