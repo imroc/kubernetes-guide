@@ -48,7 +48,7 @@ spec:
       policies:
       - type: Percent
         value: 900
-        periodSeconds: 5
+        periodSeconds: 15 # 每 15s 最多允许扩容 9 倍于当前副本数
 ```
 
 上面的配置表示扩容时立即新增当前 9 倍数量的副本数，即立即扩容到当前 10 倍的 Pod 数量，当然也不能超过 `maxReplicas` 的限制。
@@ -75,7 +75,7 @@ behavior:
     policies:
     - type: Pods
       value: 1
-      periodSeconds: 600 # 每 10 分钟只缩掉 1 个 Pod
+      periodSeconds: 600 # 每 10 分钟最多只允许缩掉 1 个 Pod
 ```
 
 上面示例中增加了 `scaleDown` 的配置，指定缩容时每 10 分钟才缩掉 1 个 Pod，大大降低了缩容速度，缩容时的 Pod 数量变化趋势如下:
@@ -95,7 +95,8 @@ behavior:
   scaleUp:
     policies:
     - type: Pods
-      value: 1 # 每次扩容只新增 1 个 Pod
+      value: 1 
+      periodSeconds: 300 # 每 5 分钟最多只允许扩容 1 个 Pod
 ```
 
 假如一开始只有 1 个 Pod，扩容时它的 Pod 数量变化趋势如下:
@@ -126,7 +127,8 @@ behavior:
     stabilizationWindowSeconds: 600 # 等待 10 分钟再开始缩容
     policies:
     - type: Pods
-      value: 5 # 每次只缩掉 5 个 Pod
+      value: 5 
+      periodSeconds: 600 # 每 10 分钟最多只允许缩掉 5 个 Pod
 ```
 
 上面的示例表示当负载降下来时，会等待 600s (10 分钟) 再缩容，每次只缩容 5 个 Pod。
@@ -143,7 +145,8 @@ behavior:
     stabilizationWindowSeconds: 300 # 扩容前等待 5 分钟的时间窗口
     policies:
     - type: Pods
-      value: 20 # 每次扩容新增 20 个 Pod
+      value: 20 
+      periodSeconds: 60 # 每分钟最多只允许扩容 20 个 Pod
 ```
 
 上面的示例表示扩容时，需要先等待 5 分钟的时间窗口，如果在这段时间内负载降下来了就不再扩容，如果负载持续超过扩容阀值才扩容，每次扩容新增 20 个 Pod。
