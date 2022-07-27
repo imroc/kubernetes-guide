@@ -73,7 +73,7 @@ behavior:
       value: 900
   scaleDown:
     policies:
-    - type: pods
+    - type: Pods
       value: 1
       periodSeconds: 600 # 每 10 分钟只缩掉 1 个 Pod
 ```
@@ -94,7 +94,7 @@ behavior:
 behavior:
   scaleUp:
     policies:
-    - type: pods
+    - type: Pods
       value: 1 # 每次扩容只新增 1 个 Pod
 ```
 
@@ -112,7 +112,7 @@ behavior:
 behavior:
   scaleDown:
     policies:
-    - type: pods
+    - type: Pods
       value: 0
 ```
 
@@ -125,7 +125,7 @@ behavior:
   scaleDown:
     stabilizationWindowSeconds: 600 # 等待 10 分钟再开始缩容
     policies:
-    - type: pods
+    - type: Pods
       value: 5 # 每次只缩掉 5 个 Pod
 ```
 
