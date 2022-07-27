@@ -60,7 +60,8 @@ spec:
 * 以上 `behavior` 配置是默认的，即如果不配置，会默认加上。
 * `scaleUp` 和 `scaleDown` 都可以配置1个或多个策略，最终扩缩时用哪个策略，取决于 `selectPolicy`。
 * `selectPolicy` 默认是 `Max`，即扩缩时，评估多个策略算出来的结果，最终选取扩缩 Pod 数量最多的那个策略的结果。
-* `stabilizationWindowSeconds` 
+* `stabilizationWindowSeconds` 是稳定窗口时长，即需要指标高于或低于阈值，并持续这个窗口的时长才会真正执行扩缩，以防止抖动导致频繁扩缩容。扩容时，稳定窗口默认为0，即立即扩容；缩容时，稳定窗口默认为5分钟。
+* `policies` 中定义扩容或缩容策略，`type` 的值可以是 `Pods` 或 `Percent`，表示每 `periodSeconds` 时间范围内，允许扩缩容的最大副本数或比例。
 
 
 下面给出一些使用场景的示例。
@@ -70,31 +71,12 @@ spec:
 当你的应用需要快速扩容时，可以使用类似如下的 HPA 配置:
 
 ```yaml
-apiVersion: autoscaling/v2beta2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: web
-spec:
-  minReplicas: 1
-  maxReplicas: 1000
-  metrics:
-  - pods:
-      metric:
-        name: k8s_pod_rate_cpu_core_used_limit
-      target:
-        averageValue: "80"
-        type: AverageValue
-    type: Pods
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: web
-  behavior: # 这里是重点
-    scaleUp:
-      policies:
-      - type: Percent
-        value: 900
-        periodSeconds: 15 # 每 15s 最多允许扩容 9 倍于当前副本数
+behavior:
+  scaleUp:
+    policies:
+    - type: Percent
+      value: 900
+      periodSeconds: 15 # 每 15s 最多允许扩容 9 倍于当前副本数
 ```
 
 上面的配置表示扩容时立即新增当前 9 倍数量的副本数，即立即扩容到当前 10 倍的 Pod 数量，当然也不能超过 `maxReplicas` 的限制。
