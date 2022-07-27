@@ -154,5 +154,6 @@ behavior:
 
 ## 参考资料
 
-* [HPA 介绍](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
-* [控制 HPA 扩容速度的提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+* [HPA 官方介绍文档](https://kubernetes.io/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+* [HPA 官方介绍文档](https://kubernetes.io/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
+* [控制 HPA 扩容速度的提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity)
