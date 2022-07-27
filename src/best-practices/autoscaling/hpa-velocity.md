@@ -142,7 +142,7 @@ behavior:
   scaleUp:
     stabilizationWindowSeconds: 300 # 扩容前等待 5 分钟的时间窗口
     policies:
-    - type: pods
+    - type: Pods
       value: 20 # 每次扩容新增 20 个 Pod
 ```
 
