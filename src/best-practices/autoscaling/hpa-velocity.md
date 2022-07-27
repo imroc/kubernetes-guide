@@ -112,9 +112,7 @@ behavior:
 ```yaml
 behavior:
   scaleDown:
-    policies:
-    - type: Pods
-      value: 0
+    selectPolicy: Disabled
 ```
 
 ## 延长缩容时间窗口
