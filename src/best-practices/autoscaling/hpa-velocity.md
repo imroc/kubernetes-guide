@@ -15,7 +15,7 @@ HPA 在 K8S 1.18 迎来了一次更新，在之前 v2beta2 版本上新增了扩
 
 ## 如何使用
 
-这次更新实际就是在 HPA Spec 下新增了一个 `behavior` 字段，下面有 `scaleUp` 和 `scaleDown` 两个字段分别控制扩容和缩容的行为，具体可参考 [官方 API 文档](https://v1-18.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#horizontalpodautoscalerbehavior-v2beta2-autoscaling)
+这次更新实际就是在 HPA Spec 下新增了一个 `behavior` 字段，下面有 `scaleUp` 和 `scaleDown` 两个字段分别控制扩容和缩容的行为，具体可参考 [官方 API 文档](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#hpascalingrules-v2beta2-autoscaling)。
 
 下面给出一些使用场景的示例。
 
