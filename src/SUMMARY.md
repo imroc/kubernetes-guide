@@ -47,7 +47,7 @@
 - [合理设置 Request 与 Limit](best-practices/request-limit.md)
 - [Pod 性能优化](best-practices/performance-optimization/README.md)
   - [网络性能调优](best-practices/performance-optimization/network.md)
-  - [Pod 绑定 NUMA 亲和性](best-practices/performance-optimization/single-numa-node.md)
+  - [CPU 绑核](best-practices/performance-optimization/cpu-affinity.md)
 - [高可用部署](best-practices/ha/README.md)
   - [Pod 打散调度](best-practices/ha/pod-split-up-scheduling.md)
   - [工作负载平滑升级](best-practices/ha/smooth-upgrade.md)
