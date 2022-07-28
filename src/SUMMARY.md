@@ -55,7 +55,7 @@
   - [自定义域名解析](best-practices/dns/customize-dns-resolution.md)
   - [CoreDNS 性能优化](best-practices/dns/optimize-coredns-performance.md)
 - [弹性伸缩](best-practices/autoscaling/README.md)
-  - [调节 HPA 扩缩容灵敏度](best-practices/autoscaling/hpa-velocity.md)
+  - [根据业务场景调节 HPA 扩缩容速率](best-practices/autoscaling/hpa-velocity.md)
   - [HPA 使用自定义指标进行伸缩](best-practices/autoscaling/hpa-with-custom-metrics.md)
 - [应用容器化](best-practices/containerization/README.md)
   - [在容器内使用 systemd](best-practices/containerization/systemd-in-container.md)
