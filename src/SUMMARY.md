@@ -146,13 +146,12 @@
 
 # 腾讯云容器服务
 
-- [集群指南](tencent/cluster/README.md)
-  - [Serverless 弹性集群注意事项](tencent/cluster/eks-note.md)
-- [超级节点](tencent/supernode/README.md)
-  - [为什么超级节点这么牛！](tencent/supernode/why-tke-supernode-rocks.md)
-  - [超级节点案例分享: 轻松应对流量洪峰](tencent/supernode/supernode-case-online.md)
-  - [超级节点案例分享: 便捷管理离线任务与大规模压测](tencent/supernode/supernode-case-offline.md)
-  - [大镜像解决方案](tencent/supernode/large-image-solution.md)
+- [Serverless 集群与超级节点](tencent/eks/README.md)
+  - [Serverless 弹性集群注意事项](tencent/eks/eks-note.md)
+  - [为什么超级节点这么牛！](tencent/eks/why-tke-supernode-rocks.md)
+  - [超级节点案例分享: 轻松应对流量洪峰](tencent/eks/supernode-case-online.md)
+  - [超级节点案例分享: 便捷管理离线任务与大规模压测](tencent/eks/supernode-case-offline.md)
+  - [大镜像解决方案](tencent/eks/large-image-solution.md)
 - [网络指南](tencent/networking/README.md)
   - [启用 CLB 直通 Pod](tencent/networking/clb-to-pod-directly.md)
   - [Pod 绑 EIP](tencent/networking/how-to-use-eip.md)
