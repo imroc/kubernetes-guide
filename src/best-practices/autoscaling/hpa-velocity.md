@@ -192,6 +192,50 @@ behavior:
 
 上面的示例表示扩容时，需要先等待 5 分钟的时间窗口，如果在这段时间内指标又降下来了就不再扩容，如果一直持续超过阈值才扩容，并且每分钟最多只允许扩容 20 个 Pod。
 
+## FAQ
+
+### 为什么我用 v2beta2 创建的 HPA，创建后获取到的 yaml 版本是 v1 或 v2beta1?
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220728151816.png)
+
+这是因为 HPA 有多个 apiVersion 版本:
+
+```bash
+kubectl api-versions | grep autoscaling
+autoscaling/v1
+autoscaling/v2beta1
+autoscaling/v2beta2
+```
+
+以任意一种版本创建，都可以以任意版本获取(自动转换)。
+
+如果是用 kubectl 获取，kubectl 在进行 API discovery 时，会缓存 apiserver 返回的各种资源与版本信息，有些资源存在多个版本，在 get 时如果不指定版本，会使用默认版本获取，对于 HPA，默认是 v1。
+
+如果是通过一些平台的界面获取，取决于平台的实现方式，比如腾讯云容器服务控制台，默认用 v2beta1 版本展示:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220728152913.png)
+
+### 配置快速扩容，为什么快不起来?
+
+比如这个配置:
+
+```yaml
+behavior:
+  scaleUp:
+    policies:
+    - type: Percent
+      value: 900
+      periodSeconds: 10
+```
+
+含义是允许每 10 秒最大允许扩出 9 倍于当前数量的 Pod，实测中可能发现压力已经很大了，但扩容却并不快。
+
+通常原因是计算周期与指标延时:
+* 期望副本数的计算有个计算周期，默认是 15 秒 (由 `kube-controller-manager` 的 `--horizontal-pod-autoscaler-sync-period` 参数决定)。
+* 每次计算时，都会通过相应的 metrics API 去获取当前监控指标的值，这个返回的值通常不是实时的，对于腾讯云容器服务而言，监控数据是每分钟上报一次；对于自建的 prometheus + prometheus-adapter 而言，监控数据的更新取决于监控数据抓取间隔，prometheus-adapter 的 `--metrics-relist-interval` 参数决定监控指标刷新周期(从 prometheus 中查询)，这两部分时长之和为监控数据更新的最长时间。
+
+通常都不需要 HPA 极度的灵敏，有一定的延时一般都是可以接受的。如果实在有对灵敏度特别敏感的场景，可以考虑使用 prometheus，缩小监控指标抓取间隔和 prometheus-adapter 的 `--metrics-relist-interval`。
+
 ## 小结
 
 本文介绍了如何利用 K8S 1.18 的 HPA 新特性来控制扩缩容的速率，以更好的满足各种不同场景对扩容速度的需求。
