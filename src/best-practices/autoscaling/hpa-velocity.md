@@ -215,6 +215,13 @@ autoscaling/v2beta2
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220728152913.png)
 
+如何使用 v2beta2 版本获取或编辑？指定一下版本即可:
+
+```bash
+kubectl get horizontalpodautoscaler.v2beta2.autoscaling php-apache -o yaml
+# kubectl edit horizontalpodautoscaler.v2beta2.autoscaling php-apache
+```
+
 ### 配置快速扩容，为什么快不起来?
 
 比如这个配置:
