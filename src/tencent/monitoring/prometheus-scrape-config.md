@@ -1,6 +1,6 @@
 # Prometheus 采集配置
 
-使用 Prometheus 采集腾讯云容器服务的监控数据时，主要需要注意的是 kubelet 与 cadvisor 的监控指标采集，本文分享为 Prometheus 配置 `scrape_config` 来采集腾讯云容器服务集群的监控数据的方法。
+使用 Prometheus 采集腾讯云容器服务的监控数据时如何配置采集规则？主要需要注意的是 kubelet 与 cadvisor 的监控指标采集，本文分享为 Prometheus 配置 `scrape_config` 来采集腾讯云容器服务集群的监控数据的方法。
 
 ## 普通节点采集规则
 
@@ -109,7 +109,7 @@
 * 超级节点的 Pod 支持通过 `collect[]` 这个查询参数来过滤掉不希望采集的指标，这样可以避免指标数据量过大，导致 Pod 负载升高，通常要过滤掉 `ipvs` 的指标。
 * 如果集群是普通节点与超级节点混用，确保只采集超级节点的 Pod (`relabel_configs` 中只保留有 `tke.cloud.tencent.com/pod-type:eklet` 这个注解的 Pod)。
 * 如果 Pod 的 phase 不是 Running 也无法采集，可以排除。
-* `container_` 开头的指标是 cadvisor 监控数据，`pod_` 是超级节点 Pod 所在子机的监控数据(相当于将 node_exporter 的 `node_` 前缀指标替换成了 `pod_`)，`kubelet_` 是超级节点 Pod 子机内兼容 kubelet 的指标(主要是 pvc 存储监控)。
+* `container_` 开头的指标是 cadvisor 监控数据，`pod_` 是超级节点 Pod 所在子机的监控数据(相当于将 `node_exporter` 的 `node_` 前缀指标替换成了 `pod_`)，`kubelet_` 是超级节点 Pod 子机内兼容 kubelet 的指标(主要是 pvc 存储监控)。
 
 ## kube-prometheus-stack 配置
 
