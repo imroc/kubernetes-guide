@@ -160,6 +160,8 @@
   - [扩容 CBS 类型的 PVC](tencent/storage/cbs-pvc-expansion.md)
   - [定义 ReadOnlyMany 存储的方法](tencent/storage/readonlymany-pv.md)
   - [使用 V3 协议挂载 CFS](tencent/storage/mount-cfs-with-v3.md)
+- [监控告警](tencent/monitoring/README.md)
+  - [Prometheus 采集配置](tencent/monitoring/prometheus-scrape-config.md)
 - [镜像与仓库](tencent/images/README.md)
   - [使用软件源加速软件包安装](tencent/images/use-mirror-in-container.md)
   - [使用海外容器镜像](tencent/images/use-foreign-container-image.md)
