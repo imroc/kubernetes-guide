@@ -16,6 +16,11 @@
   - [为什么要开 bridge-nf-call-iptables?](networking/faq/why-enable-bridge-nf-call-iptables.md)
   - [ipvs 连接复用引发的系列问题](networking/faq/ipvs-conn-reuse-mode.md)
 
+# 监控告警
+
+- [Grafana](monitoring/grafana/README.md)
+  - [Grafana 高可用部署](monitoring/grafana/ha-setup.md)
+
 # 实用技巧
 
 - [高效使用 kubectl](trick/kubectl/README.md)
