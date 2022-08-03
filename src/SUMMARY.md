@@ -161,6 +161,7 @@
   - [启用 CLB 直通 Pod](tencent/networking/clb-to-pod-directly.md)
   - [Pod 绑 EIP](tencent/networking/how-to-use-eip.md)
   - [IPVS 模式安装 localdns](tencent/networking/install-localdns-with-ipvs.md)
+  - [使用 TCM 对外暴露 gRPC 服务](tencent/networking/expose-grpc-with-tcm.md)
 - [存储指南](tencent/storage/README.md)
   - [扩容 CBS 类型的 PVC](tencent/storage/cbs-pvc-expansion.md)
   - [定义 ReadOnlyMany 存储的方法](tencent/storage/readonlymany-pv.md)
