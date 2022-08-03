@@ -35,8 +35,9 @@
   - [使用 CSR API 创建用户](trick/user-and-permissions/create-user-using-csr-api.md)
 - [部署与配置](trick/deploy/README.md)
   - [为 Pod 设置内核参数](trick/deploy/set-sysctl.md)
-- [构建镜像](trick/build-images/README.md)
-  - [使用 Podman 构建镜像](trick/build-images/podman.md)
+- [镜像相关](trick/images/README.md)
+  - [使用 Podman 构建镜像](trick/images/podman.md)
+  - [使用 skopeo 批量同步 helm chart 依赖镜像](trick/images/sync-images-with-skopeo.md)
 
 # 最佳实践
 
