@@ -13,17 +13,17 @@
 ```bash
 $ helm template -n monitoring -f kube-prometheus-stack.yaml ./kube-prometheus-stack | grep "image:" | awk -F 'image:' '{print $2}' | awk '{$1=$1;print}' | sed -e 's/^"//' -e 's/"$//' > images.txt
 $ cat images.txt
-registry.imroc.cc/prometheus/node-exporter:v1.3.1
-busybox:1.31.1
-kiwigrid/k8s-sidecar:1.19.2
-kiwigrid/k8s-sidecar:1.19.2
-grafana/grafana:9.0.6
-registry.imroc.cc/prometheus/kube-state-metrics:v2.5.0
-registry.imroc.cc/prometheus/prometheus-operator:v0.57.0
-registry.imroc.cc/prometheus/prometheus:v2.36.1
+quay.io/prometheus/node-exporter:v1.3.1
+quay.io/kiwigrid/k8s-sidecar:1.19.2
+quay.io/kiwigrid/k8s-sidecar:1.19.2
+grafana/grafana:9.0.2
+registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.5.0
+quay.io/prometheus-operator/prometheus-operator:v0.57.0
+quay.io/prometheus/alertmanager:v0.24.0
+quay.io/prometheus/prometheus:v2.36.1
 bats/bats:v1.4.1
-registry.imroc.cc/ingress-nginx/kube-webhook-certgen:v1.1.1
-registry.imroc.cc/ingress-nginx/kube-webhook-certgen:v1.1.1
+k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1
+k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1
 ```
 
 * 使用 helm template 渲染 yaml，利用脚本导出所有依赖的容器镜像并记录到 `images.txt`。
