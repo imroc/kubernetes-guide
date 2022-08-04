@@ -31,7 +31,7 @@ HPA 在进行扩缩容时，先是由固定的算法计算出期望副本数:
 
 这次更新实际就是在 HPA Spec 下新增了一个 `behavior` 字段，下面有 `scaleUp` 和 `scaleDown` 两个字段分别控制扩容和缩容的行为，具体可参考 [官方 API 文档](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#hpascalingrules-v2beta2-autoscaling)。
 
-如果不配置 `behavior`，使用示例:
+使用示例:
 ```yaml
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
