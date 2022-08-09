@@ -97,6 +97,12 @@
         target_label: pod # 将 Pod 名字写到 "pod" label
         replacement: ${1}
         action: replace
+      - source_labels: [__meta_kubernetes_namespace]
+        separator: ;
+        regex: (.*)
+        target_label: namespace # 将 Pod 所在 namespace 写到 "namespace" label
+        replacement: ${1}
+        action: replace
       metric_relabel_configs:
       - source_labels: [__name__]
         separator: ;
@@ -198,6 +204,12 @@ prometheus:
         separator: ;
         regex: (.*)
         target_label: pod
+        replacement: ${1}
+        action: replace
+      - source_labels: [__meta_kubernetes_namespace]
+        separator: ;
+        regex: (.*)
+        target_label: namespace
         replacement: ${1}
         action: replace
       metric_relabel_configs:
