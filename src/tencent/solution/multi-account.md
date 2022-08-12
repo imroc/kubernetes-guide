@@ -20,8 +20,17 @@
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812114733.png)
 
-## 注意事项
+## 注意事项: 其它账号尽量使用独立集群
 
+istio 注入 sidecar 时需要集群 apiserver 调用 TCM 控制面 webhook:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812123716.png)
+
+如果使用托管集群(TKE托管集群或EKS集群)，apiserver 是用户不可见的，使用 169 开头的 IP，这个 IP 只在 VPC 内可用。
+
+所以如果将账号B的托管集群注册到账号A的 TDCC 中，账号B的托管集群 apiserver 也无法调用到账号A的TCM控制面，就会导致无法注入 sidecar，而独立集群没这个问题，因为 apiserver 是部署在用户 CVM 上，使用 CVM 的 IP，打通云联网后网络就可以互通，所以推荐其它账号下的集群使用 TKE 独立集群。
+
+当然如果能保证完全没有 sidecar 自动注入的需求，不需要账号 B 的服务通过网格的服务发现主动调用账号 A 的服务，使用托管集群也可以。
 
 ## TODO
 
