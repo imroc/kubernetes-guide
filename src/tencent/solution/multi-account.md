@@ -70,8 +70,77 @@ istio 注入 sidecar 时需要集群 apiserver 调用 TCM 控制面 webhook:
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812143110.png)
 
+### 开通 TDCC
+
+登录账号A，进入 [TDCC 控制台](https://console.cloud.tencent.com/tdcc)，首次进入需要按流程进行开通操作。
+
+首先会提示为 TDCC 进行授权:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812143957.png)
+
+点击【同意授权】:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812143719.png)
+
+选择要开通的 TDCC 所在地域以及 VPC 与子网:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812144338.png)
+
+需要注意的是:
+* TDCC 是多集群的控制面，可以同时管理多个地域的集群，尽量将 TDCC 所在地域选在服务部署的地域，如果服务分散在多个地域，或者 TDCC 还不支持服务所在地域，可以尽量选择离服务近一点的地域，尽量降低 TDCC 控制面到集群之间的时延。
+* TDCC 与集群如果跨地域，仅仅增加一点控制面之间的时延，不影响数据面。数据面之间的转发时延只取决于集群之间的距离，与 TDCC 无关，比如，集群都在成都地域，但 TDCC 不支持成都，可以将 TDCC 选择广州。
+* 可以将 TDCC 所在 VPC 也加入到云联网，这样其它账号注册集群到 TDCC 时就可以使用内网方式，网络稳定性更有保障。
+
+等待 TDCC 的 Hub 集群创建完成:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812150235.png)
+
+完成后，在 [TDCC 集群列表页面](https://console.cloud.tencent.com/tdcc/cluster)，点击【注册已有集群】:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812150408.png)
+
+虽然其它账号使用的 TKE 独立集群，但这里一定要选择 【非TKE集群】:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812150500.png)
+
+> 因为如果选 【TKE集群】，只能选到本账号的，其它账号的选不了。
+
+选择其它账号集群实际所在地域，然后点【完成】，回到集群列表页面，点击【查看注册命令】:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812151006.png)
+
+可以看到自动生成的 yaml，将其下载下来，保存成 `agent.yaml`:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812151205.png)
+
+然后 kubectl 的 context 切换到其它账号中要注册到 TDCC 的集群，使用 kubectl 将 yaml apply 进去:
+
+```bash
+kubectl apply -f agent.yaml
+```
+
+不出意外，TDCC 集群列表页面可以看到注册集群状态变为了`运行中`，即将其它账号下的集群成功注册到 TDCC:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812151528.png)
+
 ### 创建服务网格
 
-## TODO
+登录账号A，进入 [TCM 控制台](https://console.cloud.tencent.com/tke2/mesh)，点【新建】来创建一个服务网格:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812151827.png)
+
+推荐选择最高版本 istio，托管网格:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812152008.png)
+
+> 服务发现就是关联集群，可以在创建网格时就关联，也可以等创建完再关联。
+
+如果将 TDCC 中的注册集群关联进 TCM？在关联集群时，选择 TDCC 所在地域和注册集群类型，然后就可以下拉选择其它账号下注册进来的集群了:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812152410.png)
+
+不出意外，账号A和其它账号的集群都关联到同一个服务网格了:
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220811204947.png)
+
+## TODO
