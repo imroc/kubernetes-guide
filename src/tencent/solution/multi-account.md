@@ -30,7 +30,47 @@ istio 注入 sidecar 时需要集群 apiserver 调用 TCM 控制面 webhook:
 
 所以如果将账号B的托管集群注册到账号A的 TDCC 中，账号B的托管集群 apiserver 也无法调用到账号A的TCM控制面，就会导致无法注入 sidecar，而独立集群没这个问题，因为 apiserver 是部署在用户 CVM 上，使用 CVM 的 IP，打通云联网后网络就可以互通，所以推荐其它账号下的集群使用 TKE 独立集群。
 
-当然如果能保证完全没有 sidecar 自动注入的需求，不需要账号 B 的服务通过网格的服务发现主动调用账号 A 的服务，使用托管集群也可以。
+当然如果能保证完全没有 sidecar 自动注入的需求，不需要账号 B 的服务通过网格的服务发现主动调用账号 A 的服务，这种情况使用托管集群也可以。
+
+## 操作步骤
+
+### 准备集群
+
+在账号A下(用于接入流量的账号)，准备好一个或多个 TKE/EKS 集群，在其它账号准备好 TKE 独立集群。
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812141030.png)
+
+注意，一定保证所有集群使用的网段互不冲突。
+
+### 使用云联网打通网络
+
+登录账号A，进入[云联网控制台](https://console.cloud.tencent.com/vpc/ccn)里，新建一个云联网，然后点击【新增实例】，将需要账号A下需要打通网络的VPC全部关联进来:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812141458.png)
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812141636.png)
+
+登录其它账号，进入[VPC控制台](https://console.cloud.tencent.com/vpc/vpc)，点击进入需要与账号A打通网络的VPC，点【立即关联】:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812141906.png)
+
+选择【其它账号】，输入账号A的ID以及前面创建的云联网的ID以申请加入账号A创建的云联网:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812142033.png)
+
+然后再登录账号A，点进前面创建的云联网，同意其它账号VPC加入云联网的申请:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812142351.png)
+
+不出意外，不同账号不同 VPC 成功通过云联网打通网络:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812142710.png)
+
+如果你使用了 TKE 集群的 Global Router 网络模式，在集群基本信息页面，将容器网络注册到云联网的开关打开，以便让 Global Router 网络模式的容器 IP 通过云联网下发给所有其它 VPC:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220812143110.png)
+
+### 创建服务网格
 
 ## TODO
 
