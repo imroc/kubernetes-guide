@@ -182,7 +182,7 @@
   - [CLB 回环问题](tencent/faq/clb-loopback.md)
   - [controller-manager 和 scheduler 状态显示 Unhealthy](tencent/faq/controller-manager-and-scheduler-unhealthy.md)
 - [解决方案](tencent/solution/README.md)
-  - [腾讯云跨账号流量治理](tencent/solution/multi-account.md)
+  - [腾讯云跨账号流量统一接入与治理方案](tencent/solution/multi-account.md)
 - [附录](tencent/appendix/README.md)
   - [实用 kubectl 脚本](tencent/appendix/useful-kubectl-for-tencent-cloud.md)
   - [EKS 注解](tencent/appendix/eks-annotations.md)
