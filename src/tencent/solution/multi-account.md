@@ -274,7 +274,7 @@ spec:
     spec:
       containers:
       - name: cluster1
-        image: cr.imroc.cc/library/prism:4
+        image: stoplight/prism:4
         args:
         - mock
         - -h
@@ -365,7 +365,7 @@ spec:
     spec:
       containers:
       - name: cluster2
-        image: cr.imroc.cc/library/prism:4
+        image: stoplight/prism:4
         args:
         - mock
         - -h
@@ -452,7 +452,7 @@ spec:
     spec:
       containers:
       - name: cluster3
-        image: cr.imroc.cc/library/prism:4
+        image: stoplight/prism:4
         args:
         - mock
         - -h
