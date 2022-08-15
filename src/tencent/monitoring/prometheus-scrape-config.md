@@ -1,4 +1,4 @@
-# Prometheus 采集配置
+# Prometheus 采集配置最佳实践
 
 使用 Prometheus 采集腾讯云容器服务的监控数据时如何配置采集规则？主要需要注意的是 kubelet 与 cadvisor 的监控指标采集，本文分享为 Prometheus 配置 `scrape_config` 来采集腾讯云容器服务集群的监控数据的方法。
 
