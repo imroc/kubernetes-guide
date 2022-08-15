@@ -8,7 +8,7 @@
 
 > 需要 Grafana 9 以上版本。
 
-## 导入 Grafana
+## 导入仪表盘
 
 在 Grafana 中点击 Import:
 
@@ -2275,7 +2275,7 @@
 }
 ```
 
-## 效果预览
+## 效果展示
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220815183733.png)
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220815183756.png)
