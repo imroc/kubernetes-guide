@@ -65,7 +65,7 @@ func main() {
 
 ## 部署业务程序
 
-将我们的业务程序进行容器化并部署到集群，比如使用 Deployment 部署:
+将前面的程序打包成容器镜像，然后部署到集群，比如使用 Deployment 部署:
 
 ``` yaml
 apiVersion: apps/v1
@@ -85,7 +85,7 @@ spec:
     spec:
       containers:
       - name: httpserver
-        image: imroc.tencentcloudcr.com/test/httpserver:v1
+        image: registry.imroc.cc/test/httpserver:custom-metrics
         imagePullPolicy: Always
 
 ---
