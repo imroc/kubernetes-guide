@@ -390,6 +390,7 @@ runners:
   locked: false
   config: |
     [[runners]]
+      environment = ["FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY=1"]
       [runners.kubernetes]
       image = "ubuntu:20.04"
 ```
@@ -397,6 +398,7 @@ runners:
 注意:
 * `runnerRegistrationToken` 替换为上一步获取到的 token。
 * `gitlabUrl` 替换为 gitlab 访问地址。
+* 超级节点(EKS)的 Pod，不支持 attach，如果 runner 调度到超级节点(EKS) 就会有问题，打开 ruuner [FF_USE_LEGACY_KUBERNETES_EXECUTION_STRATEGY](https://docs.gitlab.com/runner/configuration/feature-flags.html#available-feature-flags) 的 feature flag 来换成 exec 方式。
 
 ### 安装 gitlab-runner
 
