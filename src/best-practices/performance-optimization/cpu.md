@@ -24,7 +24,7 @@
     ```
 5. 启动 kubelet
     ```bash
-    sytemctl start kubelet
+    systemctl start kubelet
     ```
 
 ## 绑定 NUMA 亲和性
