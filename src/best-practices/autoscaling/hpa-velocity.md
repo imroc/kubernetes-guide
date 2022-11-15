@@ -1,7 +1,7 @@
 # 灵活调节 HPA 扩缩容速率
 ## HPA v2beta2 版本开始支持调节扩缩容速率
 
-在 K8S 1.18 之前，HPA 扩容是无法调整灵敏度的:
+在 K8S 1.18 之前，HPA 扩容是无法调整灵敏度的：
 
 1. 对于缩容，由 `kube-controller-manager` 的 `--horizontal-pod-autoscaler-downscale-stabilization-window` 参数控制缩容时间窗口，默认 5 分钟，即负载减小后至少需要等 5 分钟才会缩容。
 2. 对于扩容，由 hpa controller 固定的算法、硬编码的常量因子来控制扩容速度，无法自定义。
@@ -252,4 +252,3 @@ behavior:
 
 * [HPA 官方介绍文档](https://kubernetes.io/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 * [控制 HPA 扩容速度的提案](https://github.com/kubernetes/enhancements/tree/master/keps/sig-autoscaling/853-configurable-hpa-scale-velocity)
-
