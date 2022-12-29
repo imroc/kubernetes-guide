@@ -70,6 +70,7 @@
   - [Java 应用容器化](best-practices/containerization/java-container/README.md)
     - [使用 Maven 构建 Java 容器镜像](best-practices/containerization/java-container/build-maven.md)
   - [在容器中使用 crontab](best-practices/containerization/crontab-in-container.md)
+  - [解决容器内时区不一致问题](best-practices/containerization/timezone.md)
 - [集群运维](best-practices/ops/README.md)
   - [安全维护或下线节点](best-practices/ops/securely-maintain-or-offline-node.md)
   - [安全变更容器数据盘路径](best-practices/ops/securely-modify-container-root-dir.md)
