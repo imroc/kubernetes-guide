@@ -69,6 +69,7 @@
   - [在容器内使用 systemd](best-practices/containerization/systemd-in-container.md)
   - [Java 应用容器化](best-practices/containerization/java-container/README.md)
     - [使用 Maven 构建 Java 容器镜像](best-practices/containerization/java-container/build-maven.md)
+  - [Go 应用容器化](best-practices/containerization/golang-container.md)
   - [在容器中使用 crontab](best-practices/containerization/crontab-in-container.md)
   - [解决容器内时区不一致问题](best-practices/containerization/timezone.md)
 - [集群运维](best-practices/ops/README.md)
