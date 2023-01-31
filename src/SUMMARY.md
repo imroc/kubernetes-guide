@@ -198,3 +198,4 @@
 # 附录
 
 - [kubectl 速查手册](appendix/kubectl-cheat-sheet.md)
+- [实用 YAML](appendix/yaml.md)
