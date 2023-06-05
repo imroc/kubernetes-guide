@@ -9,7 +9,7 @@ terraform {
   required_providers {
     tencentcloud = {
       source  = "tencentcloudstack/tencentcloud"
-      version = "1.70.1"
+      version = "1.80.4"
     }
   }
 }
@@ -17,34 +17,38 @@ terraform {
 provider "tencentcloud" {
   secret_id  = "************************************" # 云 API 密钥 SecretId
   secret_key = "********************************" # 云 API 密钥 SecretKey
-  region     = "ap-chengdu" # 地域，完整可用地域列表参考: https://cloud.tencent.com/document/product/213/6091
+  region     = "ap-shanghai" # 地域，完整可用地域列表参考: https://cloud.tencent.com/document/product/213/6091
 }
 
-data "tencentcloud_vpc_instances" "test-vpc" {
-  name = "test-vpc" # 指定 VPC 名称
+
+data "tencentcloud_vpc_instances" "myvpc" {
+  name = "myvpc" # 指定 VPC 名称
 }
 
-data "tencentcloud_vpc_subnets" "eks-2-2" {
-  vpc_id = data.tencentcloud_vpc_instances.test-vpc.instance_list.0.vpc_id
-  name   = "eks-2-2" # 指定子网名称。多个子网就写多个类似的 "data" 块。
+data "tencentcloud_vpc_subnets" "mysubnet" {
+  vpc_id = data.tencentcloud_vpc_instances.myvpc.instance_list.0.vpc_id
+  name   = "mysubnet"
 }
 
-resource "tencentcloud_eks_cluster" "roc-test" {
-  cluster_name = "roc-test"
-  k8s_version  = "1.20.6"
+resource "tencentcloud_eks_cluster" "mycluster" {
+  cluster_name = "mycluster"
+  k8s_version  = "1.24.4"
+
   public_lb {
     enabled          = true
     allow_from_cidrs = ["0.0.0.0/0"]
   }
-  vpc_id       = data.tencentcloud_vpc_instances.test-vpc.instance_list.0.vpc_id
-  subnet_ids   = [
-    data.tencentcloud_vpc_subnets.eks-2-2.instance_list.0.subnet_id # 引用声明的子网，多个就用逗号隔开
+
+  vpc_id     = data.tencentcloud_vpc_instances.myvpc.instance_list.0.vpc_id
+  subnet_ids = [
+    data.tencentcloud_vpc_subnets.mysubnet.instance_list.0.subnet_id
   ]
-  cluster_desc        = "roc test"
-  service_subnet_id   = data.tencentcloud_vpc_subnets.eks-2-2.instance_list.0.subnet_id
+  cluster_desc        = "my test eks cluster"
+  service_subnet_id   = data.tencentcloud_vpc_subnets.mysubnet.instance_list.0.subnet_id
   enable_vpc_core_dns = true
   need_delete_cbs     = true
 }
+
 ```
 
 ## 创建集群
@@ -72,10 +76,10 @@ terraform refresh
 然后导出 kubeconfig 文件:
 
 ```bash
-terraform show -json | jq -r '.values.root_module.resources[] | select(.address | test("tencentcloud_eks_cluster.roc-test")) | .values.kube_config' > eks
+terraform show -json | jq -r '.values.root_module.resources[] | select(.address | test("tencentcloud_eks_cluster.mycluster")) | .values.kube_config' > eks
 ```
 
-> 注意替换 `roc-test` 为自己在 `main.tf` 文件中定义的名字。
+> 注意替换 `mycluster` 为自己在 `main.tf` 文件中定义的名字。
 
 使用 [kubecm](../../trick/kubectl/merge-kubeconfig-with-kubecm.md) 可以一键导入合并 kubeconfig:
 

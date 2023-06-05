@@ -13,12 +13,11 @@ Kubernetes 提供了 kubectl 命令行工具来操作集群，使用 kubeconfig 
 首先拿到你集群的 kubeconfig 文件，将其重命名为你想指定的 context 名称，然后通过下面的命令将 kubeconfig 信息合并到 `~/.kube/config`:
 
 ``` bash
-kubecm add -f <file>
+kubecm add --context-name=dev -cf config.yaml
 ```
 
-![](kubecm-override.png)
-
-> 提示是否覆盖默认 kubeconfig 文件，方向键选择 `True` 然后回车即可。
+* `dev` 替换为希望导入后的 context 名称。
+* `config.yaml` 替换为 kubeconfig 文件名。
 
 ## 查看集群列表
 
