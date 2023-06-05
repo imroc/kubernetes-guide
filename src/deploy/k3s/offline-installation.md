@@ -1,4 +1,4 @@
-# 离线安装
+# k3s 国内离线安装方法
 
 ## 步骤
 
@@ -80,7 +80,7 @@ k3s kubectl config view --raw > k3s
 修改其中 server 地址的 IP 为本机 IP，将 kubeconfig 文件放到 kubectl 所在机器上，然后用 [kubecm](https://github.com/sunny0826/kubecm) 合并到本地 kubeconfig:
 
 ```bash
-kubecm add -cf k3s
+kubecm add --context-name=k3s -cf k3s
 ```
 
 使用 [kubectx](https://github.com/ahmetb/kubectx) 切换 context:
@@ -97,3 +97,7 @@ $ kubectl get node
 NAME               STATUS   ROLES                  AGE   VERSION
 vm-55-160-centos   Ready    control-plane,master   14m   v1.25.2+k3s1
 ```
+
+## 参考资料
+
+* [k3s 离线安装官方文档](https://docs.k3s.io/zh/installation/airgap)
