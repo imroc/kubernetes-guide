@@ -171,7 +171,7 @@ ansible-playbook \
   -i inventory/mycluster/inventory.ini \
   --private-key=id_rsa \
   --user=ubuntu -b \
-  cluster.yml
+  scale.yml
 ```
 
 ## 缩容节点
