@@ -248,7 +248,7 @@ kubernetes.io/ingress.https-rules: '[{"path":"/abc","backend":{"serviceName":"ng
 详细描述: 提供的注解内容不是一个合法的JSON字符串
 
 处理办法:
-* 修改注解内容，给出一个示例参考：kubernetes.io/ingress.extensiveParameters: '{"AddressIPVersion":"IPv4","ZoneId":"ap-guangzhou-1"}'
+* 修改注解内容，给出一个示例参考：`kubernetes.io/ingress.extensiveParameters: '{"AddressIPVersion":"IPv4","ZoneId":"ap-guangzhou-1"}'`
 * 参数参考文档：https://cloud.tencent.com/document/product/214/30692 
 
 ## E4027 EnsureCreateLoadBalancer Insufficient Account Balance

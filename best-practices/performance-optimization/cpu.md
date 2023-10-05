@@ -64,7 +64,7 @@ debug3： CPU request==limit==10C
 
 实验预期：
 * debug1与debug2分布在不同的numa上，各自占用40C CPU资源，numa1与numa2各自剩余8C。
-* debug3预期需要10C并且都在一个numa上，在debug1和debug2各自占用40C的情况下，总共剩余16C CPU，但每个numa剩余8C<10C，debug3必定调度失败。
+* debug3预期需要10C并且都在一个numa上，在debug1和debug2各自占用40C的情况下，总共剩余16C CPU，但每个numa剩余8C{'<'}10C，debug3必定调度失败。
 
 3. 验证
    debug1上创建40个100%使用CPU的进程，查看进程分布情况：debug1全部分布在numa0上:
