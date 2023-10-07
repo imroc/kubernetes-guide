@@ -15,7 +15,13 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
   kubernetesSidebar: [
-    'README',
+    {
+      type: "doc",
+      id: "README",
+      customProps: {
+        slug: "/"
+      }
+    },
     {
       type: 'category',
       label: '集群搭建',
