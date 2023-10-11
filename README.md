@@ -6,10 +6,9 @@
 
 本书为电子书形式，内容为本人多年的云原生与 Kubernetes 实战经验进行系统性整理的结果，不废话，纯干货。
 
-## 阅读方式
+## 在线阅读
 
-* 在线阅读: [https://imroc.cc/kubernetes/](https://imroc.cc/kubernetes/)
-* 导出 PDF: 点击右上角打印按钮，可保存为 PDF 文件。
+地址：https://imroc.cc/kubernetes
 
 ## 评论与互动
 
@@ -17,9 +16,7 @@
 
 ## 贡献
 
-本书使用 [mdbook](https://rust-lang.github.io/mdBook/) 构建，已集成 Github Actions 自动构建和发布，欢迎 Fork 并 PR 来贡献干货内容 (点击右上角编辑按钮可快速修改文章)。
-
-内容使用 markdown 格式，文章在 `src` 目录下。
+本书使用 [docusaurus](https://docusaurus.io/) 构建，已集成自动构建和发布，欢迎 Fork 并 PR 来贡献干货内容 (点击左下角 `编辑此页` 按钮可快速修改文章)。
 
 ## 许可证
 
