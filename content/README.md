@@ -8,7 +8,7 @@
 
 ## 在线阅读
 
-地址：https://imroc.cc/kubernetes
+地址: https://imroc.cc/kubernetes
 
 ## 评论与互动
 
@@ -21,3 +21,4 @@
 ## 许可证
 
 您可以使用 [署名 - 非商业性使用 - 相同方式共享 4.0 (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh) 协议共享。
+
