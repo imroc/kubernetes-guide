@@ -1,0 +1,21 @@
+{
+  "name": "Kubernetes 实践指南",
+  "short_name": "Kubernetes 实践指南",
+  "theme_color": "#12affa",
+  "background_color": "#424242",
+  "display": "standalone",
+  "scope": "https://imroc.cc/kubernetes/",
+  "start_url": "https://imroc.cc/kubernetes/",
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://imroc.cc/kubernetes/manifest.json"
+    }
+  ],
+  "icons": [
+    {
+      "src": "img/logo.svg",
+      "sizes": "any"
+    }
+  ]
+}
