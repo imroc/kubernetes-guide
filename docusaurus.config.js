@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/logo.svg', // 电子书 favicon 文件，注意替换
 
   url: 'https://imroc.cc', // 在线电子书的 url
-  baseUrl: '/kerbernetes', // 在线电子书所在 url 的路径，如果没有子路径，可改为 "/"
+  baseUrl: '/kubernetes/', // 在线电子书所在 url 的路径，如果没有子路径，可改为 "/"
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -42,7 +42,7 @@ const config = {
         sidebarPath: require.resolve('./content/sidebars.js'),
         // 每个文档左下角 "编辑此页" 的链接
         editUrl: ({ docPath }) =>
-          `https://github.com/imroc/kubernetes-guide/edit/master/content/${docPath}`,
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/${docPath}`,
       }),
     ],
   ],
