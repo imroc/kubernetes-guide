@@ -4,6 +4,8 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
+const beian = '蜀ICP备2021009081号-1'
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Kubernetes 实践指南', // 网站标题
@@ -142,7 +144,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright ${new Date().getFullYear()} roc | All Right Reserved | <a href="http://beian.miit.gov.cn/">${beian}</a>`,
       },
       // 自定义代码高亮
       prism: {
