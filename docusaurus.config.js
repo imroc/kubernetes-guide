@@ -93,7 +93,7 @@ const config = {
       algolia: {
         appId: '7WGNV6HFP7',
         apiKey: 'ca153328e1ef9bf74435a2de13f7e979',
-        indexName: 'imroc',
+        indexName: 'imroc-kubernetes',
         contextualSearch: true,
       },
       // giscus 评论功能
