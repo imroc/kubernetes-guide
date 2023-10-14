@@ -1,7 +1,5 @@
 # 为 Pod 设置内核参数
 
-import FileBlock from '@site/src/components/FileBlock';
-
 本文介绍为 Pod 设置内核参数的几种方式。
 
 ## 在 securityContext 中指定 sysctl
