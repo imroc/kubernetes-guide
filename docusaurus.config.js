@@ -90,12 +90,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // algolia 搜索功能
-      // algolia: {
-      //   appId: 'ZYXQ3PWXL9',
-      //   apiKey: '69800e3da186c48e981785d47ee09e6e',
-      //   indexName: 'imroc',
-      //   contextualSearch: true,
-      // },
+      algolia: {
+        appId: '7WGNV6HFP7',
+        apiKey: 'ca153328e1ef9bf74435a2de13f7e979',
+        indexName: 'imroc',
+        contextualSearch: true,
+      },
       // giscus 评论功能
       giscus: {
         repo: 'imroc/kubernetes-guide',
