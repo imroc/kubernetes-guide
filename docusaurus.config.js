@@ -94,7 +94,7 @@ const config = {
         appId: '7WGNV6HFP7',
         apiKey: 'f3bd4ef4fa5dbfa7494fc901311e584d',
         indexName: 'imroc-kubernetes',
-        contextualSearch: true,
+        contextualSearch: false,
       },
       // giscus 评论功能
       giscus: {
