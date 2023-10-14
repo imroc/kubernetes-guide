@@ -415,7 +415,7 @@ kubernetes.io/ingress.https-rules: '[{"path":"/abc","backend":{"serviceName":"ng
 
 ## E4052 Ingress Host Invalid
 
-故障原因: 根据K8S的限制，Ingress的Host需要满足正则表达式 "(\*|[a-z0-9]([-a-z0-9]*[a-z0-9])?)(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)+"
+故障原因: 根据K8S的限制，Ingress的Host需要满足正则表达式 `(\*|[a-z0-9]([-a-z0-9]*[a-z0-9])?)(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)+`
 
 处理办法: 默认情况下域名都是符合以上要求的。排除一下域名没有 “.”，域名包含特殊字符等情况就可以了。
 

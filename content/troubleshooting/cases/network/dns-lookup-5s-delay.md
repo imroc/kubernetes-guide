@@ -23,7 +23,7 @@ timeout:n
 
 根本原因是内核 conntrack 模块的 bug，netfilter 做 NAT 时可能发生资源竞争导致部分报文丢弃。
 
-Weave works的工程师 [Martynas Pumputis](martynas@weave.works) 对这个问题做了很详细的分析：[Racy conntrack and DNS lookup timeouts](https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts)
+Weave works 的工程师 `Martynas Pumputis` 对这个问题做了很详细的分析：[Racy conntrack and DNS lookup timeouts](https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts)
 
 相关结论：
 
