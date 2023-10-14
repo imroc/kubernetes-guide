@@ -92,7 +92,7 @@ const config = {
       // algolia 搜索功能
       algolia: {
         appId: '7WGNV6HFP7',
-        apiKey: 'ca153328e1ef9bf74435a2de13f7e979',
+        apiKey: 'f3bd4ef4fa5dbfa7494fc901311e584d',
         indexName: 'imroc-kubernetes',
         contextualSearch: true,
       },
