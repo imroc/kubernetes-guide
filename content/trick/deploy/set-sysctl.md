@@ -1,55 +1,22 @@
 # 为 Pod 设置内核参数
 
+import FileBlock from '@site/src/components/FileBlock';
+
 本文介绍为 Pod 设置内核参数的几种方式。
 
-## 在 securityContext 中指定 sysctls
+## 在 securityContext 中指定 sysctl
 
 自 k8s 1.12 起，[sysctls](https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/) 特性 beta 并默认开启，允许用户在 pod 的 `securityContext` 中设置内核参数，用法示例:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sysctl-example
-spec:
-  securityContext:
-    sysctls:
-    - name: net.core.somaxconn
-      value: "1024"
-    - name: net.core.somaxconn
-      value: "1024"
-  ...
-```
+<FileBlock showLineNumbers file="sysctl/set=sysctl-security-context.yaml" />
 
 不过使用该方法，默认情况下有些认为是 unsafe 的参数是不能改的，需要将其配到 kubelet 的 `--allowed-unsafe-sysctls` 中才可以用。
 
-## 使用 initContainers
+## 使用 initContainers 设置 sysctl
 
 如果希望设置内核参数更简单通用，可以在 initContainer 中设置，不过这个要求给 initContainer 打开 `privileged` 权限。示例:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: sysctl-example-init
-spec:
-  initContainers:
-  - image: busybox
-    command:
-    - sh
-    - -c
-    - |
-      sysctl -w net.core.somaxconn=65535
-      sysctl -w net.ipv4.ip_local_port_range="1024 65535"
-      sysctl -w net.ipv4.tcp_tw_reuse=1
-      sysctl -w fs.file-max=1048576
-    imagePullPolicy: Always
-    name: setsysctl
-    securityContext:
-      privileged: true
-  containers:
-  ...
-```
+<FileBlock showLineNumbers file="sysctl/set=sysctl-init-containers.yaml" />
 
 > 这里用了 privileged 容器，只是为了让这个 container 有权限修改当前容器网络命名空间中的内核参数，只要 Pod 没使用 hostNetwork，内核参数的修改是不会影响 Node 上的内核参数的，两者是隔离的，所以不需要担心会影响 Node 上其它 Pod 的内核参数 (hostNetwork 的 Pod 就不要在 Pod 上修改内核参数了)。
 
@@ -67,6 +34,10 @@ spec:
   }
 }
 ```
+
+## 最佳实践
+
+一般不建议使用 CNI 插件统一设置 sysctl，根据业务需求按需设置即可。如果 securityContext 支持你所需要设置的内核参数，直接用 securityContext 设置，可避免特权容器，如果 securityContext 不支持你所需要的内核参数，或者对安全要求不高的话，可以考虑用 initContainers 特权容器来设置 sysctl。
 
 ## 参考资料
 

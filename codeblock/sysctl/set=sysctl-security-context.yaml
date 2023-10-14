@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      # highlight-add-start
+      securityContext:
+        sysctls:
+          - name: net.core.somaxconn
+            value: "1024"
+          - name: net.core.somaxconn
+            value: "1024"
+      # highlight-add-end
+      containers:
+        - name: nginx
+          image: nginx:latest
