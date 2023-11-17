@@ -36,7 +36,7 @@ TKE 提供了 CLB 直通 Pod 的能力，不经过 NodePort，网络链路上少
    kind: Service
    metadata:
      annotations:
-       # hightlight-next-line
+       # highlight-next-line
        service.cloud.tencent.com/direct-access: "true" # 关键
      labels:
        app: nginx
@@ -69,7 +69,7 @@ TKE 提供了 CLB 直通 Pod 的能力，不经过 NodePort，网络链路上少
    kind: Ingress
    metadata:
      annotations:
-       # hightlight-next-line
+       # highlight-next-line
        ingress.cloud.tencent.com/direct-access: "true"
        kubernetes.io/ingress.class: qcloud
      name: test-ingress
@@ -107,7 +107,7 @@ spec:
   template:
     metadata:
       annotations:
-       # hightlight-next-line
+       # highlight-next-line
         tke.cloud.tencent.com/networks: tke-route-eni
       labels:
         app: nginx
@@ -116,12 +116,12 @@ spec:
         - image: nginx
           name: nginx
           resources:
-            # hightlight-start
+            # highlight-start
             requests:
               tke.cloud.tencent.com/eni-ip: "1"
             limits:
               tke.cloud.tencent.com/eni-ip: "1"
-            # hightlight-end
+            # highlight-end
 ```
 
 ## 参考资料
