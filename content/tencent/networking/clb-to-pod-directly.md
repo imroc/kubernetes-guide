@@ -31,7 +31,7 @@ TKE 提供了 CLB 直通 Pod 的能力，不经过 NodePort，网络链路上少
 
 * 如果通过 yaml 创建 Service，需要为 Service 加上 `service.cloud.tencent.com/direct-access: "true"` 的 annotation:
 
-   ```yaml
+   ```yaml showLineNumbers
    apiVersion: v1
    kind: Service
    metadata:
@@ -64,7 +64,7 @@ TKE 提供了 CLB 直通 Pod 的能力，不经过 NodePort，网络链路上少
 
 * 如果通过 yaml 创建 CLB Ingress，需要为 Ingress 加上 `ingress.cloud.tencent.com/direct-access: "true"` 的 annotation:
 
-   ```yaml
+   ```yaml showLineNumbers
    apiVersion: networking.k8s.io/v1beta1
    kind: Ingress
    metadata:
@@ -92,7 +92,7 @@ TKE 提供了 CLB 直通 Pod 的能力，不经过 NodePort，网络链路上少
 
 这种集群创建的 Pod 默认没有使用弹性网卡，如果要启用 CLB 直通 Pod，首先在部署工作负载的时候，声明一下 Pod 要使用 VPC-CNI 模式 (弹性网卡)，具体操作方法是使用 yaml 创建工作负载 (不通过 TKE 控制台)，为 Pod 指定 `tke.cloud.tencent.com/networks: tke-route-eni` 这个 annotation 来声明使用弹性网卡，并且为其中一个容器加上 `tke.cloud.tencent.com/eni-ip: "1"`  这样的 requests 与 limits，示例:
 
-```yaml
+```yaml showLineNumbers
 apiVersion: apps/v1
 kind: Deployment
 metadata:
