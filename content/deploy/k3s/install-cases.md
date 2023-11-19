@@ -34,3 +34,41 @@ INSTALL_K3S_MIRROR=cn curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-instal
 * 如果是主路由，公网 ip 每次拨号会变，而 k3s 启动时会获取到外网 ip 作为 hostname，用导出的 kubeconfig 去访问 apiserver 时，会报证书问题（签发时不包含重新拨号之后的外网 ip），可以用 `--kubelet-arg` 强制指定一下路由器使用的静态内网 IP。
 * 在路由器部署的应用通常只用 HostNetwork，不需要访问 service，可以禁用 kube-proxy 和 coredns。
 
+### 国内环境安装 k3s
+
+准备 CNI 配置：
+
+<FileBlock showLineNumbers title="10-ptp.conflist" file="cni/ptp.json" />
+
+准备 `k3s-install.sh`  脚本(确保网络可用)：
+
+```bash
+curl -sfL https://get.k3s.io -o k3s-install.sh
+chmod +x k3s-install.sh
+```
+
+安装：
+
+```bash
+# 下载 k3s  离线包
+mkdir -p /var/lib/rancher/k3s/agent/images/
+wget https://ghproxy.com/https://github.com/k3s-io/k3s/releases/latest/download/k3s-airgap-images-amd64.tar -O /var/lib/rancher/k3s/agent/images/k3s-airgap-images-amd64.tar
+wget https://ghproxy.com/https://github.com/k3s-io/k3s/releases/latest/download/k3s -O /usr/local/bin/k3s
+chmod +x /usr/local/bin/k3s
+
+# 安装 cni 插件二进制和配置
+mkdir -p /opt/cni/bin/
+wget https://ghproxy.com/https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz -O /tmp/cni-plugins.tgz
+tar -zxvf /tmp/cni-plugins.tgz -C /opt/cni/bin
+mkdir -p /etc/cni/net.d/
+cp 10-ptp.conflist /etc/cni/net.d/
+
+# 安装 k3s
+INSTALL_K3S_SKIP_DOWNLOAD=true ./k3s-install.sh -s - server \
+	--data-dir=/data/k3s \
+	--disable-network-policy \
+	--disable-helm-controller \
+	--flannel-backend=none \
+	--disable=traefik,local-storage,metrics-server
+
+```
