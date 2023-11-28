@@ -1,13 +1,10 @@
-// @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
+import PrismDark from './src/utils/prismDark';
+import type { Config } from '@docusaurus/types';
+// import { themes as prismThemes } from 'prism-react-renderer';
 
 const beian = '蜀ICP备2021009081号-1'
 
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: 'Kubernetes 实践指南', // 网站标题
   tagline: '云原生老司机带你飞', // slogan
   favicon: 'img/logo.svg', // 电子书 favicon 文件，注意替换
@@ -64,7 +61,7 @@ const config = {
         // 文档的路由前缀
         routeBasePath: '/',
         // 左侧导航栏的配置
-        sidebarPath: require.resolve('./content/sidebars.js'),
+        sidebarPath: require.resolve('./content/sidebars.ts'),
         // 每个文档左下角 "编辑此页" 的链接
         editUrl: ({ docPath }) =>
           `https://github.com/imroc/kubernetes-guide/edit/main/content/${docPath}`,
@@ -111,7 +108,7 @@ const config = {
         },
         items: [
           {
-            href: 'https://github.com/imroc/kubenretes-guide', // 改成自己的仓库地址
+            href: 'https://github.com/imroc/kubernetes-guide', // 改成自己的仓库地址
             label: 'GitHub',
             position: 'right',
           },
@@ -148,7 +145,7 @@ const config = {
       },
       // 自定义代码高亮
       prism: {
-        theme: require('prism-react-renderer/themes/vsDark'),
+        theme: PrismDark,
         magicComments: [
           {
             className: 'code-block-highlighted-line',
@@ -182,4 +179,4 @@ const config = {
     }),
 };
 
-module.exports = config;
+export default config;
