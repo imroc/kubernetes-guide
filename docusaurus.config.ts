@@ -174,6 +174,8 @@ const config: Config = {
           'java',
           'json',
           'hcl',
+          'bash',
+          'diff',
         ],
       },
     }),
