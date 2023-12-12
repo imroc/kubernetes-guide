@@ -137,3 +137,9 @@ export IMAGE="ccr.ccs.tencentyun.com/library/ip-masq-agent:v2.5.0"
 ``` bash
 kubectl -n $NAMESPACE patch $WORKLOAD_TYPE $WORKLOAD_NAME --patch '{"spec": {"template": {"spec": {"containers": [{"name": "$CONTAINER_NAME","image": "$IMAGE" }]}}}}'
 ```
+
+### 查看某命名空间的镜像列表
+
+```bash
+kubectl -n kube-system get pod -ojsonpath='{range .items[*]}{range .spec.containers[*]}{"\n"}{.image}{end}{end}' | sort | uniq
+```
