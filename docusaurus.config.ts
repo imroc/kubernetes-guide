@@ -125,6 +125,10 @@ const config: Config = {
                 label: 'istio 实践指南',
                 href: 'https://imroc.cc/istio',
               },
+              {
+                label: 'TKE 实践指南',
+                href: 'https://imroc.cc/tke',
+              },
             ],
           },
           {
