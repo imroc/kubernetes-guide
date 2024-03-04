@@ -1,0 +1,29 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp1s0: # 拨号网口
+      optional: true
+      accept-ra: false
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 192.168.11.1/24
+      routes: # k3s 需要默认路由，不然会报错，导致 dhcp 服务起不来，从而导致局域网连不上，这里随便设置一个（启动会被pppoe拨号覆盖，这里设置用于没有拨号的情况下也连上机器)
+        - to: default
+          via: 192.168.11.1
+    enp2s0:
+      optional: true
+      accept-ra: false
+      dhcp4: no
+      dhcp6: no
+      addresses: # 固定网卡所拥有的内网IP地址段
+        - 10.10.10.2/24
+        - fddd:dddd:dddd:dddd::2/64
+    enp6s0: # 预留的管理网口，极端情况下用网线连管理网口登录 ssh
+      optional: true
+      accept-ra: false
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 10.10.11.1/24

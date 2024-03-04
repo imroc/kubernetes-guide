@@ -520,151 +520,26 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '腾讯云容器服务',
+      label: '实践案例',
       collapsed: true,
       link: {
         type: 'generated-index',
-        slug: '/tencent'
+        slug: '/cases'
       },
       items: [
         {
           type: 'category',
-          label: 'Serverless 集群与超级节点',
+          label: '云原生家庭网络',
           collapsed: true,
           link: {
             type: 'generated-index',
-            slug: '/tencent/serverless'
+            slug: '/cases/home-network'
           },
           items: [
-            'tencent/serverless/precautions',
-            'tencent/serverless/why-tke-supernode-rocks',
-            'tencent/serverless/supernode-case-online',
-            'tencent/serverless/supernode-case-offline',
-            'tencent/serverless/large-image-solution',
-          ],
-        },
-        {
-          type: 'category',
-          label: '网络指南',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/networking'
-          },
-          items: [
-            'tencent/networking/clb-to-pod-directly',
-            'tencent/networking/how-to-use-eip',
-            'tencent/networking/install-localdns-with-ipvs',
-            'tencent/networking/expose-grpc-with-tcm',
-          ],
-        },
-        {
-          type: 'category',
-          label: '存储指南',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/storage'
-          },
-          items: [
-            'tencent/storage/cbs-pvc-expansion',
-            'tencent/storage/readonlymany-pv',
-            'tencent/storage/mount-cfs-with-v3',
-          ],
-        },
-        {
-          type: 'category',
-          label: '监控告警',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/monitoring'
-          },
-          items: [
-            'tencent/monitoring/prometheus-scrape-config',
-            'tencent/monitoring/grafana-dashboard-for-supernode-pod',
-          ],
-        },
-        {
-          type: 'category',
-          label: '镜像与仓库',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/images'
-          },
-          items: [
-            'tencent/images/use-mirror-in-container',
-            'tencent/images/use-foreign-container-image',
-          ],
-        },
-        {
-          type: 'category',
-          label: '故障排查',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/troubleshooting'
-          },
-          items: [
-            'tencent/troubleshooting/public-service-or-ingress-connect-failed',
-          ],
-        },
-        {
-          type: 'category',
-          label: '常见应用安装与部署',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/install-apps'
-          },
-          items: [
-            'tencent/install-apps/install-harbor-on-tke',
-            'tencent/install-apps/install-gitlab-on-tke',
-            'tencent/install-apps/install-kubesphere-on-tke',
-          ],
-        },
-        {
-          type: 'category',
-          label: '常见问题',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/faq'
-          },
-          items: [
-            'tencent/faq/modify-rp-filter-causing-exception',
-            'tencent/faq/clb-loopback',
-            'tencent/faq/controller-manager-and-scheduler-unhealthy',
-          ],
-        },
-        {
-          type: 'category',
-          label: '解决方案',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/solution'
-          },
-          items: [
-            'tencent/solution/multi-account',
-            'tencent/solution/upgrade-inplace',
-          ],
-        },
-        {
-          type: 'category',
-          label: '附录',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/tencent/appendix'
-          },
-          items: [
-            'tencent/appendix/useful-kubectl-for-tencent-cloud',
-            'tencent/appendix/eks-annotations',
-            'tencent/appendix/ingress-error-code',
-          ],
-        },
+            'cases/home-network/intro',
+            'cases/home-network/network-config',
+          ]
+        }
       ],
     },
     {

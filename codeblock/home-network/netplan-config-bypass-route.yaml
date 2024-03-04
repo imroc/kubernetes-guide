@@ -1,0 +1,22 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp1s0: #  主网口，默认路由指向主路由 IP
+      optional: true
+      accept-ra: false
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 10.10.10.2/24
+        - fddd:dddd:dddd:dddd::2/64
+      routes:
+        - to: default
+          via: 10.10.10.14
+    enp6s0: # 预留的管理网口，极端情况下用网线连管理网口登录 ssh
+      optional: true
+      accept-ra: false
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 10.10.11.1/24
