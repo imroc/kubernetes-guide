@@ -538,7 +538,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'cases/home-network/intro',
             'cases/home-network/network-config',
-            'cases/home-network/k3s',
+            'cases/home-network/prepare',
           ]
         }
       ],
