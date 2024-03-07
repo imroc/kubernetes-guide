@@ -17,7 +17,7 @@
 ```txt
 ddns
 ├── config
-│   └── config.json
+│   └── config.json
 ├── daemonset.yaml
 └── kustomization.yaml
 ```

@@ -7,7 +7,7 @@ DHCP 与 DNS 服务需在主路由上开启，如果用的主路由方案，可�
 ```txt
 dnsmasq
 ├── config
-│   └── dnsmasq.conf
+│   └── dnsmasq.conf
 ├── daemonset.yaml
 └── kustomization.yaml
 ```
