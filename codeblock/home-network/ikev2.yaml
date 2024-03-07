@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: ikev2
+  name: ikev2
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ikev2
+  template:
+    metadata:
+      labels:
+        app: ikev2
+    spec:
+      containers:
+        - image: imroc/ipsec-vpn-server:4.12
+          imagePullPolicy: IfNotPresent
+          name: ikev2
+          ports:
+            - containerPort: 500
+              protocol: UDP
+              hostPort: 600
+            - containerPort: 4500
+              protocol: UDP
+              hostPort: 4600
+          envFrom:
+            - secretRef:
+                name: ikev2-secret
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /etc/ipsec.d
+              name: ikev2-vpn-data
+            - mountPath: /lib/modules
+              name: mod
+              readOnly: true
+      dnsPolicy: Default
+      restartPolicy: Always
+      volumes:
+        - hostPath:
+            path: /lib/modules
+            type: Directory
+          name: mod
+        - secret:
+            secretName: ikev2-vpn-data
+          name: ikev2-vpn-data
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
