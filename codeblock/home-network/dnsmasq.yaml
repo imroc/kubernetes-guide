@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: dnsmasq
+  name: dnsmasq
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: dnsmasq
+  template:
+    metadata:
+      labels:
+        app: dnsmasq
+    spec:
+      terminationGracePeriodSeconds: 3
+      containers:
+        - image: 4km3/dnsmasq:2.85-r2
+          imagePullPolicy: IfNotPresent
+          name: dnsmasq
+          securityContext:
+            privileged: true
+          args:
+            - '--log-facility=-'
+          volumeMounts:
+            - mountPath: /etc/dnsmasq.conf
+              name: dnsmasq-config
+              subPath: dnsmasq.conf
+            - mountPath: /var/lib/dnsmasq
+              name: lease
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: dnsmasq-config
+          name: dnsmasq-config
+        - name: lease
+          hostPath:
+            path: /data/lease
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
