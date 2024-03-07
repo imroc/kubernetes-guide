@@ -34,22 +34,25 @@ docker run --rm -it \
     hwdsl2/ipsec-vpn-server
 ```
 
-最终 config 目录结构如下：
+## 目录结构
 
 ```txt
-config
-├── ikev2-vpn-data
-│   ├── .vpnconfig
-│   ├── cert9.db
-│   ├── ikev2.conf
-│   ├── ikev2setup.log
-│   ├── key4.db
-│   ├── passwd
-│   ├── pkcs11.txt
-│   ├── roc.mobileconfig
-│   ├── roc.p12
-│   └── roc.sswan
-└── vpn.env
+ikev2
+├── config
+│   ├── ikev2-vpn-data
+│   │   ├── .vpnconfig
+│   │   ├── cert9.db
+│   │   ├── ikev2.conf
+│   │   ├── ikev2setup.log
+│   │   ├── key4.db
+│   │   ├── passwd
+│   │   ├── pkcs11.txt
+│   │   ├── roc.mobileconfig
+│   │   ├── roc.p12
+│   │   └── roc.sswan
+│   └── vpn.env
+├── daemonset.yaml
+└── kustomization.yaml
 ```
 
 ## 准备 daemonset.yaml
