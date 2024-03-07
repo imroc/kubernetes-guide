@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: ddns
+  name: ddns
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ddns
+  template:
+    metadata:
+      labels:
+        app: ddns
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: newfuture/ddns:v2.13.3
+          imagePullPolicy: IfNotPresent
+          name: ddns
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /config.json
+              subPath: config.json
+              name: config
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: ddns-config
+          name: config
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+

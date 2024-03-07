@@ -24,7 +24,7 @@ dnsmasq
 
 ## 准备 daemonset.yaml
 
-<FileBlock showLineNumbers title="daemonset.yaml" file="home-network/daemonset.yaml" />
+<FileBlock showLineNumbers title="daemonset.yaml" file="home-network/dnsmasq.yaml" />
 
 ## 准备 kustomization.yaml
 
