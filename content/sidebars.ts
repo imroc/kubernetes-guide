@@ -539,6 +539,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/intro',
             'cases/home-network/network-config',
             'cases/home-network/prepare',
+            'cases/home-network/dnsmasq',
           ]
         }
       ],
