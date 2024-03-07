@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: nfs
+  name: nfs
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: nfs
+  template:
+    metadata:
+      labels:
+        app: nfs
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: docker.io/erichough/nfs-server:2.2.1
+          imagePullPolicy: IfNotPresent
+          name: nfs
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /data/media
+              name: media
+            - mountPath: /lib/modules
+              name: mod
+              readOnly: true
+            - mountPath: /etc/exports
+              name: exports
+              subPath: exports
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: media
+          hostPath:
+            path: /data/media
+            type: DirectoryOrCreate
+        - name: mod
+          hostPath:
+            path: /lib/modules
+        - name: exports
+          configMap:
+            name: nfs-exports
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate

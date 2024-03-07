@@ -542,6 +542,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/dnsmasq',
             'cases/home-network/ddns',
             'cases/home-network/ikev2',
+            'cases/home-network/nfs',
           ]
         }
       ],
