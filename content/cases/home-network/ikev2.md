@@ -59,6 +59,8 @@ ikev2
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/ikev2.yaml" />
 
+* 这里不用 HostNetwork，是因为 VPN 软件对网络命名空间的操作较多，为避免影响宿主机网络，还是用容器网络进行隔离，通过 HostPort 暴露端口。
+
 ## 准备 kustomization.yaml
 
 ```yaml
@@ -87,3 +89,14 @@ secretGenerator:
       - config/ikev2-vpn-data/roc.p12
       - config/ikev2-vpn-data/roc.sswan
 ```
+
+## 暴露端口
+
+部署好后，会监听 `500` 和 `4500` 两个 UDP 端口，还需要保证这俩端口能够从公网访问到：
+
+* 如果使用主路由方案，可以用 nftables 写防火墙规则，参考 [基础网络配置：配置防火墙](network-config.md#配置防火墙)。
+* 如果使用旁路由方案，需在主路由定义端口转发，将 500 和 4500 的流量 DNAT 到旁路由，这样才能将旁路由上的 VPN 服务暴露出去。
+
+## 配置 IKEv2 客户端
+
+参考 [IKEv2 VPN 配置和使用指南](https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/docs/ikev2-howto-zh.md)。

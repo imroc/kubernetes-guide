@@ -21,10 +21,10 @@ spec:
           ports:
             - containerPort: 500
               protocol: UDP
-              hostPort: 600
+              hostPort: 500
             - containerPort: 4500
               protocol: UDP
-              hostPort: 4600
+              hostPort: 4500
           envFrom:
             - secretRef:
                 name: ikev2-secret
