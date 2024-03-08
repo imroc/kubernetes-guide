@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: alist
+  name: alist
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: alist
+  template:
+    metadata:
+      labels:
+        app: alist
+    spec:
+      terminationGracePeriodSeconds: 1
+      hostAliases:
+        - hostnames:
+            - api-cf.nn.ci
+          ip: 104.21.30.209
+      containers:
+        - image: docker.io/xhofe/alist:v3.32.0
+          imagePullPolicy: IfNotPresent
+          name: alist
+          env:
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
+            - name: UMASK
+              value: "022"
+          volumeMounts:
+            - mountPath: /opt/alist/data
+              name: data
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: data
+          hostPath:
+            path: /data/alist
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
