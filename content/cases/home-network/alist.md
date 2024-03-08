@@ -34,4 +34,4 @@ namespace: default
 
 ## 访问 Alist
 
-访问入口：http://<路由器内网 IP>:5244/
+访问入口：http://`路由器内网 IP`:5244/
