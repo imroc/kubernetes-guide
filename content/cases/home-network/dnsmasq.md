@@ -31,7 +31,7 @@ dnsmasq
 
 ## 准备 kustomization.yaml
 
-```yaml
+```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 

@@ -22,15 +22,14 @@ jellyfin
 
 ## 准备 kustomization.yaml
 
-```txt
+```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
   - daemonset.yaml
-
-namespace: default
 ```
+namespace: default
 
 ## 访问 Jellyfin
 
