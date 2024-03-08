@@ -549,6 +549,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/alist',
             'cases/home-network/filebrowser',
             'cases/home-network/jellyfin',
+            'cases/home-network/home-assistant',
           ]
         }
       ],
