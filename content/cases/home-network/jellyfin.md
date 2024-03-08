@@ -35,3 +35,7 @@ namespace: default
 ## 访问 Jellyfin
 
 访问入口：http://`路由器内网 IP`:8096/
+
+## 安装豆瓣刮削器
+
+参考 [这篇文章](https://www.koolcenter.com/posts/72)  安装插件，存储库地址改为：https://github.com/Libitum/jellyfin-plugin-douban/releases/latest/download/manifest.json
