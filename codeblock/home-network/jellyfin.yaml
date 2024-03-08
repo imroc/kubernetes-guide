@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: jellyfin
+  name: jellyfin
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: jellyfin/jellyfin:latest
+          imagePullPolicy: IfNotPresent
+          name: jellyfin
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 1m
+              memory: 16Mi
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            privileged: true
+          volumeMounts:
+            - mountPath: /dev/dri
+              name: dri
+            - mountPath: /data/media
+              name: media
+            - mountPath: /config
+              name: config
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: dri
+          hostPath:
+            path: /dev/dri
+        - name: config
+          hostPath:
+            path: /data/jellyfin/config
+            type: DirectoryOrCreate
+        - name: media
+          hostPath:
+            path: /data/media
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate

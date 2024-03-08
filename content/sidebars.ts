@@ -548,6 +548,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/aria2',
             'cases/home-network/alist',
             'cases/home-network/filebrowser',
+            'cases/home-network/jellyfin',
           ]
         }
       ],
