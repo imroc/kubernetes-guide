@@ -41,7 +41,8 @@ ddns
 ```
 
 * 我的域名在 DNSPod 管理，所以配置的是 DNSPod 的 id 和 token。
-* 我用的主路由方案，所以获取公网 IP 的方法直接读 `ppp0` 网卡上的公网 IP 地址就行，不需要调外部接口获取。
+* `index4` 是指定获取本机公网 IPv4 的方法，我用的主路由方案，所以获取公网 IP 的方法直接读 `ppp0` 网卡上的公网 IP 地址就行，不需要调外部接口获取。
+* 如果主路由也有 IPv6，可以加上 IPv6 的获取方法: `"index6": "shell:ip -6 addr show ppp0 | grep 'scope global dynamic'  | awk '/inet6/{print $2}' | awk -F '/' '{print $1}'",`
 
 ## 准备 daemonset.yaml
 
