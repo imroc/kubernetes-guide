@@ -22,7 +22,7 @@ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIR
 每个应用使用一个目录来声明所有 yaml 和所需配置，在目录内执行以下命令安装到 k3s:
 
 ```bash
-kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone . | kubectl apply -f -。
+kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone . | kubectl apply -f -
 ```
 
 如果要一键部署，在上层目录中再建一个 `kustomization.yaml` 引用所有应用的目录，然后在上层目录中执行上面相同的命令可以实现所有应用一键部署。
