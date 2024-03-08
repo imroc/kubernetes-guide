@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: samba
+  name: samba
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: samba
+  template:
+    metadata:
+      labels:
+        app: samba
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: docker.io/dperson/samba:latest
+          args:
+          - "-u"
+          - "roc;111111"
+          - "-s"
+          - "media;/media/;yes;no;yes;all;all;all"
+          - "-s"
+          - "apk;/apk/;yes;no;yes;all;all;all"
+          - "-w"
+          - "WORKGROUP"
+          - "-g"
+          - "force user=roc"
+          - "-g"
+          - "guest account=roc"
+          - "-S"
+          imagePullPolicy: IfNotPresent
+          name: samba
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /media
+              name: media
+            - mountPath: /apk
+              name: apk
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: media
+          hostPath:
+            path: /data/media
+            type: DirectoryOrCreate
+        - name: apk
+          hostPath:
+            path: /data/apk
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
