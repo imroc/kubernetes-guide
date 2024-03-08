@@ -18,39 +18,31 @@ spec:
       containers:
         - image: docker.io/dperson/samba:latest
           args:
-          - "-u"
-          - "roc;111111"
-          - "-s"
-          - "media;/media/;yes;no;yes;all;all;all"
-          - "-s"
-          - "apk;/apk/;yes;no;yes;all;all;all"
-          - "-w"
-          - "WORKGROUP"
-          - "-g"
-          - "force user=roc"
-          - "-g"
-          - "guest account=roc"
-          - "-S"
+            - "-u"
+            - "roc;111111"
+            - "-s"
+            - "data;/data/;yes;no;yes;all;all;all"
+            - "-w"
+            - "WORKGROUP"
+            - "-g"
+            - "force user=roc"
+            - "-g"
+            - "guest account=roc"
+            - "-S"
           imagePullPolicy: IfNotPresent
           name: samba
           securityContext:
             privileged: true
           volumeMounts:
-            - mountPath: /media
-              name: media
-            - mountPath: /apk
-              name: apk
+            - mountPath: /data
+              name: data
       dnsPolicy: Default
       hostNetwork: true
       restartPolicy: Always
       volumes:
-        - name: media
+        - name: data
           hostPath:
-            path: /data/media
-            type: DirectoryOrCreate
-        - name: apk
-          hostPath:
-            path: /data/apk
+            path: /data
             type: DirectoryOrCreate
   updateStrategy:
     rollingUpdate:

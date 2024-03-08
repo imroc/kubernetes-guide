@@ -26,6 +26,9 @@ dnsmasq
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/dnsmasq.yaml" />
 
+* 注意修改账号密码，本例使用 `roc` 作为账号名，`111111` 作为密码。
+* 将要共享的目录通过 hostPath 挂载进去，本例挂载和共享 `//data` 目录。
+
 ## 准备 kustomization.yaml
 
 ```yaml
