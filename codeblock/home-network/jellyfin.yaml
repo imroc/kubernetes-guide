@@ -40,6 +40,8 @@ spec:
               name: media
             - mountPath: /config
               name: config
+            - mountPath: /cache
+              name: cache
       dnsPolicy: Default
       hostNetwork: true
       restartPolicy: Always
@@ -50,6 +52,10 @@ spec:
         - name: config
           hostPath:
             path: /data/jellyfin/config
+            type: DirectoryOrCreate
+        - name: cache
+          hostPath:
+            path: /data/jellyfin/cache
             type: DirectoryOrCreate
         - name: media
           hostPath:
