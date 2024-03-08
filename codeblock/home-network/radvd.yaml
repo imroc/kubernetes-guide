@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: radvd
+  name: radvd
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: radvd
+  template:
+    metadata:
+      labels:
+        app: radvd
+    spec:
+      initContainers:
+        - image: imroc/radvd:2.18
+          imagePullPolicy: IfNotPresent
+          name: sysctl
+          securityContext:
+            privileged: true
+          command:
+            - sh
+            - -c
+            - |
+              sysctl -w net.ipv6.conf.all.accept_ra_rt_info_max_plen=128
+              sysctl -w net.ipv6.conf.default.accept_ra_rt_info_max_plen=128
+              sysctl -w net.ipv6.conf.all.forwarding=1
+              sysctl -w net.ipv6.conf.default.forwarding=1
+      containers:
+        - image: imroc/radvd:2.18
+          imagePullPolicy: IfNotPresent
+          name: radvd
+          securityContext:
+            privileged: true
+          args: ["--debug", "5"]
+          volumeMounts:
+            - mountPath: /etc/radvd.d
+              name: radvd-config
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: radvd-config
+          name: radvd-config
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
