@@ -6,7 +6,7 @@
 
 ## 开源项目
 
-本文部署的 Samba 服务使用这个开源项目：https://github.com/dperson/samba
+本文部署的 Samba 服务使用这个开源项目构建的容器镜像：https://github.com/dperson/samba
 
 ## 目录结构
 

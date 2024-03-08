@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: aria2
+  name: aria2
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: aria2
+  template:
+    metadata:
+      labels:
+        app: aria2
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: docker.io/p3terx/aria2-pro:202209060423
+          imagePullPolicy: IfNotPresent
+          name: aria2
+          env:
+            - name: LISTEN_PORT
+              value: "16881"
+            - name: RPC_PORT
+              value: "6800"
+            - name: RPC_SECRET
+              value: "111111"
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
+            - name: IPV6_MODE
+              value: "true"
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: SPECIAL_MODE
+              value: "move"
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /downloads
+              name: media
+        - image: docker.io/p3terx/ariang:latest
+          imagePullPolicy: IfNotPresent
+          name: ariang
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: config
+          hostPath:
+            path: /data/aria2/config
+            type: DirectoryOrCreate
+        - name: media
+          hostPath:
+            path: /data/media/downloads
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate

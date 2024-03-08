@@ -544,6 +544,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/ikev2',
             'cases/home-network/nfs',
             'cases/home-network/samba',
+            'cases/home-network/aria2',
           ]
         }
       ],

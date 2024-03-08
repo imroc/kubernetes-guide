@@ -6,7 +6,7 @@
 
 ## 开源项目 
 
-本文部署的 IKEv2 VPN 服务使用这个开源项目：https://github.com/hwdsl2/docker-ipsec-vpn-server
+本文部署的 IKEv2 VPN 服务使用这个开源项目构建的容器镜像：https://github.com/hwdsl2/docker-ipsec-vpn-server
 
 ## 生成配置
 
