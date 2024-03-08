@@ -38,4 +38,4 @@ namespace: default
 
 ## 安装豆瓣刮削器
 
-参考 [这篇文章](https://www.koolcenter.com/posts/72)  安装插件，存储库地址改为：https://github.com/Libitum/jellyfin-plugin-douban/releases/latest/download/manifest.json
+刮削器在国内还是用豆瓣的数据更好点，可以在登录 Jellyfin 后安装这个插件 https://github.com/cxfksword/jellyfin-plugin-metashark
