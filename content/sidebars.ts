@@ -546,6 +546,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/samba',
             'cases/home-network/aria2',
             'cases/home-network/alist',
+            'cases/home-network/filebrowser',
           ]
         }
       ],

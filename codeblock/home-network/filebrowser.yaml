@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: filebrowser
+  name: filebrowser
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: filebrowser
+  template:
+    metadata:
+      labels:
+        app: filebrowser
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: filebrowser/filebrowser:v2.27.0
+          args:
+            - "-p"
+            - "8567"
+            - "-r"
+            - "/data"
+            - "--username=roc"
+            - "--password=$2a$10$q/0NjHYLYvP/rcB1VdRBxeVg/AnaPILgMJYyrEnOpw6mhimhsgjeG" # 111111
+          imagePullPolicy: IfNotPresent
+          name: filebrowser
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: data
+          hostPath:
+            path: /data
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
