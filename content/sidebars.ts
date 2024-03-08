@@ -550,6 +550,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/filebrowser',
             'cases/home-network/jellyfin',
             'cases/home-network/home-assistant',
+            'cases/home-network/homepage',
           ]
         }
       ],

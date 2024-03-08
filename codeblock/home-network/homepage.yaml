@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: homepage
+  name: homepage
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: docker.io/imroc/homepage:v0.8.8
+          imagePullPolicy: IfNotPresent
+          name: homepage
+          env:
+            - name: PORT
+              value: "80"
+          volumeMounts:
+            - mountPath: /app/config/services.yaml
+              name: config
+              subPath: services.yaml
+            - mountPath: /app/config/settings.yaml
+              name: config
+              subPath: settings.yaml
+            - mountPath: /app/config/widgets.yaml
+              name: config
+              subPath: widgets.yaml
+            - mountPath: /app/config/bookmarks.yaml
+              name: config
+              subPath: bookmarks.yaml
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: config
+          configMap:
+            name: homepage-config
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
