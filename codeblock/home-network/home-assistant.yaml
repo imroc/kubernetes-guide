@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: home-assistant
+  name: home-assistant
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: home-assistant
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: homeassistant/home-assistant:stable
+          imagePullPolicy: IfNotPresent
+          name: home-assistant
+          ports:
+            - containerPort: 8123
+              name: web
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /run/dbus
+              name: dbus
+              readOnly: true
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: config
+          hostPath:
+            path: /data/home-assistant/config
+            type: DirectoryOrCreate
+        - name: dbus
+          hostPath:
+            path: /run/dbus
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
