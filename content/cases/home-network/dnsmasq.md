@@ -1,4 +1,4 @@
-# DHCP 与 DNS 服务
+# DHCP 与 DNS 服务: Dnsmasq
 
 DHCP 与 DNS 服务需在主路由上开启，如果用的主路由方案，可用云原生的方式部署一个 DHCP 和 DNS 服务，dnsmasq 是一个同时支持这两种功能的开源软件，我们可以用下面的方法部署。
 
