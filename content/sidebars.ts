@@ -45,6 +45,18 @@ const sidebars: SidebarsConfig = {
           ],
         },
         'deploy/terraform',
+        {
+          type: 'category',
+          label: '在 AWS 上创建集群',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/deploy/aws'
+          },
+          items: [
+            'deploy/aws/eks',
+          ],
+        },
       ],
     },
     {
