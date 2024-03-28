@@ -15,7 +15,7 @@ request 的值并不是指给容器实际分配的资源大小，它仅仅是给
 
 ## 老是忘记设置怎么办?
 
-有时候我们会忘记给部分容器设置 request 与 limit，其实我们可以使用 LimitRange 来设置 namespace 的默认 request 与 limit 值，同时它也可以用来限制最小和最大的 request 与 limit。
+有时候我们会忘记给部分容器设置 request 与 limit，其实我们可以使用 [LimitRange](https://kubernetes.io/zh-cn/docs/concepts/policy/limit-range/#limitrange-and-admission-checks-for-pod) 来设置 namespace 的默认 request 与 limit 值，同时它也可以用来限制最小和最大的 request 与 limit。
 示例:
 
 ``` yaml
@@ -26,12 +26,18 @@ metadata:
   namespace: test
 spec:
   limits:
-  - default:
+  - default: # 此处定义默认限制值
       memory: 512Mi
-	  cpu: 500m
-    defaultRequest:
+      cpu: 500m
+    defaultRequest: # 此处定义默认请求值
       memory: 256Mi
-	  cpu: 100m
+      cpu: 100m
+    max: # max 和 min 定义限制范围
+      memory: 1Gi
+      cpu: "1"
+    min:
+      memory: 128Mi
+      cpu: 50m
     type: Container
 ```
 
