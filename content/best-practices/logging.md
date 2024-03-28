@@ -21,8 +21,11 @@
 
 ``` json
 {
-"log-driver":"json-file",
-"log-opts": {"max-size":"500m", "max-file":"3"}
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "500m",
+    "max-file": "3"
+  }
 }
 ```
 
