@@ -15,27 +15,27 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.1.0",
-    "@docusaurus/plugin-ideal-image": "^3.1.0",
-    "@docusaurus/plugin-pwa": "^3.1.0",
-    "@docusaurus/preset-classic": "^3.1.0",
-    "@giscus/react": "^2.3.0",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^1.2.1",
+    "@docusaurus/core": "^3.2.1",
+    "@docusaurus/plugin-ideal-image": "^3.2.1",
+    "@docusaurus/plugin-pwa": "^3.2.1",
+    "@docusaurus/preset-classic": "^3.2.1",
+    "@giscus/react": "^3.0.0",
+    "@mdx-js/react": "^3.0.1",
+    "clsx": "^2.1.0",
     "docusaurus-plugin-sass": "^0.2.5",
     "path-browserify": "^1.0.1",
     "plugin-image-zoom": "github:flexanalytics/plugin-image-zoom",
-    "prism-react-renderer": "^2.1.0",
+    "prism-react-renderer": "^2.3.1",
     "raw-loader": "^4.0.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "sass": "^1.69.5"
+    "sass": "^1.74.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.1.0",
-    "@docusaurus/tsconfig": "^3.1.0",
-    "@docusaurus/types": "^3.1.0",
-    "typescript": "~5.2.2"
+    "@docusaurus/module-type-aliases": "^3.2.1",
+    "@docusaurus/tsconfig": "^3.2.1",
+    "@docusaurus/types": "^3.2.1",
+    "typescript": "^5.4.4"
   },
   "browserslist": {
     "production": [
