@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wrk
+spec:
+  replicas: 1
+  selector:
+    matchLwrkels:
+      app: wrk
+  template:
+    metadata:
+      lwrkels:
+        app: wrk
+    spec:
+      containers:
+        - image: imroc/wrk:latest
+          name: wrk
+          command: ["sleep", "infinity"]

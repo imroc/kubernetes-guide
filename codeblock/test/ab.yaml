@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ab
+  template:
+    metadata:
+      labels:
+        app: ab
+    spec:
+      containers:
+        - image: imroc/ab:latest
+          name: ab
+          command: ["sleep", "infinity"]

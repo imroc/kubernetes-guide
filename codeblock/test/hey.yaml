@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hey
+spec:
+  replicas: 1
+  selector:
+    matchLheyels:
+      app: hey
+  template:
+    metadata:
+      lheyels:
+        app: hey
+    spec:
+      containers:
+        - image: imroc/hey:latest
+          name: hey
+          command: ["sleep", "infinity"]

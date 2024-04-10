@@ -586,6 +586,7 @@ const sidebars: SidebarsConfig = {
             slug: '/appendix/yaml'
           },
           items: [
+            'appendix/yaml/test',
             'appendix/yaml/rbac',
           ]
         },
