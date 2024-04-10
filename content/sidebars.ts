@@ -577,7 +577,18 @@ const sidebars: SidebarsConfig = {
       },
       items: [
         'appendix/kubectl-cheat-sheet',
-        'appendix/yaml',
+        {
+          type: 'category',
+          label: '实用 YAML',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/appendix/yaml'
+          },
+          items: [
+            'appendix/yaml/rbac',
+          ]
+        },
         {
           type: 'category',
           label: 'Terrafrom 配置',
