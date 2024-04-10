@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '排障技能',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/skill'
@@ -23,7 +23,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Pod 排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/pod'
@@ -53,7 +53,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '节点排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/node'
@@ -76,7 +76,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '网络排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/network'
@@ -94,7 +94,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '存储排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/storage'
@@ -107,7 +107,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '集群排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cluster'
@@ -120,7 +120,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '排障案例',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases'

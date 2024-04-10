@@ -7,7 +7,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '实用 YAML',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/yaml'
@@ -20,7 +20,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Terrafrom 配置',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/terraform'
