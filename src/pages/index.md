@@ -1,3 +1,5 @@
+import Comment from '@site/src/components/Comment';
+
 # Kubernetes 实践指南
 
 本书将介绍 Kubernetes 相关实战经验与总结，助你成为一名云原生老司机 😎。
@@ -22,3 +24,4 @@
 
 您可以使用 [署名 - 非商业性使用 - 相同方式共享 4.0 (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh) 协议共享。
 
+<Comment/>

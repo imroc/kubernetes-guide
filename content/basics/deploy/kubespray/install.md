@@ -177,7 +177,7 @@ ansible-playbook \
 ## 缩容节点
 
 如果有节点不再需要了，我们可以将其移除集群，通常步骤是:
-1. `kubectl cordon NODE` 驱逐节点，确保节点上的服务飘到其它节点上去，参考 [安全维护或下线节点](../../best-practices/ops/securely-maintain-or-offline-node.md)。
+1. `kubectl cordon NODE` 驱逐节点，确保节点上的服务飘到其它节点上去，参考 [安全维护或下线节点](../../../best-practices/ops/securely-maintain-or-offline-node)。
 2. 停止节点上的一些 k8s 组件 (kubelet, kube-proxy) 等。
 3. `kubectl delete NODE` 将节点移出集群。
 4. 如果节点是虚拟机，并且不需要了，可以直接销毁掉。

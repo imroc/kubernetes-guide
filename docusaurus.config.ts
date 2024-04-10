@@ -56,15 +56,75 @@ const config: Config = {
       /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
       '@docusaurus/plugin-content-docs',
       ({
-        id: 'kubernetes',
-        path: 'content',
+        id: 'basics',
+        path: 'content/basics',
         // 文档的路由前缀
-        routeBasePath: '/',
+        routeBasePath: '/basics',
         // 左侧导航栏的配置
-        sidebarPath: require.resolve('./content/sidebars.ts'),
+        sidebarPath: require.resolve('./content/basics/sidebars.ts'),
         // 每个文档左下角 "编辑此页" 的链接
         editUrl: ({ docPath }) =>
-          `https://github.com/imroc/kubernetes-guide/edit/main/content/${docPath}`,
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/basics/${docPath}`,
+      }),
+    ],
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
+        id: 'best-practices',
+        path: 'content/best-practices',
+        // 文档的路由前缀
+        routeBasePath: '/best-practices',
+        // 左侧导航栏的配置
+        sidebarPath: require.resolve('./content/best-practices/sidebars.ts'),
+        // 每个文档左下角 "编辑此页" 的链接
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/best-practices/${docPath}`,
+      }),
+    ],
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
+        id: 'troubleshooting',
+        path: 'content/troubleshooting',
+        // 文档的路由前缀
+        routeBasePath: '/troubleshooting',
+        // 左侧导航栏的配置
+        sidebarPath: require.resolve('./content/troubleshooting/sidebars.ts'),
+        // 每个文档左下角 "编辑此页" 的链接
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/troubleshooting/${docPath}`,
+      }),
+    ],
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
+        id: 'cases',
+        path: 'content/cases',
+        // 文档的路由前缀
+        routeBasePath: '/cases',
+        // 左侧导航栏的配置
+        sidebarPath: require.resolve('./content/cases/sidebars.ts'),
+        // 每个文档左下角 "编辑此页" 的链接
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/cases/${docPath}`,
+      }),
+    ],
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
+        id: 'appendix',
+        path: 'content/appendix',
+        // 文档的路由前缀
+        routeBasePath: '/appendix',
+        // 左侧导航栏的配置
+        sidebarPath: require.resolve('./content/appendix/sidebars.ts'),
+        // 每个文档左下角 "编辑此页" 的链接
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/appendix/${docPath}`,
       }),
     ],
   ],
@@ -107,6 +167,31 @@ const config: Config = {
           src: 'img/logo.svg', // 电子书 logo 文件，注意替换
         },
         items: [
+          {
+            label: '基础实践',
+            position: 'right',
+            to: '/basics',
+          },
+          {
+            label: '最佳实践',
+            position: 'right',
+            to: '/best-practices',
+          },
+          {
+            label: '排障指南',
+            position: 'right',
+            to: '/troubleshooting',
+          },
+          {
+            label: '实践案例',
+            position: 'right',
+            to: '/cases',
+          },
+          {
+            label: '附录',
+            position: 'right',
+            to: '/appendix',
+          },
           {
             href: 'https://github.com/imroc/kubernetes-guide', // 改成自己的仓库地址
             label: 'GitHub',
