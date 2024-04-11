@@ -101,6 +101,21 @@ const config: Config = {
       /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
       '@docusaurus/plugin-content-docs',
       ({
+        id: 'troubleshooting-cases',
+        path: 'content/troubleshooting-cases',
+        // 文档的路由前缀
+        routeBasePath: '/troubleshooting-cases',
+        // 左侧导航栏的配置
+        sidebarPath: require.resolve('./content/troubleshooting-cases/sidebars.ts'),
+        // 每个文档左下角 "编辑此页" 的链接
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/troubleshooting-cases/${docPath}`,
+      }),
+    ],
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
         id: 'cases',
         path: 'content/cases',
         // 文档的路由前缀
@@ -181,6 +196,11 @@ const config: Config = {
             label: '排障指南',
             position: 'right',
             to: '/troubleshooting',
+          },
+          {
+            label: '排障案例',
+            position: 'right',
+            to: '/troubleshooting-cases',
           },
           {
             label: '实践案例',
