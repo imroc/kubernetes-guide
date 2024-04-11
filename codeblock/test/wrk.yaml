@@ -5,11 +5,11 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLwrkels:
+    matchLabels:
       app: wrk
   template:
     metadata:
-      lwrkels:
+      labels:
         app: wrk
     spec:
       containers:

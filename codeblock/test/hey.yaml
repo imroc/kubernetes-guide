@@ -5,11 +5,11 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLheyels:
+    matchLabels:
       app: hey
   template:
     metadata:
-      lheyels:
+      labels:
         app: hey
     spec:
       containers:
