@@ -4,7 +4,7 @@
 
 ## 准备配置文件
 
-创建 `main.tf`, 可参考[附录](../appendix/terraform) 中的示例，根据自己需求按照注释提示替换内容
+创建 `main.tf`, 可参考[附录](../../appendix/terraform/) 中的示例，根据自己需求按照注释提示替换内容
 
 ## 创建集群
 
@@ -36,13 +36,13 @@ terraform show -json | jq -r '.values.root_module.resources[] | select(.address 
 
 > 注意替换 `roc-test` 为自己在 `main.tf` 文件中定义的名字。
 
-使用 [kubecm](../kubectl/merge-kubeconfig-with-kubecm.md) 可以一键导入合并 kubeconfig:
+使用 [kubecm](../kubectl/merge-kubeconfig-with-kubecm) 可以一键导入合并 kubeconfig:
 
 ```bash
 kubecm add -f eks
 ```
 
-使用 [kubectx](../kubectl/quick-switch-with-kubectx.md) 可以切换 context:
+使用 [kubectx](../kubectl/quick-switch-with-kubectx) 可以切换 context:
 
 ```bash
 kubectl ctx eks

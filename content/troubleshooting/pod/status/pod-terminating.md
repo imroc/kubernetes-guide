@@ -211,7 +211,7 @@ $ grep 8bde3ec18c5a6915f40dd8adc3b2f296c1e40cc1b2885db4aee0a627ff89ef59 /proc/*/
 ps -f 27187
 ```
 
-> 更多请参考 [排查 device or resource busy](../device-or-resource-busy.md)。
+> 更多请参考 [排查 device or resource busy](../device-or-resource-busy)。
 
 ## 检查 Finalizers
 
@@ -241,4 +241,4 @@ Pod 事件报错:
 unlinkat /var/run/netns/cni-49ddd103-d374-1f86-7324-13abaeb9c910: device or resource busy
 ```
 
-原因与解决方案参考: [挂载根目录导致 device or resource busy](../../cases/runtime/mount-root-causing-device-or-resource-busy.md)。
+原因与解决方案参考: [挂载根目录导致 device or resource busy](../../../troubleshooting-cases/runtime/mount-root-causing-device-or-resource-busy)。

@@ -44,7 +44,7 @@ kube-dns-898dbbfc6-hvwlr            3/3       Running   0          8d        172
 $ telnet 172.16.14.217 53
 ```
 
-> 如果容器内没有 telnet 等测试工具，可以 [使用 nsenter 进入 netns](../skill/enter-netns-with-nsenter.md)，然后利用宿主机上的 telnet 进行测试。
+> 如果容器内没有 telnet 等测试工具，可以 [使用 nsenter 进入 netns](../skill/enter-netns-with-nsenter)，然后利用宿主机上的 telnet 进行测试。
 
 如果检查到是网络不通，就需要排查下网络设置:
 
@@ -54,7 +54,7 @@ $ telnet 172.16.14.217 53
 
 ### 抓包
 
-如果前面检查都没问题，可以考虑抓包看下，如果好复现，可以直接  [使用 nsenter 进入 netns](../skill/enter-netns-with-nsenter.md) 抓容器内的包:
+如果前面检查都没问题，可以考虑抓包看下，如果好复现，可以直接  [使用 nsenter 进入 netns](../skill/enter-netns-with-nsenter) 抓容器内的包:
 
 ```bash
 tcpdump -i any port 53 -w dns.pcap
@@ -67,7 +67,7 @@ tcpdump -i any port 53 -w dns.pcap
 
 ### 5 秒延时
 
-如果DNS查询经常延时5秒才返回，通常是遇到内核 conntrack 冲突导致的丢包，详见 [排障案例: DNS 5秒延时](../cases/network/dns-lookup-5s-delay.md)
+如果DNS查询经常延时5秒才返回，通常是遇到内核 conntrack 冲突导致的丢包，详见 [排障案例: DNS 5秒延时](../../troubleshooting-cases/network/dns-lookup-5s-delay)
 
 ### 解析外部域名超时
 
