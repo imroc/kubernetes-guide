@@ -12,9 +12,9 @@ const sidebars: SidebarsConfig = {
         slug: '/kubectl'
       },
       items: [
-        'get-raw',
-        'node',
-        'pod',
+        'kubectl/get-raw',
+        'kubectl/node',
+        'kubectl/pod',
       ]
     },
     {
