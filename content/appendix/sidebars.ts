@@ -14,6 +14,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'get-raw',
         'node',
+        'pod',
       ]
     },
     {

@@ -1,4 +1,4 @@
-# Node 格式化输出
+# Node 相关
 
 ## 表格输出各节点占用的 podCIDR
 
@@ -121,7 +121,7 @@
 ## 查看节点可用区分布情况
 
 <Tabs>
-  <TabItem value="cmd-allocated-mem" label="命令">
+  <TabItem value="cmd-zone" label="命令">
 
     ``` bash
     kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.failure-domain\.beta\.kubernetes\.io\/zone}{"\n"}{end}'
@@ -129,7 +129,7 @@
 
   </TabItem>
 
-  <TabItem value="output-allocated-mem" label="输出效果">
+  <TabItem value="output-zone" label="输出效果">
 
     ```txt
     10.83.96.127    100004
