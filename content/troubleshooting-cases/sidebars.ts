@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '运行时排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases/runtime'
@@ -21,7 +21,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '网络排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases/network'
@@ -36,7 +36,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '高负载',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases/high-load'
@@ -48,7 +48,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '集群故障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases/cluster'
@@ -62,7 +62,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '节点排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases/node'
@@ -74,7 +74,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '其它排障',
-      collapsed: true,
+      collapsed: false,
       link: {
         type: 'generated-index',
         slug: '/cases/others'
