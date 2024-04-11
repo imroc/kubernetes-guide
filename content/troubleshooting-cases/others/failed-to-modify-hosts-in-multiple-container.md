@@ -15,7 +15,7 @@
 
 ## 解决方案
 
-通常不推荐在容器内修改 `/etc/hosts`，应该采用更云原生的做法，参考 [自定义域名解析](../../../best-practices/dns/customize-dns-resolution)。
+通常不推荐在容器内修改 `/etc/hosts`，应该采用更云原生的做法，参考 [自定义域名解析](../../best-practices/dns/customize-dns-resolution)。
 
 ### 使用 HostAliases
 
