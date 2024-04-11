@@ -3,7 +3,19 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   appendixSidebar: [
     'README',
-    'kubectl-cheat-sheet',
+    {
+      type: 'category',
+      label: 'kubectl 速查手册',
+      collapsed: false,
+      link: {
+        type: 'generated-index',
+        slug: '/kubectl'
+      },
+      items: [
+        'get-raw',
+        'node',
+      ]
+    },
     {
       type: 'category',
       label: '实用 YAML',
