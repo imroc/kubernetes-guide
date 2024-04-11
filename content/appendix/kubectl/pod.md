@@ -1,6 +1,6 @@
 # Pod 相关
 
-## 清理 Evicted 的 pod
+## 清理 Pod
 
 <Tabs>
   <TabItem value="evicted" label="清理 Evicted 状态的 Pod">
