@@ -193,6 +193,11 @@ const config: Config = {
             to: '/best-practices',
           },
           {
+            label: '实践案例',
+            position: 'right',
+            to: '/cases',
+          },
+          {
             label: '排障指南',
             position: 'right',
             to: '/troubleshooting',
@@ -201,11 +206,6 @@ const config: Config = {
             label: '排障案例',
             position: 'right',
             to: '/troubleshooting-cases',
-          },
-          {
-            label: '实践案例',
-            position: 'right',
-            to: '/cases',
           },
           {
             label: '附录',
