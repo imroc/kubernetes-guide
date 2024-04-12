@@ -86,36 +86,6 @@ const config: Config = {
       /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
       '@docusaurus/plugin-content-docs',
       ({
-        id: 'troubleshooting',
-        path: 'content/troubleshooting',
-        // 文档的路由前缀
-        routeBasePath: '/troubleshooting',
-        // 左侧导航栏的配置
-        sidebarPath: require.resolve('./content/troubleshooting/sidebars.ts'),
-        // 每个文档左下角 "编辑此页" 的链接
-        editUrl: ({ docPath }) =>
-          `https://github.com/imroc/kubernetes-guide/edit/main/content/troubleshooting/${docPath}`,
-      }),
-    ],
-    [
-      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
-      '@docusaurus/plugin-content-docs',
-      ({
-        id: 'troubleshooting-cases',
-        path: 'content/troubleshooting-cases',
-        // 文档的路由前缀
-        routeBasePath: '/troubleshooting-cases',
-        // 左侧导航栏的配置
-        sidebarPath: require.resolve('./content/troubleshooting-cases/sidebars.ts'),
-        // 每个文档左下角 "编辑此页" 的链接
-        editUrl: ({ docPath }) =>
-          `https://github.com/imroc/kubernetes-guide/edit/main/content/troubleshooting-cases/${docPath}`,
-      }),
-    ],
-    [
-      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
-      '@docusaurus/plugin-content-docs',
-      ({
         id: 'cases',
         path: 'content/cases',
         // 文档的路由前缀
@@ -198,19 +168,14 @@ const config: Config = {
             to: '/cases',
           },
           {
-            label: '排障指南',
-            position: 'right',
-            to: '/troubleshooting',
-          },
-          {
-            label: '排障案例',
-            position: 'right',
-            to: '/troubleshooting-cases',
-          },
-          {
             label: '附录',
             position: 'right',
             to: '/appendix',
+          },
+          {
+            label: 'Kubernetes 排障指南',
+            position: 'right',
+            href: 'https://imroc.cc/kubernetes/troubleshooting',
           },
           {
             href: 'https://github.com/imroc/kubernetes-guide', // 改成自己的仓库地址
@@ -226,6 +191,10 @@ const config: Config = {
           {
             title: '相关电子书',
             items: [
+              {
+                label: 'Kubernetes 排障指南',
+                href: 'https://imroc.cc/kubernetes/troubleshooting',
+              },
               {
                 label: 'istio 实践指南',
                 href: 'https://imroc.cc/istio',
