@@ -19,7 +19,7 @@ const sidebars: SidebarsConfig = {
         'graceful-shutdown/propagating-signals-in-shell',
         'graceful-shutdown/use-prestop',
         'graceful-shutdown/update-strategy',
-        'graceful-shutdown/persistent-connection',
+        'graceful-shutdown/long-connection',
         'graceful-shutdown/lb-to-pod-directly',
       ],
     },
