@@ -18,6 +18,7 @@ const sidebars: SidebarsConfig = {
         'graceful-shutdown/why-cannot-receive-sigterm',
         'graceful-shutdown/propagating-signals-in-shell',
         'graceful-shutdown/use-prestop',
+        'graceful-shutdown/update-strategy',
         'graceful-shutdown/persistent-connection',
         'graceful-shutdown/lb-to-pod-directly',
       ],
