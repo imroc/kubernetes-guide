@@ -28,9 +28,11 @@ spec:
               port: 80
             # highlight-next-line
             successThreshold: 5 # 新副本启动时，连续探测成功多次后才交给 readinessProbe 探测
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: 80
             # highlight-next-line
             successThreshold: 1 # 运行过程中探测 1 次成功就认为 ready，可在抖动导致异常后快速恢复服务
+            periodSeconds: 5
