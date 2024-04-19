@@ -14,10 +14,8 @@ const sidebars: SidebarsConfig = {
       items: [
         'graceful-shutdown/intro',
         'graceful-shutdown/pod-termination-proccess',
-        'graceful-shutdown/code-example-of-handle-sigterm',
-        'graceful-shutdown/why-cannot-receive-sigterm',
-        'graceful-shutdown/propagating-signals-in-shell',
-        'graceful-shutdown/use-prestop',
+        'graceful-shutdown/sigterm',
+        'graceful-shutdown/prestop',
         'graceful-shutdown/update-strategy',
         'graceful-shutdown/long-connection',
         'graceful-shutdown/lb-to-pod-directly',
