@@ -14,7 +14,7 @@
 Mar 21 02:59:26 VM-67-101-centos kubelet[714]: E0321 02:59:26.320938     714 manager.go:1086] Failed to create existing container: /kubepods/burstable/podb267f18b-a641-4004-a660-4c6a43b6e520/03164d8f0d1f55a285b50b2117d6fdb2c33d2fa87f46dba0f43b806017607d03: failed to identify the read-write layer ID for container "03164d8f0d1f55a285b50b2117d6fdb2c33d2fa87f46dba0f43b806017607d03". - open /var/lib/docker/image/overlay2/layerdb/mounts/03164d8f0d1f55a285b50b2117d6fdb2c33d2fa87f46dba0f43b806017607d03/mount-id: no such file or directory
 ```
 
-> 参考 [排障案例: cAdvisor 无数据](../../troubleshooting/node/cadvisor-no-data)。
+> 参考 [排障案例: cAdvisor 无数据](https://imroc.cc/kubernetes/troubleshooting/methods/node/cadvisor-no-data)。
 
 ### 变更步骤
 
