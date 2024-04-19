@@ -7,6 +7,10 @@
 本文给出各种语言的代码示例。
 
 <Tabs>
+  <TabItem value="go" label="go">
+    <FileBlock showLineNumbers file="handle-sigterm/sigterm.go" />
+  </TabItem>
+
   <TabItem value="shell" label="shell">
     <FileBlock showLineNumbers file="handle-sigterm/sigterm.sh" />
   </TabItem>
