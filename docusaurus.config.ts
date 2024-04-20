@@ -175,7 +175,17 @@ const config: Config = {
           {
             label: 'Kubernetes 排障指南',
             position: 'right',
-            href: 'https://imroc.cc/kubernetes/troubleshooting',
+            href: 'https://imroc.cc/kubernetes-troubleshooting',
+          },
+          {
+            label: 'TKE 实践指南',
+            position: 'right',
+            href: 'https://imroc.cc/tke',
+          },
+          {
+            label: 'istio 实践指南',
+            position: 'right',
+            href: 'https://imroc.cc/istio',
           },
           {
             href: 'https://github.com/imroc/kubernetes-guide', // 改成自己的仓库地址
@@ -193,7 +203,7 @@ const config: Config = {
             items: [
               {
                 label: 'Kubernetes 排障指南',
-                href: 'https://imroc.cc/kubernetes/troubleshooting',
+                href: 'https://imroc.cc/kubernetes-troubleshooting',
               },
               {
                 label: 'istio 实践指南',
