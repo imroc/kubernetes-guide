@@ -79,3 +79,17 @@ Kubenretes 源码仓库中的一些 addon 组件也使用了这种注解，有�
 ### 根据 Service 注解动态采集
 
 <FileBlock file="prometheus/kubernetes-service-endpoints.yaml" />
+
+## kube-prometheus-stack 采集配置方法
+
+如果你使用 [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) 来安装 Prometheus，需要在 `additionalScrapeConfigs` 里加上采集配置，示例:
+
+```yaml
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigs:
+      -  job_name: "kubernetes-service-endpoints"
+         ...
+      -  job_name: "kubernetes-pods"
+         ...
+```
