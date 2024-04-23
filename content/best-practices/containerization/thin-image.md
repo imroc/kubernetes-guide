@@ -22,7 +22,7 @@ scratch 是一个空镜像，如果你的应用是一个包含所有依赖的二
 
 下面是使用 Golang 静态编译二进制，然后 COPY 到 scratch 镜像的 Dockerfile 示例：
 
-```dockerfile
+```dockerfile showLineNumbers
 FROM golang:latest AS build
 WORKDIR /workspace
 COPY . .
@@ -52,7 +52,7 @@ distroless 镜像，它仅包含您的应用程序及其运行时依赖项。它
 
 示例：
 
-```dockerfile
+```dockerfile showLineNumbers
 FROM node:8 as build
 
 WORKDIR /app
@@ -92,7 +92,7 @@ Docker镜像中每增加一个二进制程序，就会给整个应用程序带�
 
 如果使用 alpine 基础镜像，可以在用 `apk add` 安装软件包时加 `--no-cache`：
 
-```dockerfile
+```dockerfile showLineNumbers
 FROM alpine:latest
 
 RUN apk add --no-cache tzdata ca-certificates
@@ -100,7 +100,7 @@ RUN apk add --no-cache tzdata ca-certificates
 
 ### Ubuntu
 
-```dockerfile
+```dockerfile showLineNumbers
 FROM ubuntu:latest
 
 RUN apt update -y && apt install -y curl
