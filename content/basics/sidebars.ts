@@ -55,53 +55,6 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '监控告警',
-      collapsed: false,
-      link: {
-        type: 'generated-index',
-        slug: '/monitoring'
-      },
-      items: [
-        {
-          type: 'category',
-          label: 'Prometheus',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/monitoring/prometheus'
-          },
-          items: [
-            'monitoring/prometheus/annotation-discovery',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Grafana',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/monitoring/grafana'
-          },
-          items: [
-            'monitoring/grafana/ha-setup',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Victoria Metrics',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/monitoring/victoriametrics'
-          },
-          items: [
-            'monitoring/victoriametrics/install-with-operator',
-          ],
-        }
-      ],
-    },
-    {
-      type: 'category',
       label: '高效使用 kubectl',
       collapsed: false,
       link: {

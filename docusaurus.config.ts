@@ -71,6 +71,21 @@ const config: Config = {
       /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
       '@docusaurus/plugin-content-docs',
       ({
+        id: 'monitornig',
+        path: 'content/monitoring',
+        // 文档的路由前缀
+        routeBasePath: '/monitoring',
+        // 左侧导航栏的配置
+        sidebarPath: require.resolve('./content/monitoring/sidebars.ts'),
+        // 每个文档左下角 "编辑此页" 的链接
+        editUrl: ({ docPath }) =>
+          `https://github.com/imroc/kubernetes-guide/edit/main/content/monitoring/${docPath}`,
+      }),
+    ],
+    [
+      /** @type {import('@docusaurus/plugin-content-docs').PluginOptions} */
+      '@docusaurus/plugin-content-docs',
+      ({
         id: 'best-practices',
         path: 'content/best-practices',
         // 文档的路由前缀
@@ -156,6 +171,10 @@ const config: Config = {
             label: '基础实践',
             position: 'right',
             to: '/basics',
+          }{
+            label: '监控告警',
+            position: 'right',
+            to: '/monitoring',
           },
           {
             label: '最佳实践',
