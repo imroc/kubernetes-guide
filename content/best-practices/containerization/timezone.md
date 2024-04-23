@@ -21,6 +21,9 @@
   <TabItem value="alpine" label="Alpine">
     <FileBlock file="containerization/alpine-tz.dockerfile" />
   </TabItem>
+  <TabItem value="centos" label="CentOS">
+    <FileBlock file="containerization/centos-tz.dockerfile" />
+  </TabItem>
 </Tabs>
 
 ## 方案三：挂载主机时区配置到容器（不推荐）
