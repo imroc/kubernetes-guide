@@ -264,6 +264,7 @@ const config: Config = {
           'hcl',
           'bash',
           'diff',
+          'docker',
         ],
       },
     }),
