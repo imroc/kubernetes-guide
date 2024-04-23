@@ -28,4 +28,8 @@
 
 ## 方案三：挂载主机时区配置到容器（不推荐）
 
+最后一种思路是将 Pod 所在节点的时区文件挂载到容器内 `/etc/localtime`，这种方式对 Pod 有一定侵入性，而且依赖主机内时区配置，在不得已的情况下不推荐使用。
+
+下面是 YAML 示例：
+
 <FileBlock showFileNumbers file="containerization/mount-tz.yaml" />
