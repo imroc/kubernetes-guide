@@ -98,7 +98,7 @@ FROM alpine:latest
 RUN apk add --no-cache tzdata ca-certificates
 ```
 
-### Ubuntu
+### Ubuntu/Debian
 
 ```dockerfile showLineNumbers
 FROM ubuntu:latest
