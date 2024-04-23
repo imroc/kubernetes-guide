@@ -33,20 +33,21 @@ spec:
             # highlight-end
 ```
 
-## 方案二：使用多阶段构建拷贝时区文件
+## 方案二：Dockerfile 里设置时区
 
-centos 基础镜像内置了时区文件，可以将里面国内的时区文件拷贝到业务镜像中的 `/etc/localtime` 路径，表示系统默认时区是国内时区:
+下面给出在一些常见的基础镜像里设置时区的实例：
 
-```Dockerfile
-FROM centos:latest
-
-FROM ubuntu:22.10
-
-# highlight-next-line
-COPY --from=0 /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-```
+<Tabs>
+  <TabItem value="ubuntu" label="Ubuntu">
+    <FileBlock file="containerization/ubuntu-tz.dockerfile" />
+  </TabItem>
+  <TabItem value="alpine" label="Alpine">
+    <FileBlock file="containerization/alpine-tz.dockerfile" />
+  </TabItem>
+</Tabs>
 
 ## 方案三：挂载主机时区配置到容器（不推荐）
+
 
 ```yaml showLineNumbers
 apiVersion: apps/v1
