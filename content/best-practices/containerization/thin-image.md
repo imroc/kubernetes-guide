@@ -20,19 +20,12 @@ Alpine一个基于 musl libc 和 busybox、面向安全的轻量级 Linux 发行
 
 scratch 是一个空镜像，如果你的应用是一个包含所有依赖的二进制（不依赖动态链接库），可以使用 scratch 作为基础镜像，这样镜像的体积几乎就等于你 COPY 进去的二进制的体积。
 
-下面是使用 Golang 静态编译二进制，然后 COPY 到 scratch 镜像的 Dockerfile 示例：
+示例：
 
 ```dockerfile showLineNumbers
-FROM golang:latest AS build
-WORKDIR /workspace
-COPY . .
-# 静态编译二进制
-RUN CGO_ENABLED=0 go build -o app -ldflags '-w -extldflags "-static"' .
-
 FROM scratch
-# 拷贝二进制到空镜像
-COPY --from=build /workspace/app /usr/local/bin/app
-CMD ["app"]
+COPY app /app
+CMD ["/app"]
 ```
 
 ### busybox
@@ -111,4 +104,23 @@ RUN apt-get clean autoclean && \
   apt-get autoremove --yes && \
   rm -rf /var/lib/{apt,dpkg,cache,log}/
 # highlight-end
+```
+
+## 使用多阶段构建
+
+Dockerfile 支持多阶段构建，即有多个 `FROM` 指令，最终构建出的镜像由由最后一个 `FROM` 之后的指令决定，通常可以把这之前的指令用作编译，之后的指令用作打包，打包阶段可以将编译阶段产生的文件拷贝过来，这样可以实现在最终镜像中只保留运行程序所需要的内容。
+
+下面是使用 Golang 静态编译二进制，然后 COPY 到 scratch 镜像的 Dockerfile 示例：
+
+```dockerfile showLineNumbers
+FROM golang:latest AS build
+WORKDIR /workspace
+COPY . .
+# 静态编译二进制
+RUN CGO_ENABLED=0 go build -o app -ldflags '-w -extldflags "-static"' .
+
+FROM scratch
+# 拷贝二进制到空镜像
+COPY --from=build /workspace/app /usr/local/bin/app
+CMD ["app"]
 ```
