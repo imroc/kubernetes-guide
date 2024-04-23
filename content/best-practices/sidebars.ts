@@ -82,6 +82,7 @@ const sidebars: SidebarsConfig = {
         slug: '/containerization'
       },
       items: [
+        'containerization/thin-image',
         'containerization/systemd',
         'containerization/java',
         'containerization/golang',
