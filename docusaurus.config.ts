@@ -171,7 +171,8 @@ const config: Config = {
             label: '基础实践',
             position: 'right',
             to: '/basics',
-          }{
+          },
+          {
             label: '监控告警',
             position: 'right',
             to: '/monitoring',
