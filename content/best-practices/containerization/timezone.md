@@ -8,30 +8,7 @@
 
 很多编程语言都支持 `TZ` 这个用于设置时区的环境变量，可以在部署工作负载的时候，为容器指定该环境变量，示例：
 
-```yaml showLineNumbers
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: app
-  template:
-    metadata:
-      labels:
-        app: app
-    spec:
-      containers:
-        - name: app
-          image: app
-          env:
-            # highlight-start
-            - name: TZ
-              value: Asia/Shanghai
-            # highlight-end
-```
+<FileBlock showFileNumbers file="containerization/tz-env.yaml" />
 
 ## 方案二：Dockerfile 里设置时区
 
@@ -48,35 +25,4 @@ spec:
 
 ## 方案三：挂载主机时区配置到容器（不推荐）
 
-
-```yaml showLineNumbers
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: app
-  template:
-    metadata:
-      labels:
-        app: app
-    spec:
-      containers:
-        - name: app
-          image: app
-          volumeMounts:
-            # highlight-start
-            - name: tz
-              mountPath: /etc/localtime
-            # highlight-end
-      volumes:
-        # highlight-start
-        - name: tz
-          hostPath:
-            path: /etc/localtime
-        # highlight-end
-```
-
+<FileBlock showFileNumbers file="containerization/mount-tz.yaml" />
