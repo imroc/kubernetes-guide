@@ -82,10 +82,10 @@ const sidebars: SidebarsConfig = {
         slug: '/containerization'
       },
       items: [
-        'containerization/systemd-in-container',
+        'containerization/systemd',
         'containerization/java',
         'containerization/golang',
-        'containerization/crontab-in-container',
+        'containerization/crontab',
         'containerization/timezone',
       ],
     },
