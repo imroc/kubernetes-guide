@@ -95,6 +95,7 @@ Docker镜像中每增加一个二进制程序，就会给整个应用程序带�
 ```dockerfile showLineNumbers
 FROM alpine:latest
 
+# highlight-next-line
 RUN apk add --no-cache tzdata ca-certificates
 ```
 
