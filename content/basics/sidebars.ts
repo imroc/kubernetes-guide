@@ -64,7 +64,19 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'category',
-          label: 'grafana',
+          label: 'Prometheus',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/monitoring/prometheus'
+          },
+          items: [
+            'monitoring/prometheus/annotation-discovery',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Grafana',
           collapsed: true,
           link: {
             type: 'generated-index',

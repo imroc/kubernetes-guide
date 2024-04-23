@@ -1,0 +1,38 @@
+- job_name: "kubernetes-pods"
+
+  kubernetes_sd_configs:
+    - role: pod
+
+  relabel_configs:
+    # Example relabel to scrape only pods that have
+    # `prometheus.io/scrape: "true"` annotation.
+    - source_labels:
+        - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+      action: keep
+      regex: true
+
+    # Example relabel to customize metric path based on pod
+    # `prometheus.io/path: <metric path>` annotation.
+    - source_labels:
+        - __meta_kubernetes_pod_annotation_prometheus_io_path
+      action: replace
+      target_label: __metrics_path__
+      regex: (.+)
+
+    # Example relabel to scrape only single, desired port for the pod
+    # based on pod `prometheus.io/port: <port>` annotation.
+    - source_labels:
+        - __address__
+        - __meta_kubernetes_pod_annotation_prometheus_io_port
+      action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      target_label: __address__
+    - action: labelmap
+      regex: __meta_kubernetes_pod_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      action: replace
+      target_label: namespace
+    - source_labels: [__meta_kubernetes_pod_name]
+      action: replace
+      target_label: pod

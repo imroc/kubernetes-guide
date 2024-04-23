@@ -1,0 +1,46 @@
+- job_name: "kubernetes-service-endpoints"
+
+  kubernetes_sd_configs:
+    - role: endpoints
+
+  relabel_configs:
+    # prometheus relabel to scrape only endpoints that have
+    # `prometheus.io/scrape: "true"` annotation.
+    - source_labels:
+        - __meta_kubernetes_service_annotation_prometheus_io_scrape
+      action: keep
+      regex: true
+    #
+    # prometheus relabel to customize metric path based on endpoints
+    # `prometheus.io/path: <metric path>` annotation.
+    - source_labels:
+        - __meta_kubernetes_service_annotation_prometheus_io_path
+      action: replace
+      target_label: __metrics_path__
+      regex: (.+)
+    #
+    # prometheus relabel to scrape only single, desired port for the service based
+    # on endpoints `prometheus.io/port: <port>` annotation.
+    - source_labels:
+        - __address__
+        - __meta_kubernetes_service_annotation_prometheus_io_port
+      action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      target_label: __address__
+    #
+    # prometheus relabel to configure scrape scheme for all service scrape targets
+    # based on endpoints `prometheus.io/scheme: <scheme>` annotation.
+    - source_labels:
+        - __meta_kubernetes_service_annotation_prometheus_io_scheme
+      action: replace
+      target_label: __scheme__
+      regex: (https?)
+    - action: labelmap
+      regex: __meta_kubernetes_service_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      action: replace
+      target_label: namespace
+    - source_labels: [__meta_kubernetes_service_name]
+      action: replace
+      target_label: service
