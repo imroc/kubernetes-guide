@@ -103,6 +103,7 @@ const sidebars: SidebarsConfig = {
         'containerization/golang',
         'containerization/crontab',
         'containerization/timezone',
+        'containerization/logrotate',
       ],
     },
     {
