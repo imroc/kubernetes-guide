@@ -118,19 +118,6 @@ const sidebars: SidebarsConfig = {
         'rbac/create-user-using-csr-api',
       ],
     },
-    {
-      type: 'category',
-      label: '常见问题',
-      collapsed: false,
-      link: {
-        type: 'generated-index',
-        slug: '/faq'
-      },
-      items: [
-        'faq/why-enable-bridge-nf-call-iptables',
-        'faq/ipvs-conn-reuse-mode',
-      ],
-    },
   ],
 };
 
