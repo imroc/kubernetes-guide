@@ -71,6 +71,21 @@ const sidebars: SidebarsConfig = {
       items: [
         'autoscaling/hpa-velocity',
         'autoscaling/hpa-with-custom-metrics',
+        {
+          type: 'category',
+          label: '事件驱动弹性伸缩(KEDA)',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/autoscaling/keda'
+          },
+          items: [
+            'autoscaling/keda/overview',
+            'autoscaling/keda/install',
+            'autoscaling/keda/cron',
+            'autoscaling/keda/workload',
+          ]
+        }
       ],
     },
     {
