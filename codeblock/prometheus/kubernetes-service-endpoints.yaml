@@ -10,7 +10,7 @@
         - __meta_kubernetes_service_annotation_prometheus_io_scrape
       action: keep
       regex: true
-    #
+
     # prometheus relabel to customize metric path based on endpoints
     # `prometheus.io/path: <metric path>` annotation.
     - source_labels:
@@ -18,7 +18,7 @@
       action: replace
       target_label: __metrics_path__
       regex: (.+)
-    #
+
     # prometheus relabel to scrape only single, desired port for the service based
     # on endpoints `prometheus.io/port: <port>` annotation.
     - source_labels:
@@ -28,7 +28,7 @@
       regex: ([^:]+)(?::\d+)?;(\d+)
       replacement: $1:$2
       target_label: __address__
-    #
+
     # prometheus relabel to configure scrape scheme for all service scrape targets
     # based on endpoints `prometheus.io/scheme: <scheme>` annotation.
     - source_labels:
