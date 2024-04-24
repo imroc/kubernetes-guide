@@ -103,10 +103,10 @@ open-webui 是大模型的 web 界面，支持 llama 系列的大模型，通过
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app: webui
   name: webui-pvc
   namespace: llama
+  labels:
+    app: webui
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:
