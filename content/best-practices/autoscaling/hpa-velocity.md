@@ -29,6 +29,10 @@ HPA 在进行扩缩容时，先是由固定的算法计算出期望副本数:
 
 本文要介绍的扩缩容速率调节，不是指要调整期望副本数的算法，它并不会加大或缩小扩缩容比例或数量，仅仅是控制扩缩容的速率，实现的效果是: 控制 HPA 在 XX 时间内最大允许扩容/缩容 XX 比例/数量的 Pod。
 
+## API 版本选择：v2beta2 与 v2
+
+如果你的 Kubernetes 集群版本在 1.18~1.22 之间，HPA 的 API 版本使用 `autoscaling/v2beta2`，1.23 之后的集群版本就使用 `autoscaling/v2`。
+
 ## 如何使用
 
 这次更新实际就是在 HPA Spec 下新增了一个 `behavior` 字段，下面有 `scaleUp` 和 `scaleDown` 两个字段分别控制扩容和缩容的行为，具体可参考 [官方 API 文档](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#hpascalingrules-v2beta2-autoscaling)。
