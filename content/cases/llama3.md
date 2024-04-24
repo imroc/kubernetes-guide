@@ -62,7 +62,7 @@ spec:
             limits:
               cpu: "4000m"
               memory: "4Gi"
-              # hilight-next-line
+              # highlight-next-line
               nvidia.com/gpu: "0" # 如果使 Nvidia GPU，这里声明下 GPU 卡
           volumeMounts:
             - name: ollama-volume
