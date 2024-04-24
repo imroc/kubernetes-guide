@@ -55,11 +55,19 @@ spec:
           image: ollama/ollama:latest
           ports:
             - containerPort: 11434
+          resources:
+            requests:
+              cpu: "2000m"
+              memory: "2Gi"
+            limits:
+              cpu: "4000m"
+              memory: "4Gi"
+              # hilight-next-line
+              nvidia.com/gpu: "0" # 如果使 Nvidia GPU，这里声明下 GPU 卡
           volumeMounts:
             - name: ollama-volume
               mountPath: /root/.ollama
           tty: true
-          stdin: true
   volumeClaimTemplates:
     - metadata:
         name: ollama-volume
@@ -92,6 +100,20 @@ spec:
 open-webui 是大模型的 web 界面，支持 llama 系列的大模型，通过 API 与 ollama 通信，官方镜像地址是：`ghcr.io/open-webui/open-webui`，在国内拉取速度非常慢，可以替换成 docker hub 里长期自动同步的 mirror 镜像：`docker.io/imroc/open-webui`：
 
 ```yaml showLineNumbers
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: webui
+  name: webui-pvc
+  namespace: llama
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 2Gi
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -115,6 +137,23 @@ spec:
             - name: OLLAMA_BASE_URL
               # highlight-next-line
               value: http://ollama:11434 # ollama 的地址
+          tty: true
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+          volumeMounts:
+            - name: webui-volume
+              mountPath: /app/backend/data
+      volumes:
+        - name: webui-volume
+          persistentVolumeClaim:
+            claimName: webui-pvc
 
 ---
 apiVersion: v1
