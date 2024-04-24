@@ -164,7 +164,7 @@ spec:
 我们使用 helm 安装 [prometheus-adapter](https://artifacthub.io/packages/helm/prometheus-community/prometheus-adapter)，安装前最重要的是确定并配置自定义指标，按照前面的示例，我们业务中使用 `httpserver_requests_total` 这个指标来记录 HTTP 请求，那么我们可以通过类似下面的 PromQL 计算出每个业务 Pod 的 QPS 监控:
 
 ```
-sum(rate(http_requests_total[2m])) by (pod)
+sum(rate(httpserver_requests_total[2m])) by (pod)
 ```
 
 我们需要将其转换为 prometheus-adapter 的配置，准备一个 `values.yaml`:
