@@ -76,7 +76,7 @@ spec:
         resources:
           requests:
             # highlight-next-line
-            storage: 50Gi # 注意磁盘容量能够容纳模型体积
+            storage: 50Gi # 注意要确保磁盘容量能够容纳得下模型的体积
 ---
 apiVersion: v1
 kind: Service
