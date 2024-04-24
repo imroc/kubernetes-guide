@@ -109,7 +109,8 @@ spec:
     spec:
       containers:
         - name: webui
-          image: imroc/open-webui:main
+          # highlight-next-line
+          image: imroc/open-webui:main # docker hub 中的 mirror 镜像，长期自动同步，可放心使用
           env:
             - name: OLLAMA_BASE_URL
               # highlight-next-line
