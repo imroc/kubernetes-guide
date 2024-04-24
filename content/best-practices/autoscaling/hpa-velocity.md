@@ -67,7 +67,7 @@ spec:
         value: 100 # 允许全部缩掉
         periodSeconds: 15
     scaleUp:
-      stabilizationWindowSeconds: 0 # 需要扩容时，立即扩容（默认就是 0）
+      stabilizationWindowSeconds: 0 # 需要扩容时，立即扩容
       policies:
       - type: Percent
         value: 100
