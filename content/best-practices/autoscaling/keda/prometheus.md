@@ -10,7 +10,7 @@ KEDA 支持 `prometheus` 类型的触发器，即根据自定义的 PromQL 查�
 
 假设这种场景：A 服务需要根据 B 服务处理的 QPS 进行伸缩。
 
-```yaml
+```yaml showLineNumbers
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
