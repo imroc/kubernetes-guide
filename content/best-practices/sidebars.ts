@@ -70,7 +70,19 @@ const sidebars: SidebarsConfig = {
       },
       items: [
         'autoscaling/hpa-velocity',
-        'autoscaling/hpa-with-custom-metrics',
+        {
+          type: 'category',
+          label: 'HPA 使用自定义指标进行伸缩',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/autoscaling/hpa-with-custom-metrics'
+          },
+          items: [
+            'autoscaling/hpa-with-custom-metrics/prometheus-adapter',
+            'autoscaling/hpa-with-custom-metrics/keda',
+          ]
+        },
         {
           type: 'category',
           label: '事件驱动弹性伸缩(KEDA)',

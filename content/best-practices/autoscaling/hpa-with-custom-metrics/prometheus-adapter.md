@@ -1,4 +1,4 @@
-# HPA 使用自定义指标进行伸缩
+# prometheus-adapter 方案
 
 Kubernetes 默认提供 CPU 和内存作为 HPA 弹性伸缩的指标，如果有更复杂的场景需求，比如基于业务单副本 QPS 大小来进行自动扩缩容，可以考虑自行安装 [prometheus-adapter](https://github.com/DirectXMan12/k8s-prometheus-adapter) 来实现基于自定义指标的 Pod 弹性伸缩。
 
