@@ -38,8 +38,9 @@ HPA 在进行扩缩容时，先是由固定的算法计算出期望副本数:
 这次更新实际就是在 HPA Spec 下新增了一个 `behavior` 字段，下面有 `scaleUp` 和 `scaleDown` 两个字段分别控制扩容和缩容的行为，具体可参考 [官方 API 文档](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#hpascalingrules-v2beta2-autoscaling)。
 
 使用示例:
-```yaml
-apiVersion: autoscaling/v2beta2
+
+```yaml showLineNumbers
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: web
@@ -47,17 +48,17 @@ spec:
   minReplicas: 1
   maxReplicas: 1000
   metrics:
-  - pods:
-      metric:
-        name: k8s_pod_rate_cpu_core_used_limit
+  - resource:
+      name: cpu
       target:
-        averageValue: "80"
-        type: AverageValue
-    type: Pods
+        type: Utilization
+        averageUtilization: 60
+    type: Resource
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: web
+  # highlight-start
   behavior: # 这里是重点
     scaleDown:
       stabilizationWindowSeconds: 300 # 需要缩容时，先观察 5 分钟，如果一直持续需要缩容才执行缩容
@@ -66,7 +67,7 @@ spec:
         value: 100 # 允许全部缩掉
         periodSeconds: 15
     scaleUp:
-      stabilizationWindowSeconds: 0 # 需要扩容时，立即扩容
+      stabilizationWindowSeconds: 0 # 需要扩容时，立即扩容（默认就是 0）
       policies:
       - type: Percent
         value: 100
@@ -75,6 +76,7 @@ spec:
         value: 4
         periodSeconds: 15 # 每 15s 最大允许扩容 4 个 Pod
       selectPolicy: Max # 使用以上两种扩容策略中算出来扩容 Pod 数量最大的
+  # highlight-end
 ```
 
 * 以上 `behavior` 配置是默认的，即如果不配置，会默认加上。
@@ -82,7 +84,6 @@ spec:
 * `selectPolicy` 默认是 `Max`，即扩缩时，评估多个策略算出来的结果，最终选取扩缩 Pod 数量最多的那个策略的结果。
 * `stabilizationWindowSeconds` 是稳定窗口时长，即需要指标高于或低于阈值，并持续这个窗口的时长才会真正执行扩缩，以防止抖动导致频繁扩缩容。扩容时，稳定窗口默认为0，即立即扩容；缩容时，稳定窗口默认为5分钟。
 * `policies` 中定义扩容或缩容策略，`type` 的值可以是 `Pods` 或 `Percent`，表示每 `periodSeconds` 时间范围内，允许扩缩容的最大副本数或比例。
-
 
 ## 场景与示例
 
@@ -213,21 +214,18 @@ kubectl api-versions | grep autoscaling
 autoscaling/v1
 autoscaling/v2beta1
 autoscaling/v2beta2
+autoscaling/v2
 ```
 
 以任意一种版本创建，都可以以任意版本获取(自动转换)。
 
-如果是用 kubectl 获取，kubectl 在进行 API discovery 时，会缓存 apiserver 返回的各种资源与版本信息，有些资源存在多个版本，在 get 时如果不指定版本，会使用默认版本获取，对于 HPA，默认是 v1。
+如果是用 kubectl 获取，kubectl 在进行 API discovery 时，会缓存 apiserver 返回的各种资源与版本信息，有些资源存在多个版本，在 get 时如果不指定版本，会使用默认版本获取。
 
-如果是通过一些平台的界面获取，取决于平台的实现方式，比如腾讯云容器服务控制台，默认用 v2beta1 版本展示:
-
-![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/20220728152913.png)
-
-如何使用 v2beta2 版本获取或编辑？指定包含版本信息的完整资源名即可:
+如何指定 API 版本进行获取或编辑？指定包含版本信息的完整资源名即可:
 
 ```bash
-kubectl get horizontalpodautoscaler.v2beta2.autoscaling php-apache -o yaml
-# kubectl edit horizontalpodautoscaler.v2beta2.autoscaling php-apache
+kubectl get horizontalpodautoscaler.v2.autoscaling php-apache -o yaml
+# kubectl edit horizontalpodautoscaler.v2.autoscaling php-apache
 ```
 
 ### 配置快速扩容，为什么快不起来?
