@@ -7,9 +7,6 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '云原生家庭网络',
       collapsed: false,
-      customProps: {
-
-      },
       link: {
         type: 'generated-index',
         slug: '/home-network'
@@ -32,6 +29,7 @@ const sidebars: SidebarsConfig = {
         'home-network/homepage',
       ]
     },
+    'llama3',
   ],
 };
 
