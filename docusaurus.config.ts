@@ -58,6 +58,7 @@ const config: Config = {
       ({
         id: 'basics',
         path: 'content/basics',
+        showLastUpdateTime: true,
         // 文档的路由前缀
         routeBasePath: '/basics',
         // 左侧导航栏的配置
@@ -73,6 +74,7 @@ const config: Config = {
       ({
         id: 'monitornig',
         path: 'content/monitoring',
+        showLastUpdateTime: true,
         // 文档的路由前缀
         routeBasePath: '/monitoring',
         // 左侧导航栏的配置
@@ -88,6 +90,7 @@ const config: Config = {
       ({
         id: 'best-practices',
         path: 'content/best-practices',
+        showLastUpdateTime: true,
         // 文档的路由前缀
         routeBasePath: '/best-practices',
         // 左侧导航栏的配置
@@ -103,6 +106,7 @@ const config: Config = {
       ({
         id: 'cases',
         path: 'content/cases',
+        showLastUpdateTime: true,
         // 文档的路由前缀
         routeBasePath: '/cases',
         // 左侧导航栏的配置
@@ -118,6 +122,7 @@ const config: Config = {
       ({
         id: 'appendix',
         path: 'content/appendix',
+        showLastUpdateTime: true,
         // 文档的路由前缀
         routeBasePath: '/appendix',
         // 左侧导航栏的配置
