@@ -10,13 +10,13 @@ kubectl create ns llama
 
 ## 部署 ollama
 
-<FileBlock file="llama/llama3-cpu-8b.yaml" showLineNumbers />
+<FileBlock file="llama/llama3-cpu-8b.yaml" showLineNumbers title="ollama.yaml" />
 
 ## 部署 open-webui
 
 open-webui 是大模型的 web 界面，支持 llama 系列的大模型，通过 API 与 ollama 通信，官方镜像地址是：`ghcr.io/open-webui/open-webui`，在国内拉取速度非常慢，可以替换成 docker hub 里长期自动同步的 mirror 镜像：`docker.io/imroc/open-webui`：
 
-<FileBlock file="llama/open-webui.yaml" showLineNumbers />
+<FileBlock file="llama/open-webui.yaml" showLineNumbers title="webui.yaml" />
 
 ## 打开 webui
 
