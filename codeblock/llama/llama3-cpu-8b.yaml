@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ollama
+  namespace: llama
+spec:
+  serviceName: "ollama"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama
+  template:
+    metadata:
+      labels:
+        app: ollama
+    spec:
+      initContainers:
+        - name: pull
+          image: ollama/ollama:latest
+          tty: true
+          stdin: true
+          command:
+            - bash
+            - -c
+            - |
+              # highlight-next-line
+              model="llama3:8b" # 替换需要使用的模型，模型库列表: https://ollama.com/library/llama3
+              ollama serve &
+              sleep 5 # 等待 ollama server 就绪，就绪后才能执行 ollama cli 工具的命令
+              result=`ollama list | grep $model`
+              if [ "$result" == "" ]; then
+                echo "downloading model $model"
+                ollama pull $model
+              else
+                echo "model $model already been downloaded"
+              fi
+          volumeMounts:
+            - name: ollama-volume
+              mountPath: /root/.ollama
+      containers:
+        - name: ollama
+          image: ollama/ollama:latest
+          ports:
+            - containerPort: 11434
+          resources:
+            requests:
+              cpu: "2000m"
+              memory: "2Gi"
+              # highlight-next-line
+              nvidia.com/gpu: "0" # 如果要用 Nvidia GPU，这里声明下 GPU 卡
+            limits:
+              cpu: "4000m"
+              memory: "4Gi"
+          volumeMounts:
+            - name: ollama-volume
+              mountPath: /root/.ollama
+          tty: true
+  volumeClaimTemplates:
+    - metadata:
+        name: ollama-volume
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            # highlight-next-line
+            storage: 200Gi # 注意要确保磁盘容量能够容纳得下模型的体积
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ollama
+  namespace: llama
+  labels:
+    app: ollama
+spec:
+  type: ClusterIP
+  ports:
+    - port: 11434
+      protocol: TCP
+      targetPort: 11434
+  selector:
+    app: ollama
