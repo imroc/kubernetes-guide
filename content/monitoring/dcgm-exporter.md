@@ -27,6 +27,8 @@ helm upgrade --install \
 * `docker.io/imroc/dcgm-exporter`: 长期自动同步到 dockerhub，如果你的集群里有稳定的 dockerhub 的镜像加速（TKE 环境就自带），那你可以直接更换镜像为这个。
 * `nvcr.m.daocloud.io/nvidia/k8s/dcgm-exporter`: `nvcr.m.daocloud.io` 是 DaoCloud 提供的 `nvcr.io` 的的加速地址，免费的，可能不是很稳定。
 
+也可以手动将依赖同步到自己的 [腾讯云容器镜像服务](https://cloud.tencent.com/product/tcr) 中并替换镜像。
+
 镜像替换方法很简单，就是在使用 helm 安装的时候指定下参数，如：
 
 ```bash showLineNumbers
