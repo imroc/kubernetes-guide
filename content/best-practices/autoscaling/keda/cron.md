@@ -28,10 +28,7 @@ spec:
       behavior: # 控制扩缩容行为，使用比较保守的策略，快速扩容，缓慢缩容
         scaleDown: # 缓慢缩容：至少冷却 10 分钟才能缩容
           stabilizationWindowSeconds: 600
-          policies:
-            - type: Percent
-              value: 100
-              periodSeconds: 15
+          selectPolicy: Min # 
         scaleUp: # 快速扩容：每 15s 最多允许扩容 5 倍
           policies:
             - type: Percent
