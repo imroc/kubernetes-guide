@@ -1,5 +1,13 @@
 # 在 Kubernetes 上部署 llama3
 
+## 部署方案选型
+
+OpenWebUI 的仓库中自带 Ollama + OpenWebUI 的部署方式，主要是 kustomize 和 helm 这两种方式，参考 [open-webui 仓库的 kubernetes 目录](https://github.com/open-webui/open-webui/tree/main/kubernetes)。
+
+但我更推荐直接写 YAML 进行部署，原因如下：
+1. Ollama + OpenWebUI 所需 YAML 相对较少，直接根据需要写 YAML 更直接和灵活。
+2. 不需要研究 OpenWebUI 提供的 kustomize 和 helm 方式的用法。
+
 ## 准备 namespace
 
 准备一个 namespace，用于部署运行 llama3 所需的服务，这里使用 `llama` namespace：
