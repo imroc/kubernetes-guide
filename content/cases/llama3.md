@@ -28,6 +28,10 @@ kubectl -n llama port-forward service/webui 8080:8080
 
 浏览器打开：`http://localhost:8080`，创建账号然后进入 web 界面，选择 llama3 的模型，然后开启对话。
 
+## 注意事项
+
+* ollama 所在机器需要能够访问公网，因为 ollama 下载模型需要使用公网，否则会下载失败，无法启动，可通过查看 init container 的日志确认 (`kubectl logs -c pull ollama-0`)。
+
 ## 参考资料
 
 * Llama3 模型库：https://ollama.com/library/llama3
