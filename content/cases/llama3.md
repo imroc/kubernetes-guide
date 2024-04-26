@@ -28,9 +28,35 @@ kubectl -n llama port-forward service/webui 8080:8080
 
 浏览器打开：`http://localhost:8080`，创建账号然后进入 web 界面，选择 llama3 的模型，然后开启对话。
 
-## 注意事项
+## 常见问题
 
-* ollama 所在机器需要能够访问公网，因为 ollama 下载模型需要使用公网，否则会下载失败，无法启动，可通过查看 init container 的日志确认 (`kubectl logs -c pull ollama-0`)。
+### 节点无公网导致模型下载失败
+
+ollama 所在机器需要能够访问公网，因为 ollama 下载模型需要使用公网，否则会下载失败，无法启动，可通过查看 init container 的日志确认：
+
+```bash showLineNumbers
+$ kubectl logs -c pull ollama-0
+time=2024-04-26T07:29:45.487Z level=INFO source=images.go:817 msg="total blobs: 5"
+time=2024-04-26T07:29:45.487Z level=INFO source=images.go:824 msg="total unused blobs removed: 0"
+time=2024-04-26T07:29:45.487Z level=INFO source=routes.go:1143 msg="Listening on [::]:11434 (version 0.1.32)"
+time=2024-04-26T07:29:45.488Z level=INFO source=payload.go:28 msg="extracting embedded files" dir=/tmp/ollama188207103/runners
+time=2024-04-26T07:29:48.896Z level=INFO source=payload.go:41 msg="Dynamic LLM libraries [cuda_v11 rocm_v60002 cpu cpu_avx cpu_avx2]"
+time=2024-04-26T07:29:48.896Z level=INFO source=gpu.go:121 msg="Detecting GPU type"
+time=2024-04-26T07:29:48.896Z level=INFO source=gpu.go:268 msg="Searching for GPU management library libcudart.so*"
+time=2024-04-26T07:29:48.897Z level=INFO source=gpu.go:314 msg="Discovered GPU libraries: [/tmp/ollama188207103/runners/cuda_v11/libcudart.so.11.0]"
+time=2024-04-26T07:29:48.910Z level=INFO source=gpu.go:126 msg="Nvidia GPU detected via cudart"
+time=2024-04-26T07:29:48.911Z level=INFO source=cpu_common.go:11 msg="CPU has AVX2"
+time=2024-04-26T07:29:49.089Z level=INFO source=gpu.go:202 msg="[cudart] CUDART CUDA Compute Capability detected: 6.1"
+[GIN] 2024/04/26 - 07:29:50 | 200 |      45.692µs |       127.0.0.1 | HEAD     "/"
+[GIN] 2024/04/26 - 07:29:50 | 200 |     378.364µs |       127.0.0.1 | GET      "/api/tags"
+downloading model llama3:70b
+[GIN] 2024/04/26 - 07:29:50 | 200 |      15.058µs |       127.0.0.1 | HEAD     "/"
+pulling manifest ⠏ time=2024-04-26T07:30:20.512Z level=INFO source=images.go:1147 msg="request failed: Get \"https://registry.ollama.ai/v2/library/llama3/manifests/70b\": dial tcp 172.67.182.229:443: i/o timeout"
+[GIN] 2024/04/26 - 07:30:20 | 200 | 30.012673354s |       127.0.0.1 | POST     "/api/pull"
+pulling manifest
+# highlight-next-line
+Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/manifests/70b": dial tcp 172.67.182.229:443: i/o timeout
+```
 
 ## 参考资料
 
