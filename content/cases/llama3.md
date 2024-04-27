@@ -143,7 +143,7 @@ pulling manifest
 Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/manifests/70b": dial tcp 172.67.182.229:443: i/o timeout
 ```
 
-### 70b 模型的速度非常慢
+### 大模型的生成速度非常慢
 
 `70b` 是 700 亿参数的大模型，使用 CPU 运行不太现实，使用 GPU 也得显存足够大，实测用 24G 显存的显卡运行速度也非常非常慢，如果没有更好的 GPU，如何提升生成速度呢？
 
