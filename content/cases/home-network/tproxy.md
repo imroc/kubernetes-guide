@@ -35,7 +35,7 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
               name: nftables-config
     ```
 
-  <TabItem/>
+  </TabItem>
   <TabItem value="volume" label="volumes">
 
     ```yaml
@@ -50,7 +50,7 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
             name: script
     ```
 
-  <TabItem/>
+  </TabItem>
 </Tabs>
 
 另外，保险期间，可以加个 initContainer，保证在启动的时候也执行下清理规则的脚本（避免代理 Pod 异常挂掉导致 preStop 里的清理规则脚本没执行到）：
