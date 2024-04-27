@@ -27,28 +27,28 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
 <Tabs>
   <TabItem value="mount" label="volumeMounts">
 
-  ```yaml
-          volumeMounts:
-          - mountPath: /scripts
-            name: script
-          - mountPath: /etc/nftables
-            name: nftables-config
-  ```
+    ```yaml
+            volumeMounts:
+            - mountPath: /scripts
+              name: script
+            - mountPath: /etc/nftables
+              name: nftables-config
+    ```
     
   <TabItem/>
   <TabItem value="volume" label="volumes">
 
-  ```yaml
-        volumes:
-        - configMap:
-            defaultMode: 420
+    ```yaml
+          volumes:
+          - configMap:
+              defaultMode: 420
+              name: nftables-config
             name: nftables-config
-          name: nftables-config
-        - configMap:
-            defaultMode: 511
+          - configMap:
+              defaultMode: 511
+              name: script
             name: script
-          name: script
-  ```
+    ```
 
   <TabItem/>
 </Tabs>
