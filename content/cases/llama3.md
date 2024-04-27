@@ -48,6 +48,8 @@ kubectl -n llama port-forward service/webui 8080:8080
 
 浏览器打开：`http://localhost:8080`，首次打开需要创建账号，第一个创建的账号为管理员账号。
 
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427145059.png)
+
 ## 下载模型
 
 ### 方法一：通过 OpenWebUI 下载
