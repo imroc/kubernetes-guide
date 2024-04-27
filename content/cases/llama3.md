@@ -20,7 +20,7 @@
 
 Llama3 目前主要有 `8b` 和 `70b` 两个模型，分别对应 80 亿和 700 亿规模的参数模型，CPU 和 GPU 都支持，`8b` 是小模型，对配置要求不高，一般处于成本考虑，可以直接使用 CPU 运行，而 `70b` 则是大模型， CPU 肯定吃不消，GPU 的配置低也几乎跑不起来，主要是显存要大才行，经实测，24G 显存跑起来会非常非常慢，32G 的也有点吃力，40G 的相对流畅（比如 Nvdia A100）。
 
-## 准备 namespace
+## 准备 Namespace
 
 准备一个 namespace，用于部署运行 llama3 所需的服务，这里使用 `llama` namespace：
 
@@ -28,7 +28,7 @@ Llama3 目前主要有 `8b` 和 `70b` 两个模型，分别对应 80 亿和 700 
 kubectl create ns llama
 ```
 
-## 部署 ollama
+## 部署 Ollama
 
 <FileBlock file="llama/ollama.yaml" showLineNumbers title="ollama.yaml" />
 
