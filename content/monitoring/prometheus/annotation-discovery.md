@@ -4,6 +4,12 @@
 
 很多应用会为 Pod 或 Service 打上一些注解用于 Prometheus 的服务发现，如 `prometheus.io/scrape: "true"`，这种注解并不是 Prometheus 官方支持的，而是社区的习惯性用法，要使这种注解生效，还需结合 Prometheus 的采集配置，本文介绍具体的配置方法。
 
+:::warning
+
+如果你使用 `kube-prometheus-stack` 部署的监控系统，默认就会对自身的一些组件创建采集规则，比如会给 `kube-state-metrics` 创建 `ServiceMonitor`，并且 `kube-state-metrics` 的 `Service` 上也有 `prometheus.io/scrape: "true"` 的注解，如果配置了基于 Service 注解的服务发现，就会导致重复采集。
+
+:::
+
 ## 真实案例
 
 ### istio 指标采集

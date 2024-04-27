@@ -57,7 +57,7 @@ image:
 
 ### dcgm-exporter 在不支持 GPU 的节点上启动失败
 
-如果集群中部分节点没有 N 卡 GPU，启动 dcgm-exporter 会失败：
+如果集群中部分节点没有 N 卡 GPU，启动 `dcgm-exporter` 会失败：
 
 ```bash
 $ kubectl logs dcgm-exporter-kk2k6
