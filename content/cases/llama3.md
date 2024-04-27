@@ -24,7 +24,7 @@ kubectl create ns llama
 
 ## 部署 ollama
 
-<FileBlock file="llama/llama3-cpu-8b.yaml" showLineNumbers title="ollama.yaml" />
+<FileBlock file="llama/ollama.yaml" showLineNumbers title="ollama.yaml" />
 
 ## 部署 open-webui
 
@@ -75,6 +75,19 @@ Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/ma
 ### 70b 的速度非常慢
 
 70b 是 700 亿参数的大模型，使用 CPU 运行不太现实，使用 GPU 也得显存足够大，实测用 32G 显存的显卡运行速度也非常慢，建议至少 40G（比如 A100）。
+
+### 如何自动下载模型？
+
+如果不想每次在新的地方部署，都手动在 OpenWebUI 上选择并点击下载所需模型，可以修改 Ollama 的部署 YAML，加个 initContainer 来自动下载模型：
+
+<Tabs>
+  <TabItem value="init-8b" label="initContainer 写法">
+    <FileBlock showLineNumbers file="llama/download-llama3-8b.yaml" />
+  </TabItem>
+  <TabItem value="8b" label="完整配置">
+    <FileBlock showLineNumbers file="llama/llama3-cpu-8b.yaml" title="ollama.yaml" />
+  </TabItem>
+</Tabs>
 
 ## 参考资料
 

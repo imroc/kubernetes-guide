@@ -1,0 +1,23 @@
+initContainers:
+  - name: pull
+    image: ollama/ollama:latest
+    tty: true
+    stdin: true
+    command:
+      - bash
+      - -c
+      - |
+        # highlight-next-line
+        model="llama3:8b" # 替换需要使用的模型，模型库列表: https://ollama.com/library/llama3
+        ollama serve &
+        sleep 5 # 等待 ollama server 就绪，就绪后才能执行 ollama cli 工具的命令
+        result=`ollama list | grep $model`
+        if [ "$result" == "" ]; then
+          echo "downloading model $model"
+          ollama pull $model
+        else
+          echo "model $model already been downloaded"
+        fi
+    volumeMounts:
+      - name: ollama-volume
+        mountPath: /root/.ollama
