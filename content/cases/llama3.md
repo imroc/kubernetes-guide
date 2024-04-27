@@ -82,7 +82,9 @@ ollama pull llama3:70b
 
 :::tip[注意]
 
-如果 kubectl 的连接中断，下载也会中断，可重新执行命令断点续传。你也可以使用 `nohup ollama pull llama3:70b &` 来下载，这样可以保证即使 kubectl 中断或退出也会继续下载。
+如果 kubectl 的连接中断，下载也会中断，可重新执行命令断点续传。
+
+你也可以使用 `nohup ollama pull llama3:70b &` 来下载，通过 `tail -f nohup.out` 查看下载进度，这样可以保证即使 kubectl 中断或退出也会继续下载。
 
 :::
 
