@@ -76,7 +76,7 @@ done
 
 对于主路由方案，在 Ubuntu 里配置防火墙，可以用 nftables 来声明式配置：
 
-<FileBlock showLineNumbers title="/etc/nftables.conf" file="home-network/nftables.conf" />
+<FileBlock showLineNumbers title="/etc/nftables.conf" file="home-network/nftables-firewall.conf" />
 
 > 确保 nftables 服务处于 enabled 状态: `systemctl enable nftables`
 
