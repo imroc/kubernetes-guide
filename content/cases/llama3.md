@@ -38,7 +38,7 @@ kubectl create ns llama
 
 ## 打开 OpenWebUI
 
-你有很多方式可以将 `OpenWebUI` 暴露给集群外访问，比如 LoadBalancer 类型 Service、Ingress 等，也可以直接用 `kubectl port-forward` 的方式将 webui 暴露到本地：
+你有很多方式可以将 `OpenWebUI` 暴露给集群外访问，比如 `LoadBalancer` 类型 `Service`、`Ingress` 等，也可以直接用 `kubectl port-forward` 的方式将 webui 暴露到本地：
 
 ```bash
 kubectl -n llama port-forward service/webui 8080:8080
@@ -50,7 +50,7 @@ kubectl -n llama port-forward service/webui 8080:8080
 
 ### 方法一：通过 OpenWebUI 下载
 
-进入 OpenWebUI 并登录后，在 `设置-模型` 里，输出需要下载的 llama3 模型并点击下载按钮（除了基础的模型，还有许多微调的模型，参考 [llama3 可用模型列表](https://ollama.com/library/llama3/tags)）。
+进入 `OpenWebUI` 并登录后，在 `设置-模型` 里，输出需要下载的 `llama3` 模型并点击下载按钮（除了基础的模型，还有许多微调的模型，参考 [llama3 可用模型列表](https://ollama.com/library/llama3/tags)）。
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427105147.png)
 
@@ -82,7 +82,7 @@ ollama pull llama3:70b
 
 :::tip[注意]
 
-如果 kubectl 的连接中断，下载也会中断，可重新执行命令断点续传。
+如果 `kubectl` 的连接中断，下载也会中断，可重新执行命令断点续传。
 
 你也可以使用 `nohup ollama pull llama3:70b &` 来下载，通过 `tail -f nohup.out` 查看下载进度，这样可以保证即使 kubectl 中断或退出也会继续下载。
 
