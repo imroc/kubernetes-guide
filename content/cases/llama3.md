@@ -90,7 +90,7 @@ ollama pull llama3:70b
 
 ### 方案三：使用 init container 自动下载模型
 
-如果不想每次在新的地方部署，都手动在 `OpenWebUI` 上选择并点击下载所需模型，可以修改 Ollama 的部署 YAML，加个 `initContainer` 来自动下载模型：
+如果不想每次在新的地方部署需要手动下载模型，可以修改 Ollama 的部署 YAML，加个 `initContainer` 来实现自动下载模型(自动检测所需模型是否存在，不存在才自动下载)：
 
 <Tabs>
   <TabItem value="init-8b" label="initContainer 写法">
