@@ -103,7 +103,9 @@ ollama pull llama3:70b
 
 ## 开始对话
 
-打开 `OpenWebUI` 页面，
+打开 `OpenWebUI` 页面，选择模型，然后就可以在对话框中开始对话了。
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427135707.png)
 
 ## 小技巧
 
@@ -111,7 +113,20 @@ ollama pull llama3:70b
 
 对于像 `70b` 这样的模型，需要较好的 GPU 才能跑起来，如果集群内有多种 GPU 节点，需要加下调度策略，避免分配到较差的 GPU。
 
-比如要调度到显卡型号为 `Nvdia Tesla V100`  的节点，
+比如要调度到显卡型号为 `Nvdia Tesla V100`  的节点，可以给节点打上 label：
+
+```bash
+kubectl label node gpu=v100
+```
+
+然后配置下调度策略(高亮部分)：
+
+<FileBlock showLineNumbers file="llama3/ollama-nodeselector.yaml" />
+
+### 省钱小妙招
+
+* 如果使用云厂商托管的 Kubernetes 集群，且不需要大模型高可用，可以购买竞价实例(Spot)，会便宜很多。
+* 如果只在部分时间段使用，可以使用定时伸缩，在不需要的时间段将 Ollama 和 OpenWebUI 的副本数自动缩到 0 以停止计费，比如 [使用 KEDA 的 Cron 触发器实现定时伸缩](../best-practices/autoscaling/keda/cron)。
 
 ## 常见问题
 
