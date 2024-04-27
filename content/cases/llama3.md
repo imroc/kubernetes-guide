@@ -48,6 +48,8 @@ kubectl -n llama port-forward service/webui 8080:8080
 
 ## 下载模型
 
+### 方法一：通过 OpenWebUI 下载
+
 进入 OpenWebUI 并登录后，在 `设置-模型` 里，输出需要下载的 llama3 模型并点击下载按钮（除了基础的模型，还有许多微调的模型，参考 [llama3 可用模型列表](https://ollama.com/library/llama3/tags)）。
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427105147.png)
@@ -55,6 +57,47 @@ kubectl -n llama port-forward service/webui 8080:8080
 接下来就是等待下载完成：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427110023.png)
+
+:::tip[注意]
+
+如果页面关闭，下载会中断，可重新打开页面并重新输入要下载的模型进行下载，会自动断点续传。
+
+:::
+
+### 方法二：执行 ollama pull 下载
+
+进入 ollama 的 pod：
+
+```bash
+kubectl -n llama exec -it ollama-0 bash
+```
+
+执行 `ollama pull` 下载需要的模型，这里以下载 `70b` 模型为例：
+
+```bash
+ollama pull llama3:70b
+```
+
+等待下载完成。
+
+:::tip[注意]
+
+如果 kubectl 的连接中断，下载也会中断，可重新执行命令断点续传。
+
+:::
+
+### 方案三：使用 init container 自动下载模型
+
+如果不想每次在新的地方部署，都手动在 `OpenWebUI` 上选择并点击下载所需模型，可以修改 Ollama 的部署 YAML，加个 `initContainer` 来自动下载模型：
+
+<Tabs>
+  <TabItem value="init-8b" label="initContainer 写法">
+    <FileBlock showLineNumbers file="llama/download-llama3-8b.yaml" />
+  </TabItem>
+  <TabItem value="8b" label="完整配置">
+    <FileBlock showLineNumbers file="llama/llama3-cpu-8b.yaml" title="ollama.yaml" />
+  </TabItem>
+</Tabs>
 
 ## 常见问题
 
@@ -89,19 +132,6 @@ Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/ma
 ### 70b 的速度非常慢
 
 70b 是 700 亿参数的大模型，使用 CPU 运行不太现实，使用 GPU 也得显存足够大，实测用 32G 显存的显卡运行速度也非常慢，建议至少 40G（比如 A100）。
-
-### 如何自动下载模型？
-
-如果不想每次在新的地方部署，都手动在 `OpenWebUI` 上选择并点击下载所需模型，可以修改 Ollama 的部署 YAML，加个 `initContainer` 来自动下载模型：
-
-<Tabs>
-  <TabItem value="init-8b" label="initContainer 写法">
-    <FileBlock showLineNumbers file="llama/download-llama3-8b.yaml" />
-  </TabItem>
-  <TabItem value="8b" label="完整配置">
-    <FileBlock showLineNumbers file="llama/llama3-cpu-8b.yaml" title="ollama.yaml" />
-  </TabItem>
-</Tabs>
 
 ## 参考资料
 
