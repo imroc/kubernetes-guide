@@ -2,7 +2,7 @@
 
 ## Ollama 与 OpenWebUI 介绍
 
-[Ollama](https://ollama.com/) 是一个运行大模型的工具，可以下载所需的大模型并暴露 API。[OpenWebUI](https://openwebui.com/) 是一个大模型的 Web UI 交互工具，支持 Ollama，即调用 Ollama 暴露的 API 实现与大模型交互。
+[Ollama](https://ollama.com/) 是一个运行大模型的工具，可以下载所需的大模型并暴露 API。[OpenWebUI](https://openwebui.com/) 是一个大模型的 Web UI 交互工具，支持 Ollama，即调用 Ollama 暴露的 API 实现与大模型交互：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427085614.png)
 
@@ -103,7 +103,7 @@ ollama pull llama3:70b
 
 ## 开始对话
 
-打开 OpenWebUI
+打开 `OpenWebUI` 页面，
 
 ## 常见问题
 
