@@ -34,7 +34,7 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
             - mountPath: /etc/nftables
               name: nftables-config
     ```
-    
+
   <TabItem/>
   <TabItem value="volume" label="volumes">
 
