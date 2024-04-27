@@ -105,6 +105,14 @@ ollama pull llama3:70b
 
 打开 `OpenWebUI` 页面，
 
+## 小技巧
+
+### GPU 调度
+
+对于像 `70b` 这样的模型，需要较好的 GPU 才能跑起来，如果集群内有多种 GPU 节点，需要加下调度策略，避免分配到较差的 GPU。
+
+比如要调度到显卡型号为 `Nvdia Tesla V100`  的节点，
+
 ## 常见问题
 
 ### 节点无公网导致模型下载失败
@@ -137,7 +145,20 @@ Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/ma
 
 ### 70b 模型的速度非常慢
 
-70b 是 700 亿参数的大模型，使用 CPU 运行不太现实，使用 GPU 也得显存足够大，实测用 32G 显存的显卡运行速度也非常慢，建议至少 40G（比如 A100）。
+`70b` 是 700 亿参数的大模型，使用 CPU 运行不太现实，使用 GPU 也得显存足够大，实测用 24G 显存的显卡运行速度也非常非常慢，如果没有更好的 GPU，如何提升生成速度呢？
+
+可以使用多张 GPU 卡并行，修改 ollama 的 YAML，在 requests 中声明 GPU 的地方，多声明一些 GPU 算卡：
+
+```yaml showLineNumbers
+resources:
+  requests:
+    # highlight-next-line
+    nvidia.com/gpu: "4"
+```
+
+这样，在模型跑起来的时候，几张 GPU 算卡可以均摊显存，而不至于跑满：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427132517.png)
 
 ## 参考资料
 
