@@ -36,9 +36,9 @@ open-webui 是大模型的 web 界面，支持 llama 系列的大模型，通过
 
 <FileBlock file="llama/open-webui.yaml" showLineNumbers title="webui.yaml" />
 
-## 打开 webui
+## 打开 OpenWebUI
 
-你有很多方式可以将 open-webui 暴露给集群外访问，比如 LoadBalancer 类型 Service、Ingress 等，也可以直接用 `kubectl port-forward` 的方式将 webui 暴露到本地：
+你有很多方式可以将 `OpenWebUI` 暴露给集群外访问，比如 LoadBalancer 类型 Service、Ingress 等，也可以直接用 `kubectl port-forward` 的方式将 webui 暴露到本地：
 
 ```bash
 kubectl -n llama port-forward service/webui 8080:8080
@@ -101,6 +101,10 @@ ollama pull llama3:70b
   </TabItem>
 </Tabs>
 
+## 开始对话
+
+打开 OpenWebUI
+
 ## 常见问题
 
 ### 节点无公网导致模型下载失败
@@ -131,7 +135,7 @@ pulling manifest
 Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/manifests/70b": dial tcp 172.67.182.229:443: i/o timeout
 ```
 
-### 70b 的速度非常慢
+### 70b 模型的速度非常慢
 
 70b 是 700 亿参数的大模型，使用 CPU 运行不太现实，使用 GPU 也得显存足够大，实测用 32G 显存的显卡运行速度也非常慢，建议至少 40G（比如 A100）。
 
