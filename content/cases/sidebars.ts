@@ -27,6 +27,7 @@ const sidebars: SidebarsConfig = {
         'home-network/jellyfin',
         'home-network/home-assistant',
         'home-network/homepage',
+        'home-network/tproxy',
       ]
     },
     'llama3',
