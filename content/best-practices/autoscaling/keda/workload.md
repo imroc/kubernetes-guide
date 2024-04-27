@@ -88,7 +88,7 @@ spec:
        - type: kubernetes-workload
          metadata:
            podSelector: 'app=a' # 选中 A 服务
-           value: '3' # A/C=3/2=1.5
+           value: '1.5' # A/C=3/2=1.5
        # highlight-end
    ```
 
