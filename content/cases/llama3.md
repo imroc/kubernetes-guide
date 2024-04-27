@@ -8,11 +8,11 @@
 
 ## 部署方案选型
 
-OpenWebUI 的仓库中自带 Ollama + OpenWebUI 的部署方式，主要是 kustomize 和 helm 这两种方式，参考 [open-webui 仓库的 kubernetes 目录](https://github.com/open-webui/open-webui/tree/main/kubernetes)。
+`OpenWebUI` 的仓库中自带 `Ollawma` + `OpenWebUI` 的部署方式，主要是 `kustomize` 和 `helm` 这两种方式，参考 [open-webui 仓库的 kubernetes 目录](https://github.com/open-webui/open-webui/tree/main/kubernetes)。
 
 但我更推荐直接写 YAML 进行部署，原因如下：
-1. Ollama + OpenWebUI 所需 YAML 相对较少，直接根据需要写 YAML 更直接和灵活。
-2. 不需要研究 OpenWebUI 提供的 kustomize 和 helm 方式的用法。
+1. `Ollama` + `OpenWebUI` 所需 YAML 相对较少，直接根据需要写 YAML 更直接和灵活。
+2. 不需要研究 `OpenWebUI` 提供的 `kustomize` 和 `helm` 方式的用法。
 
 ## 准备 namespace
 
@@ -78,7 +78,7 @@ Error: pull model manifest: Get "https://registry.ollama.ai/v2/library/llama3/ma
 
 ### 如何自动下载模型？
 
-如果不想每次在新的地方部署，都手动在 OpenWebUI 上选择并点击下载所需模型，可以修改 Ollama 的部署 YAML，加个 initContainer 来自动下载模型：
+如果不想每次在新的地方部署，都手动在 `OpenWebUI` 上选择并点击下载所需模型，可以修改 Ollama 的部署 YAML，加个 `initContainer` 来自动下载模型：
 
 <Tabs>
   <TabItem value="init-8b" label="initContainer 写法">
