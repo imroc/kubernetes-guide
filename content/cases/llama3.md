@@ -125,7 +125,7 @@ kubectl label node gpu=v100
 
 然后配置下调度策略(高亮部分)：
 
-<FileBlock showLineNumbers file="llama3/ollama-nodeselector.yaml" />
+<FileBlock showLineNumbers file="llama/ollama-nodeselector.yaml" />
 
 ### 省钱小妙招
 
