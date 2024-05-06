@@ -85,8 +85,6 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
 
   :::
 
-  </TabItem>
-
   示例输出：
 
   ```json
@@ -110,6 +108,7 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
     ]
   }
   ```
+  </TabItem>
 
   <TabItem value="single-custom" label="单个 Pod">
 
@@ -122,8 +121,6 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
   注意替换 `test-ns`（ns 名称）、`test-sts-0`（Pod 名称）、`k8s_pod_gpu_used`（指标名称）。
 
   :::
-
-  </TabItem>
 
   示例输出：
 
@@ -145,4 +142,5 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
     ]
   }
   ```
+  </TabItem>
 </Tabs>
