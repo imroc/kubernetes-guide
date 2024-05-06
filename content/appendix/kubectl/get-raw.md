@@ -87,6 +87,30 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
 
   </TabItem>
 
+  示例输出：
+
+  ```json
+  {
+    "kind": "MetricValueList",
+    "apiVersion": "custom.metrics.k8s.io/v1beta1",
+    "metadata": {
+      "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/llama/pods/%2A/k8s_pod_gpu_memory_used_bytes"
+    },
+    "items": [
+      {
+        "describedObject": {
+          "namespace": "llama",
+          "name": "ollama-0"
+        },
+        "metricName": "k8s_pod_gpu_memory_used_bytes",
+        "timestamp": "2024-05-06T07:23:54Z",
+        "value": "110100480",
+        "selector": null
+      }
+    ]
+  }
+  ```
+
   <TabItem value="single" label="单个 Pod">
 
   ```bash
@@ -100,5 +124,26 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
   :::
 
   </TabItem>
+
+  示例输出：
+
+  ```json
+  {
+    "kind": "MetricValueList",
+    "apiVersion": "custom.metrics.k8s.io/v1beta1",
+    "metadata": {
+      "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/llama/pods/ollama-0/k8s_pod_gpu_memory_used_bytes"
+    },
+    "items": [
+      {
+        "describedObject": {},
+        "metricName": "k8s_pod_gpu_memory_used_bytes",
+        "timestamp": "2024-05-06T07:27:54Z",
+        "value": "110100480",
+        "selector": null
+      }
+    ]
+  }
+  ```
 </Tabs>
 
