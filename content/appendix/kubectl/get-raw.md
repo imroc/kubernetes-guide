@@ -27,20 +27,78 @@ kubectl get --raw=/api/v1/namespaces/monitoring/pods/node-exporter-n5rz2:9100/pr
 kubectl get --raw=/api/v1/nodes/11.185.19.21/proxy/stats/summary
 ```
 
-## 测试 Resource Metrics API
+## 查询 Resource Metrics
 
-获取指定 namespace 下所有 pod 指标:
+<Tabs>
+  <TabItem value="all" label="命名空间下所有 Pod">
+
+  ```bash
+  kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/"
+  ```
+
+  :::tip[注意]
+
+  注意替换 `test-ns` （ns 名称）。
+  :::
+
+  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162846.png)
+
+  </TabItem>
+
+  <TabItem value="single" label="单个 Pod">
+
+  ```bash
+  kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0"
+  ```
+
+  :::tip[注意]
+
+  注意替换 `test-ns`（ns 名称）和 `test-sts-0` (Pod 名称)。
+
+  :::
+
+  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162948.png)
+
+  </TabItem>
+</Tabs>
+
+## 查询 Custom Metrics
+
+1. 查看有哪些可用的 custom metrics 指标：
 
 ```bash
-kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/ns-prjzbsxs-1391012-production/pods/"
+kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
 ```
 
-![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162846.png)
+2. 查询某个指标的值：
 
-获取指定 pod 的指标:
+<Tabs>
+  <TabItem value="all" label="命名空间下所有 Pod">
 
-```bash
-kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/ns-prjzbsxs-1391012-production/pods/mixer-engine-0"
-```
+  ```bash
+  kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/*/k8s_pod_gpu_used"
+  ```
 
-![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162948.png)
+  :::tip[注意]
+
+  注意替换 `test-ns`（ns 名称） 和 `k8s_pod_gpu_used` （指标名称）。
+
+  :::
+
+  </TabItem>
+
+  <TabItem value="single" label="单个 Pod">
+
+  ```bash
+  kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0/k8s_pod_gpu_used"
+  ```
+
+  :::tip[注意]
+
+  注意替换 `test-ns`（ns 名称）、`test-sts-0`（Pod 名称）、`k8s_pod_gpu_used`（指标名称）。
+
+  :::
+
+  </TabItem>
+</Tabs>
+
