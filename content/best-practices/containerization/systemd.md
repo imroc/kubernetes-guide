@@ -16,13 +16,13 @@ RUN apt install -y systemd
 
 ## 示例
 
-systemd 相比业务进程比较特殊，它运行起来需要以下条件:
+`systemd` 相比业务进程比较特殊，它运行起来需要以下条件:
 1. 自己必须是 1 号进程，所以不能启用 `shareProcessNamespace`。
 2. 需要对 `/run` 和 `/sys/fs/cgroup` 等路径进行挂载，通常需要给到 systemd 容器一定特权。
 
 最简单的方式是将运行 systemd 的 container 设为特权容器，示例:
 
-```yaml
+```yaml showLineNumbers
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40,15 +40,18 @@ spec:
       containers:
       - name: systemd
         image: centos:8
+        # highlight-start
         command:
         - /sbin/init
+        # highlight-end
         securityContext:
+          # highlight-next-line
           privileged: true # 设置特权
 ```
 
 如果希望尽量减少特权，可以只读方式挂载 hostPath `/sys/fs/cgroup`，然后 capabilities 给个 `SYS_ADMIN`:
 
-```yaml
+```yaml showLineNumbers
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -69,24 +72,30 @@ spec:
         command:
         - /sbin/init
         securityContext:
+          # highlight-start
           capabilities:
             add:
             - SYS_ADMIN # 设置容器权限
           privileged: false # 非特权
+          # highlight-end
         volumeMounts:
+        # highlight-start
         - mountPath: /sys/fs/cgroup
           name: cgroup
           readOnly: true # 只读方式挂载 cgroup 目录
+        # highlight-end
       volumes:
+      # highlight-start
       - hostPath:
           path: /sys/fs/cgroup
           type: ""
+      # highlight-end
         name: cgroup
 ```
 
 如果用 ubuntu 安装了 systemd，用法类似的，只是启动入口变成了 `/usr/bin/systemd`:
 
-```yaml
+```yaml showLineNumbers
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -104,8 +113,10 @@ spec:
       containers:
       - name: systemd
         image: cr.imroc.cc/library/systemd:ubuntu
+        # highlight-start
         command:
         - /usr/bin/systemd
+        # highlight-end
         securityContext:
           capabilities:
             add:
