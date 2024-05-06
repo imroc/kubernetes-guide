@@ -30,7 +30,7 @@ kubectl get --raw=/api/v1/nodes/11.185.19.21/proxy/stats/summary
 ## 查询 Resource Metrics
 
 <Tabs>
-  <TabItem value="all" label="命名空间下所有 Pod">
+  <TabItem value="all-resource" label="命名空间下所有 Pod">
 
   ```bash
   kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/"
@@ -45,7 +45,7 @@ kubectl get --raw=/api/v1/nodes/11.185.19.21/proxy/stats/summary
 
   </TabItem>
 
-  <TabItem value="single" label="单个 Pod">
+  <TabItem value="single-resource" label="单个 Pod">
 
   ```bash
   kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0"
@@ -73,7 +73,7 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
 2. 查询某个指标的值：
 
 <Tabs>
-  <TabItem value="all" label="命名空间下所有 Pod">
+  <TabItem value="all-custom" label="命名空间下所有 Pod">
 
   ```bash
   kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/*/k8s_pod_gpu_used"
@@ -111,7 +111,7 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
   }
   ```
 
-  <TabItem value="single" label="单个 Pod">
+  <TabItem value="single-custom" label="单个 Pod">
 
   ```bash
   kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0/k8s_pod_gpu_used"
