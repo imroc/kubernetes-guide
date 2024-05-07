@@ -29,7 +29,7 @@ CMD ["crond", "-n"]
 ### Ubuntu 镜像
 
 ```dockerfile
-FROM docker.io/ubuntu:20.04
+FROM docker.io/ubuntu:22.04
 
 RUN apt-get update && apt-get install -y cron && rm -rf /etc/cron.*/*
 
