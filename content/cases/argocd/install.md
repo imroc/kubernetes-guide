@@ -113,7 +113,11 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 ::::
 
-## 登录
+## 登录 ArgoCD
+
+ArgoCD 提供了命令行和网页两种方式来管理，且两种方式的访问入口地址是一致的，都可以实现相同的管理功能，不过我更推荐使用命令行的方式。
+
+### 通过命令行工具登录
 
 argocd 安装时会自动生成 `admin` 的初始密码，确保 kubeconfig 的当前 context 指向的是 argocd 所在集群，使用以下命令获取初始密码:
 
@@ -134,6 +138,16 @@ argocd login 127.0.0.1:8080
 ```bash
 argocd account update-password
 ```
+
+然后你就可以使用 `argocd` 命令行工具来管理 argocd 了，试试有哪些功能：
+
+```bash
+argocd -h
+```
+
+### 通过网页登录
+
+与命令行登录类似，打开浏览器，输入 argocd-server 的访问地址（与命令行登录地址一致），然后输入用户名密码即可进入 argocd 管理页面。
 
 ## 参考资料
 
