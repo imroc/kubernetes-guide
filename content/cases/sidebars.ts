@@ -27,10 +27,22 @@ const sidebars: SidebarsConfig = {
         'home-network/jellyfin',
         'home-network/home-assistant',
         'home-network/homepage',
-        'home-network/tproxy',
+        'home-network/homepage',
       ]
     },
     'llama3',
+    {
+      type: 'category',
+      label: 'ArgoCD GitOps 实践',
+      collapsed: false,
+      link: {
+        type: 'generated-index',
+        slug: '/argocd'
+      },
+      items: [
+        'argocd/install',
+      ]
+    },
   ],
 };
 
