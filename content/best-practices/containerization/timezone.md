@@ -8,7 +8,7 @@
 
 很多编程语言都支持 `TZ` 这个用于设置时区的环境变量，可以在部署工作负载的时候，为容器指定该环境变量，示例：
 
-<FileBlock showFileNumbers file="containerization/tz-env.yaml" />
+<FileBlock showFileNumbers file="containerization/tz-env.yaml" showLineNumbers />
 
 ## 方案二：Dockerfile 里设置时区
 
@@ -32,4 +32,4 @@
 
 下面是 YAML 示例：
 
-<FileBlock showFileNumbers file="containerization/mount-tz.yaml" />
+<FileBlock showFileNumbers file="containerization/mount-tz.yaml" showLineNumbers />
