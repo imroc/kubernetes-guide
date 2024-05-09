@@ -12,7 +12,7 @@
 
 ## 方案二：Dockerfile 里设置时区
 
-下面给出在一些常见的基础镜像里设置时区的实例：
+下面给出在一些常见的基础镜像里设置时区的示例：
 
 <Tabs>
   <TabItem value="ubuntu" label="Ubuntu">
