@@ -174,27 +174,27 @@ const config: Config = {
         items: [
           {
             label: '基础实践',
-            position: 'right',
+            position: 'left',
             to: '/basics',
           },
           {
             label: '监控告警',
-            position: 'right',
+            position: 'left',
             to: '/monitoring',
           },
           {
             label: '最佳实践',
-            position: 'right',
+            position: 'left',
             to: '/best-practices',
           },
           {
             label: '实践案例',
-            position: 'right',
+            position: 'left',
             to: '/cases',
           },
           {
             label: '附录',
-            position: 'right',
+            position: 'left',
             to: '/appendix',
           },
           {
