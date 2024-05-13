@@ -290,6 +290,7 @@ const config: Config = {
           'bash',
           'diff',
           'docker',
+          'nginx',
         ],
       },
     }),

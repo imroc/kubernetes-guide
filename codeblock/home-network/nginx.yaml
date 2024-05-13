@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: nginx:latest
+          imagePullPolicy: IfNotPresent
+          name: nginx
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /etc/nginx
+              name: config
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: nginx-config
+          name: config
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate

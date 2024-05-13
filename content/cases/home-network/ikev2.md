@@ -8,7 +8,70 @@
 
 本文部署的 IKEv2 VPN 服务使用这个开源项目构建的容器镜像：https://github.com/hwdsl2/docker-ipsec-vpn-server
 
-## 生成配置
+## 使用 nginx + hostPort 暴露 UDP
+
+部署 IKEv2 需要对网络命名空间做很多修改，不建议使用 HostNetwork，避免对其他应用造成影响。所以部署 IKEV2 应使用容器网络，然后用 HostPort 方式暴露 IKEV2 协议所需的两个 UDP 端口，但 HostPort 方式暴露的端口只允许内网访问，如果使用主路由，访问进来的源 IP 是公网 IP，就会不通，可以使用 nginx 来做一个中转，即让 nginx 监听 UDP 端口，再转发给 HostPort 暴露的 UDP。
+
+IKEv2 协议需要使用 500 和 4500 两个 UDP 端口，如果使用主路由方案，nginx 监听的 UDP 就需要使用这两个端口，HostPort 就需要定义为不同的端口，假设 HostPort 分别为 600 和 4600，下面展示了请求链路：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F13%2F20240513201820.png)
+
+## 部署 nginx
+
+### 目录结构
+
+```bash
+nginx
+├── config
+│   └── nginx.conf
+├── daemonset.yaml
+└── kustomization.yaml
+```
+
+### 准备 nginx.conf
+
+```nginx title="config/nginx.conf"
+worker_processes auto;
+error_log /dev/stdout debug;
+events {
+    worker_connections  1024;
+}
+stream {
+    server {
+        listen 500 udp;
+        proxy_pass 127.0.0.1:600;
+    }
+    server {
+        listen 4500 udp;
+        proxy_pass 127.0.0.1:4600;
+    }
+}
+```
+
+### 准备 daemonset.yaml
+
+<FileBlock showLineNumbers title="daemonset.yaml" file="home-network/nginx.yaml" />
+
+### 准备 kustomization.yaml
+
+```yaml title="kustomization.yaml"
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - daemonset.yaml
+
+configMapGenerator:
+  - files:
+      - config/nginx.conf
+    name: nginx-config
+
+namespace: default
+```
+
+## 部署 ikev2 server
+
+### 生成配置
 
 准备环境变量文件：
 
@@ -34,7 +97,7 @@ docker run --rm -it \
     hwdsl2/ipsec-vpn-server
 ```
 
-## 目录结构
+### 目录结构
 
 ```txt
 ikev2
@@ -55,13 +118,13 @@ ikev2
 └── kustomization.yaml
 ```
 
-## 准备 daemonset.yaml
+### 准备 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/ikev2.yaml" />
 
 * 这里不用 HostNetwork，是因为 VPN 软件对网络命名空间的操作较多，为避免影响宿主机网络，还是用容器网络进行隔离，通过 HostPort 暴露端口。
 
-## 准备 kustomization.yaml
+### 准备 kustomization.yaml
 
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -89,13 +152,6 @@ secretGenerator:
       - config/ikev2-vpn-data/roc.p12
       - config/ikev2-vpn-data/roc.sswan
 ```
-
-## 暴露端口
-
-部署好后，会监听 `500` 和 `4500` 两个 UDP 端口，还需要保证这俩端口能够从公网访问到：
-
-* 如果使用主路由方案，可以用 nftables 写防火墙规则，参考 [基础网络配置：配置防火墙](network-config.md#配置防火墙)。
-* 如果使用旁路由方案，需在主路由定义端口转发，将 500 和 4500 的流量 DNAT 到旁路由，这样才能将旁路由上的 VPN 服务暴露出去。
 
 ## 配置 IKEv2 客户端
 
