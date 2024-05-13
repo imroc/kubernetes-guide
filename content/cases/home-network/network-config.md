@@ -46,7 +46,7 @@
 
 <FileBlock showLineNumbers title="/etc/networkd-dispatcher/carrier.d/setup-pppoe.sh" file="home-network/setup-pppoe.sh" />
 
-如果不生效，可以在 `rc.local` 开机脚本里做：
+如果不生效，可以在 `rc.local` 开机脚本里做（目前本人就是这么做的）：
 
 ```bash showLineNumbers title="/etc/rc.local"
 #!/bin/bash
@@ -56,6 +56,24 @@ pon dsl-provider
 ```
 
 > 确保 rc-local 服务处于 enabled 状态: `systemctl enable rc-local`
+
+另外，路由器上网需要配置 IP MASQUERADE，即确保让出公网的报文的源 IP 自动 SNAT 成本机公网 IP，这样才能正常收到回包，我是通过 nftables 配置的，以下是 nftables 配置文件：
+
+```txt
+#!/sbin/nft -f
+
+table inet ppp
+delete table inet ppp
+
+table inet ppp {
+    chain postrouting {
+        type nat hook postrouting priority 100; policy accept;
+        oifname != "ppp0" return
+        meta l4proto { tcp, udp } ip saddr 10.10.0.0/16 counter masquerade
+        meta l4proto { tcp, udp } ip6 saddr fddd:dddd:dddd:dddd::/64 counter masquerade
+    }
+}
+```
 
 ## 配置混杂模式
 
@@ -76,7 +94,7 @@ done
 
 对于主路由方案，在 Ubuntu 里配置防火墙，可以用 nftables 来声明式配置：
 
-<FileBlock showLineNumbers title="/etc/nftables.conf" file="home-network/nftables-firewall.conf" />
+<FileBlock showLineNumbers file="home-network/nftables-firewall.conf" />
 
 > 确保 nftables 服务处于 enabled 状态: `systemctl enable nftables`
 
