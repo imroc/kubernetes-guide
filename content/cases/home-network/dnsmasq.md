@@ -19,7 +19,7 @@ dnsmasq
 * `server` 指向上游的 DNS 地址，主路由在 PPPoE 拨号后会自动获取上游 dns 地址并写到 `/etc/resolv.conf`，可以复制过来。
 * `dhcp-range` 指定内网设备自动获取的 IP  地址范围以及子网掩码。
 * `dhcp-option=option:router` 指定内网设备的默认网关，即当前主路由的内网静态 IP 地址。
-* `dhcp-option=option:dns-server` 指定内网设备自动获取的 DNS 地址，通常写 dnsmasq 自身的地址，即主路由的内网静态 IP 地址，不过由于我用了透明代理，希望内网设备直接用 PPPoE 拨号获得的运营商的 DNS 地址。
+* `dhcp-option=option:dns-server` 指定内网设备自动获取的 DNS 地址，通常写 dnsmasq 自身的地址，即主路由的内网静态 IP 地址，不过由于我用了透明代理，希望内网设备直接用 PPPoE 拨号获得的运营商的 DNS 地址（好处是如果透明代理故障，停掉流量拦截规则后，内网设备也能正常从运营商 DNS 解析域名）。
 
 
 ## 准备 daemonset.yaml
