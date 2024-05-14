@@ -50,7 +50,7 @@ apps
 │   └── kustomization.yaml
 ```
 
-将所有配置提交并 push。
+将所有配置提交并 push 到 Git 仓库。
 
 ## 安装 Argo CD
 
