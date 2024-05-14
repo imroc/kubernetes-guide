@@ -10,7 +10,7 @@
 
 ## DDNS 开源项目
 
-本文部署的 DDNS 服务使用这个开源项目：https://github.com/NewFuture/DDNS
+本文部署的 DDNS 服务使用这个开源项目所构建出的容器镜像：https://github.com/NewFuture/DDNS
 
 ## 目录结构
 
