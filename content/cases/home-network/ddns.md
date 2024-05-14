@@ -22,7 +22,7 @@ ddns
 └── kustomization.yaml
 ```
 
-## 准备 DDNS 配置
+## 配置 DDNS 服务：config.json
 
 ```json showLineNumbers title="config/config.json"
 {
@@ -44,11 +44,11 @@ ddns
 * `index4` 是指定获取本机公网 IPv4 的方法，我用的主路由方案，所以获取公网 IP 的方法直接读 `ppp0` 网卡上的公网 IP 地址就行，不需要调外部接口获取。
 * 如果主路由也有 IPv6，可以加上 IPv6 的获取方法: `"index6": "shell:ip -6 addr show ppp0 | grep 'scope global dynamic'  | awk '/inet6/{print $2}' | awk -F '/' '{print $1}'",`
 
-## 准备 daemonset.yaml
+## 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/ddns.yaml" />
 
-## 准备 kustomization.yaml
+## 配置 kustomization.yaml
 
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1

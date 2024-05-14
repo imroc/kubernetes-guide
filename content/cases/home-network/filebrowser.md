@@ -28,13 +28,13 @@ filebrowser
 └── kustomization.yaml
 ```
 
-## 准备 daemonset.yaml
+## 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/filebrowser.yaml" />
 
 * 注意替换用户名以及密码的 hash 值。
 
-## 准备 kustomization.yaml
+## 配置 kustomization.yaml
 
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1

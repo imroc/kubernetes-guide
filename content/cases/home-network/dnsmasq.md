@@ -1,6 +1,12 @@
-# DHCP 与 DNS 服务: Dnsmasq
+# DHCP 与 DNS 服务: dnsmasq
 
-DHCP 与 DNS 服务需在主路由上开启，如果用的主路由方案，可用云原生的方式部署一个 DHCP 和 DNS 服务，dnsmasq 是一个同时支持这两种功能的开源软件，我们可以用下面的方法部署。
+## dnsmasq 介绍
+
+`DHCP` 与 `DNS` 服务需在主路由上开启，如果用的主路由方案，可用云原生的方式部署一个 DHCP 和 DNS 服务，[dnsmasq](https://thekelleys.org.uk/dnsmasq/doc.html) 是一个同时支持这两种功能的开源软件，我们可以用下面的方法进行部署。
+
+## docker-dnsmasq 开源项目
+
+本文部署的 dnsmasq 服务使用这个开源项目所自动编译出的容器镜像：https://github.com/4km3/docker-dnsmasq
 
 ## 目录结构
 
