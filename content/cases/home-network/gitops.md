@@ -121,7 +121,7 @@ spec:
 
 要点解析：
 * `repoURL` 替换为我们前面添加的 Git 仓库地址。
-* `directories` 的 `path` 定义为 `apps/*`，表示会自动扫描 Git 仓库 `apps` 目录下的子目录，然后在 `template` 下的 `source.path` 通过 `{{.path.basename}}` 引用子目录的名称，表示为每个子目录生成一个 `Application`，Argo CD 会自动识别到子目录下通过 `kustomize` 方式组织的配置，会自动用 kustomize 渲染出 YAML 并 apply 到集群。
+* `directories` 的 `path` 定义为 `apps/*`，表示会自动扫描 Git 仓库 `apps` 目录下的子目录，然后在 `template` 下的 `source.path` 通过 `{{.path.basename}}` 引用子目录的名称，表示为每个子目录生成一个 `Application`，Argo CD 会自动识别到子目录下通过 `kustomize` 方式组织的配置，会自动用 `kustomize` 渲染出 YAML 并 apply 到集群。
 * `destination.name` 替换为集群名称，如果 Argo CD 部署在当前路由器，就固定是 `in-cluster`。
 * `syncPolicy.automated.prune` 置为 true，表示配置变更时，会对比 Git 前后差异，如果是变更后某些资源删除了，Argo CD 也会将其从集群中删除该资源，即完全以 Git 仓库中声明的为准，拒绝多余的资源。
 
