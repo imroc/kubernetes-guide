@@ -42,7 +42,16 @@
 
 这里只给出主路由方案的 Ubuntu 系统配置 PPPoE 拨号的方法。
 
-需要实现 Ubuntu 开机自动执行 PPPoE 拨号，可以用 `networkd-dispatcher` 来实现：
+首先是先有鸡还是先有蛋问题，在配置 PPPoE 拨号之前，我们需安装 `pppoeconf` 并使用它配置 PPPoE，但没有拨号的情况下又无法联网，安装不了。这时，确保你的 Ubuntu 还不是主路由，可以先用普通路由器配置拨号上网，在 netplan 配置中主网口处设置默认路由，即 `routes` 下的 `via` 填当前实际拨号上网的路由器 `IP` 地址，然后执行 `netplan apply` 让配置生效，测试没问题后再安装 `pppoeconf` 并用它配置 PPPoE：
+
+```bash
+# 安装 pppoeconf
+sudo apt install -y pppoeconf
+# 配置
+sudo pppoeconf
+```
+
+根据提示配置好 PPPoE 拨号后，还需要实现 Ubuntu 开机自动执行 PPPoE 拨号，可以用 `networkd-dispatcher` 来实现：
 
 <FileBlock showLineNumbers title="/etc/networkd-dispatcher/carrier.d/setup-pppoe.sh" file="home-network/setup-pppoe.sh" />
 
