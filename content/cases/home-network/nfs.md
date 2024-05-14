@@ -1,8 +1,8 @@
-# 文件共享服务：NFS
+# 家庭 NAS 服务：NFS
 
-## 为什么需要 NFS 服务？
+## 为什么需要 NFS ？
 
-家里有些设备，比如电视机，支持通过 NFS 远程读取文件来看路由器磁盘中的视频文件，前提是路由器安装了 NFS 服务。
+家里有些设备，比如电视机、投影仪，支持通过 NFS 远程读取文件来看路由器磁盘中的视频文件，前提是路由器安装了 NFS 服务（传说中的 NAS 中的一种协议）。
 
 ## 开源项目 
 
@@ -18,7 +18,7 @@ nfs
 └── kustomization.yaml
 ```
 
-## 准备 exports 文件
+## 配置 exports 文件
 
 将要共享的目录写在 `exports` 文件中，每行一个目录，格式为：`目录路径 权限设置`：
 
@@ -27,11 +27,11 @@ nfs
 /data/media/movies *(rw,no_root_squash,sync)
 ```
 
-## 准备 daemonset.yaml
+## 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/nfs.yaml" />
 
-## 准备 kustomization.yaml
+## 配置 kustomization.yaml
 
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
