@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: nftables
+  name: nftables
+spec:
+  selector:
+    matchLabels:
+      app: nftables
+  template:
+    metadata:
+      labels:
+        app: nftables
+    spec:
+      terminationGracePeriodSeconds: 3
+      containers:
+        - image: imroc/nftables:ubuntu-24.04
+          imagePullPolicy: IfNotPresent
+          name: nftables
+          securityContext:
+            privileged: true
+          command: ["/script/entrypoint.sh"]
+          volumeMounts:
+            - mountPath: /etc/nftables
+              name: nftables-config
+            - mountPath: /script
+              name: nftables-script
+      hostNetwork: true
+      volumes:
+        - configMap:
+            name: nftables-config
+          name: nftables-config
+        - configMap:
+            name: nftables-script
+            defaultMode: 0755
+          name: nftables-script
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate

@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
         'home-network/home-assistant',
         'home-network/homepage',
         'home-network/tproxy',
+        'home-network/containerized-nftables',
       ]
     },
     'llama3',
