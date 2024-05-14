@@ -2,10 +2,12 @@
 
 ## HomeAssistant 介绍
 
+`HomeAssistant` 是一个开源的智能家居管理系统，通常是直接以操作系统形式安装到设备里，但也提供了容器化部署的方式，本文介绍将 `HomeAssistant` 部署到 Kubernetes 的方法。
+
 ## 开源项目
 
-* 项目地址：https://github.com/home-assistant/core
-* 官网：https://www.home-assistant.io/
+* 项目地址: https://github.com/home-assistant/core
+* 官网: https://www.home-assistant.io/
 
 ## 目录结构
 
