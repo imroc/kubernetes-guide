@@ -23,10 +23,54 @@ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIR
 
 > 后续要升级也使用上面相同的命令，参考 [k3s 官方安装文挡](https://docs.k3s.io/zh/quick-start)
 
-## 使用 kustomize 维护 YAML 和应用所需的配置
+## 镜像加速方案
 
+安装应用需要拉取相应的容器镜像，基本来自 DockerHub，在国内拉取 DockerHub 速度较慢，可以考虑以下几种方案进行加速。
+
+### 方案一：配置镜像加速地址
+
+你可以找到一个靠谱的镜像加速器地址，或者自己搭建一个镜像加速器，然后配置创建 K3S 配置文件 `/etc/rancher/k3s/registries.yaml`：
+
+```yaml
+mirrors:
+  docker.io:
+    endpoint:
+      - "https://docker.m.daocloud.io" # 注意替换镜像加速器地址
+```
+
+重启 K3S 生效：
+
+```bash
+systemctl restart k3s
+```
+
+### 方案二：透明代理加速
+
+如果你有代理可以访问到 DockerHub，可以先将透明代理客户端用容器部署好，再部署其它应用。
+
+而透明代理依赖的镜像又该如何拉取呢？你可以直接从 DockerHub 拉取，慢就慢点，等代理部署好后拉其它的镜像就快了。
+
+或者你也可以手动将镜像打包成文件：
+
+```bash
+docker save your/proxy-image > image.tar
+```
+
+然后将 `image.tar` 拷贝到路由器上，通过 `ctr` 导入进来：
+
+```bash
+ctr -n k8s.io -a /run/k3s/containerd/containerd.sock image import image.tar
+```
+
+> `ctr` 命令是安装 k3s 后自带的命令。
+
+## 声明式配置维护方式
+
+### 使用 kustomize 维护配置
+
+我们使用 `kustomize` 维护 YAML 和应用所需的配置：
 1. 使用 `kubernetes` 的 YAML 进行声明式部署，YAML 通过 `kustomize` 引用。
-2. 应用的相关配置文件通过 `kustomize` 自动生成相关的 `ConfigMap` 或 `Secret` 挂载进去。
+2. 应用的相关配置文件通过 `kustomize` 引用并自动生成相应的 `ConfigMap` 或 `Secret` ，挂载到 Pod 中被应用使用。
 3. 如果应用使用 helm chart 渲染，在 `kustomize` 中也可以被引用。
 4. 每个应用使用一个目录来声明所有 YAML 和所需配置，
 
@@ -87,7 +131,7 @@ kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone . | kubectl
 
 如果要一键部署所有应用，可以在上层目录中再建一个 `kustomization.yaml` 引用所有应用的目录，然后在上层目录中执行上面相同的命令可以实现所有应用的一键部署。
 
-## 声明 YAML 需遵循的原则
+### 声明 YAML 需遵循的原则
 
 使用云原生的方式主要为了实现容器化、声明式管理的能力，不引入其它复杂的特性，所以考虑在声明 YAML 时遵循以下原则：
 * 使用 `DaemonSet` 这种类型的工作负载进行部署，保证只有一个副本，滚动更新策略为先销毁旧的，再创建新的。
