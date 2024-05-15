@@ -4,6 +4,10 @@
 
 如果需要手机或电脑在外面连上家里的内网，可以在家里路由器搭建 VPN 服务端，苹果的系统(iOS/MacOS)内置了 IKEv2 协议的 VPN 客户端，一些安卓设备也内置了，我们在路由器里部署下支持 IKEv2 协议的 VPN 服务端并暴露出来就可以实现远程连上家里内网了。
 
+## 前提条件
+
+要实现通过 IKEv2 远程接入家庭网络，前提是家庭的电信宽带支持且开通了固定 IP（独占公网 IP），并且也部署了 DDNS 服务，可以通过固定域名解析到家庭宽带的公网 IP（见上一篇文章）。
+
 ## 开源项目 
 
 本文部署的 IKEv2 VPN 服务使用这个开源项目构建的容器镜像：https://github.com/hwdsl2/docker-ipsec-vpn-server
@@ -28,7 +32,7 @@ nginx
 └── kustomization.yaml
 ```
 
-### 准备 nginx.conf
+### 配置 nginx.conf
 
 ```nginx title="config/nginx.conf"
 worker_processes auto;
@@ -48,11 +52,11 @@ stream {
 }
 ```
 
-### 准备 daemonset.yaml
+### 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/nginx.yaml" />
 
-### 准备 kustomization.yaml
+### 配置 kustomization.yaml
 
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -118,13 +122,13 @@ ikev2
 └── kustomization.yaml
 ```
 
-### 准备 daemonset.yaml
+### 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/ikev2.yaml" />
 
 * 这里不用 HostNetwork，是因为 VPN 软件对网络命名空间的操作较多，为避免影响宿主机网络，还是用容器网络进行隔离，通过 HostPort 暴露端口。
 
-### 准备 kustomization.yaml
+### 配置 kustomization.yaml
 
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
