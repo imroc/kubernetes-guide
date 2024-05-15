@@ -8,7 +8,7 @@
 
 Dockerfile 示例：
 
-```dockerfile title="Dockerfile"
+```dockerfile showLineNumbers title="Dockerfile"
 FROM ubuntu:22.04
 RUN apt update -y
 RUN apt install -y radvd
@@ -26,19 +26,19 @@ radvd
 └── kustomization.yaml
 ```
 
-## 准备 radvd.conf
+## 配置 radvd.conf
 
 <FileBlock showLineNumbers title="config/radvd.conf" file="home-network/radvd.conf" />
 
-## 准备 daemonset.yaml
+## 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="config/radvd.yaml" file="home-network/radvd.yaml" />
 
-* 使用 initContainer 自动修改内核参数以启用 IPv6 转发和接收路由通告（拨号的网卡通过路由通告接收来自运营商分配的 IPv6 地址）。
+> 使用 `initContainer` 自动修改内核参数以启用 IPv6 转发和接收路由通告（拨号的网卡通过路由通告接收来自运营商分配的 IPv6 地址）。
 
-## 准备 kustomization.yaml
+## 配置 kustomization.yaml
 
-```yaml title="kustomization.yaml"
+```yaml showLineNumbers title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
