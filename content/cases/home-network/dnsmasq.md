@@ -22,6 +22,7 @@ dnsmasq
 
 <FileBlock showLineNumbers title="config/dnsmasq.conf" file="home-network/dnsmasq.conf" />
 
+要点解析：
 * `server` 指向上游的 DNS 地址，主路由在 PPPoE 拨号后会自动获取上游 dns 地址并写到 `/etc/resolv.conf`，可以复制过来。
 * `dhcp-range` 指定内网设备自动获取的 IP  地址范围以及子网掩码。
 * `dhcp-option=option:router` 指定内网设备的默认网关，即当前主路由的内网静态 IP 地址。
@@ -31,6 +32,7 @@ dnsmasq
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/dnsmasq.yaml" />
 
+要点解析：
 * 注意修改账号密码，本例使用 `roc` 作为账号名，`111111` 作为密码。
 * 将要共享的目录通过 hostPath 挂载进去，本例挂载和共享 `/data` 目录。
 
