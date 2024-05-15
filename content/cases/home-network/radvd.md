@@ -30,6 +30,9 @@ radvd
 
 <FileBlock showLineNumbers title="config/radvd.conf" file="home-network/radvd.conf" />
 
+* 我的 `enp2s0` 网口连的交换机，与其它内网设备在同一个二层网络，在此网口配置路由通告。
+* `route` 和 `prefix` 都写这个网口的静态 IPv6 地址。
+
 ## 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="config/radvd.yaml" file="home-network/radvd.yaml" />
