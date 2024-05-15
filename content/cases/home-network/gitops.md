@@ -58,6 +58,41 @@ Argo CD 可以安装在路由器，也可以安装在其它地方。由于我有
 
 具体 Argo CD 的安装方法可参考官方文档: https://argo-cd.readthedocs.io/en/stable/operator-manual/installation/
 
+建议是给 argocd 加点自定义配置（见注释解释）:
+
+```yaml showLineNumbers title="argocd-cm-patch.yaml"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  # highlight-start
+  # argocd 默认会给管理的应用打上 app.kubernetes.io/instance 这个常见注解，
+  # 而其它很多开源项目部署的应用也使用了这个注解，会导致冲突，改成其它的注解以避免冲突。
+  application.instanceLabelKey: argocd.argoproj.io/instance
+  # 让 kustomization.yaml 中能够使用 helmCharts 引用 helm chart，
+  # resources 中能够引用本目录之外目录下的内容。
+  kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
+  # highlight-end
+```
+
+我是通过 `kustomize` 安装的 Argo CD，可以将上面的配置作为 patch 引用：
+
+```yaml showLineNumbers title="kustomization.yaml"
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+# highlight-start
+patches:
+  - path: argocd-cm-patch.yaml
+# highlight-end
+
+resources:
+  - install.yaml
+```
+
 ## Argo CD 添加集群与 Git 仓库
 
 安装完 Argo CD 并配置好 `argocd` 命令后，我们来使用 `argocd` 命令添加下集群和 Git 仓库。
