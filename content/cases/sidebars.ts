@@ -26,6 +26,7 @@ const sidebars: SidebarsConfig = {
         'home-network/filebrowser',
         'home-network/jellyfin',
         'home-network/home-assistant',
+        'home-network/monitoring',
         'home-network/homepage',
         'home-network/tproxy',
         'home-network/containerized-nftables',
