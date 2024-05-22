@@ -35,3 +35,29 @@ namespace: default
 ## 访问 Alist
 
 访问入口：http://`路由器内网 IP`:5244/
+
+## 配置网盘
+
+进入【AList 管理】页面，添加存储：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F22%2F20240522095000.png)
+
+选择对应的驱动，AList 支持很多网盘和对象存储，具体配置方法可在 [AList 使用指南](https://alist.nn.ci/zh/guide/) 中找到对应存储驱动的配置步骤。
+
+## 与 Aria2 联动
+
+AList 挂载的网盘中的文件可直接发送给 Aria2 打包下载，下面介绍配置方法。
+
+进入主页，右下角点击本地设置:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F22%2F20240522094849.png)
+
+输入 Aria2 RPC 的地址和密钥：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F22%2F20240522095547.png)
+
+进入挂载的网盘目录，选中要下载的文件，点击【发送到 Aria2】:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F22%2F20240522095724.png)
+
+然后你就进入 Aria2 的 Web 页面就可以观察到你的 Aria2 正在努力帮你离线下载文件啦。
