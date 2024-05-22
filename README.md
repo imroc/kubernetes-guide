@@ -10,6 +10,8 @@
 
 地址：https://imroc.cc/kubernetes
 
+**点击上方导航跳转到具体目录**
+
 ## 评论与互动
 
 本书已集成 [giscus](https://giscus.app/zh-CN) 评论系统，欢迎对感兴趣的文章进行评论与交流。
