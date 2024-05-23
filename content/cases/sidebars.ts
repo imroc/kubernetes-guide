@@ -45,6 +45,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'argocd/install',
         'argocd/cluster-and-repo',
+        'argocd/project',
       ]
     },
   ],
