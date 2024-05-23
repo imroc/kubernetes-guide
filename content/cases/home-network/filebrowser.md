@@ -49,3 +49,7 @@ namespace: default
 ## 访问文件管理器
 
 访问入口：http://`路由器内网 IP`:8567/
+
+输入用户名密码后，就可以在网页里直接操作路由器上的文件了。
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F23%2F20240523112259.png)
