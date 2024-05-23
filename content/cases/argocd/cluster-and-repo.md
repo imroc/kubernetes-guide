@@ -40,4 +40,4 @@ argocd repo list
 argocd repo add --ssh-private-key-path $HOME/.ssh/id_rsa --insecure-skip-server-verification git@yourgit.com:your-org/your-repo.git
 ```
 
-> 通常 GitOps 使用的仓库是是由仓库，所以添加仓库时一般用 `--ssh-private-key-path` 指定下 SSH 密钥，以便让 argocd 能够正常拉取到 Git 仓库。
+> 通常 GitOps 使用的仓库是私有仓库，所以添加仓库时一般用 `--ssh-private-key-path` 指定下 SSH 密钥，以便让 argocd 能够正常拉取到 Git 仓库。
