@@ -115,10 +115,10 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
-  # highlight-start
   # argocd 默认会给管理的应用打上 app.kubernetes.io/instance 这个常见注解，
   # 而其它很多开源项目部署的应用也使用了这个注解，会导致冲突，改成其它的注解以避免冲突。
   application.instanceLabelKey: argocd.argoproj.io/instance
+  # highlight-start
   # 让 kustomization.yaml 中能够使用 helmCharts 引用 helm chart，
   # resources 中能够引用本目录之外目录下的内容。
   kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
