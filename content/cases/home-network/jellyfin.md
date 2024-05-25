@@ -6,7 +6,7 @@
 
 ## 开源项目
 
-Jellyfin 的项目地址是：<https://github.com/jellyfin/jellyfin>
+Jellyfin 的项目地址是：https://github.com/jellyfin/jellyfin
 
 ## 目录结构
 
@@ -40,4 +40,4 @@ namespace: default
 
 ## 安装豆瓣刮削器
 
-刮削器在国内还是用豆瓣的数据更好点，可以在登录 Jellyfin 后安装这个插件 <https://github.com/cxfksword/jellyfin-plugin-metashark>
+刮削器在国内还是用豆瓣的数据更好点，可以在登录 Jellyfin 后安装这个插件: https://github.com/cxfksword/jellyfin-plugin-metashark
