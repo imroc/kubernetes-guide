@@ -28,9 +28,9 @@ kind: Kustomization
 
 resources:
   - daemonset.yaml
-```
 
 namespace: default
+```
 
 ## 访问 Jellyfin
 

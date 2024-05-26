@@ -36,3 +36,5 @@ namespace: default
 ## 访问 HomeAssistant
 
 访问入口：http://`路由器内网 IP`:8123/
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F26%2F20240526083501.png)
