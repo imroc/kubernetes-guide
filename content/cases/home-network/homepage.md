@@ -101,3 +101,5 @@ configMapGenerator:
 ## 访问 Homepage
 
 访问入口：http://`路由器内网 IP`
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F27%2F20240527172426.png)
