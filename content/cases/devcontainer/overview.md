@@ -23,7 +23,7 @@
 
 日常开发使用 Neovim 编辑器，基于 [LazyVim](https://github.com/LazyVim/LazyVim) 高度 DIY 定制自己的配置，甚至自己写插件实现日常所需要的需求。，几乎完全替代了以前使用的 JetBrains 全家桶 IDE 和 VSCode。
 
-对于本地的终端软件，这个就无所谓了，只需要用到最基础的功能，macOS 可以用 [iTerm2](https://iterm2.com/)，如果是移动设备，可以用 [Termius](https://termius.com/)。
+对于本地的终端软件，这个就无所谓了，只需要用到最基础的功能，macOS 可以用 [iTerm2](https://iterm2.com/)，如果是用于轻办公的移动设备，可以用 [Termius](https://termius.com/)。
 
 下面的 GIF 展示了一些基础的使用效果：
 
