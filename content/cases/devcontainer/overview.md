@@ -16,3 +16,15 @@
 
 容器内包含日常开发所用到的工具，我本人以前用过很多 IDE 和编辑器，现在使用 Neovim 编辑器作为主力工具，而 Neovim 无需 GUI 界面，通过终端就可以用，所以平时工作大部分操作都在富容器中进行，算力和存储都 offload 到远程的富容器了，不怎么占用本机资源，可以实现多设备轻办公，即使使用低配的平板电脑也能轻松进行超大工程的开发，可随时随地办公。
 
+
+## Zellij + Neovim 工作流
+
+既然是富容器远程开发环境，我们就需要让终端持久化来“保存现场”，形成我们专属的工作空间，每次登录进去都可以继续上次的工作，不需要每次都要重新打开很多终端。以前我是通过 [tmux](https://github.com/tmux/tmux) 来实现的，后来切换到了 [zellij](https://github.com/zellij-org/zellij)，后者是 Rust 写的后起之秀，比 tmux 更强大，更现代化。
+
+日常开发使用 Neovim 编辑器，基于 [LazyVim](https://github.com/LazyVim/LazyVim) 高度 DIY 定制自己的配置，甚至自己写插件实现日常所需要的需求。，几乎完全替代了以前使用的 JetBrains 全家桶 IDE 和 VSCode。
+
+对于本地的终端软件，这个就无所谓了，只需要用到最基础的功能，macOS 可以用 [iTerm2](https://iterm2.com/)，如果是移动设备，可以用 [Termius](https://termius.com/)。
+
+下面的 GIF 展示了一些基础的使用效果：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F28%2F20240528164435.png)
