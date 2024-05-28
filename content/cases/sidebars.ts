@@ -60,6 +60,7 @@ const sidebars: SidebarsConfig = {
         'devcontainer/overview',
         'devcontainer/dockerfile',
         'devcontainer/packages',
+        'devcontainer/ssh',
       ]
     },
   ],
