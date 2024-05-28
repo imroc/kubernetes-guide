@@ -48,6 +48,18 @@ const sidebars: SidebarsConfig = {
         'argocd/project',
       ]
     },
+    {
+      type: 'category',
+      label: '打造超级富容器开发环境',
+      collapsed: false,
+      link: {
+        type: 'generated-index',
+        slug: '/devcontainer'
+      },
+      items: [
+        'devcontainer/overview',
+      ]
+    },
   ],
 };
 
