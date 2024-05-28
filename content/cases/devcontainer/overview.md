@@ -27,4 +27,6 @@
 
 下面的 GIF 展示了一些基础的使用效果：
 
-![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F05%2F28%2F20240528164435.png)
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/gif/devcontainer.gif)
+
+> `sdd` 是我SSH登录开发富容器的 alias。
