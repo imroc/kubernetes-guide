@@ -6,7 +6,7 @@
 
 有的同学可能会问：为什么不直接用 docker 构建镜像？
 
-因为 `devcontainer` 可能经常需要随着自身的需求不断迭代，每次修改后构建镜像，然后让 k3s 重启容器来更新 `devcontainer`，而 docker 构建出的镜像无法直接与 k3s 共享，如果用 docker 来构建 devcontainer，需要将容器导出然后再导入到 k3s 的 containerd 才能用，而这种几十G的富容器构建本身就很耗时，如果每次还需要再导入导出一次，就更加麻烦也更耗时，还占用更多空间，所以不如直接使用 buildkit 复用 k3s 的 containerd 作为 worker 来构建镜像，这样等镜像构建完，devcontainer 重启后就可以自动更新了。
+因为 `devcontainer` 可能经常需要随着自身的需求不断迭代，每次修改后构建镜像，然后让 k3s 重启容器来更新 `devcontainer`，而 docker 构建出的镜像无法直接与 k3s 共享，如果用 docker 来构建 `devcontainer`，需要将容器导出然后再导入到 k3s 的 containerd 才能用，而这种几十G的富容器构建本身就很耗时，如果每次还需要再导入导出一次，就更加麻烦也更耗时，还占用更多空间，所以不如直接使用 buildkit 复用 k3s 的 containerd 作为 worker 来构建镜像，这样等镜像构建完，`devcontainer` 重启后就可以自动更新了。
 
 下面将介绍 k3s 和 buildkit 的安装与配置方法。
 
@@ -73,7 +73,7 @@ WantedBy=multi-user.target
 
 * `ExecStart` 指定 `buaildkitd` 的启动命令，指定使用 k3s 的 containerd 作为 worker 来构建镜像，并且指定 containerd 的 sock 地址。
 
-最后使用以下脚本拷贝配置并启动 buildkitd:
+最后使用以下脚本拷贝配置并启动 `buildkitd`:
 
 ```bash
 mkdir -p /etc/buildkit
