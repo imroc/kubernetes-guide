@@ -21,7 +21,7 @@
 
 既然是富容器远程开发环境，我们就需要让终端持久化来“保存现场”，形成我们专属的工作空间，每次登录进去都可以继续上次的工作，不需要每次都要重新打开很多终端。以前我是通过 [tmux](https://github.com/tmux/tmux) 来实现的，后来切换到了 [zellij](https://github.com/zellij-org/zellij)，后者是 Rust 写的后起之秀，比 tmux 更强大，更现代化。
 
-日常开发使用 Neovim 编辑器，基于 [LazyVim](https://github.com/LazyVim/LazyVim) 高度 DIY 定制自己的配置，甚至自己写插件实现日常所需要的需求。，几乎完全替代了以前使用的 JetBrains 全家桶 IDE 和 VSCode。
+日常开发使用 Neovim 编辑器，基于 [LazyVim](https://github.com/LazyVim/LazyVim) 高度 DIY 定制自己的配置，甚至自己写插件实现日常所需要的需求，几乎完全替代了以前使用的 JetBrains 全家桶 IDE 和 VSCode。
 
 对于本地的终端软件，这个就无所谓了，只需要用到最基础的功能，macOS 可以用 [iTerm2](https://iterm2.com/)，如果是用于轻办公的移动设备，可以用 [Termius](https://termius.com/)。
 
