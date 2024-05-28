@@ -59,7 +59,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'devcontainer/overview',
         'devcontainer/dockerfile',
-        'devcontainer/script',
+        'devcontainer/packages',
       ]
     },
   ],
