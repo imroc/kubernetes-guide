@@ -1,17 +1,8 @@
 # ArgoCD 的安装与配置
 
-## 安装 ArgoCD
+## 使用 kustomize 安装 ArgoCD
 
-推荐下面两种安装方式。
-
-### 使用 kubectl 一键安装
-
-```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
-
-### 使用 kustomize 安装
+官方提供了安装 ArgoCD 的 YAML，可以使用 kubectl 一键安装，但我建议使用 kustomize 来安装，因为这样一来可以将自定义配置声明并持久化到文件中，避免直接集群中改配置，也利于后续 ArgoCD 的自举，即用 ArgoCD 自身来用 GitOps 管理自身。
 
 准备一个目录：
 
@@ -33,16 +24,35 @@ wget -O install.yaml https://raw.githubusercontent.com/argoproj/argo-cd/stable/m
 ```yaml title="kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 namespace: argocd
+patches:
+  - path: argocd-cm-patch.yaml
 resources:
 - install.yaml
 ```
 
 :::tip
 
-`resources` 里也可以直接引用 YAML 的 URL 下载地址，但不推荐，因为将 YAML 下到本地一方面可以避免因网络环境问题导致在某些环境部署失败，另一方面也方便后续升级时对比前后差异。
+* `resources` 里也可以直接引用 YAML 的 URL 下载地址，但不推荐，因为将 YAML 下到本地一方面可以避免因网络环境问题导致在某些环境部署失败，另一方面也方便后续升级时对比前后差异。
+* `patches` 里引入自定义配置，对官方提供的 YAML 进行 patch，这里主要是对 ArgoCD 的 ConfigMap 进行 patch。
 
+:::
+
+创建 `argocd-cm-patch`:
+
+```yaml title="argocd-cm-patch"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  application.instanceLabelKey: argocd.argoproj.io/instance
+  kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
+```
+
+:::tip
+* kustomize 默认不支持引用本目录之外的资源，如果引用会报错，可通过 `kustomize.buildOptions` 让 ArgoCD 给 kustomize 传入 `--load-restrictor=LoadRestrictionsNone` 这个参数来允许这种引用。
+* argocd 默认会给管理的应用打上 `app.kubernetes.io/instance` 这个常见注解，而其它很多开源项目部署的应用也使用了这个注解，会导致冲突，通过 `application.instanceLabelKey` 配置项改成其它的注解以避免冲突。
 :::
 
 安装：
