@@ -66,6 +66,7 @@ const sidebars: SidebarsConfig = {
         'devcontainer/lang',
         'devcontainer/other',
         'devcontainer/dind',
+        'devcontainer/sync-config',
       ]
     },
   ],

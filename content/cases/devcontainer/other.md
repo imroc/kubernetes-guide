@@ -200,3 +200,17 @@ apt install -y tidy
 # gitalias
 curl https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o $HOME/gitalias.txt
 ```
+
+## Dockerfile 指令
+
+```bash title="Dockerfile"
+# kubectl 及其插件
+#
+COPY ./scripts/kubectl.sh /run.sh
+RUN /run.sh
+
+# 下载和编译安装二进制
+#
+COPY ./scripts/download-and-install.sh /run.sh
+RUN /run.sh
+```
