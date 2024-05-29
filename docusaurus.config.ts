@@ -291,6 +291,7 @@ const config: Config = {
           'diff',
           'docker',
           'nginx',
+          'systemd',
         ],
       },
     }),

@@ -81,7 +81,38 @@ sync-config:
 ```
 ## 容器内 rc.local 开机脚本
 
-富容器的主进程是 systemd，启动时会执行 `/etc/rc.local` 中的开机脚本，我们在开机脚本中调用下 `init-root`:
+富容器的主进程是 systemd，可以启用 rc-local 服务：
+
+```systemd title="/lib/systemd/system/rc-local.service"
+#  SPDX-License-Identifier: LGPL-2.1-or-later
+#
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+# This unit gets pulled automatically into multi-user.target by
+# systemd-rc-local-generator if /etc/rc.local is executable.
+[Unit]
+Description=/etc/rc.local Compatibility
+Documentation=man:systemd-rc-local-generator(8)
+ConditionFileIsExecutable=/etc/rc.local
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/etc/rc.local start
+TimeoutSec=0
+RemainAfterExit=yes
+GuessMainPID=no
+
+[Install]
+WantedBy=multi-user.target
+```
+
+这样容器启动时会执行 `/etc/rc.local` 中的开机脚本，我们在开机脚本中调用下 `init-root`:
 
 ```bash title="/etc/rc.local"
 #!/bin/bash
