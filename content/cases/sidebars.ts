@@ -64,6 +64,7 @@ const sidebars: SidebarsConfig = {
         'devcontainer/packages',
         'devcontainer/ssh',
         'devcontainer/lang',
+        'devcontainer/other',
       ]
     },
   ],
