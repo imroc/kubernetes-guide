@@ -183,6 +183,62 @@ gg () {
 
 将此函数放到里所使用的 shell 的 rc 文件里，这样每次在 shell 里执行 `gg` 就是调用此函数实现一键自动 commit 并 push 所有改动到 Git 仓库，让改动变得非常方便。
 
+我本人更懒，命令都不用执行，直接快捷键自动提交。因为我用的 Neovim 编辑器，可以自己配自定义快捷键和相应的后台脚本操作，下面分享我的配置（基于 LazyVim）：
+
+```lua
+local Util = require("lazyvim.util")
+local map = Util.safe_keymap_set
+
+---@param command string Command to run
+---@param args? string[] List of arguments to pass
+run = function(command, args)
+  local Job = require("plenary.job")
+  local absolute_path = vim.fn.expand("%:p")
+  local cwd = string.match(absolute_path, "(.+)/[^/]+$")
+  Job:new({
+    command = command,
+    args = args,
+    cwd = cwd,
+    on_exit = function(job)
+      local result = job:stderr_result()
+      if next(result) == nil then
+        result = job:result()
+      end
+      if next(result) ~= nil then
+        local msg = table.concat(result, "\n")
+        if not vim.g.vscode then
+          vim.notify(msg, vim.log.levels.INFO)
+        end
+      else
+        if not vim.g.vscode then
+          vim.notify("done", vim.log.levels.INFO)
+        end
+      end
+    end,
+  }):start()
+end
+
+---@param script string Bash script to run
+run_script = function(script)
+  return run("bash", { "-c", script })
+end
+
+-- git
+local git_push = function()
+  local git_push_script = [[
+	git add -A
+	msg="update at $(date '+%Y-%m-%d %H:%M:%S')"
+	git commit --author="roc <roc@imroc.cc>" -m "$msg"
+	git push
+]]
+  run_script(git_push_script)
+end
+map("n", "<leader>gp", git_push, { desc = "Git Push" })
+map("n", "gp", git_push, { desc = "Git Push" })
+```
+
+> `Normal` 模式下执行 `gp` 或 `<leader>gp` 就会自动提交并推送。
+
 ## 参考资料
 
 * ArgoCD Automated Sync Policy: https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
