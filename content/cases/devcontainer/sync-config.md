@@ -137,46 +137,18 @@ exit 0
 `init-root` 又是容器内 `/usr/local/bin/init-root` 这个脚本文件，内容是：
 
 ```bash
-#!/bin/sh
+#!/bin/bash
 
 chmod 0700 /root
 
 if [ -z "$(ls -A /root)" ]; then
 	echo "init root directory"
 	cp -rf /root.bak/. /root
-	git clone --depth 1 git@gitee.com:imroc/denv.git $HOME/denv
-	cd $HOME/denv
-	make sync-config
-	cd -
+	rm -rf /root/.config
+	git clone --depth 1 git@gitee.com:imroc/dotfiles $HOME/.config
 fi
 ```
 
-目的有两个：
-1. 如果 root 目录是空的，就将镜像中对 root 目录的备份拷进去（因为容器的root是挂载的宿主机中的`/data/root`目录，一开始是空的）。
-2. 下载初始化 sync-config 脚本并执行，将其它应用依赖的配置拷贝到相应的路径。
-
-## 关于 .zshrc
-
-zsh 的配置比较特殊，它并没有在 `~/.config` 下，而是直接在 HOME 目录下，我们可以容器内固定使用以下 `.zshrc`:
-
-```bash
-if [[ -z "$ZELLIJ" ]]; then
-    zellij attach -c main
-fi
-
-[[ ! -f ~/.zsh/init.sh ]] || source ~/.zsh/init.sh
-
-[[ ! -f ~/.aliases ]] || source ~/.aliases
-```
-
-该 `.zshrc` 会引用我们 Git 同步过来的 .zshrc 脚本并执行 (`~/.zsh` 目录下的脚本)。
-
-`.zshenv` 也类似：
-
-```bash
-[[ ! -f ~/.zsh/env.sh ]] || source ~/.zsh/env.sh
-
-# zsh-autocomplete's special setting for ubuntu
-# see https://github.com/marlonrichert/zsh-autocomplete#additional-step-for-ubuntu
-skip_global_compinit=1
-```
+目的是为了当 root 目录是空的：
+1. 就将镜像中对 root 目录的备份拷进去（因为容器的root是挂载的宿主机中的`/data/root`目录，一开始是空的）。
+2. 下载 dotfiles (应用配置) 到 `$HOME/.config`。
