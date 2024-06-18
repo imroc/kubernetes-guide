@@ -203,7 +203,7 @@ curl https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o $H
 
 ## Dockerfile 指令
 
-```bash title="Dockerfile"
+```dockerfile title="Dockerfile"
 # kubectl 及其插件
 #
 COPY ./scripts/kubectl.sh /run.sh

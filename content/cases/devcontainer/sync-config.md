@@ -143,7 +143,7 @@ chmod 0700 /root
 
 if [ -z "$(ls -A /root)" ]; then
 	echo "init root directory"
-	cp -rf /root.bak/. /root
+	cp -rf /root.bak/ /root
 	rm -rf /root/.config
 	git clone --depth 1 git@gitee.com:imroc/dotfiles $HOME/.config
 fi
