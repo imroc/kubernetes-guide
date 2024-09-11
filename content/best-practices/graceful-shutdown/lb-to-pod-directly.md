@@ -38,6 +38,12 @@ ingress.cloud.tencent.com/enable-grace-shutdown: "true"
 
 > 参考官方文档 [Ingress 优雅停机](https://cloud.tencent.com/document/product/457/60065)
 
+:::tip[说明]
+
+TKE 新版的 service/ingress 控制器（2.2.1 以上)已默认强制开启该功能，注解已废弃。可分别通过 `kubectl -n kube-system get cm tke-service-controller-config -o yaml` 和 `kubectl -n kube-system get cm tke-ingress-controller-config -o yaml` 命令查看控制器版本（`VERSION` 字段）。 
+
+:::
+
 ### ACK
 
 阿里云 ACK 目前只针对四层 Service 提供了解决方案，通过注解开启优雅中断与设置中断超时时间:
