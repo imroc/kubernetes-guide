@@ -40,7 +40,12 @@ ingress.cloud.tencent.com/enable-grace-shutdown: "true"
 
 :::tip[说明]
 
-TKE 新版的 service/ingress 控制器（2.2.1 以上)已默认强制开启该功能，注解已废弃。可分别通过 `kubectl -n kube-system get cm tke-service-controller-config -o yaml` 和 `kubectl -n kube-system get cm tke-ingress-controller-config -o yaml` 命令查看控制器版本（`VERSION` 字段）。 
+TKE 新版的 service/ingress 控制器（2.2.1 以上)已默认强制开启该功能，注解已废弃。可分别通过以下命令查看控制器版本（`VERSION` 字段）：
+
+```bash
+kubectl -n kube-system get cm tke-service-controller-config -o yaml
+kubectl -n kube-system get cm tke-ingress-controller-config -o yaml
+```
 
 :::
 
