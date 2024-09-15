@@ -65,6 +65,7 @@ const sidebars: SidebarsConfig = {
         'kubectl/kubectl-aliases',
         'kubectl/quick-switch-with-kubectx',
         'kubectl/merge-kubeconfig-with-kubecm',
+        'kubectl/kubie',
       ],
     },
     {
