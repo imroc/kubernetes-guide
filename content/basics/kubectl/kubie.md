@@ -112,6 +112,10 @@ kubie ctx
 kubie ns
 ```
 
+使用效果:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F09%2F15%2F20240915180452.gif)
+
 我一般使用 alias（使用实在太高频，不想多敲键盘）:
 
 ```bash
