@@ -41,7 +41,7 @@ kubie 的自动补全可参考 [官方文档: Autocompletion](https://github.com
 
 ## 管理 kubeconfig 文件
 
-我是将自己用到的配置文件都使用 `dotfiles` 私有 git 仓库进行管理和同步，其中 kubeconfig 文件保存到 `dotfiles` 仓库下的 `kube` 目录:
+我是将自己用到的配置文件都使用 `dotfiles` 私有 git 仓库进行管理和同步，其中 kubeconfig 文件保存到 `dotfiles` 仓库下的 `kube/configs` 目录:
 
 ```bash
 $ tree dotfiles -P 'kube|kube/configs' --matchdirs --prune
