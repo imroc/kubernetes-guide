@@ -114,7 +114,7 @@ dhcp-host=fc:18:3c:37:6a:1c,10.10.10.6 # iPhone - roc
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F04%2F27%2F20240427155116.png)
 
-macOS 也一样也是类似的：
+macOS 也是类似的：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F09%2F21%2F20240921160637.png)
 
