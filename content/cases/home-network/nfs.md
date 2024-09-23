@@ -54,7 +54,8 @@ configMapGenerator:
 
 ```bash
 lsmod | grep nfs
-modprobe {nfs,nfsd}
+modprobe nfs
+modprobe nfsd
 ```
 
 如没有，ubuntu 可尝试安装：
