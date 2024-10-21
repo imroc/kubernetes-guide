@@ -6,7 +6,7 @@
 
 ## docker-dnsmasq 开源项目
 
-本文部署的 dnsmasq 服务使用这个开源项目所自动编译出的容器镜像：https://github.com/4km3/docker-dnsmasq
+本文部署的 dnsmasq 服务使用这个开源项目所自动编译出的容器镜像：https://github.com/imroc/docker-dnsmasq
 
 ## 目录结构
 
@@ -31,10 +31,6 @@ dnsmasq
 ## 配置 daemonset.yaml
 
 <FileBlock showLineNumbers title="daemonset.yaml" file="home-network/dnsmasq.yaml" />
-
-要点解析：
-* 注意修改账号密码，本例使用 `roc` 作为账号名，`111111` 作为密码。
-* 将要共享的目录通过 hostPath 挂载进去，本例挂载和共享 `/data` 目录。
 
 ## 配置 kustomization.yaml
 

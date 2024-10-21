@@ -16,13 +16,11 @@ spec:
     spec:
       terminationGracePeriodSeconds: 3
       containers:
-        - image: 4km3/dnsmasq:2.85-r2
+        - image: imroc/dnsmasq:2.90
           imagePullPolicy: IfNotPresent
           name: dnsmasq
           securityContext:
             privileged: true
-          args:
-            - '--log-facility=-'
           volumeMounts:
             - mountPath: /etc/dnsmasq.conf
               name: dnsmasq-config
@@ -44,3 +42,4 @@ spec:
       maxSurge: 0
       maxUnavailable: 1
     type: RollingUpdate
+
