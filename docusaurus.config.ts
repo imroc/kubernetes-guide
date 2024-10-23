@@ -206,6 +206,12 @@ const config: Config = {
         ],
       },
     }),
+  scripts: [
+    {
+      src: "https://imroc.cc/kubernetes/js/BigPicture.min.js",
+      async: true,
+    }
+  ],
 };
 
 export default config;
