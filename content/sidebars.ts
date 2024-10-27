@@ -347,6 +347,7 @@ const sidebars: SidebarsConfig = {
             'cases/home-network/nfs',
             'cases/home-network/samba',
             'cases/home-network/aria2',
+            'cases/home-network/qbittorrent',
             'cases/home-network/alist',
             'cases/home-network/filebrowser',
             'cases/home-network/jellyfin',
