@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: qbittorrent
+  name: qbittorrent
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: qbittorrent
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - image: docker.io/linuxserver/qbittorrent:5.0.0
+          imagePullPolicy: IfNotPresent
+          name: qbittorrent
+          env:
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: WEBUI_PORT
+              value: "9367"
+            - name: TORRENTING_PORT
+              value: "16991"
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /downloads
+              name: media
+      dnsPolicy: Default
+      hostNetwork: true
+      restartPolicy: Always
+      volumes:
+        - name: config
+          hostPath:
+            path: /data/qbittorrent/config
+            type: DirectoryOrCreate
+        - name: media
+          hostPath:
+            path: /data/media
+            type: DirectoryOrCreate
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
