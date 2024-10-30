@@ -70,5 +70,16 @@ INSTALL_K3S_SKIP_DOWNLOAD=true ./k3s-install.sh -s - server \
 	--disable-helm-controller \
 	--flannel-backend=none \
 	--disable=traefik,local-storage,metrics-server
-
 ```
+
+### 延长证书有效期
+
+k3s 签发的证书默认有效期是 1 年，到期前 90 天之后重启 k3s 会自动续期，但在某些场景无需严格考虑证书安全，比如家用路由器，可自定义下生成的证书的有效期。
+
+配置方法是创建 `/etc/default/k3s` 文件，添加如下内容：
+
+```env
+CATTLE_NEW_SIGNED_CERT_EXPIRATION_DAYS=3650
+```
+
+> 3650 天 = 10 年
