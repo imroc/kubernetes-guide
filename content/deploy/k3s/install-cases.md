@@ -83,3 +83,10 @@ CATTLE_NEW_SIGNED_CERT_EXPIRATION_DAYS=3650
 ```
 
 > 3650 天 = 10 年
+
+然后手动触发证书轮转并重启：
+
+```bash
+k3s certificate rotate
+systemctl restart k3s
+```
