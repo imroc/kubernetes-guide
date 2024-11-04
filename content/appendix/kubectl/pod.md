@@ -6,7 +6,7 @@
   <TabItem value="evicted" label="清理 Evicted 状态的 Pod">
 
     ``` bash
-    kubectl get pod -o wide --all-namespaces | awk '{if($4=="Evicted"){cmd="kubectl -n "$1" delete pod "$2; system(cmd)}}'
+    kubectl get pod -o wide --all-namespaces --no-headers | awk '{if($4=="Evicted"){cmd="kubectl -n "$1" delete pod "$2; system(cmd)}}'
     ```
 
   </TabItem>
@@ -14,7 +14,7 @@
   <TabItem value="not-running" label="清理所有非 Running 状态的 Pod">
 
     ``` bash
-    kubectl get pod -o wide --all-namespaces | awk '{if($4!="Running"){cmd="kubectl -n "$1" delete pod "$2; system(cmd)}}'
+    kubectl get pod -o wide --all-namespaces --no-headers | awk '{if($4!="Running"){cmd="kubectl -n "$1" delete pod "$2; system(cmd)}}'
     ```
 
   </TabItem>
