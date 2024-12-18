@@ -33,15 +33,15 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: '安装 k3s 轻量集群',
+          label: '使用 k3s 安装轻量集群',
           collapsed: true,
           link: {
             type: 'generated-index',
             slug: '/deploy/k3s'
           },
           items: [
-            'deploy/k3s/install-cases',
-            'deploy/k3s/offline-installation',
+            'deploy/k3s/install',
+            'deploy/k3s/offline',
           ],
         },
         'deploy/terraform',
