@@ -76,3 +76,36 @@ CATTLE_NEW_SIGNED_CERT_EXPIRATION_DAYS=3650
 k3s certificate rotate
 systemctl restart k3s
 ```
+
+## 禁止驱逐
+
+k8s 会自动检测 node 内存和存储空间，超过阈值就会触发驱逐，如果 k3s 只是单机使用，驱逐毫无意义且影响使用，这时可以禁用驱逐。
+
+在 `/etc/rancher/k3s/config.yaml` 中添加如下配置：
+
+```yaml
+kubelet-arg:
+  - "eviction-hard=memory.available<1Mi,nodefs.available<1Mi" # 禁用驱逐
+```
+
+## 禁用镜像清理
+
+当存储空间不够时 k3s 会尝试自动清理镜像来释放空间，可能导致不希望被清理的镜像被清理掉，这时可以禁用镜像清理。
+
+在 `/etc/rancher/k3s/config.yaml` 中添加如下配置：
+
+```yaml
+kubelet-arg:
+  - "image-gc-high-threshold=100" # 禁用 image gc
+```
+
+## 允许指定 sysctl
+
+如果有些 Pod 的 `securityContext` 指定了一些不安全的内核参数，Pod 就会启动失败（比如 svclb 的 Pod 指定了 `net.ipv4.ip_forward` 这个内核参数）。
+
+要启用这些用到的不安全内核参数，在 `/etc/rancher/k3s/config.yaml` 中添加类似如下的配置：
+
+```yaml
+kubelet-arg:
+  - "allowed-unsafe-sysctls=net.ipv6.*,net.ipv4.*"
+```
