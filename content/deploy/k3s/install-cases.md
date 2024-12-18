@@ -58,7 +58,7 @@ INSTALL_K3S_MIRROR=cn curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-instal
 
 > 如果是主路由，公网 ip 每次拨号会变，而 k3s 启动时会获取到外网 ip 作为 hostname，用导出的 kubeconfig 去访问 apiserver 时，会报证书问题（签发时不包含重新拨号之后的外网 ip），可以用 `--node-ip`、`--tls-san` 强制指定一下路由器使用的静态内网 IP。
 
-### 延长证书有效期
+## 延长证书有效期
 
 k3s 签发的证书默认有效期是 1 年，到期前 90 天之后重启 k3s 会自动续期，但在某些场景无需严格考虑证书安全，比如家用路由器，可自定义下生成的证书的有效期。
 
