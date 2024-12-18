@@ -85,7 +85,7 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
 
 如果家里的设备特别多，全局拦截流量的话，对代理的压力可能较大，有时可能会影响网速。
 
-这种情况可以考虑只拦截特定设备的流量，比如 DHCP 动态分配网段为 `10.10.10.15~10.10.10.254`，而 `10.10.10.1~10.10.10.14` 这个小网段用于静态 IP 分配，且 nftables 拦截规则只拦截这个小网段的设备，示例：
+这种情况可以考虑只拦截特定设备的流量，比如 DHCP 动态分配网段为 `10.10.10.15~10.10.10.254`，而 `10.10.10.1~10.10.10.14` 这个小网段用于静态 IP 分配，且 nftables 拦截规则只拦截这个小网段的设备（`10.10.10.0/28`），示例：
 
 ```conf showLineNumbers
 # https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
@@ -103,11 +103,11 @@ dhcp-option=option:router,10.10.10.2
 dhcp-option=option:dns-server,61.139.2.69,218.6.200.139
 # highlight-start
 dhcp-host=fc:19:3c:37:2a:1c,10.10.10.6,set:red # iPhone - me
-dhcp-host=f8:f2:c2:95:7f:fc,10.10.10.7,set:red # iPhone - wife
-dhcp-host=58:e6:ba:5e:6f:2e,10.10.10.8,set:red # iPad
-dhcp-host=a0:78:17:87:9e:51,10.10.10.5,set:red # M1
+dhcp-host=f8:f2:c2:95:7e:fa,10.10.10.7,set:red # iPhone - wife
+dhcp-host=59:e6:ba:5e:6f:2e,10.10.10.8,set:red # iPad
+dhcp-host=a0:78:17:87:9e:52,10.10.10.5,set:red # M1
 dhcp-host=7c:f3:5d:ec:8a:3a,10.10.10.9,set:red # M3
-dhcp-host=04:c1:a8:d5:73:76,10.10.10.10,set:red # Mate70 Pro+
+dhcp-host=a4:c9:a9:d5:73:77,10.10.10.10,set:red # Mate70 Pro+
 # highlight-end
 ```
 
