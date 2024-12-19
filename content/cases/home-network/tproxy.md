@@ -22,7 +22,7 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
               - /scripts/clean.sh
 ```
 
-:::tip[注意]
+:::tip[说明]
 
 当前本人已将在 postStart 中设置规则改成了用单独的 sidecar 来设置规则，因为 postStart 中的输出无法通过 `kubectl logs` 查看，在排障时会比较麻烦。
 
