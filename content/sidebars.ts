@@ -72,6 +72,7 @@ const sidebars: SidebarsConfig = {
         'kubectl/quick-switch-with-kubectx',
         'kubectl/merge-kubeconfig-with-kubecm',
         'kubectl/kubie',
+        'kubectl/build',
       ],
     },
     {
