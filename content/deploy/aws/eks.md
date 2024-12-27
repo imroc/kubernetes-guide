@@ -20,7 +20,7 @@
 
 配置 kubectl 前先确保 aws 命令行工具已安装，并参考官方文档进行配置：https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-chap-configure.html
 
-我这里图省事，用最简单的方式配置，拿到 Access Key 和 Secret Key 后，执行 `aws confgiure` 配置即可：
+我这里图省事，用最简单的方式配置，拿到 Access Key 和 Secret Key 后，执行 `aws configure` 配置即可：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2024%2F03%2F12%2F20240312142604.png)
 
