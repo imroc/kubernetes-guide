@@ -356,7 +356,7 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'category',
-          label: '使用kubebuilder开发controller',
+          label: '使用 kubebuilder 开发 Controller',
           collapsed: true,
           link: {
             type: 'generated-index',
