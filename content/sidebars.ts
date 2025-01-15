@@ -102,6 +102,31 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'GitOps',
+      collapsed: true,
+      link: {
+        type: 'generated-index',
+        slug: '/gitops'
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'ArgoCD GitOps 实践',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/gitops/argocd'
+          },
+          items: [
+            'gitops/argocd/install',
+            'gitops/argocd/cluster-and-repo',
+            'gitops/argocd/project',
+          ]
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: '证书签发',
       collapsed: true,
       link: {
@@ -361,20 +386,7 @@ const sidebars: SidebarsConfig = {
           ]
         },
         'cases/llama3',
-        {
-          type: 'category',
-          label: 'ArgoCD GitOps 实践',
-          collapsed: true,
-          link: {
-            type: 'generated-index',
-            slug: '/cases/argocd'
-          },
-          items: [
-            'cases/argocd/install',
-            'cases/argocd/cluster-and-repo',
-            'cases/argocd/project',
-          ]
-        },
+
         {
           type: 'category',
           label: '打造超级富容器开发环境',
