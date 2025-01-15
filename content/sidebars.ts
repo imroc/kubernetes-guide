@@ -347,6 +347,29 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: '开发指南',
+      collapsed: true,
+      link: {
+        type: 'generated-index',
+        slug: '/dev'
+      },
+      items: [
+        {
+          type: 'category',
+          label: '使用kubebuilder开发controller',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/dev/kubebuilder'
+          },
+          items: [
+            'dev/kubebuilder/quickstart',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: '实践案例',
       collapsed: true,
       link: {
