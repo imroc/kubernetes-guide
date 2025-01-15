@@ -364,6 +364,7 @@ const sidebars: SidebarsConfig = {
           },
           items: [
             'dev/kubebuilder/quickstart',
+            'dev/kubebuilder/multi-version',
           ],
         },
       ],
