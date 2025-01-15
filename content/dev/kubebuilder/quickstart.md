@@ -2,7 +2,7 @@
 
 ## 安装
 
-如果你有 homebrew，可以通过 `brew install kubebuilder` 一键安装。
+如果你有 Homebrew，可以通过 `brew install kubebuilder` 一键安装。
 
 没有的话可以通过下面的脚本安装 `kubebuilder` 二进制到 `PATH` 下：
 
