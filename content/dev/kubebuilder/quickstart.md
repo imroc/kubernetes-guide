@@ -41,3 +41,7 @@ kubebuilder create api --group webapp --version v1alpha1 --kind Guestbook
 创建或修改 API 后：
 1. 执行 `make manifests` 可生成相关 YAML，在 `config` 目录下。
 2. 执行 `make generate` 可生成相关代码，在 `api` 目录下，主要是更新 `zz_generated.deepcopy.go`。
+
+## 参考资料
+
+- [Kubebuilder Quick Start](https://book.kubebuilder.io/quick-start)
