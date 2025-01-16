@@ -13,13 +13,30 @@
 kubebuilder create api --group webapp --version v1beta2 --kind Guestbook
 ```
 
-然后将上一个版本的 API 的 `xx_types.go` 文件拷贝覆盖到新版本的 `xx_types.go` 文件中，并修改新版本 `xx_types.go` 文件中的包名为新版本的包名。
+然后将上一个版本的 API 的 `xx_types.go` (如 `guestbook_types.go`) 文件拷贝覆盖到新版本的 `xx_types.go` 文件中，并修改新版本 `xx_types.go` 文件中的包名为新版本的包名。
 
-在新版本的 API 结构体中上面加上下面的注释标记并移出其它版本 API 结构体的这个标记（如果有的话）：
+在新版本的 API 结构体中上面加上下面的注释标记并移出其它版本 API 结构体的这个标记（如果有的话），表示后续新增的对象使用该版本 API 进行存储（存量的还是用旧版本存储）：
 
 ```go
-// +kubebuilder:conversion:hub
+// +kubebuilder:storageversion
 ```
+
+## API 自动转换
+
+客户端（如kubectl、client-go）在请求 API 时，会指定 API 版本，当存储的 API 版本与请求的版本不一致时，APIServer 可以调用 controller 提供的 webhook 进行自动转换，下面是实现自动转换 API 版本的 webhook 的方法。
+
+首先使用 `kubebuilder` 创建 webhook（假设是希望将 v1alpha1 的 Guestbook 转换成 v1beta1）：
+
+```bash
+kubebuilder create webhook --group webapp --version v1beta1 --kind Guestbook --conversion --spoke v1alpha1
+```
+
+- `--version` 指定 Hub 版本（存储的 API 版本)，通常是最新版本。
+- `--spoke` 指定请求的要被自动转换的其它 API 版本，通常是旧版本。
+
+执行后可以看到：
+1. v1beta1 下新增了 `xx_conversion.go` 文件，为 API 结构体新增了 `Hub` 空函数，实现 [Hub](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/conversion#Hub) 接口，用于标记该 API 版本是 Hub 版本，其它版本的 API 将会自动转换成这个版本。
+2. v1alpha1 下也新增了 `xx_conversion.go` 文件，为 API 结构体新增了 `ConvertTo` 和 `ConvertFrom` 函数，实现 [Convertible](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/conversion#Convertible) 接口，将会被 webhook 自动调用用于转换 API 版本。
 
 ## 参考资料
 
