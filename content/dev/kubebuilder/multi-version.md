@@ -34,6 +34,10 @@ kubebuilder create webhook --group webapp --version v1beta1 --kind Guestbook --c
 - `--version` 指定 Hub 版本（存储的 API 版本)，通常是最新版本。
 - `--spoke` 指定请求的要被自动转换的其它 API 版本，通常是旧版本。
 
+:::tip[注意]
+- 以上只是实现 API 自动转换需要的 create webhook 参数，如果还有其他 webhook 需求（如 ValidatingWebhook `--programmatic-validation`，自动设置默认值 `--defaulting`）也需要带上，相同 API 版本的 webhook 创建后不能重新执行 create webhook 命令来追加功能，需一次性到位。
+:::
+
 执行后可以看到：
 1. v1beta1 下新增了 `xx_conversion.go` 文件，为 API 结构体新增了 `Hub` 空函数，实现 [Hub](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/conversion#Hub) 接口，用于标记该 API 版本是 Hub 版本，其它版本的 API 将会自动转换成这个版本。
 2. v1alpha1 下也新增了 `xx_conversion.go` 文件，为 API 结构体新增了 `ConvertTo` 和 `ConvertFrom` 函数，实现 [Convertible](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/conversion#Convertible) 接口，将会被 webhook 自动调用用于转换 API 版本。
