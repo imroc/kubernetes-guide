@@ -123,13 +123,13 @@
 </Tabs>
 
 
-## 查看节点可用区分布情况
+## 表格输出节点可用区分布情况
 
 <Tabs>
   <TabItem value="cmd-zone" label="命令">
 
   ``` bash
-  kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.metadata.labels.failure-domain\.beta\.kubernetes\.io\/zone}{"\n"}{end}'
+  kubectl get node -o custom-columns=NAME:.metadata.name,ZONE:".metadata.labels.topology\.kubernetes\.io/zone"
   ```
 
   </TabItem>
@@ -137,11 +137,9 @@
   <TabItem value="output-zone" label="输出效果">
 
   ```txt
-  10.83.96.127    100004
-  10.83.96.132    100004
-  10.83.96.139    100004
-  10.83.96.8      100004
-  10.83.96.93     100004
+  10.10.12.77     160002
+  10.10.13.33     160002
+  10.10.7.29      160001
   ```
 
   </TabItem>
