@@ -365,6 +365,8 @@ const sidebars: SidebarsConfig = {
           items: [
             'dev/kubebuilder/quickstart',
             'dev/kubebuilder/multi-version',
+            'dev/kubebuilder/remove-api',
+            'dev/kubebuilder/webhook',
           ],
         },
       ],
