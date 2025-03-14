@@ -14,4 +14,16 @@ kubebuilder create webhook --group networking --version v1alpha1 --kind CLBPortP
 
 有时候我们希望对 K8S 内置的资源进行一些校验和修改，比如为 Pod 支持一些自定义的注解，如果有设置相应注解就自动校验并创建本项目的 CRD 资源与 Pod 进行关联，再由本项目中的 controller 进行调谐。
 
-如何实现呢？kubebuilder 无法直接为 K8S 内置的资源创建 Webhook，参考 https://github.com/kubernetes-sigs/controller-runtime/tree/main/examples/builtins
+如何实现呢？以给 Pod 添加 ValidatingWebhook 和 MutatingWebhook 为例，添加 Pod API 到项目但不创建 CRD 和控制器：
+
+```bash
+kubebuilder create api --group core --kind Pod --version v1 --controller=false --resource=false
+```
+
+然后再创建 Webhook：
+
+```bash
+kubebuilder create webhook --group core --version v1 --kind Pod --defaulting --programmatic-validation
+```
+
+最后再修改下初始化 manager 的代码，让它调用 `SetupPodWebhookWithManager`。
