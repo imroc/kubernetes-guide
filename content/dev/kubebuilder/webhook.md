@@ -3,7 +3,7 @@
 ## 概述
 
 K8S 有 MutatingWebhook 和 ValidatingWebhook 两种类型的 Webhook，分别用于修改 Pod 的 Spec 和验证 Pod 的 Spec，本文教你如何用 kubebuilder 快速开发 Webhook。
-
+ür
 ## 快速创建 MutatingWebhook 和 ValidatingWebhook 脚手架代码
 
 使用 kubebuilder 创建 Webhook 脚手架代码用 `kubebuilder create webhook`，`--defaulting` 和 `--programmatic-validation`  参数分别表示 MutatingWebhook 和 ValidatingWebhook。
