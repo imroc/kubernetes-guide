@@ -44,7 +44,7 @@ qBittorrent 支持 RSS 订阅来实现剧集更新后自动下载最新集。
 
 这里以 [domp4](https://mp4us.com) 上的片源为例，要 RSS 订阅自动下载 domp4 上的资源，首先需要将片源信息转换成 RSS，而 [RSSHub](https://docs.rsshub.app/zh/) 正是将各个热门网站的信息转换成 RSS 的开源工具，当然也包括 domp4 的片源，参考[官网文档](https://docs.rsshub.app/zh/routes/multimedia#domp4-%E5%BD%B1%E8%A7%86)。
 
-不过有些站点的 RSS 不推荐用 RSSHub 官网的公共实例，而用国内开发者维护的公共实例，因为可能由于官方公共实例网络环境或被限频等因素导致拿不到 RSS，关于公共实例参考： https://docs.rsshub.app/zh/guide/instances。 
+不过有些站点的 RSS 不推荐用 RSSHub 官网的公共实例，而用国内开发者维护的公共实例，因为可能由于官方公共实例网络环境或被限频等因素导致拿不到 RSS，关于公共实例参考 [RSSHub 官网文档：公共实例](https://docs.rsshub.app/zh/guide/instances) 。
 
 我个人用的 `yangzhi.app` 这个公共实例，下面分享如何利用这个公共实例订阅 domp4 上的剧集。
 
