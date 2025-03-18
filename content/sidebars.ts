@@ -368,6 +368,7 @@ const sidebars: SidebarsConfig = {
             'dev/kubebuilder/remove-api',
             'dev/kubebuilder/webhook',
             'dev/kubebuilder/init-before-start',
+            'dev/kubebuilder/reconcile-trigger',
           ],
         },
       ],
