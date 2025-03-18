@@ -16,9 +16,9 @@ func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
 
 For 传入 Controller 管理的 CR 对象，当 CR 发生任何变化时，controller 会进行调谐。
 
-## 仅针对满足特定条件的 CR 触发调谐
+## 仅针对满足特定条件的资源触发调谐
 
-可以通过 handler.EnqueueRequestsFromMapFunc 函数，设置仅针对满足特定条件的 CR 触发调谐。
+可以通过 handler.EnqueueRequestsFromMapFunc 函数，设置仅针对满足特定条件的资源触发调谐。
 
 下面示例是过滤带有 `example-annotation` 注解的 Pod，当存在该注解的 Pod 发生变化时，controller 才会进行调谐：
 
