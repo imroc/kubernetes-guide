@@ -51,3 +51,26 @@ kubebuilder create webhook --group core --version v1 --kind Pod --defaulting --p
     <FileBlock file="webhook/object-selector.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
+
+将 Webhook 的自定义写成用于 patch 的 yaml，如 `patch-match-conditions.yaml`，放在 `config/webhook` 目录下，然后修改该目录下的 `kustomization.yaml`:
+
+```yaml
+resources:
+  - manifests.yaml
+  - service.yaml
+
+namePrefix: example-app-
+
+configurations:
+  - kustomizeconfig.yaml
+
+# highlight-add-start
+patches:
+  - path: patch-match-conditions.yaml
+    target:
+      group: admissionregistration.k8s.io
+      version: v1
+      kind: ValidatingWebhookConfiguration
+      name: validating-webhook-configuration
+# highlight-add-end
+```
