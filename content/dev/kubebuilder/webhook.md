@@ -37,7 +37,7 @@ kubebuilder create webhook --group core --version v1 --kind Pod --defaulting --p
 
 假如为 Pod 创建了 Webhook，但希望只针对带有特定注解或 label 的 Pod 生效，此时可以配置下匹配条件，避免对所有 Pod 生效。
 
-:::tip[说明]
+:::info[注意]
 
 如果 pod webhook 没配置匹配条件， 当 manager 异常（比如节点压力大被驱逐），可能导致所有 Pod 无法创建和修改，连 manager 自身 pod 也无法创建出来，导致整个集群陷入瘫痪。
 
