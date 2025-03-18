@@ -33,7 +33,7 @@ kubebuilder create webhook --group core --version v1 --kind Pod --defaulting --p
 最后再修改下初始化 manager 的代码，让它调用 `SetupPodWebhookWithManager`。
 
 
-## Webhook 只对部分资源生效
+## 限制 Webhook 作用范围
 
 假如为 Pod 创建了 Webhook，但希望只针对带有特定注解或 label 的 Pod 生效，此时可以配置下匹配条件，避免对所有 Pod 生效。
 
