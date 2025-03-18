@@ -369,7 +369,7 @@ const sidebars: SidebarsConfig = {
             'dev/kubebuilder/webhook',
             'dev/kubebuilder/init-before-start',
             'dev/kubebuilder/reconcile-trigger',
-            'dev/kubebuilder/error',
+            'dev/kubebuilder/controller',
           ],
         },
       ],
