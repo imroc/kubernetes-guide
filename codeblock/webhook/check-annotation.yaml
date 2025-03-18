@@ -1,0 +1,12 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validating-webhook-configuration
+webhooks:
+- name: vpod-v1.kb.io
+  # highlight-add-start
+  matchConditions:
+  - name: check-annotation
+    expression: |
+      'annotations' in object.metadata && 'networking.cloud.tencent.com/enable-clb-port-mapping' in object.metadata.annotations
+  # highlight-add-end
