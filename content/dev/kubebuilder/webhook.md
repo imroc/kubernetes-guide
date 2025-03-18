@@ -39,7 +39,7 @@ kubebuilder create webhook --group core --version v1 --kind Pod --defaulting --p
 
 :::info[注意]
 
-如果 pod webhook 没配置匹配条件， 当 manager 异常（比如节点压力大被驱逐），可能导致所有 Pod 无法创建和修改，连 manager 自身 pod 也无法创建出来，导致整个集群陷入瘫痪。
+如果 Pod Webhook 没配置匹配条件， 当 Manager Pod 异常（比如节点压力大被驱逐），可能导致所有 Pod 无法创建和修改，连 Manager Pod 自身也无法创建出来，导致整个集群陷入瘫痪。
 
 :::
 
