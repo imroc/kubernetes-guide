@@ -49,9 +49,9 @@ func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
 }
 ```
 
-## 提取泛型工具函数
+## 提取 Reconcile 泛型工具函数
 
-每个 Controller 都写这样类似的代码，是不是有点重复？可以考虑再提取一个公共的泛型函数(假设提取到 controllers 包下)：
+如果项目中有多个 Controller，每个 Controller 都写这样类似的代码，是不是有点重复？可以考虑再提取一个公共的泛型函数 (假设提取到 controllers 包下)：
 
 ```go showLineNumbers
 package controllers
@@ -142,7 +142,7 @@ func (r *PodReconciler) clean(ctx context.Context, pod *corev1.Pod) error {
 }
 ```
 
-很多时候一个 Manager 中所有 Controller 使用相同的 Finalizer 名称，这时 `ReconcileWithFinalizer` 可省去 finalizer 参数，直接用常量：
+通常一个 Manager 中所有 Controller 使用相同的 Finalizer 名称，这时 `ReconcileWithFinalizer` 可省去 finalizer 参数，直接用常量：
 
 ```go
 func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, syncFunc func(ctx context.Context, obj T) error, cleanFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
