@@ -51,10 +51,10 @@ func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
 
 ## 提取 Reconcile 泛型工具函数
 
-如果项目中有多个 Controller，每个 Controller 都写这样类似的代码，是不是有点重复？可以考虑再提取一个公共的泛型函数 (假设提取到 controllers 包下)：
+如果项目中有多个 Controller，每个 Controller 都写这样类似的代码，是不是有点重复？可以考虑再提取一个公共的泛型函数，放在 controller 包下的 `util.go` 文件：
 
 ```go showLineNumbers
-package controllers
+package controller
 
 import (
 	"context"
@@ -82,7 +82,7 @@ func Reconcile[T client.Object](ctx context.Context, req ctrl.Request, apiClient
 
 ```go showLineNumbers
 func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	return controllers.Reconcile(ctx, req, r.Client, &corev1.Pod{}, r.sync)
+	return Reconcile(ctx, req, r.Client, &corev1.Pod{}, r.sync)
 }
 // 同步函数
 func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
@@ -95,6 +95,18 @@ func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
 很多时候 Controller 也会对其管理的资源添加 Finalizer 以便在资源被删除时做一些清理工作，我们还可以再增加一个工具函数 `ReconcileWithFinalizer`，它会自动添加、移除 Finalizer，给它传入清理函数，在资源被删除时会调用它：
 
 ```go
+package controller
+
+import (
+	"context"
+
+	"github.com/imroc/tke-extend-network-controller/internal/constant"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	ctrl "sigs.k8s.io/controller-runtime"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
+)
+
 func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, finalizer string, syncFunc func(ctx context.Context, obj T) error, cleanFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
 	return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) error {
 		if obj.GetDeletionTimestamp().IsZero() { // 没有删除
@@ -128,7 +140,7 @@ func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Reque
 
 ```go showLineNumbers
 func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	return controllers.ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, "example.com/finalizer", r.sync, r.clean)
+	return ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, "example.com/finalizer", r.sync, r.clean)
 }
 
 // 同步函数
@@ -179,6 +191,6 @@ Controller 的 Reconcile 函数可简化成这样：
 
 ```go
 func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	return controllers.ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, r.sync, r.clean)
+	return ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, r.sync, r.clean)
 }
 ```
