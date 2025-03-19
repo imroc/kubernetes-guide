@@ -4,8 +4,6 @@
 
 开发 Controller 的逻辑就是实现 Reconcile 函数，本文将介绍实现 Reconcile 的最佳实践。
 
-当 Controller 的 Reconcile 函数返回 error 时，Controller 会打印错误日志并重新入队再次调谐。
-
 ## 创建 Controller 代码脚手架
 
 执行 `kubebuilder create api` 时将 `--controller` 置为 true 即可创建 Controller 代码脚手架:
@@ -15,6 +13,8 @@ kubebuilder create api --group core --kind Pod --version v1 --controller=true --
 ```
 
 ## 处理 NotFound 和 Conflict 错误
+
+当 Controller 的 Reconcile 函数返回 error 时，Controller 会打印错误日志并重新入队再次调谐。
 
 以下情况的 error 可特殊处理：
 1. 当需要调谐的对象不存在时可直接忽略，不必返回 error，用 `client.IgnoreNotFound(err)` 来包一下 error 即可。
