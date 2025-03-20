@@ -7,10 +7,10 @@ kubebuilder 创建的 Controller 脚手架代码，触发 Controller 调谐的�
 ```go
 // SetupWithManager sets up the controller with the Manager.
 func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
-		For(&corev1.Pod{}).
-		Named("pod").
-		Complete(r)
+  return ctrl.NewControllerManagedBy(mgr).
+    For(&corev1.Pod{}).
+    Named("pod").
+    Complete(r)
 }
 ```
 
@@ -24,39 +24,39 @@ For 传入 Controller 管理的 CR 对象，当 CR 发生任何变化时，contr
 
 ```go
 import (
-	"context"
+  "context"
 
-	corev1 "k8s.io/api/core/v1"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/handler"
-	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-	"k8s.io/apimachinery/pkg/types"
+  corev1 "k8s.io/api/core/v1"
+  ctrl "sigs.k8s.io/controller-runtime"
+  "sigs.k8s.io/controller-runtime/pkg/client"
+  "sigs.k8s.io/controller-runtime/pkg/handler"
+  "sigs.k8s.io/controller-runtime/pkg/reconcile"
+  "k8s.io/apimachinery/pkg/types"
 )
 // SetupWithManager sets up the controller with the Manager.
 func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
-		Watches(
-			&corev1.Pod{},
-			handler.EnqueueRequestsFromMapFunc(r.findObjectsForPod),
-		).
-		Named("pod").
-		Complete(r)
+  return ctrl.NewControllerManagedBy(mgr).
+    Watches(
+      &corev1.Pod{},
+      handler.EnqueueRequestsFromMapFunc(r.findObjectsForPod),
+    ).
+    Named("pod").
+    Complete(r)
 }
 
 // 过滤带有 networking.cloud.tencent.com/enable-clb-port-mapping 注解的 Pod
 func (r *PodReconciler) findObjectsForPod(ctx context.Context, pod client.Object) []reconcile.Request {
-	if pod.GetAnnotations()["example-annotation"] == "" {
-		return []reconcile.Request{}
-	}
-	return []reconcile.Request{
-		{
-			NamespacedName: types.NamespacedName{
-				Name:      pod.GetName(),
-				Namespace: pod.GetNamespace(),
-			},
-		},
-	}
+  if pod.GetAnnotations()["example-annotation"] == "" {
+    return []reconcile.Request{}
+  }
+  return []reconcile.Request{
+    {
+      NamespacedName: types.NamespacedName{
+        Name:      pod.GetName(),
+        Namespace: pod.GetNamespace(),
+      },
+    },
+  }
 }
 
 ```

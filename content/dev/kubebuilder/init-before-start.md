@@ -25,40 +25,40 @@ if err := mgr.Add(&initCache{mgr.GetClient()}); err != nil {
 
 ```go
 type initCache struct {
-	client.Client
+  client.Client
 }
 
 func (i *initCache) NeedLeaderElection() bool {
-	return true
+  return true
 }
 
 func (i *initCache) Start(ctx context.Context) error {
-	setupLog.Info("starting init cache")
-	defer setupLog.Info("end init cache")
+  setupLog.Info("starting init cache")
+  defer setupLog.Info("end init cache")
 
-	// 初始化端口池
-	ppl := &networkingv1alpha1.CLBPortPoolList{}
-	if err := i.List(ctx, ppl); err != nil {
-		return err
-	}
-	for _, pp := range ppl.Items {
-		if err := portpool.Allocator.AddPool(pp.Name, pp.Spec.StartPort, pp.Spec.EndPort, pp.Spec.SegmentLength); err != nil {
-			return err
-		}
-	}
+  // 初始化端口池
+  ppl := &networkingv1alpha1.CLBPortPoolList{}
+  if err := i.List(ctx, ppl); err != nil {
+    return err
+  }
+  for _, pp := range ppl.Items {
+    if err := portpool.Allocator.AddPool(pp.Name, pp.Spec.StartPort, pp.Spec.EndPort, pp.Spec.SegmentLength); err != nil {
+      return err
+    }
+  }
 
-	// 初始化已分配的端口信息
-	pbl := &networkingv1alpha1.CLBPodBindingList{}
-	if err := i.List(ctx, pbl); err != nil {
-		return err
-	}
-	for _, pb := range pbl.Items {
-		for _, podBinding := range pb.Status.PortBindings {
-			if err := portpool.Allocator.MarkAllocated(podBinding.Pool, podBinding.Port, podBinding.Protocol); err != nil {
-				return err
-			}
-		}
-	}
-	return nil
+  // 初始化已分配的端口信息
+  pbl := &networkingv1alpha1.CLBPodBindingList{}
+  if err := i.List(ctx, pbl); err != nil {
+    return err
+  }
+  for _, pb := range pbl.Items {
+    for _, podBinding := range pb.Status.PortBindings {
+      if err := portpool.Allocator.MarkAllocated(podBinding.Pool, podBinding.Port, podBinding.Protocol); err != nil {
+        return err
+      }
+    }
+  }
+  return nil
 }
 ```
