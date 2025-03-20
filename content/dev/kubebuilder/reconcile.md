@@ -107,29 +107,29 @@ import (
   "sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
-func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, finalizer string, syncFunc func(ctx context.Context, obj T) error, cleanFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
+func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, finalizer string, syncFunc func(ctx context.Context, obj T) error, cleanupFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
   return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) error {
     if obj.GetDeletionTimestamp().IsZero() { // 没有删除
       // 确保 finalizer 存在，阻塞资源删除
       if !controllerutil.ContainsFinalizer(obj, finalizer) {
         controllerutil.AddFinalizer(obj, finalizer)
         if err := apiClient.Update(ctx, obj); err != nil {
-          return err
+          return errors.WithStack(err)
         }
       }
       // 执行同步函数
       if err := syncFunc(ctx, obj); err != nil {
-        return err
+        return errors.WithStack(err)
       }
     } else { // 正在删除
       // 执行清理函数
-      if err := cleanFunc(ctx, obj); err != nil {
-        return err
+      if err := cleanupFunc(ctx, obj); err != nil {
+        return errors.WithStack(err)
       }
       // 移除 finalizer，让资源最终被删除
       controllerutil.RemoveFinalizer(obj, finalizer)
       if err := apiClient.Update(ctx, obj); err != nil {
-        return err
+        return errors.WithStack(err)
       }
     }
     return nil
@@ -140,7 +140,7 @@ func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Reque
 
 ```go showLineNumbers
 func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-  return ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, "example.com/finalizer", r.sync, r.clean)
+  return ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, "example.com/finalizer", r.sync, r.cleanup)
 }
 
 // 同步函数
@@ -149,7 +149,7 @@ func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
 }
 
 // 清理函数
-func (r *PodReconciler) clean(ctx context.Context, pod *corev1.Pod) error {
+func (r *PodReconciler) cleanup(ctx context.Context, pod *corev1.Pod) error {
   // ...
 }
 ```
@@ -157,29 +157,29 @@ func (r *PodReconciler) clean(ctx context.Context, pod *corev1.Pod) error {
 通常一个 Manager 中所有 Controller 使用相同的 Finalizer 名称，这时 `ReconcileWithFinalizer` 可省去 finalizer 参数，直接用常量：
 
 ```go
-func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, syncFunc func(ctx context.Context, obj T) error, cleanFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
+func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, syncFunc func(ctx context.Context, obj T) error, cleanupFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
   return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) error {
     if obj.GetDeletionTimestamp().IsZero() { // 没有删除
       // 确保 finalizer 存在，阻塞资源删除
       if !controllerutil.ContainsFinalizer(obj, constant.Finalizer) {
         controllerutil.AddFinalizer(obj, constant.Finalizer)
         if err := apiClient.Update(ctx, obj); err != nil {
-          return err
+          return errors.WithStack(err)
         }
       }
       // 执行同步函数
       if err := syncFunc(ctx, obj); err != nil {
-        return err
+        return errors.WithStack(err)
       }
     } else { // 正在删除
       // 执行清理函数
-      if err := cleanFunc(ctx, obj); err != nil {
-        return err
+      if err := cleanupFunc(ctx, obj); err != nil {
+        return errors.WithStack(err)
       }
       // 移除 finalizer，让资源最终被删除
       controllerutil.RemoveFinalizer(obj, constant.Finalizer)
       if err := apiClient.Update(ctx, obj); err != nil {
-        return err
+        return errors.WithStack(err)
       }
     }
     return nil
@@ -191,6 +191,6 @@ Controller 的 Reconcile 函数可简化成这样：
 
 ```go
 func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-  return ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, r.sync, r.clean)
+  return ReconcileWithFinalizer(ctx, req, r.Client, &corev1.Pod{}, r.sync, r.cleanup)
 }
 ```
