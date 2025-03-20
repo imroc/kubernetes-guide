@@ -24,6 +24,12 @@ kubebuilder create api --group core --kind Pod --version v1 --controller=true --
 
 以 Pod Controller 为例，其 Reconcile 函数最佳实践如下：
 
+:::info[说明]
+
+如果 Reconcile 返回 error，controller 日志会打印对账，在返回 error 的地方都用 `errors.WithStack` 或 `errors.Wrap` 包装下，避免丢失堆栈信息。
+
+:::
+
 ```go showLineNumbers
 func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
   pod := &corev1.Pod{}
