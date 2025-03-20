@@ -26,7 +26,7 @@ kubebuilder create api --group core --kind Pod --version v1 --controller=true --
 
 :::info[说明]
 
-如果 Reconcile 返回 error，controller 日志会打印对账，在返回 error 的地方都用 `errors.WithStack` 或 `errors.Wrap` 包装下，避免丢失堆栈信息。
+如果 Reconcile 返回 error，controller 日志会打印堆栈，在返回 error 的地方都用 `errors.WithStack` 或 `errors.Wrap` 包装下，避免丢失堆栈信息。
 
 :::
 
