@@ -44,7 +44,7 @@ func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
       return ctrl.Result{Requeue: true}, nil
     }
     // highlight-end
-    return ctrl.Result{}, err
+    return ctrl.Result{}, errors.WithStack(err)
   }
   return ctrl.Result{}, nil
 }
