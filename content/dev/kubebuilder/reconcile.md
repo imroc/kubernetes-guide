@@ -41,9 +41,9 @@ func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
   if result, err := r.sync(ctx, pod); err != nil {
     // highlight-start
     if apierrors.IsConflict(err) {
-			if !result.Requeue && result.RequeueAfter == 0 {
-				result.Requeue = true
-			}
+      if !result.Requeue && result.RequeueAfter == 0 {
+        result.Requeue = true
+      }
       return result, nil
     }
     // highlight-end
@@ -79,9 +79,9 @@ func Reconcile[T client.Object](ctx context.Context, req ctrl.Request, apiClient
   }
   if result, err := sync(ctx, obj); err != nil {
     if apierrors.IsConflict(err) {
-			if !result.Requeue && result.RequeueAfter == 0 {
-				result.Requeue = true
-			}
+      if !result.Requeue && result.RequeueAfter == 0 {
+        result.Requeue = true
+      }
       return result, nil
     }
     return result, err
