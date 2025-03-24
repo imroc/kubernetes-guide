@@ -31,17 +31,20 @@ kubebuilder create api --group core --kind Pod --version v1 --controller=true --
 :::
 
 ```go showLineNumbers
-func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (result ctrl.Result, err error) {
   pod := &corev1.Pod{}
-  if err := r.Get(ctx, req.NamespacedName, pod); err != nil {
+  if err = r.Get(ctx, req.NamespacedName, pod); err != nil {
     // highlight-start
-    return ctrl.Result{}, client.IgnoreNotFound(err)
+    return result, client.IgnoreNotFound(err)
     // highlight-end
   }
-  if err := r.sync(ctx, pod); err != nil {
+  if result, err = r.sync(ctx, pod); err != nil {
     // highlight-start
     if apierrors.IsConflict(err) {
-      return ctrl.Result{Requeue: true}, nil
+			if !result.Requeue && result.RequeueAfter == 0 {
+				result.Requeue = true
+			}
+      return result, nil
     }
     // highlight-end
     return ctrl.Result{}, errors.WithStack(err)
