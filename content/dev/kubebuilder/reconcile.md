@@ -235,15 +235,15 @@ var podEventSource = make(chan event.TypedGenericEvent[client.Object])
 
 ```go showLineNumbers
 func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewControllerManagedBy(mgr).
-		Watches(
-			&corev1.Pod{},
-			handler.EnqueueRequestsFromMapFunc(r.findObjectsForPod),
-		).
+  return ctrl.NewControllerManagedBy(mgr).
+    Watches(
+      &corev1.Pod{},
+      handler.EnqueueRequestsFromMapFunc(r.findObjectsForPod),
+    ).
     // highlight-next-line
-		WatchesRawSource(source.Channel(podEventSource, &handler.EnqueueRequestForObject{})).
-		Named("pod").
-		Complete(r)
+    WatchesRawSource(source.Channel(podEventSource, &handler.EnqueueRequestForObject{})).
+    Named("pod").
+    Complete(r)
 }
 ```
 
