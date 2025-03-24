@@ -73,17 +73,20 @@ import (
   "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func Reconcile[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, sync func(ctx context.Context, obj T) error) (ctrl.Result, error) {
-  if err := apiClient.Get(ctx, req.NamespacedName, obj); err != nil {
-    return ctrl.Result{}, client.IgnoreNotFound(err)
+func Reconcile[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, sync func(ctx context.Context, obj T) (ctrl.Result, error)) (result ctrl.Result, err error) {
+  if err = apiClient.Get(ctx, req.NamespacedName, obj); err != nil {
+    return result, client.IgnoreNotFound(err)
   }
-  if err := sync(ctx, obj); err != nil {
+  if result, err = sync(ctx, obj); err != nil {
     if apierrors.IsConflict(err) {
-      return ctrl.Result{Requeue: true}, nil
+			if !result.Requeue && result.RequeueAfter == 0 {
+				result.Requeue = true
+			}
+      return result, nil
     }
-    return ctrl.Result{}, err
+    return result, err
   }
-  return ctrl.Result{}, nil
+  return result, nil
 }
 ```
 
@@ -94,7 +97,7 @@ func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
   return Reconcile(ctx, req, r.Client, &corev1.Pod{}, r.sync)
 }
 // 同步函数
-func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
+func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) (result ctrl.Result, err error) {
   // ...
 }
 ```
@@ -116,29 +119,29 @@ import (
   "sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
-func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, finalizer string, syncFunc func(ctx context.Context, obj T) error, cleanupFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
-  return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) error {
+func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, finalizer string, syncFunc func(ctx context.Context, obj T) (ctrl.Result, error), cleanupFunc func(ctx context.Context, obj T) (ctrl.Result, error)) (ctrl.Result, error) {
+  return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) (result ctrl.Result, err error) {
     if obj.GetDeletionTimestamp().IsZero() { // 没有删除
       // 确保 finalizer 存在，阻塞资源删除
       if !controllerutil.ContainsFinalizer(obj, finalizer) {
         controllerutil.AddFinalizer(obj, finalizer)
-        if err := apiClient.Update(ctx, obj); err != nil {
-          return errors.WithStack(err)
+        if err = apiClient.Update(ctx, obj); err != nil {
+          return result, errors.WithStack(err)
         }
       }
       // 执行同步函数
-      if err := syncFunc(ctx, obj); err != nil {
-        return errors.WithStack(err)
+      if result, err = syncFunc(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
     } else { // 正在删除
       // 执行清理函数
-      if err := cleanupFunc(ctx, obj); err != nil {
-        return errors.WithStack(err)
+      if result, err = cleanupFunc(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
       // 移除 finalizer，让资源最终被删除
       controllerutil.RemoveFinalizer(obj, finalizer)
-      if err := apiClient.Update(ctx, obj); err != nil {
-        return errors.WithStack(err)
+      if err = apiClient.Update(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
     }
     return nil
@@ -153,12 +156,12 @@ func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
 }
 
 // 同步函数
-func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) error {
+func (r *PodReconciler) sync(ctx context.Context, pod *corev1.Pod) (result ctrl.Result, err error) {
   // ...
 }
 
 // 清理函数
-func (r *PodReconciler) cleanup(ctx context.Context, pod *corev1.Pod) error {
+func (r *PodReconciler) cleanup(ctx context.Context, pod *corev1.Pod) (result ctrl.Result, err error) {
   // ...
 }
 ```
@@ -167,28 +170,28 @@ func (r *PodReconciler) cleanup(ctx context.Context, pod *corev1.Pod) error {
 
 ```go
 func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, syncFunc func(ctx context.Context, obj T) error, cleanupFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
-  return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) error {
+  return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) (result ctrl.Result, err error) {
     if obj.GetDeletionTimestamp().IsZero() { // 没有删除
       // 确保 finalizer 存在，阻塞资源删除
       if !controllerutil.ContainsFinalizer(obj, constant.Finalizer) {
         controllerutil.AddFinalizer(obj, constant.Finalizer)
-        if err := apiClient.Update(ctx, obj); err != nil {
-          return errors.WithStack(err)
+        if err = apiClient.Update(ctx, obj); err != nil {
+          return result, errors.WithStack(err)
         }
       }
       // 执行同步函数
-      if err := syncFunc(ctx, obj); err != nil {
-        return errors.WithStack(err)
+      if result, err = syncFunc(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
     } else { // 正在删除
       // 执行清理函数
-      if err := cleanupFunc(ctx, obj); err != nil {
-        return errors.WithStack(err)
+      if result, err = cleanupFunc(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
       // 移除 finalizer，让资源最终被删除
       controllerutil.RemoveFinalizer(obj, constant.Finalizer)
-      if err := apiClient.Update(ctx, obj); err != nil {
-        return errors.WithStack(err)
+      if err = apiClient.Update(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
     }
     return nil
