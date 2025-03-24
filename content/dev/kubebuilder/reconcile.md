@@ -214,7 +214,7 @@ func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
 }
 ```
 
-## 跨 Controller 重新入队
+## 跨 Controller 通知重新 Reconcile
 
 场景：在一个 Controller 中需通知另一个 Controller 对某个资源重新 Reconcile。
 场景示例：假如某个 CRD 的资源始终关联有同名的 Pod，且 CR 均有 Pod Controller 自动创建，CR 也会随着 Pod 删除而被自动清理。当 CR 被删除时，CRD 对应的 Controller 执行了清理逻辑并移除 Finalizer，但此时 Pod 可能存在，通常是手动删除 CR 的场景，此时需让 Pod Controller 重新入队改资源，以便让 CR 被再次自动创建出来。
