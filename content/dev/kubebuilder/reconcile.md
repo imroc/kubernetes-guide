@@ -169,7 +169,7 @@ func (r *PodReconciler) cleanup(ctx context.Context, pod *corev1.Pod) (ctrl.Resu
 通常一个 Manager 中所有 Controller 使用相同的 Finalizer 名称，这时 `ReconcileWithFinalizer` 可省去 finalizer 参数，直接用常量：
 
 ```go
-func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, syncFunc func(ctx context.Context, obj T) (ctrl.Result, error), cleanupFunc func(ctx context.Context, obj T) error) (ctrl.Result, error) {
+func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Request, apiClient client.Client, obj T, syncFunc func(ctx context.Context, obj T) (ctrl.Result, error), cleanupFunc func(ctx context.Context, obj T) (ctrl.Result, error)) (ctrl.Result, error) {
   return Reconcile(ctx, req, apiClient, obj, func(ctx context.Context, obj T) (ctrl.Result, error) {
     if obj.GetDeletionTimestamp().IsZero() { // 没有删除
       // 确保 finalizer 存在，阻塞资源删除
@@ -185,8 +185,8 @@ func ReconcileWithFinalizer[T client.Object](ctx context.Context, req ctrl.Reque
       }
     } else { // 正在删除
       // 执行清理函数
-      if err := cleanupFunc(ctx, obj); err != nil {
-        return ctrl.Result{}, errors.WithStack(err)
+      if result, err := cleanupFunc(ctx, obj); err != nil {
+        return result, errors.WithStack(err)
       }
       // 移除 finalizer，让资源最终被删除
       controllerutil.RemoveFinalizer(obj, constant.Finalizer)
