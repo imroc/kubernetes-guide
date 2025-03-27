@@ -22,7 +22,7 @@ For 传入 Controller 管理的 CR 对象，当 CR 发生任何变化时，contr
 
 下面示例是过滤带有 `example-annotation` 注解的 Pod，当存在该注解的 Pod 发生变化时，controller 才会进行调谐：
 
-```go
+```go showLineNumbers
 import (
   "context"
 
@@ -36,10 +36,12 @@ import (
 // SetupWithManager sets up the controller with the Manager.
 func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
   return ctrl.NewControllerManagedBy(mgr).
+    // highlight-start
     Watches(
       &corev1.Pod{},
       handler.EnqueueRequestsFromMapFunc(r.findObjectsForPod),
     ).
+    // highlight-end
     Named("pod").
     Complete(r)
 }
