@@ -46,7 +46,7 @@ func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
     Complete(r)
 }
 
-// 过滤带有 networking.cloud.tencent.com/enable-clb-port-mapping 注解的 Pod
+// 过滤带有 example-annotation 注解的 Pod
 func (r *PodReconciler) findObjectsForPod(ctx context.Context, pod client.Object) []reconcile.Request {
   if pod.GetAnnotations()["example-annotation"] == "" {
     return []reconcile.Request{}
