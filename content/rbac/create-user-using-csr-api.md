@@ -55,11 +55,12 @@ roc-key.pem
 
 ``` bash
 cat <<EOF | kubectl apply -f -
-apiVersion: certificates.k8s.io/v1beta1
+apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
   name: ${USERNAME}
 spec:
+  signerName: kubernetes.io/kube-apiserver-client
   request: $(cat ${USERNAME}.csr | base64 | tr -d '\n')
   usages:
   - digital signature
@@ -112,3 +113,4 @@ kubectl config set-context <context> --cluster=<cluster> --user=${USERNAME}
 # 使用刚增加的 context
 kubectl config use-context <context>
 ```
+

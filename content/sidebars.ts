@@ -472,6 +472,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'appendix/yaml/test',
             'appendix/yaml/rbac',
+            'appendix/yaml/apiserver',
           ]
         },
         {
