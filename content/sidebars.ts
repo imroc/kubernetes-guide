@@ -136,7 +136,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'certs/sign-certs-with-cfssl',
         'certs/sign-free-certs-with-cert-manager',
-        'certs/sign-free-certs-for-dnspod',
       ],
     },
     {
