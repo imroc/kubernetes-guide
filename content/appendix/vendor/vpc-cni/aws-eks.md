@@ -24,3 +24,11 @@
 ## CNI 配置
 
 <FileBlock file="vpc-cni/aws/10-aws.conflist.json" showLineNumbers title="/etc/cni/net.d/10-aws.conflist" />
+
+## CNI 二进制
+
+```bash
+root@ip-192-168-3-27:/opt/cni/bin# ls
+LICENSE    aws-cni             bandwidth  cnitool  dummy       firewall     host-local  loopback  portmap  sbr     tap     vlan
+README.md  aws-cni-support.sh  bridge     dhcp     egress-cni  host-device  ipvlan      macvlan   ptp      static  tuning  vrf
+```
