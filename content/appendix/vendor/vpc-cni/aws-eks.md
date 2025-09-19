@@ -14,16 +14,16 @@
 
 <Tabs>
   <TabItem value="1" label="DaemonSet">
-    <FileBlock file="vpc-cni/aws/aws-node-daemonset.yaml" showLineNumbers />
+    <FileBlock file="vendor/aws/aws-node-daemonset.yaml" showLineNumbers />
   </TabItem>
   <TabItem value="2" label="ConfigMap">
-    <FileBlock file="vpc-cni/aws/amazon-vpc-cni-configmap.yaml" showLineNumbers />
+    <FileBlock file="vendor/aws/amazon-vpc-cni-configmap.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
 
 ## CNI 配置
 
-<FileBlock file="vpc-cni/aws/10-aws.conflist.json" showLineNumbers title="/etc/cni/net.d/10-aws.conflist" />
+<FileBlock file="vendor/aws/10-aws.conflist.json" showLineNumbers title="/etc/cni/net.d/10-aws.conflist" />
 
 ## CNI 二进制
 
@@ -34,4 +34,4 @@ LICENSE  README.md  aws-cni  aws-cni-support.sh  bandwidth  bridge  cnitool  dhc
 
 其中 `aws-cni-support.sh`:
 
-<FileBlock file="vpc-cni/aws/aws-cni-support.sh" showLineNumbers title="/opt/cni/bin/aws-cni-support.sh" />
+<FileBlock file="vendor/aws/aws-cni-support.sh" showLineNumbers title="/opt/cni/bin/aws-cni-support.sh" />

@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    components.gke.io/layer: addon
+    deprecated.daemonset.template.generation: "1"
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: ip-masq-agent
+  namespace: kube-system
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: ip-masq-agent
+  template:
+    metadata:
+      annotations:
+        components.gke.io/component-name: netd-combined
+        components.gke.io/component-version: 13.3.1
+      creationTimestamp: null
+      labels:
+        k8s-app: ip-masq-agent
+    spec:
+      containers:
+      - args:
+        - --v=2
+        - --logtostderr=false
+        - --log_file=/dev/stdout
+        - --log_file_max_size=0
+        - --masq-chain=IP-MASQ
+        - --nomasq-all-reserved-ranges
+        - --random-fully=$(GKE_INTERNAL_ip_masq_agent_random_fully)
+        - --to-ports=$(GKE_INTERNAL_ip_masq_agent_to_ports)
+        env:
+        - name: GKE_INTERNAL_ip_masq_agent_random_fully
+          valueFrom:
+            configMapKeyRef:
+              key: ip_masq_agent_random_fully_override
+              name: netd-config
+              optional: true
+        - name: GKE_INTERNAL_ip_masq_agent_to_ports
+          valueFrom:
+            configMapKeyRef:
+              key: ip_masq_agent_to_ports_override
+              name: netd-config
+              optional: true
+        envFrom:
+        - configMapRef:
+            name: netd-config
+          prefix: GKE_INTERNAL_
+        image: us-central1-artifactregistry.gcr.io/gke-release/gke-release/ip-masq-agent:v2.12.4-gke.3@sha256:464a2ded65be84428557b9d81a2e1ad870c87a2cfbe9df7c01a433d77af066b4
+        imagePullPolicy: IfNotPresent
+        name: ip-masq-agent
+        resources:
+          requests:
+            cpu: 10m
+            memory: 16Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_ADMIN
+            - NET_RAW
+            drop:
+            - ALL
+          privileged: false
+          seccompProfile:
+            type: RuntimeDefault
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/os: linux
+        node.kubernetes.io/masq-agent-ds-ready: "true"
+      priorityClassName: system-node-critical
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: ip-masq-agent
+      serviceAccountName: ip-masq-agent
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - key: components.gke.io/gke-managed-components
+        operator: Exists
+      volumes:
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: config
+            path: ip-masq-agent
+          name: ip-masq-agent
+          optional: true
+        name: config
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate

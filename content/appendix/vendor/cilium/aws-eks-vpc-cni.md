@@ -27,15 +27,15 @@ cilium 安装后，相关 YAML 如下：
 
 <Tabs>
   <TabItem value="1" label="cilium DaemonSet">
-    <FileBlock file="vpc-cni/aws/cilium-daemonset.yaml" showLineNumbers />
+    <FileBlock file="vendor/aws/cilium-daemonset.yaml" showLineNumbers />
   </TabItem>
   <TabItem value="2" label="cilium-config ConfigMap">
-    <FileBlock file="vpc-cni/aws/cilium-config-configmap.yaml" showLineNumbers />
+    <FileBlock file="vendor/aws/cilium-config-configmap.yaml" showLineNumbers />
   </TabItem>
   <TabItem value="3" label="cilium-envoy DaemonSet">
-    <FileBlock file="vpc-cni/aws/cilium-envoy-daemonset.yaml" showLineNumbers />
+    <FileBlock file="vendor/aws/cilium-envoy-daemonset.yaml" showLineNumbers />
   </TabItem>
   <TabItem value="4" label="cilium-envoy-config ConfigMap">
-    <FileBlock file="vpc-cni/aws/cilium-envoy-config-configmap.yaml" showLineNumbers />
+    <FileBlock file="vendor/aws/cilium-envoy-config-configmap.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
