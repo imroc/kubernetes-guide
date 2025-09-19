@@ -515,7 +515,7 @@ const sidebars: SidebarsConfig = {
               label: 'VPC CNI 插件',
               collapsed: true,
               link: {
-                type: 'category',
+                type: 'generated-index',
                 slug: 'appendix/vendor/eni'
               },
               items: [
