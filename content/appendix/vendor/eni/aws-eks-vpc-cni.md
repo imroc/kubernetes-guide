@@ -10,7 +10,7 @@
 
 ## YAML
 
-安装 VPC-CNI 后，会下发一个 DaemonSet：
+安装 VPC-CNI 后，会下发一个 DaemonSet 和一个 ConfigMap：
 
 <Tabs>
   <TabItem value="1" label="DaemonSet">
