@@ -31,3 +31,7 @@
 root@ip-192-168-3-27:/opt/cni/bin# ls
 LICENSE  README.md  aws-cni  aws-cni-support.sh  bandwidth  bridge  cnitool  dhcp  dummy  egress-cni  firewall  host-device  host-local  ipvlan  loopback  macvlan  portmap  ptp  sbr  static  tap  tuning  vlan  vrf
 ```
+
+其中 `aws-cni-support.sh`:
+
+<FileBlock file="vpc-cni/aws/aws-cni-support.sh" showLineNumbers title="/opt/cni/bin/aws-cni-support.sh" />
