@@ -8,7 +8,7 @@
 - 官方介绍文档：https://docs.aws.amazon.com/zh_cn/eks/latest/best-practices/vpc-cni.html
 - 官方操作文档：https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/managing-vpc-cni.html
 
-## YAML
+## 组件部署 YAML
 
 安装 VPC-CNI 后，会下发一个 DaemonSet 和一个 ConfigMap：
 
@@ -21,4 +21,6 @@
   </TabItem>
 </Tabs>
 
+## CNI 配置
 
+<FileBlock file="vpc-cni/aws/10-aws.conflist.json" showLineNumbers title="/etc/cni/net.d/10-aws.conflist" />

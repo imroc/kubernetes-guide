@@ -1,0 +1,37 @@
+{
+  "cniVersion": "0.4.0",
+  "name": "aws-cni",
+  "disableCheck": true,
+  "plugins": [
+    {
+      "name": "aws-cni",
+      "type": "aws-cni",
+      "vethPrefix": "eni",
+      "mtu": "9001",
+      "podSGEnforcingMode": "strict",
+      "pluginLogFile": "/var/log/aws-routed-eni/plugin.log",
+      "pluginLogLevel": "DEBUG"
+    },
+    {
+      "name": "egress-cni",
+      "type": "egress-cni",
+      "mtu": "9001",
+      "enabled": "false",
+      "randomizeSNAT": "prng",
+      "nodeIP": "",
+      "ipam": {
+         "type": "host-local",
+         "ranges": [[{"subnet": "fd00::ac:00/118"}]],
+         "routes": [{"dst": "::/0"}],
+         "dataDir": "/run/cni/v4pd/egress-v6-ipam"
+      },
+      "pluginLogFile": "/var/log/aws-routed-eni/egress-v6-plugin.log",
+      "pluginLogLevel": "DEBUG"
+    },
+    {
+      "type": "portmap",
+      "capabilities": {"portMappings": true},
+      "snat": true
+    }
+  ]
+}
