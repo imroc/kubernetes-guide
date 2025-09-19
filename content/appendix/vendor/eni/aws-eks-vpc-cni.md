@@ -7,3 +7,9 @@
 - 开源地址：https://github.com/aws/amazon-vpc-cni-k8s
 - 官方介绍文档：https://docs.aws.amazon.com/zh_cn/eks/latest/best-practices/vpc-cni.html
 - 官方操作文档：https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/managing-vpc-cni.html
+
+## YAML
+
+安装 VPC-CNI 后，会下发一个 DaemonSet：
+
+<FileBlock file="vpc-cni/aws/aws-node.yaml" />
