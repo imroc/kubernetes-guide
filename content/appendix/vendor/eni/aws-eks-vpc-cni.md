@@ -12,4 +12,13 @@
 
 安装 VPC-CNI 后，会下发一个 DaemonSet：
 
-<FileBlock file="vpc-cni/aws/aws-node.yaml" />
+<Tabs>
+  <TabItem value="1" label="DaemonSet">
+    <FileBlock file="vpc-cni/aws/aws-node-daemonset.yaml" showLineNumbers />
+  </TabItem>
+  <TabItem value="2" label="ConfigMap">
+    <FileBlock file="vpc-cni/aws/amazon-vpc-cni-configmap.yaml" showLineNumbers />
+  </TabItem>
+</Tabs>
+
+
