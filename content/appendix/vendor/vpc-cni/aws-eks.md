@@ -29,6 +29,5 @@
 
 ```bash
 root@ip-192-168-3-27:/opt/cni/bin# ls
-LICENSE    aws-cni             bandwidth  cnitool  dummy       firewall     host-local  loopback  portmap  sbr     tap     vlan
-README.md  aws-cni-support.sh  bridge     dhcp     egress-cni  host-device  ipvlan      macvlan   ptp      static  tuning  vrf
+LICENSE  README.md  aws-cni  aws-cni-support.sh  bandwidth  bridge  cnitool  dhcp  dummy  egress-cni  firewall  host-device  host-local  ipvlan  loopback  macvlan  portmap  ptp  sbr  static  tap  tuning  vlan  vrf
 ```
