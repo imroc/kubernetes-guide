@@ -21,9 +21,9 @@ AWS 并没有对 cilium 做产品化支持，而是 cilium 开源社区支持了
 cilium install --version 1.18.2
 ```
 
-## cilium-config
+## YAML 清单
 
-安装后 cilium-config 这个 ConfigMap 配置如下：
+cilium 安装后，相关 YAML 如下：
 
 <Tabs>
   <TabItem value="1" label="cilium DaemonSet">
