@@ -1,12 +1,4 @@
 apiVersion: v1
-data:
-  branch-eni-cooldown: "60"
-  enable-network-policy-controller: "false"
-  enable-windows-ipam: "false"
-  enable-windows-prefix-delegation: "false"
-  minimum-ip-target: "3"
-  warm-ip-target: "1"
-  warm-prefix-target: "0"
 kind: ConfigMap
 metadata:
   labels:
@@ -18,4 +10,11 @@ metadata:
     k8s-app: aws-node
   name: amazon-vpc-cni
   namespace: kube-system
-
+data:
+  branch-eni-cooldown: "60"
+  enable-network-policy-controller: "false"
+  enable-windows-ipam: "false"
+  enable-windows-prefix-delegation: "false"
+  minimum-ip-target: "3"
+  warm-ip-target: "1"
+  warm-prefix-target: "0"

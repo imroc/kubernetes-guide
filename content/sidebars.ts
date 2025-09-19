@@ -516,10 +516,10 @@ const sidebars: SidebarsConfig = {
               collapsed: true,
               link: {
                 type: 'generated-index',
-                slug: 'appendix/vendor/eni'
+                slug: 'appendix/vendor/vpc-cni'
               },
               items: [
-                'appendix/vendor/eni/aws-eks-vpc-cni',
+                'appendix/vendor/vpc-cni/aws-eks',
               ]
             }
           ],
