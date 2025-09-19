@@ -500,6 +500,29 @@ const sidebars: SidebarsConfig = {
             'appendix/faq/why-enable-bridge-nf-call-iptables',
             'appendix/faq/ipvs-conn-reuse-mode',
           ],
+        },
+        {
+          type: 'category',
+          label: '云厂商调研',
+          collapsed: true,
+          link: {
+            type: 'generated-index',
+            slug: '/appendix/vendor'
+          },
+          items: [
+            {
+              type: 'category',
+              label: 'VPC CNI 插件',
+              collapsed: true,
+              link: {
+                type: 'category',
+                slug: 'appendix/vendor/eni'
+              },
+              items: [
+                'appendix/vendor/eni/aws-eks-vpc-cni',
+              ]
+            }
+          ],
         }
       ],
     },
