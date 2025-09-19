@@ -32,10 +32,10 @@ cilium install --version 1.18.2
   <TabItem value="2" label="cilium-config ConfigMap">
     <FileBlock file="vpc-cni/aws/cilium-config-configmap.yaml" showLineNumbers />
   </TabItem>
-  <TabItem value="1" label="cilium-envoy DaemonSet">
+  <TabItem value="3" label="cilium-envoy DaemonSet">
     <FileBlock file="vpc-cni/aws/cilium-envoy-daemonset.yaml" showLineNumbers />
   </TabItem>
-  <TabItem value="2" label="cilium-envoy-config ConfigMap">
+  <TabItem value="4" label="cilium-envoy-config ConfigMap">
     <FileBlock file="vpc-cni/aws/cilium-envoy-config-configmap.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
