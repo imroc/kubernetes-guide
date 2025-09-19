@@ -144,3 +144,19 @@
 
   </TabItem>
 </Tabs>
+
+## 使用 kubectl debug 登录节点
+
+```bash
+kubectl debug node/10.10.12.77 --image=ubuntu:24.04
+```
+
+节点根目录会被挂到容器的 `/host` 目录下，可自定义容器镜像（比如指定有特殊调试工具的容器镜像），即使节点上没有 bash, sh 的命令也可以登录，更多参考 [用 Kubectl 调试 Kubernetes 节点](https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/kubectl-node-debug/)
+
+## 使用 kubectl node-shell 登录节点
+
+```bash
+kubectl node-shell 10.10.12.77
+```
+
+登录进去后，根目录就是节点的根目录，可执行的命令完全依赖节点上的命令，如果节点上没有 bash, sh 之类的命令就无法登录。
