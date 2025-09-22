@@ -1,4 +1,4 @@
-# Cilium AWS VPC-CNI 插件的支持
+# Cilium 对 AWS VPC-CNI 插件的支持
 
 ## 概述
 

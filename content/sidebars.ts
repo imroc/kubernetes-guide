@@ -512,14 +512,15 @@ const sidebars: SidebarsConfig = {
           items: [
             {
               type: 'category',
-              label: 'VPC CNI 插件',
+              label: 'AWS',
               collapsed: true,
               link: {
                 type: 'generated-index',
-                slug: 'appendix/vendor/vpc-cni'
+                slug: 'appendix/vendor/aws'
               },
               items: [
-                'appendix/vendor/vpc-cni/aws-eks',
+                'appendix/vendor/aws/vpc-cni',
+                'appendix/vendor/aws/cilium',
               ]
             }
           ],
