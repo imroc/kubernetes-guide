@@ -28,9 +28,14 @@ root@iv-ye59gm2y9sxjd1ty5094:/opt/cni/bin# ls
 bandwidth  bridge  dhcp  firewall  flannel  host-device  host-local  ipvlan  loopback  macvlan  portmap  ptp  sbr  static  tuning  vlan  vrf
 ```
 
-## 进程
+## flannel 进程信息
 
 ```bash
-root@iv-ye59gm2y9sxjd1ty5094:/opt/cni/bin# ps -ef | grep flannel
-root       30286   29628  0 15:28 ?        00:00:00 /opt/bin/flanneld --ip-masq --kube-subnet-mgr
+$ kubectl exec -i -t kube-flannel-ds-2fwln -- bash
+Defaulted container "kube-flannel" out of: kube-flannel, install-cni-plugin (init), install-cni (init)
+bash-5.1# ps -ef
+PID   USER     TIME  COMMAND
+    1 root      0:01 /opt/bin/flanneld --ip-masq --kube-subnet-mgr
+bash-5.1# /opt/bin/flanneld --version
+v0.20.1
 ```
