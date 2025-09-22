@@ -23,7 +23,7 @@
 
 ## CNI 配置
 
-<FileBlock file="vendor/aws/10-aws.conflist.json" showLineNumbers title="/etc/cni/net.d/10-aws.conflist" />
+<FileBlock file="vendor/aws/10-aws.conflist.json" showLineNumbers title="/etc/cni/net.d/10-aws.conflist" language="json" />
 
 ## CNI 二进制
 

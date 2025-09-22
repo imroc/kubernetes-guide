@@ -24,10 +24,10 @@
 
 <Tabs>
   <TabItem value="1" label="cello-meta">
-    <FileBlock file="vendor/volcengine/01-cello-meta.conflist" showLineNumbers title="/etc/cni/net.d/01-cello-meta.conflist" />
+    <FileBlock file="vendor/volcengine/01-cello-meta.conflist" showLineNumbers title="/etc/cni/net.d/01-cello-meta.conflist" language="json" />
   </TabItem>
   <TabItem value="2" label="cello-config">
-    <FileBlock file="vendor/volcengine/10-cello.conflist" showLineNumbers title="/etc/cni/net.d/10-cello.conflist" />
+    <FileBlock file="vendor/volcengine/10-cello.conflist" showLineNumbers title="/etc/cni/net.d/10-cello.conflist" language="json" />
   </TabItem>
 </Tabs>
 
