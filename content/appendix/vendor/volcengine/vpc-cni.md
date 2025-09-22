@@ -2,7 +2,7 @@
 
 ## 概述
 
-本文调研 VKE 选择 VPC-CNI 网络插件的部署和配置情况：
+本文调研 VKE 选择 VPC-CNI 网络插件的部署和配置情况（基于 VKE v1.30）：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F22%2F20250922152737.png)
 
