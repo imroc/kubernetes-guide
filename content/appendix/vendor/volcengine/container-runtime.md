@@ -8,7 +8,7 @@ VKE 使用 containerd 作为容器运行时，以下是具体分析。
 
 ## containerd systemd 配置
 
-<FileBlock file="vendor/volcengine/containerd.service" showLineNumbers title="/lib/systemd/system/containerd.service" />
+<FileBlock file="vendor/volcengine/containerd.service" showLineNumbers title="/lib/systemd/system/containerd.service" language="systemd" />
 
 ## containerd 配置
 
