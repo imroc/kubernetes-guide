@@ -534,7 +534,8 @@ const sidebars: SidebarsConfig = {
               items: [
                 'appendix/vendor/volcengine/vpc-cni',
               ]
-            }
+            },
+            'appendix/vendor/cilium',
           ],
         }
       ],
