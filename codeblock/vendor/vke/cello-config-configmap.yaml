@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: vpc-cni
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: cello-config
+  namespace: kube-system
+data:
+  01-cello-meta.conflist: |
+    {
+      "cniVersion": "0.3.1",
+      "name": "cello-meta",
+      "plugins": [
+        {
+          "type": "cello-meta",
+          "capabilities": {
+            "bandwidth": true,
+            "portMappings": true,
+            "io.kubernetes.cri.pod-annotations": true
+          },
+          "defaultCni": "cello-chainer"
+        }
+      ]
+    }
+  10-cello.conflist: |
+    {
+      "cniVersion": "0.3.1",
+      "name": "cello-chainer",
+      "plugins": [
+        {
+          "type": "cello",
+          "capabilities": {
+            "bandwidth": true,
+            "com.volcengine.k8s.network-interface": true
+           },
+          "redirectToHostCIDRs": ["169.254.0.0/16"]
+        }
+      ]
+    }
+  conf: |
+    {
+      "subnets": [
+        "subnet-1a1ybnm8eqr5s8nvepl7tl6gg",
+        "subnet-1a1yadwomszr48nvepkhdfr6y",
+        "subnet-iit7ovtsl1c074o8cu5x2hr8",
+        "subnet-iit7l1pmp72874o8cuhut0pn"
+      ],
+      "securityGroups": [
+        "sg-1jox14x37qadc1n7ampakr4ma"
+      ],
+      "poolTarget": 3,
+      "poolTargetMin": 5,
+      "poolMaxCapProbe": true,
+      "interfaceTagPrefixes": ["volc:vke:"],
+      "additionalTags": {
+        "volc:vke:createdby-vke-flag": "true"
+      },
+      "credentialFile": "/cello/secrets/addon_token_info",
+      "ramRole": "KubernetesNodeRoleForECS",
+      "openApiAddress": "open.volcengineapi.com",
+      "poolMonitorIntervalSec": 120,
+      "enableTrunk": false,
+      "networkMode": "eni_shared",
+      "ipFamily": "ipv4"
+    }

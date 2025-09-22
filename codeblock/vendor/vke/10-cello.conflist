@@ -1,0 +1,14 @@
+{
+  "cniVersion": "0.3.1",
+  "name": "cello-chainer",
+  "plugins": [
+    {
+      "type": "cello",
+      "capabilities": {
+        "bandwidth": true,
+        "com.volcengine.k8s.network-interface": true
+       },
+      "redirectToHostCIDRs": ["169.254.0.0/16"]
+    }
+  ]
+}
