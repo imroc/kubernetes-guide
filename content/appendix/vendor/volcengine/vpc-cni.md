@@ -2,13 +2,13 @@
 
 <Tabs>
   <TabItem value="1" label="cello">
-    <FileBlock file="vendor/vke/cello-daemonset.yaml" showLineNumbers />
+    <FileBlock file="vendor/volcengine/cello-daemonset.yaml" showLineNumbers />
   </TabItem>
   <TabItem value="2" label="cello-config">
-    <FileBlock file="vendor/vke/cello-config-configmap.yaml" showLineNumbers />
+    <FileBlock file="vendor/volcengine/cello-config-configmap.yaml" showLineNumbers />
   </TabItem>
   <TabItem value="2" label="cilium-config">
-    <FileBlock file="vendor/vke/cilium-config-configmap.yaml" showLineNumbers />
+    <FileBlock file="vendor/volcengine/cilium-config-configmap.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
 
