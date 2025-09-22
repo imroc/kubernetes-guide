@@ -7,7 +7,7 @@
   <TabItem value="2" label="cello-config">
     <FileBlock file="vendor/volcengine/cello-config-configmap.yaml" showLineNumbers />
   </TabItem>
-  <TabItem value="2" label="cilium-config">
+  <TabItem value="3" label="cilium-config">
     <FileBlock file="vendor/volcengine/cilium-config-configmap.yaml" showLineNumbers />
   </TabItem>
 </Tabs>

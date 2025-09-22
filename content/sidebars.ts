@@ -522,6 +522,18 @@ const sidebars: SidebarsConfig = {
                 'appendix/vendor/aws/vpc-cni',
                 'appendix/vendor/aws/cilium',
               ]
+            },
+            {
+              type: 'category',
+              label: '火山引擎',
+              collapsed: true,
+              link: {
+                type: 'generated-index',
+                slug: 'appendix/vendor/volcengine'
+              },
+              items: [
+                'appendix/vendor/volcengine/vpc-cni',
+              ]
             }
           ],
         }
