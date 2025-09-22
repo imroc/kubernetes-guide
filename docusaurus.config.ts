@@ -201,6 +201,7 @@ const config: Config = {
           'diff',
           'docker',
           'nginx',
+          'toml',
           'systemd',
         ],
       },
