@@ -533,6 +533,7 @@ const sidebars: SidebarsConfig = {
               },
               items: [
                 'appendix/vendor/volcengine/vpc-cni',
+                'appendix/vendor/volcengine/container-runtime',
               ]
             },
             'appendix/vendor/cilium',

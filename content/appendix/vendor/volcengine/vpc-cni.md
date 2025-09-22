@@ -40,3 +40,19 @@ Cilium-Operator 1.10.4 2a46fd6 2021-09-01T12:58:41-07:00 go version go1.16.7 lin
 root@iv-ye593xiz9ccva4flha5g:/# cilium-agent --version
 Cilium 1.10.4 2a46fd6 2021-09-01T12:58:41-07:00 go version go1.16.7 linux/amd64
 ```
+
+## cilium CRD
+
+安装了以下 cilium 相关 CRD:
+
+```bash
+╰─ kubectl get crd | grep cilium
+ciliumclusterwidenetworkpolicies.cilium.io                 2025-09-22T04:13:37Z
+ciliumegressnatpolicies.cilium.io                          2025-09-22T04:13:36Z
+ciliumendpoints.cilium.io                                  2025-09-22T04:13:36Z
+ciliumexternalworkloads.cilium.io                          2025-09-22T04:13:36Z
+ciliumidentities.cilium.io                                 2025-09-22T04:13:36Z
+ciliumlocalredirectpolicies.cilium.io                      2025-09-22T04:13:36Z
+ciliumnetworkpolicies.cilium.io                            2025-09-22T04:13:37Z
+ciliumnodes.cilium.io                                      2025-09-22T04:13:36Z
+```
