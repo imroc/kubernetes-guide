@@ -11,3 +11,4 @@ EKS 只有一种网络插件，VPC-CNI，没有集成 cilium，但 cilium 社区
 基于 VKE v1.30 调研：
 - vpc-cni 网络模式：CNI 组件（cello）中，包含 cilium 容器，使得每个节点都会启动一个 `cilium-agent` 和 `cilium-operator`，使用 cilium 来替代 kube-proxy，作为集群内的 Service 转发组件。
 - flannel 网络模式：不集成 cilium，会部署 kube-proxy 作为集群内的 Service 转发组件。
+- 自建 cilium: 走 underlay 应该是不行，或者很难，因为 vpc-cni 本身集成了 cilium，应该会有冲突。走 overlay 应该可行，选 flannel，创建好后删除 flannel 组件，然后自建 cilium，用默认的 vxlan 模式。
