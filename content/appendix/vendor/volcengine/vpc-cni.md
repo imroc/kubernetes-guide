@@ -1,5 +1,12 @@
 # VKE 的 VPC-CNI 网络插件
-## CNI 配置
+
+## 概述
+
+本文调研 VKE 选择 VPC-CNI 网络插件的部署和配置情况：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F22%2F20250922152737.png)
+
+## YAML 清单
 
 <Tabs>
   <TabItem value="1" label="cello">
@@ -10,6 +17,17 @@
   </TabItem>
   <TabItem value="3" label="cilium-config">
     <FileBlock file="vendor/volcengine/cilium-config-configmap.yaml" showLineNumbers />
+  </TabItem>
+</Tabs>
+
+## CNI 配置
+
+<Tabs>
+  <TabItem value="1" label="cello-meta">
+    <FileBlock file="vendor/volcengine/01-cello-meta.conflist" showLineNumbers title="/etc/cni/net.d/01-cello-meta.conflist" />
+  </TabItem>
+  <TabItem value="2" label="cello-config">
+    <FileBlock file="vendor/volcengine/10-cello.conflist" showLineNumbers title="/etc/cni/net.d/10-cello.conflist" />
   </TabItem>
 </Tabs>
 

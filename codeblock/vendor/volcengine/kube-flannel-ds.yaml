@@ -1,0 +1,153 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    deprecated.daemonset.template.generation: "1"
+    meta.helm.sh/release-name: flannel
+    meta.helm.sh/release-namespace: kube-system
+  labels:
+    addon.vke.volcengine.com/status-check: flannel
+    app: flannel
+    app.kubernetes.io/managed-by: Helm
+    tier: node
+  name: kube-flannel-ds
+  namespace: kube-flannel
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: flannel
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        addon.vke.volcengine.com/status-check: flannel
+        app: flannel
+        tier: node
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: node.kubernetes.io/instance-type
+                operator: NotIn
+                values:
+                - dcp-node
+              - key: type
+                operator: NotIn
+                values:
+                - virtual-kubelet
+      containers:
+      - args:
+        - --ip-masq
+        - --kube-subnet-mgr
+        command:
+        - /opt/bin/flanneld
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: EVENT_QUEUE_DEPTH
+          value: "5000"
+        image: vke-cn-beijing.cr.volces.com/vke/flannel:v0.20.1
+        imagePullPolicy: IfNotPresent
+        name: kube-flannel
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - NET_RAW
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /run/flannel
+          name: run
+        - mountPath: /etc/kube-flannel/
+          name: flannel-cfg
+        - mountPath: /run/xtables.lock
+          name: xtables-lock
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      initContainers:
+      - command:
+        - /bin/sh
+        - -c
+        - /install.sh
+        image: vke-cn-beijing.cr.volces.com/vke/cniplugins:v1.1.0
+        imagePullPolicy: IfNotPresent
+        name: install-cni-plugin
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/cni/bin
+          name: cni-plugin
+      - args:
+        - -f
+        - /etc/kube-flannel/cni-conf.json
+        - /etc/cni/net.d/10-flannel.conflist
+        command:
+        - cp
+        image: vke-cn-beijing.cr.volces.com/vke/flannel:v0.20.1
+        imagePullPolicy: IfNotPresent
+        name: install-cni
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/cni/net.d
+          name: cni
+        - mountPath: /etc/kube-flannel/
+          name: flannel-cfg
+      priorityClassName: system-node-critical
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: flannel
+      serviceAccountName: flannel
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - operator: Exists
+      volumes:
+      - hostPath:
+          path: /run/flannel
+          type: ""
+        name: run
+      - hostPath:
+          path: /opt/cni/bin
+          type: ""
+        name: cni-plugin
+      - hostPath:
+          path: /etc/cni/net.d
+          type: ""
+        name: cni
+      - configMap:
+          defaultMode: 420
+          name: kube-flannel-cfg
+        name: flannel-cfg
+      - hostPath:
+          path: /run/xtables.lock
+          type: FileOrCreate
+        name: xtables-lock
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
