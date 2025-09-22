@@ -20,3 +20,17 @@
 ## CNI 配置
 
 <FileBlock file="vendor/volcengine/10-flannel.conflist" showLineNumbers language="json" />
+
+## CNI 二进制
+
+```bash
+root@iv-ye59gm2y9sxjd1ty5094:/opt/cni/bin# ls
+bandwidth  bridge  dhcp  firewall  flannel  host-device  host-local  ipvlan  loopback  macvlan  portmap  ptp  sbr  static  tuning  vlan  vrf
+```
+
+## 进程
+
+```bash
+root@iv-ye59gm2y9sxjd1ty5094:/opt/cni/bin# ps -ef | grep flannel
+root       30286   29628  0 15:28 ?        00:00:00 /opt/bin/flanneld --ip-masq --kube-subnet-mgr
+```
