@@ -1,5 +1,11 @@
 # 云厂商集成 cilium 调研
 
+## AWS EKS
+
+基于 EKS v1.33 调研：
+
+EKS 只有一种网络插件，VPC-CNI，没有集成 cilium，但 cilium 社区适配了 EKS 的 VPC-CNI 网络插件([CNI Chaining: AWS VPC CNI plugin](https://docs.cilium.io/en/stable/installation/cni-chaining-aws-cni/))，使得在 EKS 上安装 cilium 后，Pod IP 分配和转发由 VPC-CNI 实现，cilium 再负责其它能力的实现（如替代 kube-proxy 实现 Service 转发、NetworkPolicy、网络可观测性等）。
+
 ## 火山引擎 VKE
 
 基于 VKE v1.30 调研：
