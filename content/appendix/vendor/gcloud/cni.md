@@ -8,6 +8,13 @@ GKE 标准集群的 CNI 配置不是由 DaemonSet 管理的，应该是节点初
 
 <FileBlock file="vendor/gcloud/10-containerd-net.conflist" showLineNumbers title="/etc/cni/net.d/10-containerd-net.conflist" language="json" />
 
+## CNI 二进制
+
+```bash
+$ ls /opt/cni/bin
+bandwidth  bridge  dhcp  dummy  firewall  host-device  host-local  ipvlan  loopback  macvlan  portmap  ptp  sbr  static  tap  tuning  vlan  vrf
+```
+
 ## 分析
 
 每个节点分配一段 PodCIDR，然后节点内 CNI 配置使用 [ptp](https://www.cni.dev/plugins/current/main/ptp/) + `host-local` 来为每个 Pod 创建 veth 和分配 IP 并配置路由。
