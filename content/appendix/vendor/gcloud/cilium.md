@@ -42,3 +42,37 @@ cilium 安装后，相关 YAML 如下：
     <FileBlock file="vendor/gcloud/cilium-envoy-config.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
+
+## cilium-dbg
+
+```bash
+$ kubectl exec -i -t cilium-69x5v -- bash
+root@gke-gke-test-default-pool-e5de334e-9jms:/home/cilium# cilium-dbg status
+KVStore:                 Disabled
+Kubernetes:              Ok         1.34 (v1.34.0-gke.1662000) [linux/amd64]
+Kubernetes APIs:         ["EndpointSliceOrEndpoint", "cilium/v2::CiliumCIDRGroup", "cilium/v2::CiliumClusterwideNetworkPolicy", "cilium/v2::CiliumEndpoint", "cilium/v2::CiliumNetworkPolicy", "cilium/v2::CiliumNode", "core/v1::Pods", "networking.k8s.io/v1::NetworkPolicy"]
+KubeProxyReplacement:    False
+Host firewall:           Disabled
+SRv6:                    Disabled
+CNI Chaining:            none
+CNI Config file:         successfully wrote CNI configuration file to /host/etc/cni/net.d/05-cilium.conflist
+Cilium:                  Ok   1.18.2 (v1.18.2-5bd307a8)
+NodeMonitor:             Listening for events on 2 CPUs with 64x4096 of shared memory
+Cilium health daemon:    Ok
+IPAM:                    IPv4: 11/254 allocated from 10.44.0.0/24,
+IPv4 BIG TCP:            Disabled
+IPv6 BIG TCP:            Disabled
+BandwidthManager:        Disabled
+Routing:                 Network: Native   Host: Legacy
+Attach Mode:             TCX
+Device Mode:             veth
+Masquerading:            IPTables [IPv4: Enabled, IPv6: Disabled]
+Controller Status:       62/62 healthy
+Proxy Status:            OK, ip 10.44.0.205, 0 redirects active on ports 10000-20000, Envoy: external
+Global Identity Range:   min 256, max 65535
+Hubble:                  Ok              Current/Max Flows: 4095/4095 (100.00%), Flows/s: 14.39   Metrics: Disabled
+Encryption:              Disabled
+Cluster health:          3/3 reachable   (2025-09-23T07:47:31Z)   (Probe interval: 1m56.754608943s)
+Name                     IP              Node                     Endpoints
+Modules Health:          Stopped(13) Degraded(0) OK(88)
+```
