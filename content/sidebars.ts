@@ -533,6 +533,7 @@ const sidebars: SidebarsConfig = {
               },
               items: [
                 'appendix/vendor/gcloud/cni',
+                'appendix/vendor/gcloud/container-runtime',
               ]
             },
             {
