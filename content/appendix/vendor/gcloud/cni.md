@@ -11,8 +11,11 @@ GKE 标准集群的 CNI 配置不是由 DaemonSet 管理的，应该是节点初
 ## CNI 二进制
 
 ```bash
-$ ls /opt/cni/bin
-bandwidth  bridge  dhcp  dummy  firewall  host-device  host-local  ipvlan  loopback  macvlan  portmap  ptp  sbr  static  tap  tuning  vlan  vrf
+$ ls /home/kubernetes/bin
+auth-provider-gcp          cilium-cni                 configure-kubeapiserver.sh  crictl                 firewall              gke-exec-auth-plugin-license      host-device     kubectl      macvlan                        node-problem-detector-source.tar.gz  ptp                        tap          vrf
+auth-provider-gcp-license  cilium-cni-notices.tar.gz  configure.sh                crictl-notices.tar.gz  gcfsd                 gke-internal-configure-helper.sh  host-local      kubelet      networkd-monitor.sh            node-reg-checker                     retag-preloaded-images.sh  the-kubelet
+bandwidth                  cni-notices.tar.gz         containerd-gcfs-grpc        dhcp                   gke                   gke-support-daemon                installable.py  log-counter  node-problem-detector          node-registration-checker.sh         sbr                        tuning
+bridge                     configure-helper.sh        containerd-toml-checker     dummy                  gke-exec-auth-plugin  health-checker                    ipvlan          loopback     node-problem-detector-license  portmap                              static                     vlan
 ```
 
 ## 分析
