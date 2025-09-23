@@ -26,16 +26,16 @@ cilium install --version 1.18.2
 cilium 安装后，相关 YAML 如下：
 
 <Tabs>
-  <TabItem value="1" label="cilium DaemonSet">
+  <TabItem value="1" label="cilium">
     <FileBlock file="vendor/aws/cilium-daemonset.yaml" showLineNumbers />
   </TabItem>
-  <TabItem value="2" label="cilium-config ConfigMap">
+  <TabItem value="2" label="cilium-config">
     <FileBlock file="vendor/aws/cilium-config-configmap.yaml" showLineNumbers />
   </TabItem>
-  <TabItem value="3" label="cilium-envoy DaemonSet">
+  <TabItem value="3" label="cilium-envoy">
     <FileBlock file="vendor/aws/cilium-envoy-daemonset.yaml" showLineNumbers />
   </TabItem>
-  <TabItem value="4" label="cilium-envoy-config ConfigMap">
+  <TabItem value="4" label="cilium-envoy-config">
     <FileBlock file="vendor/aws/cilium-envoy-config-configmap.yaml" showLineNumbers />
   </TabItem>
 </Tabs>
