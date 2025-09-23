@@ -43,6 +43,12 @@ cilium 安装后，相关 YAML 如下：
   </TabItem>
 </Tabs>
 
+## CNI 配置
+
+cilium 安装后，CNI 配置变成：
+
+<FileBlock file="vendor/gcloud/05-cilium.conflist" showLineNumbers title="/etc/cni/net.d/05-cilium.conflist" language="json" />
+
 ## cilium-dbg
 
 ```bash

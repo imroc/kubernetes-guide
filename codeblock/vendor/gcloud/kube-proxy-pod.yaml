@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/config.hash: 3a2c77f7e2c9fa3a03323fe214e8ddd0
+    kubernetes.io/config.mirror: 3a2c77f7e2c9fa3a03323fe214e8ddd0
+    kubernetes.io/config.seen: "2025-09-23T07:49:22.570407571Z"
+    kubernetes.io/config.source: file
+  labels:
+    component: kube-proxy
+    tier: node
+  name: kube-proxy-gke-gke-test-default-pool-e5de334e-i8hi
+  namespace: kube-system
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: cloud.google.com/autopilot-managed-node
+            operator: DoesNotExist
+  containers:
+  - command:
+    - /bin/sh
+    - -c
+    - exec kube-proxy --master=https://10.142.0.7 --kubeconfig=/var/lib/kube-proxy/kubeconfig
+      --cluster-cidr=10.44.0.0/14 --oom-score-adj=-998 --v=2 --feature-gates=RotateKubeletServerCertificate=true,ExecProbeTimeout=false
+      --iptables-sync-period=1m --iptables-min-sync-period=10s --ipvs-sync-period=1m
+      --ipvs-min-sync-period=10s --detect-local-mode=NodeCIDR 1>>/var/log/kube-proxy.log
+      2>&1
+    image: us-east1-artifactregistry.gcr.io/gke-release/gke-release/kube-proxy-amd64:v1.34.0-gke.1662000
+    name: kube-proxy
+    resources:
+      requests:
+        cpu: 100m
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /etc/ssl/certs
+      name: etc-ssl-certs
+      readOnly: true
+    - mountPath: /usr/share/ca-certificates
+      name: usr-ca-certs
+      readOnly: true
+    - mountPath: /var/log
+      name: varlog
+    - mountPath: /var/lib/kube-proxy/kubeconfig
+      name: kubeconfig
+    - mountPath: /run/xtables.lock
+      name: iptableslock
+    - mountPath: /lib/modules
+      name: lib-modules
+      readOnly: true
+  hostNetwork: true
+  preemptionPolicy: PreemptLowerPriority
+  priority: 2000001000
+  priorityClassName: system-node-critical
+  tolerations:
+  - effect: NoExecute
+    operator: Exists
+  - effect: NoSchedule
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /usr/share/ca-certificates
+    name: usr-ca-certs
+  - hostPath:
+      path: /etc/ssl/certs
+    name: etc-ssl-certs
+  - hostPath:
+      path: /var/lib/kube-proxy/kubeconfig
+      type: FileOrCreate
+    name: kubeconfig
+  - hostPath:
+      path: /var/log
+    name: varlog
+  - hostPath:
+      path: /run/xtables.lock
+      type: FileOrCreate
+    name: iptableslock
+  - hostPath:
+      path: /lib/modules
+    name: lib-modules

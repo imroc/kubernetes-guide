@@ -1,0 +1,17 @@
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+containerRuntimeEndpoint: unix:///run/containerd/containerd.sock
+featureGates:
+  DisableKubeletCloudCredentialProviders: false
+authentication:
+  webhook:
+    enabled: false
+authorization:
+  mode: AlwaysAllow
+enableServer: false
+podCIDR: 10.42.0.0/24
+staticPodPath: /etc/kubernetes/manifests
+staticPodURL: http://metadata.google.internal/computeMetadata/v1/instance/attributes/google-container-manifest
+staticPodURLHeader:
+  Metadata-Flavor: [Google]
+cgroupDriver: systemd
