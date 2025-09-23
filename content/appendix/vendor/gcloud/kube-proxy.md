@@ -6,9 +6,9 @@
 
 <FileBlock file="vendor/gcloud/kube-proxy.yaml" showLineNumbers />
 
-但有 nodeSelector，默认不会部署到节点，不过节点上还是会有 kube-proxy 的 Pod 启动，只是不是来自这个 DeamonSet，而是通过 static pod 方式部署(`/etc/kubernetes/manifests/kube-proxy.manifest`)：
+但有 nodeSelector，默认不会部署到节点，不过节点上还是会有 kube-proxy 的 Pod 启动，只是不是来自这个 DeamonSet，而是通过 static pod 方式部署：
 
-<FileBlock file="vendor/gcloud/kube-proxy-pod.yaml" showLineNumbers />
+<FileBlock file="vendor/gcloud/kube-proxy-pod.yaml" showLineNumbers title="/etc/kubernetes/manifests/kube-proxy.manifest" />
 
 ## 转发模式
 
