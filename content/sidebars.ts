@@ -525,6 +525,18 @@ const sidebars: SidebarsConfig = {
             },
             {
               type: 'category',
+              label: 'Google Cloud',
+              collapsed: true,
+              link: {
+                type: 'generated-index',
+                slug: 'appendix/vendor/gcloud'
+              },
+              items: [
+                'appendix/vendor/gcloud/cni',
+              ]
+            },
+            {
+              type: 'category',
               label: '火山引擎',
               collapsed: true,
               link: {
