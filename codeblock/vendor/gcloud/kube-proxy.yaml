@@ -15,7 +15,6 @@ spec:
       k8s-app: kube-proxy
   template:
     metadata:
-      creationTimestamp: null
       labels:
         k8s-app: kube-proxy
     spec:
@@ -23,11 +22,14 @@ spec:
       - command:
         - /bin/sh
         - -c
-        - kube-proxy --cluster-cidr=192.168.0.0/16 --oom-score-adj=-998 --v=2 --feature-gates=UnauthenticatedHTTP2DOSMitigation=true,KMSv1=true,WatchCacheInitializationPostStartHook=true --iptables-sync-period=1m --iptables-min-sync-period=10s --ipvs-sync-period=1m --ipvs-min-sync-period=10s --detect-local-mode=NodeCIDR 1>>/var/log/kube-proxy.log 2>&1
+        - kube-proxy --cluster-cidr=10.44.0.0/14 --oom-score-adj=-998 --v=2 --feature-gates=UnauthenticatedHTTP2DOSMitigation=true,KMSv1=true,WatchCacheInitializationPostStartHook=true
+          --iptables-sync-period=1m --iptables-min-sync-period=10s --ipvs-sync-period=1m
+          --ipvs-min-sync-period=10s --detect-local-mode=NodeCIDR 1>>/var/log/kube-proxy.log
+          2>&1
         env:
         - name: KUBERNETES_SERVICE_HOST
-          value: 10.128.0.18
-        image: us-central1-artifactregistry.gcr.io/gke-release/gke-release/kube-proxy-amd64:v1.33.4-gke.1172000
+          value: 10.142.0.7
+        image: us-east1-artifactregistry.gcr.io/gke-release/gke-release/kube-proxy-amd64:v1.34.0-gke.1662000
         imagePullPolicy: IfNotPresent
         name: kube-proxy
         resources:
