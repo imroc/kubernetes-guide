@@ -6,4 +6,4 @@
 
 ## 转发模式
 
-从 YAML 中可以看出，没有设置 mode，也没有挂载 config，所以为 kube-proxy 的默认 mode，为 “iptables” 模式。
+从 YAML 中可以看出，没有设置 mode，也没有挂载 config，所以为 kube-proxy 的默认 mode，为 `iptables` 模式。
