@@ -31,6 +31,12 @@
 
 <FileBlock file="vendor/aliyun/10-terway.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" language="json" />
 
+## CNI 二进制
+```bash
+$ ls /opt/cni/bin
+bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  ipvlan  LICENSE  loopback  macvlan  portmap  ptp  README.md  sbr  static  tap  terway  tuning  vlan  vrf
+```
+
 ## 启动参数
 
 ```bash

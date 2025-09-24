@@ -1,0 +1,82 @@
+version = 3
+
+root = "/var/lib/containerd"
+state = "/run/containerd"
+disabled_plugins = []
+required_plugins = ["io.containerd.grpc.v1.cri"]
+oom_score = -999
+
+# Alibaba Cloud Vendor enhancement configuration
+# imports = ["/etc/containerd/alibabacloud.toml"]
+
+[grpc]
+  address = "/run/containerd/containerd.sock"
+  max_recv_message_size = 16777216
+  max_send_message_size = 16777216
+
+[debug]
+  address = "/run/containerd/debug.sock"
+  level = "info"
+
+[timeouts]
+  "io.containerd.timeout.shim.cleanup" = "5s"
+  "io.containerd.timeout.shim.load" = "5s"
+  "io.containerd.timeout.shim.shutdown" = "3s"
+  "io.containerd.timeout.task.state" = "2s"
+
+[plugins]
+  [plugins."io.containerd.gc.v1.scheduler"]
+    pause_threshold = 0.02
+    deletion_threshold = 0
+    mutation_threshold = 100
+    schedule_delay = "0s"
+    startup_delay = "100ms"
+
+  [plugins."io.containerd.cri.v1.images"]
+    snapshotter = "overlayfs"
+    disable_snapshot_annotations = true
+    discard_unpacked_layers = false
+
+    max_concurrent_downloads = 3
+    image_pull_progress_timeout = "5m0s"
+    image_pull_with_sync_fs = false
+    use_local_image_pull = true
+
+    [plugins."io.containerd.cri.v1.images".pinned_images]
+      sandbox = "registry-cn-hangzhou-vpc.ack.aliyuncs.com/acs/pause:3.9"
+    [plugins."io.containerd.cri.v1.images".registry]
+      config_path = "/etc/containerd/cert.d:/etc/containerd/certs.d"
+
+  [plugins."io.containerd.cri.v1.runtime"]
+    ignore_image_defined_volumes = true
+    disable_apparmor =  true
+    enable_cdi = true
+    cdi_spec_dirs = ["/etc/cdi", "/var/run/cdi"]
+
+
+    [plugins."io.containerd.cri.v1.runtime".containerd]
+      default_runtime_name = "runc"
+      [plugins."io.containerd.cri.v1.runtime".containerd.runtimes]
+        [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.runc]
+          runtime_type = "io.containerd.runc.v2"
+          privileged_without_host_devices = false
+          sandboxer = "podsandbox"
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.runc.options]
+            NoPivotRoot = false
+            NoNewKeyring = false
+            SystemdCgroup = true
+
+
+    [plugins."io.containerd.cri.v1.runtime".cni]
+      bin_dirs = ["/opt/cni/bin"]
+      conf_dir = "/etc/cni/net.d"
+      max_conf_num = 1
+
+  [plugins."io.containerd.nri.v1.nri"]
+    disable = false
+    socket_path = "/var/run/nri/nri.sock"
+    plugin_path = "/opt/nri/plugins"
+    plugin_config_path = "/etc/nri/conf.d"
+    plugin_registration_timeout = "5s"
+    plugin_request_timeout = "2s"
+    disable_connections = false

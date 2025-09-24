@@ -522,6 +522,7 @@ const sidebars: SidebarsConfig = {
                 'appendix/vendor/aliyun/terway',
                 'appendix/vendor/aliyun/kube-proxy',
                 'appendix/vendor/aliyun/os',
+                'appendix/vendor/aliyun/runtime',
               ]
             },
             {
