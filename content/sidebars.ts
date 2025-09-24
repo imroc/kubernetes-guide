@@ -523,6 +523,7 @@ const sidebars: SidebarsConfig = {
                 'appendix/vendor/aliyun/kube-proxy',
                 'appendix/vendor/aliyun/os',
                 'appendix/vendor/aliyun/runtime',
+                'appendix/vendor/aliyun/cilium',
               ]
             },
             {

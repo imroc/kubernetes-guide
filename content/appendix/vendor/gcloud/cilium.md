@@ -1,4 +1,4 @@
-# Cilium 对 GKE 的支持
+# 在 GKE 安装 cilium
 
 ## 概述
 
