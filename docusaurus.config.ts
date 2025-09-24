@@ -29,6 +29,7 @@ const config: Config = {
 
   plugins: [
     'docusaurus-plugin-sass', // 启用 sass 插件，支持 scss
+    'docusaurus-plugin-zooming',
     [
       '@docusaurus/plugin-ideal-image',
       {
