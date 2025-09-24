@@ -204,6 +204,7 @@ const config: Config = {
           'nginx',
           'toml',
           'systemd',
+          'nginx',
         ],
       },
     }),

@@ -77,7 +77,7 @@ iptables 和 nftables 都能用于透明代理的流量拦截，区别就是 nft
 
 ## nftables 规则
 
-<FileBlock file="home-network/nftables-tproxy.conf" title="nftables.conf" />
+<FileBlock file="home-network/nftables-tproxy.conf" title="nftables.conf" language="nginx" />
 
 ## 设置规则的脚本
 
