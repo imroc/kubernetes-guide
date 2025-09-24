@@ -521,6 +521,7 @@ const sidebars: SidebarsConfig = {
               items: [
                 'appendix/vendor/aliyun/terway',
                 'appendix/vendor/aliyun/kube-proxy',
+                'appendix/vendor/aliyun/os',
               ]
             },
             {
