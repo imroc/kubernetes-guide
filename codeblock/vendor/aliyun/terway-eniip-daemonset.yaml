@@ -1,0 +1,310 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: terway-eniip
+  namespace: kube-system
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: terway-eniip
+  template:
+    metadata:
+      annotations:
+        k8s.alibabacloud.com/change-id: yutzvutv
+      labels:
+        app: terway-eniip
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: type
+                operator: NotIn
+                values:
+                - virtual-kubelet
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: alibabacloud.com/nodepool-type
+                operator: NotIn
+                values:
+                - hybridcloud
+              - key: k8s.aliyun.com/ignore-by-terway
+                operator: NotIn
+                values:
+                - "true"
+      containers:
+      - command:
+        - /usr/bin/terwayd
+        - -log-level
+        - info
+        - -daemon-mode
+        - ENIMultiIP
+        - -config
+        - /etc/eni/eni_conf
+        env:
+        - name: TERWAY_GC_RULES
+          value: "true"
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: registry-cn-hangzhou-vpc.ack.aliyuncs.com/acs/terway:v1.15.3
+        imagePullPolicy: IfNotPresent
+        name: terway
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - DAC_OVERRIDE
+            drop:
+            - ALL
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/eni
+          name: eni-config
+          readOnly: true
+        - mountPath: /var/run/
+          name: eni-run
+        - mountPath: /lib/modules
+          name: lib-modules
+        - mountPath: /var/lib/cni/terway
+          name: cni-terway
+        - mountPath: /etc/cni/net.d
+          name: cni
+          readOnly: true
+        - mountPath: /host-etc-net.d
+          name: host-cni
+        - mountPath: /var/lib/kubelet/device-plugins
+          name: device-plugin-path
+      - command:
+        - /bin/policyinit.sh
+        env:
+        - name: NODENAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: DISABLE_POLICY
+          valueFrom:
+            configMapKeyRef:
+              key: disable_network_policy
+              name: eni-config
+              optional: true
+        - name: FELIX_TYPHAK8SSERVICENAME
+          valueFrom:
+            configMapKeyRef:
+              key: felix_relay_service
+              name: eni-config
+              optional: true
+        - name: K8S_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: CILIUM_K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: CILIUM_CNI_CHAINING_MODE
+          value: terway-chainer
+        - name: IN_CLUSTER_LOADBALANCE
+          valueFrom:
+            configMapKeyRef:
+              key: in_cluster_loadbalance
+              name: eni-config
+              optional: true
+        image: registry-cn-hangzhou-vpc.ack.aliyuncs.com/acs/terway:v1.15.3
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 6
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            host: 127.0.0.1
+            port: 9099
+          timeoutSeconds: 1
+        name: policy
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            host: 127.0.0.1
+            port: 9099
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: 250m
+            memory: 100Mi
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+            - DAC_OVERRIDE
+            - SYS_ADMIN
+            - NET_RAW
+            - SYS_MODULE
+            - CHOWN
+            - IPC_LOCK
+            - SYS_RESOURCE
+            drop:
+            - ALL
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp/fs
+          name: sys-fs
+        - mountPath: /etc/eni
+          name: eni-config
+          readOnly: true
+        - mountPath: /var-run-eni
+          name: var-run-eni
+          readOnly: true
+        - mountPath: /lib/modules
+          name: lib-modules
+        - mountPath: /etc/cni/net.d
+          name: cni
+          readOnly: true
+        - mountPath: /sys/fs/bpf
+          mountPropagation: HostToContainer
+          name: bpf-maps
+        - mountPath: /var/run/cilium
+          name: cilium-run
+        - mountPath: /run/xtables.lock
+          name: xtables-lock
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      hostNetwork: true
+      initContainers:
+      - command:
+        - /bin/init.sh
+        env:
+        - name: TERWAY_DAEMON_MODE
+          value: ENIMultiIP
+        - name: K8S_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: DISABLE_POLICY
+          valueFrom:
+            configMapKeyRef:
+              key: disable_network_policy
+              name: eni-config
+              optional: true
+        image: registry-cn-hangzhou-vpc.ack.aliyuncs.com/acs/terway:v1.15.3
+        imagePullPolicy: IfNotPresent
+        name: terway-init
+        securityContext:
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp/fs
+          name: sys-fs
+        - mountPath: /sys/fs/bpf
+          mountPropagation: Bidirectional
+          name: bpf-maps
+        - mountPath: /etc/eni
+          name: eni-config
+        - mountPath: /var-run-eni
+          name: var-run-eni
+        - mountPath: /opt/cni/bin/
+          name: cni-bin
+        - mountPath: /etc/cni/net.d/
+          name: cni
+        - mountPath: /lib/modules
+          name: lib-modules
+        - mountPath: /host
+          name: host-root
+        - mountPath: /var/run/
+          name: eni-run
+      priorityClassName: system-node-critical
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: terway
+      serviceAccountName: terway
+      terminationGracePeriodSeconds: 10
+      tolerations:
+      - operator: Exists
+      volumes:
+      - name: var-run-eni
+      - configMap:
+          defaultMode: 420
+          name: eni-config
+        name: eni-config
+      - hostPath:
+          path: /opt/cni/bin
+          type: Directory
+        name: cni-bin
+      - hostPath:
+          path: /etc/cni/net.d
+          type: ""
+        name: host-cni
+      - name: cni
+      - hostPath:
+          path: /var/run/
+          type: Directory
+        name: eni-run
+      - hostPath:
+          path: /lib/modules
+          type: ""
+        name: lib-modules
+      - hostPath:
+          path: /var/lib/cni/terway
+          type: ""
+        name: cni-terway
+      - hostPath:
+          path: /var/lib/kubelet/device-plugins
+          type: Directory
+        name: device-plugin-path
+      - hostPath:
+          path: /
+          type: Directory
+        name: host-root
+      - hostPath:
+          path: /var/run/cilium
+          type: DirectoryOrCreate
+        name: cilium-run
+      - hostPath:
+          path: /sys/fs/bpf
+          type: DirectoryOrCreate
+        name: bpf-maps
+      - hostPath:
+          path: /run/xtables.lock
+          type: FileOrCreate
+        name: xtables-lock
+      - name: sys-fs
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 3%
+    type: RollingUpdate

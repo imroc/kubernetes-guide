@@ -512,6 +512,19 @@ const sidebars: SidebarsConfig = {
           items: [
             {
               type: 'category',
+              label: '阿里云',
+              collapsed: true,
+              link: {
+                type: 'generated-index',
+                slug: 'appendix/vendor/aliyun'
+              },
+              items: [
+                'appendix/vendor/aliyun/terway',
+                'appendix/vendor/aliyun/kube-proxy',
+              ]
+            },
+            {
+              type: 'category',
               label: 'AWS',
               collapsed: true,
               link: {
