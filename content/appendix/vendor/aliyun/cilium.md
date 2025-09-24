@@ -70,6 +70,20 @@ helm install cilium cilium/cilium --version 1.18.2 \
   ```
   > 若通过 `kubectl get leases.coordination.k8s.io cilium-operator-resource-lock` 看到当前选主的还是 `terway-controlplane` 开头的 id，需再次删除，直到不是该前缀的 id 被选主。
 
+6. 等待 cilium 相关 pod 全部 Ready 后，cilium 安装完成：
+  ```bash
+  $ kubectl get pods -l app.kubernetes.io/part-of=cilium
+  NAME                               READY   STATUS    RESTARTS   AGE
+  cilium-2d447                       1/1     Running   0          6m28s
+  cilium-envoy-dp76p                 1/1     Running   0          10m
+  cilium-envoy-n9kh2                 1/1     Running   0          10m
+  cilium-envoy-tfppc                 1/1     Running   0          10m
+  cilium-operator-76586555f5-wnq7w   1/1     Running   0          10m
+  cilium-operator-76586555f5-xqbg5   1/1     Running   0          10m
+  cilium-pctm4                       1/1     Running   0          6m28s
+  cilium-ss7ht                       1/1     Running   0          6m29s
+  ```
+
 ## 配置分析
 
 ### CNI 配置
