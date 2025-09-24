@@ -27,6 +27,10 @@
   </TabItem>
 </Tabs>
 
+## CNI 配置
+
+<FileBlock file="vendor/aliyun/10-terway.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" />
+
 ## 启动参数
 
 ```bash

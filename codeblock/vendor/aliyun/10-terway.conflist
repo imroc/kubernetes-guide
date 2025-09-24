@@ -1,0 +1,15 @@
+{
+  "cniVersion": "0.4.0",
+  "name": "terway-chainer",
+  "plugins": [
+    {
+      "bandwidth_mode": "tc",
+      "capabilities": {
+        "bandwidth": true
+      },
+      "eniip_virtual_type": "veth",
+      "network_policy_provider": "ebpf",
+      "type": "terway"
+    }
+  ]
+}
