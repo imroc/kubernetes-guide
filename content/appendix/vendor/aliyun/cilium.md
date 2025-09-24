@@ -68,6 +68,7 @@ helm install cilium cilium/cilium --version 1.18.2 \
   ```bash
   kubectl delete leases.coordination.k8s.io cilium-operator-resource-lock
   ```
+  > 若通过 `kubectl get leases.coordination.k8s.io cilium-operator-resource-lock` 看到当前选主的还是 `terway-controlplane` 开头的 id，需再次删除，直到不是该前缀的 id 被选主。
 
 ## 配置分析
 
