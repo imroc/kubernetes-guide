@@ -8,81 +8,79 @@
 参考 [Installation using Helm](https://docs.cilium.io/en/stable/installation/k8s-install-helm/)。
 
 1. 删除预装的 terway 和 crd:
-```bash
-kubectl -n kube-system delete daemonset terway-eniip
-kubectl delete crd \
-    ciliumclusterwidenetworkpolicies.cilium.io \
-    ciliumendpoints.cilium.io \
-    ciliumidentities.cilium.io \
-    ciliumnetworkpolicies.cilium.io \
-    ciliumnodes.cilium.io \
-    bgpconfigurations.crd.projectcalico.org \
-    clusterinformations.crd.projectcalico.org \
-    felixconfigurations.crd.projectcalico.org \
-    globalnetworkpolicies.crd.projectcalico.org \
-    globalnetworksets.crd.projectcalico.org \
-    hostendpoints.crd.projectcalico.org \
-    ippools.crd.projectcalico.org \
-    networkpolicies.crd.projectcalico.org
-```
+    ```bash
+    kubectl -n kube-system delete daemonset terway-eniip
+    kubectl delete crd \
+        ciliumclusterwidenetworkpolicies.cilium.io \
+        ciliumendpoints.cilium.io \
+        ciliumidentities.cilium.io \
+        ciliumnetworkpolicies.cilium.io \
+        ciliumnodes.cilium.io \
+        bgpconfigurations.crd.projectcalico.org \
+        clusterinformations.crd.projectcalico.org \
+        felixconfigurations.crd.projectcalico.org \
+        globalnetworkpolicies.crd.projectcalico.org \
+        globalnetworksets.crd.projectcalico.org \
+        hostendpoints.crd.projectcalico.org \
+        ippools.crd.projectcalico.org \
+        networkpolicies.crd.projectcalico.org
+    ```
 
 2. 创建 `cilium-secret.yaml` 文件，填入 aksk：
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cilium-alibabacloud
-  namespace: kube-system
-type: Opaque
-stringData:
-  ALIBABA_CLOUD_ACCESS_KEY_ID: ""
-  ALIBABA_CLOUD_ACCESS_KEY_SECRET: ""
-```
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: cilium-alibabacloud
+      namespace: kube-system
+    type: Opaque
+    stringData:
+      ALIBABA_CLOUD_ACCESS_KEY_ID: ""
+      ALIBABA_CLOUD_ACCESS_KEY_SECRET: ""
+    ```
 
 3. 安装：
-
-```bash
-kubectl apply -f cilium-secret.yaml
-helm install cilium cilium/cilium --version 1.18.2 \
-  --namespace kube-system \
-  --set alibabacloud.enabled=true \
-  --set ipam.mode=alibabacloud \
-  --set enableIPv4Masquerade=false \
-  --set routingMode=native
-```
+    ```bash
+    kubectl apply -f cilium-secret.yaml
+    helm install cilium cilium/cilium --version 1.18.2 \
+      --namespace kube-system \
+      --set alibabacloud.enabled=true \
+      --set ipam.mode=alibabacloud \
+      --set enableIPv4Masquerade=false \
+      --set routingMode=native
+    ```
 
 4. 修改 DaemonSet。实测需修改 cilium daemonset，给这几个 container 加上特权才能正常启动(`apply-sysctl-overwrites`, `mount-cgroup`, `install-cni-binaries`)，否则会报权限问题的错误：
-  ```bash
-  $ kubectl logs -f cilium-hkphf -c mount-cgroup
-  cp: cannot stat '/hostbin/cilium-mount': Permission denied
+    ```bash
+    $ kubectl logs -f cilium-hkphf -c mount-cgroup
+    cp: cannot stat '/hostbin/cilium-mount': Permission denied
 
-  $ kubectl logs -f cilium-hkphf -c apply-sysctl-overwrites
-  Installing loopback to /host/opt/cni/bin/loopback ...
-  cp: cannot stat '/host/opt/cni/bin/.loopback.new': Permission denied
-  Installing cilium-cni to /host/opt/cni/bin/cilium-cni ...
-  cp: cannot stat '/host/opt/cni/bin/.cilium-cni.new': Permission denied
-  ```
+    $ kubectl logs -f cilium-hkphf -c apply-sysctl-overwrites
+    Installing loopback to /host/opt/cni/bin/loopback ...
+    cp: cannot stat '/host/opt/cni/bin/.loopback.new': Permission denied
+    Installing cilium-cni to /host/opt/cni/bin/cilium-cni ...
+    cp: cannot stat '/host/opt/cni/bin/.cilium-cni.new': Permission denied
+    ```
 
 5. 删除自带的 `cilium-operator-resource-lock` (terway 控制面自带 cilium operator)，否则 cilium-operator 无法成功选主并运行 cilium 控制面逻辑:
-  ```bash
-  kubectl delete leases.coordination.k8s.io cilium-operator-resource-lock
-  ```
-  > 若通过 `kubectl get leases.coordination.k8s.io cilium-operator-resource-lock` 看到当前选主的还是 `terway-controlplane` 开头的 id，需再次删除，直到不是该前缀的 id 被选主。
+    ```bash
+    kubectl delete leases.coordination.k8s.io cilium-operator-resource-lock
+    ```
+    > 若通过 `kubectl get leases.coordination.k8s.io cilium-operator-resource-lock` 看到当前选主的还是 `terway-controlplane` 开头的 id，需再次删除，直到不是该前缀的 id 被选主。
 
 6. 等待 cilium 相关 pod 全部 Ready 后，cilium 安装完成：
-  ```bash
-  $ kubectl get pods -l app.kubernetes.io/part-of=cilium
-  NAME                               READY   STATUS    RESTARTS   AGE
-  cilium-2d447                       1/1     Running   0          6m28s
-  cilium-envoy-dp76p                 1/1     Running   0          10m
-  cilium-envoy-n9kh2                 1/1     Running   0          10m
-  cilium-envoy-tfppc                 1/1     Running   0          10m
-  cilium-operator-76586555f5-wnq7w   1/1     Running   0          10m
-  cilium-operator-76586555f5-xqbg5   1/1     Running   0          10m
-  cilium-pctm4                       1/1     Running   0          6m28s
-  cilium-ss7ht                       1/1     Running   0          6m29s
-  ```
+    ```bash
+    $ kubectl get pods -l app.kubernetes.io/part-of=cilium
+    NAME                               READY   STATUS    RESTARTS   AGE
+    cilium-2d447                       1/1     Running   0          6m28s
+    cilium-envoy-dp76p                 1/1     Running   0          10m
+    cilium-envoy-n9kh2                 1/1     Running   0          10m
+    cilium-envoy-tfppc                 1/1     Running   0          10m
+    cilium-operator-76586555f5-wnq7w   1/1     Running   0          10m
+    cilium-operator-76586555f5-xqbg5   1/1     Running   0          10m
+    cilium-pctm4                       1/1     Running   0          6m28s
+    cilium-ss7ht                       1/1     Running   0          6m29s
+    ```
 
 ## 配置分析
 
