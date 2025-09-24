@@ -1,5 +1,11 @@
 # ACK 的 kube-proxy
 
+## 默认转发模式
+
+ACK 的 kube-proxy 默认使用 ipvs 转发模式：
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F24%2F20250924113017.png)
+
 ## 组件部署 YAML
 
 <Tabs>
