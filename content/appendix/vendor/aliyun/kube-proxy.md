@@ -6,10 +6,10 @@
   <TabItem value="1" label="ipvs 模式">
 
   <Tabs>
-    <TabItem value="1-1" label="daemonset">
+    <TabItem value="1-1" label="DaemonSet">
       <FileBlock file="vendor/aliyun/kube-proxy-daemonset-ipvs.yaml" showLineNumbers />
     </TabItem>
-    <TabItem value="1-2" label="configmap">
+    <TabItem value="1-2" label="ConfigMap">
       <FileBlock file="vendor/aliyun/kube-proxy-configmap-ipvs.yaml" showLineNumbers />
     </TabItem>
   </Tabs>
