@@ -23,3 +23,14 @@ affinity:
 安装 kube-proxy 插件，默认是 iptables 转发模式，可通过插件配置来自定义，比如设置为 ipvs 转发模式：
 
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F25%2F20250925101735.png)
+
+## 组件部署 YAML
+
+<Tabs>
+  <TabItem value="1" label="kube-proxy">
+    <FileBlock file="vendor/aws/kube-proxy-daemonset.yaml" showLineNumbers />
+  </TabItem>
+  <TabItem value="2" label="kube-proxy-config">
+    <FileBlock file="vendor/aws/kube-proxy-config-configmap.yaml" showLineNumbers />
+  </TabItem>
+</Tabs>
