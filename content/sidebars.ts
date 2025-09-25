@@ -538,6 +538,8 @@ const sidebars: SidebarsConfig = {
                 'appendix/vendor/aws/vpc-cni',
                 'appendix/vendor/aws/cilium',
                 'appendix/vendor/aws/kube-proxy',
+                'appendix/vendor/aws/os',
+                'appendix/vendor/aws/runtime',
               ]
             },
             {
