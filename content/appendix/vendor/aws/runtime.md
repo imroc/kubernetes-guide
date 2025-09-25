@@ -11,7 +11,7 @@
 ```bash
 root        1969       1  1 02:27 ?        00:00:11 /usr/bin/kubelet --config-dir=/etc/kubernetes/kubelet/config.json.d --kubeconfig=/var/lib/kubelet/kubeconfig --image-credential-provider-bin-dir=/etc/eks/image-credential-provider --image-credential-provider-config=/etc/eks/image-credential-provider/config.json --node-ip=172.31.12.75 --cloud-provider=external --hostname-override=ip-172-31-12-75.us-east-2.compute.internal --config=/etc/kubernetes/kubelet/config.json --node-labels=eks.amazonaws.com/nodegroup-image=ami-0d39276e3c888c5e5,eks.amazonaws.com/capacityType=ON_DEMAND,eks.amazonaws.com/nodegroup=test
 ```
-### 配置
+### 配置文件
 
 <Tabs>
   <TabItem value="1" label="kubelet">
@@ -38,7 +38,7 @@ $ containerd --version
 containerd github.com/containerd/containerd 1.7.27 05044ec0a9a75232cad458027ca83437aae3f4da
 ```
 
-### 配置
+### 配置文件
 
 <Tabs>
   <TabItem value="1" label="systemd">
