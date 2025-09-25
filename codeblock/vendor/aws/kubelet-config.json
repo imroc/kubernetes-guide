@@ -1,0 +1,67 @@
+{
+    "address": "0.0.0.0",
+    "authentication": {
+        "x509": {
+            "clientCAFile": "/etc/kubernetes/pki/ca.crt"
+        },
+        "webhook": {
+            "enabled": true,
+            "cacheTTL": "2m0s"
+        },
+        "anonymous": {
+            "enabled": false
+        }
+    },
+    "authorization": {
+        "mode": "Webhook",
+        "webhook": {
+            "cacheAuthorizedTTL": "5m0s",
+            "cacheUnauthorizedTTL": "30s"
+        }
+    },
+    "cgroupDriver": "systemd",
+    "cgroupRoot": "/",
+    "clusterDNS": [
+        "10.100.0.10"
+    ],
+    "clusterDomain": "cluster.local",
+    "containerRuntimeEndpoint": "unix:///run/containerd/containerd.sock",
+    "evictionHard": {
+        "memory.available": "100Mi",
+        "nodefs.available": "10%",
+        "nodefs.inodesFree": "5%"
+    },
+    "featureGates": {
+        "DynamicResourceAllocation": true,
+        "RotateKubeletServerCertificate": true
+    },
+    "hairpinMode": "hairpin-veth",
+    "kubeReserved": {
+        "cpu": "70m",
+        "ephemeral-storage": "1Gi",
+        "memory": "442Mi"
+    },
+    "kubeReservedCgroup": "/runtime",
+    "logging": {
+        "verbosity": 2
+    },
+    "maxPods": 17,
+    "protectKernelDefaults": true,
+    "providerID": "aws:///us-east-2a/i-0889034e495d7b3e6",
+    "readOnlyPort": 0,
+    "serializeImagePulls": false,
+    "serverTLSBootstrap": true,
+    "systemReservedCgroup": "/system",
+    "tlsCipherSuites": [
+        "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+        "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_RSA_WITH_AES_256_GCM_SHA384"
+    ],
+    "kind": "KubeletConfiguration",
+    "apiVersion": "kubelet.config.k8s.io/v1beta1"
+}
