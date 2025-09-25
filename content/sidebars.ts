@@ -537,6 +537,7 @@ const sidebars: SidebarsConfig = {
               items: [
                 'appendix/vendor/aws/vpc-cni',
                 'appendix/vendor/aws/cilium',
+                'appendix/vendor/aws/kube-proxy',
               ]
             },
             {

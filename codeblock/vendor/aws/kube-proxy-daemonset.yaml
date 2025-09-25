@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  annotations:
-    deprecated.daemonset.template.generation: "1"
   labels:
     eks.amazonaws.com/component: kube-proxy
     k8s-app: kube-proxy
