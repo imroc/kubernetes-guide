@@ -14,7 +14,7 @@ root        1969       1  1 02:27 ?        00:00:11 /usr/bin/kubelet --config-di
 ### 配置文件
 
 <Tabs>
-  <TabItem value="1" label="kubelet">
+  <TabItem value="1" label="systemd">
     <FileBlock file="vendor/aws/kubelet.service" showLineNumbers title="/etc/systemd/system/kubelet.service" language="systemd" />
   </TabItem>
   <TabItem value="2" label="environment">

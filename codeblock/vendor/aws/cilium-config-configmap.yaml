@@ -30,7 +30,7 @@ data:
   cgroup-root: /run/cilium/cgroupv2
   cilium-endpoint-gc-interval: 5m0s
   cluster-id: "0"
-  cluster-name: test
+  cluster-name: roc-test
   clustermesh-enable-endpoint-sync: "false"
   clustermesh-enable-mcs-api: "false"
   cni-exclusive: "true"
