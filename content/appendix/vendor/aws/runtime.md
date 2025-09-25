@@ -20,10 +20,10 @@ root        1969       1  1 02:27 ?        00:00:11 /usr/bin/kubelet --config-di
   <TabItem value="2" label="environment">
     <FileBlock file="vendor/aws/kubelet.env" showLineNumbers title="/etc/eks/kubelet/environment" language="bash" />
   </TabItem>
-  <TabItem value="2" label="kubelet-config">
+  <TabItem value="3" label="kubelet-config">
     <FileBlock file="vendor/aws/kubelet-config.json" showLineNumbers title="/etc/kubernetes/kubelet/config.json" />
   </TabItem>
-  <TabItem value="2" label="kubelet-nodeadm-config">
+  <TabItem value="4" label="kubelet-nodeadm-config">
     <FileBlock file="vendor/aws/kubelet-40-nodeadm.conf.json" showLineNumbers title="/etc/kubernetes/kubelet/config.json.d/40-nodeadm.conf" />
   </TabItem>
 </Tabs>

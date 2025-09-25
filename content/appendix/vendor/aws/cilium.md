@@ -21,6 +21,32 @@ AWS 并没有对 cilium 做产品化支持，而是 cilium 开源社区支持了
 cilium install --version 1.18.2
 ```
 
+输出：
+
+```txt
+🔮 Auto-detected Kubernetes kind: EKS
+ℹ  Using Cilium version 1.18.2
+🔮 Auto-detected cluster name: roc-test
+🔮 Auto-detected kube-proxy has been installed
+🔥 Patching the "aws-node" DaemonSet to evict its pods...
+```
+
+确认 cilium 相关 Pod 全部 Ready，安装成功：
+
+ ```bash
+$ kubectl get pods -l app.kubernetes.io/part-of=cilium
+NAME                               READY   STATUS    RESTARTS   AGE
+cilium-2qzcl                       1/1     Running   0          2m2s
+cilium-c6nb7                       1/1     Running   0          2m2s
+cilium-cpcsw                       1/1     Running   0          2m2s
+cilium-envoy-9zjnz                 1/1     Running   0          2m2s
+cilium-envoy-gwqr5                 1/1     Running   0          2m2s
+cilium-envoy-knvjp                 1/1     Running   0          2m2s
+cilium-envoy-pmnpt                 1/1     Running   0          2m2s
+cilium-operator-69f499bd5d-b72v4   1/1     Running   0          2m1s
+cilium-s6jtr                       1/1     Running   0          2m2s
+ ```
+
 ## YAML 清单
 
 cilium 安装后，相关 YAML 如下：
