@@ -36,10 +36,10 @@ containerd github.com/containerd/containerd 1.7.27 05044ec0a9a75232cad458027ca83
 
 <Tabs>
   <TabItem value="1" label="systemd">
-    <FileBlock file="vendor/aws/contrainerd.service" title="/usr/lib/systemd/system/containerd.service" language="systemd" showLineNumbers />
+    <FileBlock file="vendor/aws/containerd.service" title="/usr/lib/systemd/system/containerd.service" language="systemd" showLineNumbers />
   </TabItem>
   <TabItem value="2" label="containerd">
-    <FileBlock file="vendor/aws/contrainerd-config.toml" title="/etc/containerd/config.toml" showLineNumbers />
+    <FileBlock file="vendor/aws/containerd-config.toml" title="/etc/containerd/config.toml" showLineNumbers />
   </TabItem>
 </Tabs>
 
