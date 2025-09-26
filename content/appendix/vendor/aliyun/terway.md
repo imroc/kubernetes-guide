@@ -125,7 +125,91 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
 
 ## 网络实现分析
 
-### 网卡
+### 默认
+
+#### 网卡
+
+```bash
+$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:16:3e:2c:42:10 brd ff:ff:ff:ff:ff:ff
+    altname enp0s6
+    altname ens6
+    inet 10.0.5.102/24 brd 10.0.5.255 scope global dynamic noprefixroute eth0
+       valid_lft 1892159507sec preferred_lft 1892159507sec
+    inet6 fe80::216:3eff:fe2c:4210/64 scope link
+       valid_lft forever preferred_lft forever
+3: kube-ipvs0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN group default
+    link/ether 2e:da:ca:cc:de:22 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.60.84/32 scope global kube-ipvs0
+       valid_lft forever preferred_lft forever
+    inet 192.168.0.1/32 scope global kube-ipvs0
+       valid_lft forever preferred_lft forever
+    inet 192.168.188.57/32 scope global kube-ipvs0
+       valid_lft forever preferred_lft forever
+    inet 192.168.0.10/32 scope global kube-ipvs0
+       valid_lft forever preferred_lft forever
+    inet 192.168.155.221/32 scope global kube-ipvs0
+       valid_lft forever preferred_lft forever
+4: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:16:3e:2c:7b:7a brd ff:ff:ff:ff:ff:ff
+    altname enp0s8
+    altname ens8
+    inet 10.0.5.102/32 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::216:3eff:fe2c:7b7a/64 scope link
+       valid_lft forever preferred_lft forever
+5: caliaec797095c6@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether 92:1a:36:d3:57:ed brd ff:ff:ff:ff:ff:ff link-netns cni-174631ed-0647-1e1b-5eef-6efabd9dd8b0
+    inet6 fe80::901a:36ff:fed3:57ed/64 scope link
+       valid_lft forever preferred_lft forever
+```
+
+#### 路由
+
+```bash
+$ ip rule list
+0:      from all lookup local
+512:    from all to 10.0.5.103 lookup main
+2048:   from 10.0.5.103 lookup 1004
+32766:  from all lookup main
+32767:  from all lookup default
+$ ip route show table 1004
+default via 10.0.5.253 dev eth1 onlink
+$ ip route show table main
+default via 10.0.5.253 dev eth0 proto dhcp src 10.0.5.102 metric 100
+10.0.5.0/24 dev eth0 proto kernel scope link src 10.0.5.102 metric 100
+10.0.5.103 dev caliaec797095c6 scope link
+```
+
+#### 容器内
+
+```bash
+$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0@if5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether ca:b1:c0:0b:15:52 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.0.4.72/32 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::c8b1:c0ff:fe0b:1552/64 scope link
+       valid_lft forever preferred_lft forever
+$ ip route
+default via 169.254.1.1 dev eth0 onlink
+```
+
+### DataPath V2
+#### 网卡
 
 ```bash
 $ ip a
@@ -197,7 +281,7 @@ $ ip a
        valid_lft forever preferred_lft forever
 ```
 
-### 路由
+#### 路由
 
 ```bash
 $ ip rule list
@@ -235,7 +319,7 @@ default via 10.0.0.253 dev eth0 proto dhcp src 10.0.0.238 metric 100
 10.0.0.247 dev calic699fed89dc proto kernel scope link
 ```
 
-### 容器内
+#### 容器内
 
 ```bash
 $ ip a
