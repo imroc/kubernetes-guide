@@ -169,8 +169,26 @@ $ ip a
     link/ether 92:1a:36:d3:57:ed brd ff:ff:ff:ff:ff:ff link-netns cni-174631ed-0647-1e1b-5eef-6efabd9dd8b0
     inet6 fe80::901a:36ff:fed3:57ed/64 scope link
        valid_lft forever preferred_lft forever
+$ ip -d link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+    link/ether 00:16:3e:2c:42:10 brd ff:ff:ff:ff:ff:ff promiscuity 0 minmtu 68 maxmtu 65535 addrgenmode eui64 numtxqueues 4 numrxqueues 4 gso_max_size 65536 gso_max_segs 65535
+    altname enp0s6
+    altname ens6
+3: kube-ipvs0: <BROADCAST,NOARP> mtu 1500 qdisc noop state DOWN mode DEFAULT group default
+    link/ether 2e:da:ca:cc:de:22 brd ff:ff:ff:ff:ff:ff promiscuity 0 minmtu 0 maxmtu 0
+    dummy addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+4: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
+    link/ether 00:16:3e:2c:7b:7a brd ff:ff:ff:ff:ff:ff promiscuity 0 minmtu 68 maxmtu 65535 addrgenmode eui64 numtxqueues 4 numrxqueues 4 gso_max_size 65536 gso_max_segs 65535
+    altname enp0s8
+    altname ens8
+5: caliaec797095c6@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default
+    link/ether 92:1a:36:d3:57:ed brd ff:ff:ff:ff:ff:ff link-netns cni-174631ed-0647-1e1b-5eef-6efabd9dd8b0 promiscuity 0 minmtu 68 maxmtu 65535
+    veth addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
 ```
 
+Pod 使用 veth pair，节点一端的网卡名称以 `cali` 开头，网卡上没绑 IP 地址。
 #### 路由
 
 ```bash
@@ -187,6 +205,14 @@ default via 10.0.5.253 dev eth0 proto dhcp src 10.0.5.102 metric 100
 10.0.5.0/24 dev eth0 proto kernel scope link src 10.0.5.102 metric 100
 10.0.5.103 dev caliaec797095c6 scope link
 ```
+
+从路由表可以看到，访问 Pod IP 的包会被路由到指定的 `cali` 开头的网卡，而该网卡真实  Pod 的 veth pair 在节点上的一端。
+
+从阿里云控制台可以看到，该 Pod IP 通过中继网卡插到了节点上（ENI Trunking）:
+
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926171012.png)
+
+所以 Pod IP 跟 ECS 之类的云上 IP 一样，可直接在 VPC 底层路由转发。
 
 #### 容器内
 
