@@ -1,13 +1,20 @@
 # ACK 的 Terway 网络插件
 
+## Terway 插件的三种模式
+
+Terway 插件支持三种模式：
+1. 默认模式（不勾选 `DataPath V2` 和 `NetworkPolicy 支持`）
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F24%2F20250924095942.png)
+2. 只勾选 `DataPath V2`。
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926152354.png)
+3. 勾选 `NetworkPolicy` （依赖勾选 `DataPath V2`）
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926160025.png)
+
+
 ## 组件部署 YAML
 
 <Tabs>
   <TabItem value="1" label="默认">
-
-  以下 Terway 默认选项（不勾选 `DataPath V2` 和 `NetworkPolicy 支持`）的组件部署 YAML：
-
-  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F24%2F20250924095942.png)
 
   <Tabs>
     <TabItem value="1-1" label="terway-eniip">
@@ -21,10 +28,6 @@
   </TabItem>
   <TabItem value="2" label="启用 DataPath V2">
 
-  以下 Terway 勾选 `DataPath V2` 的组件部署 YAML：
-
-  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926152354.png)
-
   <Tabs>
     <TabItem value="1" label="terway-eniip">
       <FileBlock file="vendor/aliyun/terway-eniip-datapathv2-daemonset.yaml" showLineNumbers />
@@ -36,10 +39,6 @@
 
   </TabItem>
   <TabItem value="3" label="启用 NetworkPolicy 支持">
-
-  以下 Terway 勾选 `NetworkPolicy` 的组件部署 YAML（依赖勾选 `DataPath V2`）：
-
-  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926160025.png)
 
   <Tabs>
     <TabItem value="1" label="terway-eniip">
