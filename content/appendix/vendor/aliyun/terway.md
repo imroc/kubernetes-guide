@@ -108,9 +108,7 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
 
 ## 网络实现分析
 
-### 勾选 DataPath V2
-
-#### 网卡
+### 网卡
 
 ```bash
 $ ip a
@@ -182,7 +180,7 @@ $ ip a
        valid_lft forever preferred_lft forever
 ```
 
-#### 路由
+### 路由
 
 ```bash
 $ ip rule list
@@ -218,4 +216,24 @@ default via 10.0.0.253 dev eth0 proto dhcp src 10.0.0.238 metric 100
 10.0.0.245 dev cali5869d48a1d1 proto kernel scope link
 10.0.0.246 dev calicb82c9f0082 proto kernel scope link
 10.0.0.247 dev calic699fed89dc proto kernel scope link
+```
+
+### 容器内
+
+```bash
+$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0@if12: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether aa:52:e5:ce:7b:df brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.0.4.63/32 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a852:e5ff:fece:7bdf/64 scope link
+       valid_lft forever preferred_lft forever
+$ ip route show
+default via 169.254.1.1 dev eth0 onlink
 ```
