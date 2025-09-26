@@ -1,0 +1,24 @@
+{
+  "cniVersion": "0.4.0",
+  "name": "terway-chainer",
+  "plugins": [
+    {
+      "bandwidth_mode": "edt",
+      "capabilities": {
+        "bandwidth": true
+      },
+      "eniip_virtual_type": "datapathv2",
+      "host_stack_cidrs": [
+        "169.254.20.10/32"
+      ],
+      "network_policy_provider": "ebpf",
+      "type": "terway"
+    },
+    {
+      "data-path": "datapathv2",
+      "enable-debug": false,
+      "log-file": "/var/run/cilium/cilium-cni.log",
+      "type": "cilium-cni"
+    }
+  ]
+}

@@ -42,7 +42,14 @@
 
 ## CNI 配置
 
-<FileBlock file="vendor/aliyun/10-terway.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" language="json" />
+<Tabs>
+  <TabItem value="1" label="默认">
+    <FileBlock file="vendor/aliyun/10-terway.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" language="json" />
+  </TabItem>
+  <TabItem value="2" label="勾选 DataPath V2">
+    <FileBlock file="vendor/aliyun/10-terway-datapathv2.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" language="json" />
+  </TabItem>
+</Tabs>
 
 ## CNI 二进制
 ```bash
