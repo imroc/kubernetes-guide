@@ -2,10 +2,10 @@
 
 ## 问题复现
 
-1. 移除 Service 的 Selector
-2. 重建 Pod （触发 Pod 重新分配）
-3. 把移除的 Selector 加回去
-4. 多次访问 Service，可发现会有 Service 访问不通的情况
+1. 移除 Service 的 Selector。
+2. 重建 Pod （触发 Pod 重新分配）。
+3. 把移除的 Selector 加回去。
+4. 多次访问 Service，可发现会有 Service 访问不通的情况。
 
 ## 原因
 
@@ -20,7 +20,6 @@ Kubernetes 从 1.19 版本开始，kube-proxy 默认使用 EndpointSlice 作为 
 相关 issue: 
 1. [Should update endpoints when delete service selector](https://github.com/kubernetes/kubernetes/issues/103576)
 2. [EndpointSlice object is not removed when service selector is made to be empty](https://github.com/kubernetes/kubernetes/issues/118376)
-
 
 ## 最佳实践
 
