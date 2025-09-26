@@ -499,6 +499,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'appendix/faq/why-enable-bridge-nf-call-iptables',
             'appendix/faq/ipvs-conn-reuse-mode',
+            'appendix/faq/remove-service-selector',
           ],
         },
         {
