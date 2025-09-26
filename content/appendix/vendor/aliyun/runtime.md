@@ -28,6 +28,14 @@ containerd github.com/containerd/containerd/v2 v2.1.3 05ac95a2d4aa0ae5ec8298e867
 root        2165       1  0 10:11 ?        00:00:20 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --pod-manifest-path=/etc/kubernetes/manifests --v=3 --authorization-mode=Webhook --authentication-token-webhook=true --anonymous-auth=false --client-ca-file=/etc/kubernetes/pki/ca.crt --container-runtime-endpoint=/var/run/containerd/containerd.sock --cgroup-driver=systemd --node-labels=alibabacloud.com/nodepool-id=np7c4f1ce4799742d7b300248362d8d53d,ack.aliyun.com=ca133aaf80fd542038acda778fbbf93a1 --rotate-certificates=true --cert-dir=/var/lib/kubelet/pki --node-ip=0.0.0.0 --config=/var/lib/kubelet/ack-managed-config.yaml --hostname-override=cn-hangzhou.10.0.0.238 --cluster-dns=192.168.0.10 --cloud-provider=external --provider-id=cn-hangzhou.i-bp16qq4fgg0o7ecm6hm1 --enable-controller-attach-detach=true
 ```
 
-### systemd 配置
+### 配置文件
 
-<FileBlock file="vendor/aliyun/kubelet.service" showLineNumbers language="systemd" title="/etc/systemd/system/kubelet.service" />
+<Tabs>
+  <TabItem value="1" label="systemd 配置">
+    <FileBlock file="vendor/aliyun/kubelet.service" showLineNumbers language="systemd" title="/etc/systemd/system/kubelet.service" />
+  </TabItem>
+  <TabItem value="2" label="kubelet 配置">
+    <FileBlock file="vendor/aliyun/ack-managed-config.yaml" showLineNumbers language="systemd" title="/var/lib/kubelet/ack-managed-config.yaml" />
+  </TabItem>
+</Tabs>
+
