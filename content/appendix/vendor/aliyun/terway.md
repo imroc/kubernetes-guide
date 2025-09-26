@@ -214,6 +214,8 @@ default via 10.0.5.253 dev eth0 proto dhcp src 10.0.5.102 metric 100
 
 所以 Pod IP 跟 ECS 之类的云上 IP 一样，可直接在 VPC 底层路由转发。
 
+Pod 出流量则被策略路由转到 `eth1` 出去，`eth1` 应该就是中继网卡了，节点上所有中继网卡共用 `eth1` 出入流量。
+
 #### 容器内
 
 ```bash
