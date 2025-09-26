@@ -5,7 +5,7 @@
 Terway 插件支持三种模式：
 1. 默认模式（不勾选 `DataPath V2` 和 `NetworkPolicy 支持`）
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F24%2F20250924095942.png)
-2. 只勾选 `DataPath V2`。
+2. 勾选 `DataPath V2`。
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926152354.png)
 3. 勾选 `NetworkPolicy` （依赖勾选 `DataPath V2`）
 ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926160025.png)
