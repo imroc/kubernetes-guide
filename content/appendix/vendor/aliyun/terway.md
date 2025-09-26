@@ -20,7 +20,20 @@
 
   </TabItem>
   <TabItem value="2" label="启用 DataPath V2">
-    TODO
+
+  以下 Terway 勾选 `DataPath V2` 的组件部署 YAML：
+
+  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926152354.png)
+
+  <Tabs>
+    <TabItem value="1" label="terway-eniip">
+      <FileBlock file="vendor/aliyun/terway-eniip-datapathv2-daemonset.yaml" showLineNumbers />
+    </TabItem>
+    <TabItem value="2" label="eni-config">
+      <FileBlock file="vendor/aliyun/eni-config-datapathv2-configmap.yaml" showLineNumbers />
+    </TabItem>
+  </Tabs>
+
   </TabItem>
   <TabItem value="3" label="启用 NetworkPolicy 支持">
     TODO
