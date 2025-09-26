@@ -79,7 +79,20 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
 ## 启动参数
 
 <Tabs>
-  <TabItem value="1" label="启用 DataPath V2">
+  <TabItem value="1" label="默认">
+
+  ```bash
+  $ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
+  UID          PID    PPID  C STIME TTY          TIME CMD
+  root           1       0  0 07:33 ?        00:00:00 /usr/bin/terwayd -log-level info -daemon-mode ENIMultiIP -config /etc/eni/eni_conf
+  $ kubectl exec -i -t terway-eniip-kncv6 -c policy -- ps -ef
+  UID          PID    PPID  C STIME TTY          TIME CMD
+  root           1       0  0 08:45 ?        00:00:00 terway-cli policy
+  ```
+
+  </TabItem>
+
+  <TabItem value="2" label="启用 DataPath V2">
 
   ```bash
   $ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
@@ -90,8 +103,10 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
   root           1       0  0 07:33 ?        00:00:15 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable-local-node-route=false --enable-endpoint-health-checking=false --enable-health-checking=false --enable-service-topology=true --k8s-heartbeat-timeout=0 --enable-session-affinity=true --install-iptables-rules=false --enable-l7-proxy=false --ipam=delegated-plugin --enable-bandwidth-manager=true --agent-health-port=9099 --enable-policy=never --labels=k8s:io\.kubernetes\.pod\.namespace --datapath-mode=veth --kube-proxy-replacement=true --bpf-lb-sock=true --bpf-lb-sock-hostns-only=true --enable-node-port=true --enable-host-port=true --enable-external-ips=true --enable-endpoint-routes=true --enable-l2-neigh-discovery=false --enable-in-cluster-loadbalance=true --terway-host-stack-cidr=169.254.20.10/32
   ```
 
+  > 相比默认，policy 容器换成了 cilium-agent 进程启动。
+
   </TabItem>
-  <TabItem value="2" label="启用 NetworkPolicy">
+  <TabItem value="3" label="启用 NetworkPolicy">
 
   ```bash
   $ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
@@ -102,7 +117,7 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
   root           1       0  0 07:42 ?        00:00:08 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable-local-node-route=false --enable-endpoint-health-checking=false --enable-health-checking=false --enable-service-topology=true --k8s-heartbeat-timeout=0 --enable-session-affinity=true --install-iptables-rules=false --enable-l7-proxy=false --ipam=delegated-plugin --enable-bandwidth-manager=true --agent-health-port=9099 --enable-policy=default --datapath-mode=veth --kube-proxy-replacement=true --bpf-lb-sock=true --bpf-lb-sock-hostns-only=true --enable-node-port=true --enable-host-port=true --enable-external-ips=true --enable-endpoint-routes=true --enable-l2-neigh-discovery=false --enable-in-cluster-loadbalance=true --terway-host-stack-cidr=169.254.20.10/32
   ```
 
-  > 相比只启用 `DataPath V2`，cilium-angent 的启动参数 `--enable-policy=never` 被修改为 `--enable-policy=default`。
+  > 相比只启用 `DataPath V2`，policy 容器的 cilium-agent 的启动参数 `--enable-policy=never` 被修改为 `--enable-policy=default`。
 
   </TabItem>
 </Tabs>
