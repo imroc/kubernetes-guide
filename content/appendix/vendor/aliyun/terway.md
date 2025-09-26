@@ -59,7 +59,7 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
 
 ## 启动参数
 
-### 启用 DataPlaneV2
+### 启用 DataPath V2
 
 ```bash
 $ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
