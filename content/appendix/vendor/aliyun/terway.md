@@ -103,7 +103,7 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
   root           1       0  0 07:42 ?        00:00:08 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable-local-node-route=false --enable-endpoint-health-checking=false --enable-health-checking=false --enable-service-topology=true --k8s-heartbeat-timeout=0 --enable-session-affinity=true --install-iptables-rules=false --enable-l7-proxy=false --ipam=delegated-plugin --enable-bandwidth-manager=true --agent-health-port=9099 --enable-policy=default --datapath-mode=veth --kube-proxy-replacement=true --bpf-lb-sock=true --bpf-lb-sock-hostns-only=true --enable-node-port=true --enable-host-port=true --enable-external-ips=true --enable-endpoint-routes=true --enable-l2-neigh-discovery=false --enable-in-cluster-loadbalance=true --terway-host-stack-cidr=169.254.20.10/32
   ```
 
-  - 相比只启用 `DataPath V2`，cilium-angent 的启动参数 `--enable-policy=never` 被修改为 `--enable-policy=default`。
+  > 相比只启用 `DataPath V2`，cilium-angent 的启动参数 `--enable-policy=never` 被修改为 `--enable-policy=default`。
 
   </TabItem>
 </Tabs>
