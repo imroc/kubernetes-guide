@@ -66,7 +66,7 @@
   <TabItem value="1" label="默认">
     <FileBlock file="vendor/aliyun/10-terway.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" language="json" />
   </TabItem>
-  <TabItem value="2" label="勾选 DataPath V2">
+  <TabItem value="2" label="勾选 DataPath V2 或 NetworkPolicy">
     <FileBlock file="vendor/aliyun/10-terway-datapathv2.conflist" showLineNumbers title="/etc/cni/net.d/10-terway.conflist" language="json" />
   </TabItem>
 </Tabs>
@@ -79,16 +79,31 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
 
 ## 启动参数
 
-### 启用 DataPath V2
+<Tabs>
+  <TabItem value="1" label="启用 DataPath V2">
 
-```bash
-$ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
-UID          PID    PPID  C STIME TTY          TIME CMD
-root           1       0  0 01:41 ?        00:00:00 /usr/bin/terwayd -log-level
-$ kubectl exec -i -t terway-eniip-kncv6 -c policy -- ps -ef
-UID          PID    PPID  C STIME TTY          TIME CMD
-root           1       0  1 07:33 ?        00:00:11 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable
-```
+  ```bash
+  $ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
+  UID          PID    PPID  C STIME TTY          TIME CMD
+  root           1       0  0 07:33 ?        00:00:00 /usr/bin/terwayd -log-level info -daemon-mode ENIMultiIP -config /etc/eni/eni_conf
+  $ kubectl exec -i -t terway-eniip-kncv6 -c policy -- ps -ef
+  UID          PID    PPID  C STIME TTY          TIME CMD
+  root           1       0  0 07:33 ?        00:00:15 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable-local-node-route=false --enable-endpoint-health-checking=false --enable-health-checking=false --enable-service-topology=true --k8s-heartbeat-timeout=0 --enable-session-affinity=true --install-iptables-rules=false --enable-l7-proxy=false --ipam=delegated-plugin --enable-bandwidth-manager=true --agent-health-port=9099 --enable-policy=never --labels=k8s:io\.kubernetes\.pod\.namespace --datapath-mode=veth --kube-proxy-replacement=true --bpf-lb-sock=true --bpf-lb-sock-hostns-only=true --enable-node-port=true --enable-host-port=true --enable-external-ips=true --enable-endpoint-routes=true --enable-l2-neigh-discovery=false --enable-in-cluster-loadbalance=true --terway-host-stack-cidr=169.254.20.10/32
+  ```
+
+  </TabItem>
+  <TabItem value="2" label="启用 NetworkPolicy">
+
+  ```bash
+  $ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
+  UID          PID    PPID  C STIME TTY          TIME CMD
+  root           1       0  0 07:33 ?        00:00:00 /usr/bin/terwayd -log-level info -daemon-mode ENIMultiIP -config /etc/eni/eni_conf
+  $ kubectl exec -i -t terway-eniip-kncv6 -c policy -- ps -ef
+  root           1       0  0 07:42 ?        00:00:08 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable-local-node-route=false --enable-endpoint-health-checking=false --enable-health-checking=false --enable-service-topology=true --k8s-heartbeat-timeout=0 --enable-session-affinity=true --install-iptables-rules=false --enable-l7-proxy=false --ipam=delegated-plugin --enable-bandwidth-manager=true --agent-health-port=9099 --enable-policy=default --datapath-mode=veth --kube-proxy-replacement=true --bpf-lb-sock=true --bpf-lb-sock-hostns-only=true --enable-node-port=true --enable-host-port=true --enable-external-ips=true --enable-endpoint-routes=true --enable-l2-neigh-discovery=false --enable-in-cluster-loadbalance=true --terway-host-stack-cidr=169.254.20.10/32
+  ```
+
+  </TabItem>
+</Tabs>
 
 
 ## 网络实现分析
