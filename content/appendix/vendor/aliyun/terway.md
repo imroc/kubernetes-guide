@@ -59,9 +59,128 @@ bandwidth  bridge  cilium-cni  dhcp  dummy  firewall  host-device  host-local  i
 
 ## 启动参数
 
+### 启用 DataPlaneV2
+
 ```bash
-$ kubectl exec -i -t terway-eniip-hntw6 -c terway -- ps -ef
+$ kubectl exec -i -t terway-eniip-kncv6 -c terway -- ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
 root           1       0  0 01:41 ?        00:00:00 /usr/bin/terwayd -log-level
+$ kubectl exec -i -t terway-eniip-kncv6 -c policy -- ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  1 07:33 ?        00:00:11 cilium-agent --routing-mode=native --cni-chaining-mode=terway-chainer --enable-ipv4-masquerade=false --enable-ipv6-masquerade=false --disable-envoy-version-check=true --local-router-ipv4=169.254.10.1 --local-router-ipv6=fe80:2400:3200:baba::1 --enable
 ```
 
+
+## 网络实现分析
+
+### 勾选 DataPath V2
+
+#### 网卡
+
+```bash
+$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:16:3e:1c:40:85 brd ff:ff:ff:ff:ff:ff
+    altname enp0s6
+    altname ens6
+    inet 10.0.0.238/24 brd 10.0.0.255 scope global dynamic noprefixroute eth0
+       valid_lft 1892159457sec preferred_lft 1892159457sec
+    inet6 fe80::216:3eff:fe1c:4085/64 scope link
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:16:3e:1c:7d:35 brd ff:ff:ff:ff:ff:ff
+    altname enp0s8
+    altname ens8
+    inet 10.0.0.238/32 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::216:3eff:fe1c:7d35/64 scope link
+       valid_lft forever preferred_lft forever
+4: cilium_net@cilium_host: <BROADCAST,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether f6:d7:33:dd:e0:59 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::f4d7:33ff:fedd:e059/64 scope link
+       valid_lft forever preferred_lft forever
+5: cilium_host@cilium_net: <BROADCAST,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 12:ff:43:ea:2d:1f brd ff:ff:ff:ff:ff:ff
+    inet 169.254.10.1/32 scope global cilium_host
+       valid_lft forever preferred_lft forever
+    inet6 fe80:2400:3200:baba::1/128 scope link
+       valid_lft forever preferred_lft forever
+    inet6 fe80::10ff:43ff:feea:2d1f/64 scope link
+       valid_lft forever preferred_lft forever
+6: calid7425eb8b46@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether aa:25:d0:ea:1d:d7 brd ff:ff:ff:ff:ff:ff link-netns cni-214e294f-d376-6c3e-a76b-100bca475796
+    inet6 fe80::a825:d0ff:feea:1dd7/64 scope link
+       valid_lft forever preferred_lft forever
+7: cali8b8630acb2b@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 3e:3a:38:81:12:93 brd ff:ff:ff:ff:ff:ff link-netns cni-42638ac7-385b-76b9-71fd-0524a49ea8b6
+    inet6 fe80::3c3a:38ff:fe81:1293/64 scope link
+       valid_lft forever preferred_lft forever
+8: cali6dc30143901@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 8a:aa:e3:71:3d:b8 brd ff:ff:ff:ff:ff:ff link-netns cni-da7d277e-2f5d-19fd-7ca2-69b0451abde2
+    inet6 fe80::88aa:e3ff:fe71:3db8/64 scope link
+       valid_lft forever preferred_lft forever
+10: cali8797a3843fa@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether e2:48:51:1e:bd:1e brd ff:ff:ff:ff:ff:ff link-netns cni-f4a5b1f7-3a77-cc86-e31b-ed6b465bde7e
+    inet6 fe80::e048:51ff:fe1e:bd1e/64 scope link
+       valid_lft forever preferred_lft forever
+11: calic699fed89dc@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 36:fa:e2:69:b6:e5 brd ff:ff:ff:ff:ff:ff link-netns cni-c10f3468-bbe9-3ec4-64d5-7f096b9ce496
+    inet6 fe80::34fa:e2ff:fe69:b6e5/64 scope link
+       valid_lft forever preferred_lft forever
+12: cali5869d48a1d1@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 46:8b:55:a8:b7:b1 brd ff:ff:ff:ff:ff:ff link-netns cni-3f125d63-d8db-73e5-df5a-bf329c860d0a
+    inet6 fe80::448b:55ff:fea8:b7b1/64 scope link
+       valid_lft forever preferred_lft forever
+13: cali1a0b76096c7@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether c6:f9:99:bd:0f:c2 brd ff:ff:ff:ff:ff:ff link-netns cni-b8e9de81-33f7-bdb1-657f-46612a0b9841
+    inet6 fe80::c4f9:99ff:febd:fc2/64 scope link
+       valid_lft forever preferred_lft forever
+14: calicb82c9f0082@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether f2:6f:f5:cf:26:02 brd ff:ff:ff:ff:ff:ff link-netns cni-9b439f79-5535-3622-118a-8d6325c8156b
+    inet6 fe80::f06f:f5ff:fecf:2602/64 scope link
+       valid_lft forever preferred_lft forever
+```
+
+#### 路由
+
+```bash
+$ ip rule list
+0:      from all lookup local
+512:    from all to 10.0.0.239 lookup main
+512:    from all to 10.0.0.240 lookup main
+512:    from all to 10.0.0.241 lookup main
+512:    from all to 10.0.0.242 lookup main
+512:    from all to 10.0.0.247 lookup main
+512:    from all to 10.0.0.245 lookup main
+512:    from all to 10.0.0.244 lookup main
+512:    from all to 10.0.0.246 lookup main
+2048:   from 10.0.0.239 lookup 1003
+2048:   from 10.0.0.240 lookup 1003
+2048:   from 10.0.0.241 lookup 1003
+2048:   from 10.0.0.242 lookup 1003
+2048:   from 10.0.0.247 lookup 1003
+2048:   from 10.0.0.245 lookup 1003
+2048:   from 10.0.0.244 lookup 1003
+2048:   from 10.0.0.246 lookup 1003
+32766:  from all lookup main
+32767:  from all lookup default
+$ ip route show table 1003
+default via 10.0.0.253 dev eth1 onlink
+$ ip route show table main
+default via 10.0.0.253 dev eth0 proto dhcp src 10.0.0.238 metric 100
+10.0.0.0/24 dev eth0 proto kernel scope link src 10.0.0.238 metric 100
+10.0.0.239 dev calid7425eb8b46 proto kernel scope link
+10.0.0.240 dev cali8b8630acb2b proto kernel scope link
+10.0.0.241 dev cali6dc30143901 proto kernel scope link
+10.0.0.242 dev cali8797a3843fa proto kernel scope link
+10.0.0.244 dev cali1a0b76096c7 proto kernel scope link
+10.0.0.245 dev cali5869d48a1d1 proto kernel scope link
+10.0.0.246 dev calicb82c9f0082 proto kernel scope link
+10.0.0.247 dev calic699fed89dc proto kernel scope link
+```
