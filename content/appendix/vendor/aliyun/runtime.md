@@ -9,13 +9,16 @@ $ containerd --version
 containerd github.com/containerd/containerd/v2 v2.1.3 05ac95a2d4aa0ae5ec8298e867e0a0185dd80236
 ```
 
-### systemd 配置
+### 配置文件
 
-<FileBlock file="vendor/aliyun/containerd.service" showLineNumbers language="systemd" title="/etc/systemd/system/containerd.service" />
-
-### containerd 配置
-
-<FileBlock file="vendor/aliyun/containerd-config.toml" showLineNumbers title="/etc/containerd/config.toml" />
+<Tabs>
+  <TabItem value="1" label="systemd 配置">
+    <FileBlock file="vendor/aliyun/containerd.service" showLineNumbers language="systemd" title="/etc/systemd/system/containerd.service" />
+  </TabItem>
+  <TabItem value="2" label="containerd 配置">
+    <FileBlock file="vendor/aliyun/containerd-config.toml" showLineNumbers title="/etc/containerd/config.toml" />
+  </TabItem>
+</Tabs>
 
 ## kubelet
 
