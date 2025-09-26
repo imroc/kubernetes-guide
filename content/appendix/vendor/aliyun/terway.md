@@ -36,7 +36,27 @@
 
   </TabItem>
   <TabItem value="3" label="启用 NetworkPolicy 支持">
-    TODO
+
+  以下 Terway 勾选 `NetworkPolicy` 的组件部署 YAML（依赖勾选 `DataPath V2`）：
+
+  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2025%2F09%2F26%2F20250926160025.png)
+
+  <Tabs>
+    <TabItem value="1" label="terway-eniip">
+
+  与只勾选 `DataPath V2` 时的 YAML 一致。
+
+    </TabItem>
+
+    <TabItem value="2" label="eni-config">
+
+  相比只勾选 `DataPath V2`，`disable_network_policy` 为 `false`：
+
+  <FileBlock file="vendor/aliyun/eni-config-networkpolicy-configmap.yaml" showLineNumbers />
+
+    </TabItem>
+  </Tabs>
+
   </TabItem>
 </Tabs>
 

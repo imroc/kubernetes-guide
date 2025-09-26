@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eni-config
+  namespace: kube-system
+data:
+  10-terway.conf: |
+    {
+      "cniVersion": "0.4.0",
+      "name": "terway",
+      "capabilities": {"bandwidth": true},
+      "network_policy_provider": "ebpf",
+      "eniip_virtual_type": "datapathv2",
+      "host_stack_cidrs": ["169.254.20.10/32"],
+      "type": "terway"
+    }
+  # highlight-next-line
+  disable_network_policy: "false"
+  eni_conf: |
+    {
+      "version": "1",
+      "max_pool_size": 5,
+      "min_pool_size": 0,
+
+
+      "credential_path": "/var/addon/token-config",
+
+
+
+      "enable_eni_trunking": true,
+      "ipam_type": "crd",
+      "vswitches": {"cn-hangzhou-b":["vsw-bp1hoez45sv94zkycvu29"],"cn-hangzhou-h":["vsw-bp15cvfngxdqwyue9845c"],"cn-hangzhou-i":["vsw-bp1w327bfwlwq94tts1jq"]},
+      "eni_tags": {"ack.aliyun.com":"c6a070d5c64f94f39bc3175c5a226477c"},
+      "service_cidr": "192.168.0.0/16",
+      "security_group": "sg-bp1gwurls5f0v0t2z81r",
+
+      "ip_stack": "ipv4",
+
+      "resource_group_id": "rg-acfm23cvm4tmmjy",
+
+      "vswitch_selection_policy": "ordered"
+    }
+  in_cluster_loadbalance: "true"
