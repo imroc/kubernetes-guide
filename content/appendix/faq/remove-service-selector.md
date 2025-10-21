@@ -17,6 +17,8 @@ Kubernetes 从 1.19 版本开始，kube-proxy 默认使用 EndpointSlice 作为 
 
 如果不删除重建 Service，直接通过修改 Service 的方式来移除 Selector，也就是从 Kubenretes 自动管理 Endpoint 切换到用户手动管理 Endpoint，Kubernetes 为了将破坏性降到最低，会认为用户希望是基于之前的 Endpoint （自动管理的 Endpiont）基础上进行改动，并不会删除之前的 Endpoint（自动管理的 Endpoint 会存储在 EndpointSlice 对象中，当移除 selector 后，EndpointSlice 对象并不会被删除），当 Selector 又被加回来时，会创建新的 EndpointSlice 对象，此时旧的和新的 EndpointSlice 对象会同时存在，而旧的 EndpiontSlice 中的 IP 可能已经失效，但 kube-proxy 的数据源以  EndpointSlice 为准来同步 Service 的转发后端，当转发到失效的 IP 时就会不通。
 
+简单来说，如果将 Service Selector 移除然后手动修改同名 endpoint 中的地址来维护 Service 的后端，之前的 Service 后端地址就会残留，这不是 BUG，是 k8s 本身就这样设计的。
+
 相关 issue: 
 1. [Should update endpoints when delete service selector](https://github.com/kubernetes/kubernetes/issues/103576)
 2. [EndpointSlice object is not removed when service selector is made to be empty](https://github.com/kubernetes/kubernetes/issues/118376)
