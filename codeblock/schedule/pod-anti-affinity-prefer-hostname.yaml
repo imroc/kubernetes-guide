@@ -20,7 +20,7 @@ spec:
               topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-                  app: net-debug
+                  app: nginx
             weight: 100
       # highlight-add-end
       containers:
