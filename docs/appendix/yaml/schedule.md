@@ -1,0 +1,10 @@
+## 打散调度
+
+<Tabs>
+  <TabItem value="1" label="按节点打散">
+    <FileBlock file="schedule/pod-anti-affinity-prefer-hostname.yaml" showLineNumbers />
+  </TabItem>
+  <TabItem value="2" label="按节点强制打散">
+    <FileBlock file="schedule/pod-anti-affinity-required-hostname.yaml" showLineNumbers />
+  </TabItem>
+</Tabs>
