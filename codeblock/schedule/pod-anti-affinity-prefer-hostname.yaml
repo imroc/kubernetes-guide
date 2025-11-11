@@ -18,6 +18,9 @@ spec:
           preferredDuringSchedulingIgnoredDuringExecution:
           - podAffinityTerm:
               topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app: net-debug
             weight: 100
       # highlight-add-end
       containers:
