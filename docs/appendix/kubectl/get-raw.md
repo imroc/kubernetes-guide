@@ -15,6 +15,12 @@ kubectl get --raw=/api/v1/nodes/11.185.19.215/proxy/metrics/cadvisor | grep -v "
 kubectl get --raw=/api/v1/nodes/11.185.19.215/proxy/metrics
 ```
 
+## 获取 apiserver 指标
+
+```bash
+kubectl get --raw=/metrics
+```
+
 ## 获取 node-exporter pod 指标
 
 ```bash
@@ -32,32 +38,32 @@ kubectl get --raw=/api/v1/nodes/11.185.19.21/proxy/stats/summary
 <Tabs>
   <TabItem value="all-resource" label="命名空间下所有 Pod">
 
-  ```bash
-  kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/"
-  ```
+```bash
+kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/"
+```
 
-  :::tip[注意]
+:::tip[注意]
 
-  注意替换 `test-ns` （ns 名称）。
-  :::
+注意替换 `test-ns` （ns 名称）。
+:::
 
-  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162846.png)
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162846.png)
 
   </TabItem>
 
   <TabItem value="single-resource" label="单个 Pod">
 
-  ```bash
-  kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0"
-  ```
+```bash
+kubectl get --raw "/apis/metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0"
+```
 
-  :::tip[注意]
+:::tip[注意]
 
-  注意替换 `test-ns`（ns 名称）和 `test-sts-0` (Pod 名称)。
+注意替换 `test-ns`（ns 名称）和 `test-sts-0` (Pod 名称)。
 
-  :::
+:::
 
-  ![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162948.png)
+![](https://image-host-1251893006.cos.ap-chengdu.myqcloud.com/2023%2F09%2F25%2F20230925162948.png)
 
   </TabItem>
 </Tabs>
@@ -75,72 +81,74 @@ kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/"
 <Tabs>
   <TabItem value="all-custom" label="命名空间下所有 Pod">
 
-  ```bash
-  kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/*/k8s_pod_gpu_used"
-  ```
+```bash
+kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/*/k8s_pod_gpu_used"
+```
 
-  :::tip[注意]
+:::tip[注意]
 
-  注意替换 `test-ns`（ns 名称） 和 `k8s_pod_gpu_used` （指标名称）。
+注意替换 `test-ns`（ns 名称） 和 `k8s_pod_gpu_used` （指标名称）。
 
-  :::
+:::
 
-  示例输出：
+示例输出：
 
-  ```json
-  {
-    "kind": "MetricValueList",
-    "apiVersion": "custom.metrics.k8s.io/v1beta1",
-    "metadata": {
-      "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/llama/pods/%2A/k8s_pod_gpu_memory_used_bytes"
-    },
-    "items": [
-      {
-        "describedObject": {
-          "namespace": "llama",
-          "name": "ollama-0"
-        },
-        "metricName": "k8s_pod_gpu_memory_used_bytes",
-        "timestamp": "2024-05-06T07:23:54Z",
-        "value": "110100480",
-        "selector": null
-      }
-    ]
-  }
-  ```
+```json
+{
+  "kind": "MetricValueList",
+  "apiVersion": "custom.metrics.k8s.io/v1beta1",
+  "metadata": {
+    "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/llama/pods/%2A/k8s_pod_gpu_memory_used_bytes"
+  },
+  "items": [
+    {
+      "describedObject": {
+        "namespace": "llama",
+        "name": "ollama-0"
+      },
+      "metricName": "k8s_pod_gpu_memory_used_bytes",
+      "timestamp": "2024-05-06T07:23:54Z",
+      "value": "110100480",
+      "selector": null
+    }
+  ]
+}
+```
+
   </TabItem>
 
   <TabItem value="single-custom" label="单个 Pod">
 
-  ```bash
-  kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0/k8s_pod_gpu_used"
-  ```
+```bash
+kubectl get --raw  "/apis/custom.metrics.k8s.io/v1beta1/namespaces/test-ns/pods/test-sts-0/k8s_pod_gpu_used"
+```
 
-  :::tip[注意]
+:::tip[注意]
 
-  注意替换 `test-ns`（ns 名称）、`test-sts-0`（Pod 名称）、`k8s_pod_gpu_used`（指标名称）。
+注意替换 `test-ns`（ns 名称）、`test-sts-0`（Pod 名称）、`k8s_pod_gpu_used`（指标名称）。
 
-  :::
+:::
 
-  示例输出：
+示例输出：
 
-  ```json
-  {
-    "kind": "MetricValueList",
-    "apiVersion": "custom.metrics.k8s.io/v1beta1",
-    "metadata": {
-      "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/llama/pods/ollama-0/k8s_pod_gpu_memory_used_bytes"
-    },
-    "items": [
-      {
-        "describedObject": {},
-        "metricName": "k8s_pod_gpu_memory_used_bytes",
-        "timestamp": "2024-05-06T07:27:54Z",
-        "value": "110100480",
-        "selector": null
-      }
-    ]
-  }
-  ```
+```json
+{
+  "kind": "MetricValueList",
+  "apiVersion": "custom.metrics.k8s.io/v1beta1",
+  "metadata": {
+    "selfLink": "/apis/custom.metrics.k8s.io/v1beta1/namespaces/llama/pods/ollama-0/k8s_pod_gpu_memory_used_bytes"
+  },
+  "items": [
+    {
+      "describedObject": {},
+      "metricName": "k8s_pod_gpu_memory_used_bytes",
+      "timestamp": "2024-05-06T07:27:54Z",
+      "value": "110100480",
+      "selector": null
+    }
+  ]
+}
+```
+
   </TabItem>
 </Tabs>
